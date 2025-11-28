@@ -8,30 +8,32 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('take_businesses', function (Blueprint $table) {
+        Schema::create('take_services', function (Blueprint $table) {
             $table->id();
 
-            // Member who takes business
+            // Member taking the service
             $table->unsignedBigInteger('taker_member_id');
 
-            // Member who gives business
+            // Member giving the service
             $table->unsignedBigInteger('giver_member_id')->nullable();
 
-            // Business details
-            $table->string('business_title');
+            // Domain of service (Branding, HR, Finance etc.)
+            $table->string('service_domain')->nullable();
+
+            // Name of service being taken
+            $table->string('service_name');
+
+            // Details of service
             $table->text('description')->nullable();
 
-            // Value of business taken
-            $table->decimal('business_value', 15, 2)->default(0);
-
-            // Proof (invoice, screenshot)
+            // Optional shared document/proof
             $table->string('attachment')->nullable();
 
-            // Status (Take Business)
+            // Status workflow
             $table->enum('status', [
-                'requested',
-                'received',
-                'completed',
+                'requested',     // taker requested service
+                'received',      // taker received service
+                'completed',     // both confirm service completed
                 'cancelled'
             ])->default('requested');
 
@@ -39,20 +41,20 @@ return new class extends Migration
             $table->text('taker_notes')->nullable();
             $table->text('giver_notes')->nullable();
 
-            // Business confirmation
-            $table->timestamp('completed_at')->nullable();
-
             $table->timestamps();
             $table->softDeletes();
 
             // Foreign Keys
             $table->foreign('taker_member_id')->references('id')->on('members')->onDelete('cascade');
             $table->foreign('giver_member_id')->references('id')->on('members')->onDelete('set null');
+
+            // Index
+            $table->index(['taker_member_id', 'service_domain']);
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('take_businesses');
+        Schema::dropIfExists('take_services');
     }
 };
