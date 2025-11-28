@@ -15,6 +15,8 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
+            $table->enum('event_type', ['online', 'offline'])->default('offline');
+
 
             // Event Schedule
             $table->date('event_date')->nullable();
