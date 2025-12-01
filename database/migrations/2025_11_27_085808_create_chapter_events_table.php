@@ -8,15 +8,21 @@ return new class extends Migration
 {
     public function up(): void
     {
+        /**
+         * =======================
+         *  CHAPTER EVENTS TABLE
+         * =======================
+         */
         Schema::create('chapter_events', function (Blueprint $table) {
             $table->id();
 
+            // Chapter relationship
             $table->foreignId('chapter_id')->constrained('chapters')->onDelete('cascade');
 
-            // Optionally link to global events table
+            // Optional link to global events
             $table->foreignId('event_id')->nullable()->constrained('events')->nullOnDelete();
 
-            // Basic event data (in case it's chapter-specific record)
+            // Event details
             $table->string('title')->nullable();
             $table->date('event_date')->nullable();
             $table->time('event_time')->nullable();
@@ -26,10 +32,32 @@ return new class extends Migration
 
             $table->timestamps();
         });
+
+        /**
+         * ============================
+         *  EVENT ATTENDEES TABLE
+         * ============================
+         * Stores which member confirmed attendance.
+         */
+        Schema::create('event_attendees', function (Blueprint $table) {
+            $table->id();
+
+            // Member who is attending
+            $table->foreignId('member_id')->constrained('members')->onDelete('cascade');
+
+            // The event they are attending
+            $table->foreignId('chapter_event_id')->constrained('chapter_events')->onDelete('cascade');
+
+            // Confirmation (true = confirmed)
+            $table->boolean('is_confirmed')->default(true);
+
+            $table->timestamps();
+        });
     }
 
     public function down(): void
     {
+        Schema::dropIfExists('event_attendees');
         Schema::dropIfExists('chapter_events');
     }
 };
