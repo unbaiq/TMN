@@ -11,38 +11,32 @@ return new class extends Migration
         Schema::create('take_services', function (Blueprint $table) {
             $table->id();
 
-            // Member who is taking the service
+            // Member requesting the service
             $table->unsignedBigInteger('taker_member_id');
 
-            // Member who is giving the service
-            $table->unsignedBigInteger('giver_member_id')->nullable();
+            // Giver stored as NAME (because frontend uses name dropdown)
+            $table->string('giver_name')->nullable();
 
-            // What service is being taken
+            // Service fields
             $table->string('service_name');
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->date('service_date')->nullable();
 
-            // Description of the service taken
             $table->text('description')->nullable();
-
-            // Optional attachment (e.g., document or file)
             $table->string('attachment')->nullable();
 
-            // Status
-            $table->enum('status', [
-                'requested',     // taker requested service
-                'received',      // service received successfully
-                'cancelled'
-            ])->default('requested');
-
-            // Notes
-            $table->text('taker_notes')->nullable();
-            $table->text('giver_notes')->nullable();
+            // Status: same as in your UI
+            $table->enum('status', ['Requested', 'Received', 'Cancelled'])->default('Requested');
 
             $table->timestamps();
             $table->softDeletes();
 
             // Foreign Keys
             $table->foreign('taker_member_id')->references('id')->on('members')->onDelete('cascade');
-            $table->foreign('giver_member_id')->references('id')->on('members')->onDelete('set null');
+
+            // Giver FK optional (NULL because UI does not use member_id)
+            $table->foreign('giver_member_id')->references('id')->on('members')->nullOnDelete();
         });
     }
 

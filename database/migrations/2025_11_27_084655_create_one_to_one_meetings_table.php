@@ -30,13 +30,13 @@ return new class extends Migration
             $table->text('receiver_notes')->nullable();
 
             // Meeting status
-            $table->enum('status', [
-                'requested',      // requester sent request
-                'accepted',       // receiver accepted the meeting
-                'rejected',       // refused
-                'completed',      // meeting happened
-                'cancelled'       // cancelled by either
-            ])->default('requested');
+           $table->enum('status', [
+    'requested',   // sent request
+    'scheduled',   // accepted + scheduled
+    'completed',   // meeting done
+    'cancelled'    // cancelled
+])->default('requested');
+
 
             // Timestamp for when meeting was completed
             $table->timestamp('completed_at')->nullable();
