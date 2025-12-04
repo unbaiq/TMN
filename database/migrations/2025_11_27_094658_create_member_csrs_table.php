@@ -11,73 +11,41 @@ return new class extends Migration
         Schema::create('member_csrs', function (Blueprint $table) {
             $table->id();
 
-            // Member / Organization offering CSR (could be a member or partner)
-            $table->unsignedBigInteger('member_id')->nullable();
+            // Member offering CSR
+            $table->unsignedBigInteger('member_id')->nullable()->index();
 
-            // Title of CSR project
-            $table->string('title');
+            // Who created the CSR record
+            $table->unsignedBigInteger('created_by')->nullable()->index();
+            $table->enum('creator_role', ['admin','member','partner'])->default('admin');
 
-              // Short slug for URL (optional)
-            $table->string('slug')->nullable()->unique();
-
-            // Category / focus area (Health, Education, Skill Development, Environment, Others)
-            $table->string('category')->nullable();
-
-            // Detailed description of the CSR initiative
+            // Basic project info
+            $table->string('title', 255);
+            $table->string('slug', 255)->nullable()->unique();
+            $table->string('category', 120)->nullable()->index();
             $table->longText('description')->nullable();
 
-            // Amount committed for CSR (in organization's currency)
+            // Financials
             $table->decimal('amount', 15, 2)->default(0);
-
-            // Currency code (optional)
             $table->string('currency', 10)->default('INR');
 
-            // Partner / NGO details (if working with external partner)
-            $table->string('partner_name')->nullable();
-            $table->string('partner_contact')->nullable();
-            $table->string('partner_email')->nullable();
+            // Chapter
+            $table->unsignedBigInteger('chapter_id')->nullable()->index();
 
-            // Geographic / chapter focus (optional)
-            $table->unsignedBigInteger('chapter_id')->nullable();
+            // Single date field (replacing start/end date)
+            $table->date('date')->nullable();
 
-            // Project timeline
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
+            // Documents
+            $table->json('documents')->nullable();
+            $table->json('report_files')->nullable();
 
-            // Project status / workflow
-            $table->enum('status', [
-                'planned',    // idea / planned
-                'ongoing',    // in execution
-                'completed',  // finished
-                'on_hold',    // paused
-                'cancelled'
-            ])->default('planned');
-
-            // Admin verification/approval
-            $table->enum('approval_status', ['pending', 'approved', 'rejected'])->default('pending');
-            $table->unsignedBigInteger('approved_by')->nullable();
-            $table->text('approval_notes')->nullable();
-
-            // Documents / proof (proposal, MoU, photos)
-            $table->string('document')->nullable();
-            $table->string('report_file')->nullable(); // final report
-
-            // Impact metrics (optional numeric summary)
-            $table->integer('beneficiaries_count')->nullable()->default(0);
-            $table->text('impact_summary')->nullable();
-
+            // Meta
             $table->timestamps();
             $table->softDeletes();
 
             // Foreign keys
-            $table->foreign('member_id')->references('id')->on('members')->onDelete('set null');
+            $table->foreign('member_id')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
             $table->foreign('chapter_id')->references('id')->on('chapters')->onDelete('set null');
-            $table->foreign('approved_by')->references('id')->on('admins')->onDelete('set null');
-
-            // Indexes for common queries
-            $table->index(['status', 'approval_status']);
-            $table->index('category');
-            $table->index('chapter_id');
         });
     }
 
