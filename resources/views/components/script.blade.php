@@ -59,5 +59,30 @@
       }
     });
   </script>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const currentUrl = window.location.pathname;
+
+  // All sidebar nav links (both desktop & mobile)
+  const navLinks = document.querySelectorAll("a.nav-item");
+
+  navLinks.forEach(link => {
+    // Remove previously active class
+    link.classList.remove("nav-active");
+
+    // Check if link href matches the current URL
+    const href = link.getAttribute("href");
+
+    // For Laravel routes like /member/dashboard
+    if (href && currentUrl.includes(href)) {
+      link.classList.add("nav-active");
+    }
+  });
+
+  // Feather icons refresh
+  if (typeof feather !== 'undefined') feather.replace();
+});
+</script>
+
 </body>
 </html>

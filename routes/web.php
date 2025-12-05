@@ -59,9 +59,21 @@ Route::prefix('member')->name('member.')->group(function () {
             return view('member.chapter.index');
         })->name('index');
 
-        Route::get('/attended', function () {
-            return view('member.chapter.attended');
-        })->name('attended');
+        Route::get('/eventattended', function () {
+            return view('member.chapter.eventattended');
+        })->name('eventattended');
+    });
+     Route::prefix('awards')->name('awards.')->group(function () {
+
+        Route::get('/awards', function () {
+            return view('member.awards.index');
+        })->name('awards');
+    });
+     Route::prefix('csr')->name('csr.')->group(function () {
+
+        Route::get('/csr', function () {
+            return view('member.csr.index');
+        })->name('csr');
     });
 
 });
