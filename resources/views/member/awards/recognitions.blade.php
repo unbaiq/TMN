@@ -29,9 +29,7 @@
     .modal-show { display:flex !important; }
   </style>
   <!-- MAIN CONTENT -->
-  <main id="mainContent" class="flex-1 md:ml-64">
-    <!-- ⚡ START OF RECOGNITIONS UI -->
-<div class="p-6 sm:p-10">
+<main id="mainContent" class="p-6 sm:p-10">
   <h2 class="text-2xl font-semibold text-[#2C3E50] mb-6">
     Your Recognitions
   </h2>
@@ -68,7 +66,6 @@
       </select>
     </div>
   </div>
-
 
   <!-- ===================== RECOGNITIONS TABLE ===================== -->
   <div class="bg-white rounded-xl shadow-md p-6 border">
@@ -136,19 +133,12 @@
               </button>
             </td>
           </tr>
-
         </tbody>
       </table>
     </div>
-
-
-    <!-- MOBILE CARDS -->
-    <div id="mobileCards" class="md:hidden space-y-4 mt-4"></div>
-
+   </div>
   </div>
-</div>
-
-
+</main>
 <!-- ===================== VIEW RECOGNITION MODAL ===================== -->
 <div id="viewModal"
      class="modal-hidden fixed inset-0 bg-black/40 z-50 items-center justify-center p-4">

@@ -38,7 +38,7 @@ Route::prefix('member')->name('member.')->group(function () {
         Route::get('/investors', fn() => view('member.business.investors'))->name('investors');
     });
 
-
+    
     /*
     |--------------------------------------------------------------------------
     | CHAPTER
@@ -47,7 +47,7 @@ Route::prefix('member')->name('member.')->group(function () {
     Route::prefix('chapter')->name('chapter.')->group(function () {
 
         // ⭐ Missing route added here
-        Route::get('/events', fn() => view('member.chapter.index'))->name('events');
+        Route::get('/events', fn() => view('member.chapter.events'))->name('events');
         Route::get('/eventattended', fn() => view('member.chapter.eventattended'))->name('eventattended');
     });
 

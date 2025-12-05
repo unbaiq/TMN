@@ -144,9 +144,7 @@
     }
   </style>
   <!-- MAIN CONTENT -->
-  <main class="flex-1 md:ml-64">
- <!-- CONTENT WRAPPER -->
- <div class="p-6 sm:p-10">
+ <main class="p-6 sm:p-10">
      <!-- PAGE TITLE -->
      <h2 class="text-2xl font-semibold text-[#2C3E50] mb-6">Chapter Events</h2>
      
@@ -470,14 +468,10 @@ data-status="completed">
             <i data-feather="chevron-right"></i>
         </button>
     </div>
-
 </div>
-
 </main>
-</div>
-
 <!-- MODAL -->
-<div id="eventModal" class="hidden fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
+<div id="eventModal" class="hidden fixed inset-0 bg-black/40 z-50 justify-center items-center p-4" style="display: none;">
     
     <div class="bg-white w-full max-w-md rounded-xl p-6 shadow-xl relative max-h-[90vh] overflow-y-auto">
         
@@ -591,10 +585,12 @@ function openEventModal(title, venue, date, time, desc, eventId) {
   modalDescription.innerText = desc;
 
   eventModal.classList.remove("hidden");
+  eventModal.style.display = "flex";
 }
-
 function closeEventModal() {
   eventModal.classList.add("hidden");
+  eventModal.style.display = "none";
+}
 }
 
 function confirmAttendance() {

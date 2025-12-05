@@ -119,15 +119,8 @@ td {
 }
 
 </style>
-
-</head>
-
-<body class="bg-gray-100 font-sans antialiased">
-
-<div class="min-h-screen flex">
   <!-- MAIN CONTENT -->
-  <main class="flex-1 md:ml-64">
-<div class="p-6 sm:p-10">
+<main class="p-6 sm:p-10">
     <!-- PAGE TITLE -->
     <h2 class="text-2xl font-semibold text-[#2C3E50] mb-6">My Referrals</h2>
     <!-- SHARE REFERRAL LINK BOX -->
@@ -379,13 +372,9 @@ td {
                     class="text-red-600 font-semibold text-sm">Delete</button>
         </div>
     </div>
-
-</div>
   </main>
-</div>
-
 <!-- VIEW MODAL -->
-<div id="viewModal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center p-4 z-50">
+<div id="viewModal" class="hidden fixed inset-0 bg-black/40 items-center justify-center p-4 z-50">
   <div class="bg-white rounded-xl p-6 w-full max-w-sm shadow-lg relative">
 
     <button onclick="closeViewModal()" class="absolute top-3 right-3">
@@ -405,7 +394,7 @@ td {
 </div>
 
 <!-- EDIT MODAL -->
-<div id="editModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+<div id="editModal" class="hidden fixed inset-0 bg-black/50 items-center justify-center p-4 z-50">
   <div class="bg-white rounded-2xl w-full max-w-md shadow-xl relative border border-gray-100 modal-card p-6 sm:p-7">
 
     <!-- Close Button -->
@@ -474,7 +463,7 @@ td {
 </div>
 
 <!-- DELETE MODAL -->
-<div id="deleteModal" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center p-4 z-50">
+<div id="deleteModal" class="fixed inset-0 bg-black/60 hidden items-center justify-center p-4 z-50">
   <div class="bg-white rounded-2xl w-full max-w-sm shadow-xl relative border border-gray-100 modal-card p-6 sm:p-7">
 
     <!-- Close Button -->
@@ -616,6 +605,10 @@ function openViewModal(name, phone, email, status, date) {
     viewDate.innerText = "Date: " + date;
 
     viewModal.classList.remove("hidden");
+    viewModal.classList.add("flex");
+function closeViewModal() { 
+    viewModal.classList.add("hidden");
+    viewModal.classList.remove("flex");
 }
 function closeViewModal() { viewModal.classList.add("hidden"); }
 
@@ -627,6 +620,10 @@ function openEditModal(name, phone, email, status) {
     editStatus.value = status;
 
     editModal.classList.remove("hidden");
+    editModal.classList.add("flex");
+function closeEditModal() { 
+    editModal.classList.add("hidden");
+    editModal.classList.remove("flex");
 }
 function closeEditModal() { editModal.classList.add("hidden"); }
 

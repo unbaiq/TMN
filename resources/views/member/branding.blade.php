@@ -30,9 +30,7 @@
     .img-preview { max-width:100%; max-height:320px; object-fit:contain; border-radius:8px; }
   </style>
   <!-- MAIN -->
-  <main class="flex-1 md:ml-64">
-    <!-- PAGE CONTENT: Branding -->
-    <div class="p-6 sm:p-8">
+    <main class="p-6 sm:p-8">
       <div class="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between mb-6">
         <div class="flex gap-3 w-full lg:w-2/3">
           <div class="relative flex-1">
@@ -101,8 +99,6 @@
       </div>
     </div>
   </main>
-</div>
-
 <!-- ====== CREATE / EDIT POST MODAL ====== -->
 <div id="postModal" class="modal-hidden fixed inset-0 bg-black/50 z-50 items-center justify-center p-4">
   <div class="bg-white w-full max-w-3xl rounded-xl shadow-xl p-6 relative max-h-[90vh] overflow-y-auto">

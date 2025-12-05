@@ -1,5 +1,4 @@
 @include('components.memberheader')
-
  <div class="p-6 sm:p-10 space-y-6">
 
   <!-- PAGE HEADER (moved out of filters) -->
@@ -139,10 +138,7 @@
 </template>
 
 
-</div>
-
-    <!-- Table (desktop) / Cards (mobile) -->
-   
+</div>   
   </div>
   </main>
   <!-- Detail modal -->
