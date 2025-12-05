@@ -60,19 +60,14 @@
            aria-label="Main sidebar">
       <!-- Logo -->
       <div class="flex items-center gap-3 px-6 py-5 border-b">
-        <img src="logo1.png" alt="TMN Logo" class="h-10 a">
+        <img  src="{{ asset('images/logo1.png') }}"  alt="TMN Logo" class="h-10 a">
        
       </div>
 
       <!-- Nav -->
       <nav class="flex-1 overflow-y-auto px-2 py-4 space-y-1">
-        <!-- keep icons visible, labels shown on md+ -->
-        <a href="#"
-           class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item nav-active">
-          <i data-feather="home" class="w-5"></i>
-          <span class="hidden md:inline">Dashboard</span>
-        </a>
 
+<<<<<<< HEAD
         <a href="{{ route('member.chapter.events') }}"class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
           <i data-feather="calendar" class="w-5"></i>
           <span class="hidden md:inline">Chapter Events</span>
@@ -81,67 +76,109 @@
           <i data-feather="check-circle" class="w-5"></i>
           <span class="hidden md:inline">Chapter Attended</span>
         </a>
+=======
+    <!-- Dashboard -->
+    <a href="{{ route('member.dashboard') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+        <i data-feather="home" class="w-5"></i>
+        <span class="hidden md:inline">Dashboard</span>
+    </a>
 
-        <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-          <i data-feather="share-2" class="w-5"></i>
-          <span class="hidden md:inline">Referrals</span>
-        </a>
+    <!-- Chapter Events -->
+    <a href="{{ route('member.chapter.index') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+       <i data-feather="calendar" class="w-5"></i>
+       <span class="hidden md:inline">Chapter Events</span>
+    </a>
+>>>>>>> 033bc3bd20fd5b64216dd563e8f6b2c61a2c17a8
 
-        <a href="giveservices.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-          <i data-feather="send" class="w-5"></i>
-          <span class="hidden md:inline">Give Services</span>
-        </a>
+    <!-- Chapter Attended -->
+    <a href="{{ route('member.chapter.eventattended') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+       <i data-feather="check-circle" class="w-5"></i>
+       <span class="hidden md:inline">Chapter Attended</span>
+    </a>
 
-        <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-          <i data-feather="download" class="w-5"></i>
-          <span class="hidden md:inline">Take Services</span>
-        </a>
+    <!-- Referrals -->
+    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+       <i data-feather="share-2" class="w-5"></i>
+       <span class="hidden md:inline">Referrals</span>
+    </a>
 
-        <a href="businesses.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-          <i data-feather="briefcase" class="w-5"></i>
-          <span class="hidden md:inline">Businesses</span>
-        </a>
+    <!-- Give Services -->
+    <a href="{{ route('member.business.offer') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+       <i data-feather="send" class="w-5"></i>
+       <span class="hidden md:inline">Give Services</span>
+    </a>
 
-        <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-          <i data-feather="users" class="w-5"></i>
-          <span class="hidden md:inline">1-1 Meetup</span>
-        </a>
+    <!-- Take Services -->
+    <a href="{{ route('member.business.take') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+       <i data-feather="download" class="w-5"></i>
+       <span class="hidden md:inline">Take Services</span>
+    </a>
 
-        <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-          <i data-feather="grid" class="w-5"></i>
-          <span class="hidden md:inline">Cluster Meeting</span>
-        </a>
+    <!-- Businesses -->
+    <a href="{{ route('member.business.list') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+       <i data-feather="briefcase" class="w-5"></i>
+       <span class="hidden md:inline">Businesses</span>
+    </a>
 
-        <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-          <i data-feather="award" class="w-5"></i>
-          <span class="hidden md:inline">Recognitions</span>
-        </a>
+    <!-- 1-1 Meetup -->
+    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+       <i data-feather="users" class="w-5"></i>
+       <span class="hidden md:inline">1-1 Meetup</span>
+    </a>
 
-        <a href="awards.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-          <i data-feather="star" class="w-5"></i>
-          <span class="hidden md:inline">Awards</span>
-        </a>
+    <!-- Cluster Meeting -->
+    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+       <i data-feather="grid" class="w-5"></i>
+       <span class="hidden md:inline">Cluster Meeting</span>
+    </a>
 
-        <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-          <i data-feather="book-open" class="w-5"></i>
-          <span class="hidden md:inline">Branding</span>
-        </a>
+    <!-- Recognitions -->
+    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+       <i data-feather="award" class="w-5"></i>
+       <span class="hidden md:inline">Recognitions</span>
+    </a>
 
-        <a href="investors.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-          <i data-feather="dollar-sign" class="w-5"></i>
-          <span class="hidden md:inline">Investors</span>
-        </a>
+    <!-- Awards -->
+    <a href="{{ route('member.awards.index') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+       <i data-feather="star" class="w-5"></i>
+       <span class="hidden md:inline">Awards</span>
+    </a>
 
-        <a href="csr.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-          <i data-feather="heart" class="w-5"></i>
-          <span class="hidden md:inline">CSR</span>
-        </a>
+    <!-- Branding -->
+    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+       <i data-feather="book-open" class="w-5"></i>
+       <span class="hidden md:inline">Branding</span>
+    </a>
 
-        <a href="settings.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-          <i data-feather="settings" class="w-5"></i>
-          <span class="hidden md:inline">Settings</span>
-        </a>
-      </nav>
+    <!-- Investors -->
+    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+       <i data-feather="dollar-sign" class="w-5"></i>
+       <span class="hidden md:inline">Investors</span>
+    </a>
+
+    <!-- CSR -->
+    <a href="{{ route('member.csr.index') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+       <i data-feather="heart" class="w-5"></i>
+       <span class="hidden md:inline">CSR</span>
+    </a>
+
+    <!-- Settings -->
+    <a href="{{ route('member.settings') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+       <i data-feather="settings" class="w-5"></i>
+       <span class="hidden md:inline">Settings</span>
+    </a>
+
+</nav>
+
 
       <!-- Logout -->
       <div class="p-4 border-t">
@@ -186,69 +223,97 @@
     </div>
 
     <!-- navigation (scrollable) -->
-    <nav class="flex-1 overflow-y-auto space-y-1 pr-1" aria-label="Main navigation">
-      <a href="dashboard.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item nav-active">
+<nav class="flex-1 overflow-y-auto space-y-1 pr-1" aria-label="Main navigation">
+
+    {{-- Dashboard --}}
+    <a href="{{ route('member.dashboard') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="home" class="w-5"></i> <span>Dashboard</span>
-      </a>
+    </a>
 
-      <a href="chapterevents.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Chapter Events --}}
+    <a href="{{ route('member.chapter.index') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="calendar" class="w-5"></i> <span>Chapter Events</span>
-      </a>
+    </a>
 
-      <a href="chapterattended.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Chapter Attended --}}
+    <a href="{{ route('member.chapter.eventattended') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="check-circle" class="w-5"></i> <span>Chapter Attended</span>
-      </a>
+    </a>
 
-      <a href="referrals.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Referrals --}}
+    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="share-2" class="w-5"></i> <span>Referrals</span>
-      </a>
+    </a>
 
-      <a href="giveservices.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Give Services --}}
+    <a href="{{ route('member.business.offer') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="send" class="w-5"></i> <span>Give Services</span>
-      </a>
+    </a>
 
-      <a href="takeservices.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Take Services --}}
+    <a href="{{ route('member.business.take') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="download" class="w-5"></i> <span>Take Services</span>
-      </a>
+    </a>
 
-      <a href="businesses.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Businesses --}}
+    <a href="{{ route('member.business.list') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="briefcase" class="w-5"></i> <span>Businesses</span>
-      </a>
+    </a>
 
-      <a href="meetup.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- 1-1 Meetup --}}
+    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="users" class="w-5"></i> <span>1-1 Meetup</span>
-      </a>
+    </a>
 
-      <a href="cluster.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Cluster Meeting --}}
+    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="grid" class="w-5"></i> <span>Cluster Meeting</span>
-      </a>
+    </a>
 
-      <a href="recognitions.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Recognitions --}}
+    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="award" class="w-5"></i> <span>Recognitions</span>
-      </a>
+    </a>
 
-      <a href="awards.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Awards --}}
+    <a href="{{ route('member.awards.index') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="star" class="w-5"></i> <span>Awards</span>
-      </a>
+    </a>
 
-      <a href="branding.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Branding --}}
+    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="book-open" class="w-5"></i> <span>Branding</span>
-      </a>
+    </a>
 
-      <a href="investors.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Investors --}}
+    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="dollar-sign" class="w-5"></i> <span>Investors</span>
-      </a>
+    </a>
 
-      <a href="csr.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- CSR --}}
+    <a href="{{ route('member.csr.index') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="heart" class="w-5"></i> <span>CSR</span>
-      </a>
+    </a>
 
-      <a href="settings.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Settings --}}
+    <a href="{{ route('member.settings') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="settings" class="w-5"></i> <span>Settings</span>
-      </a>
+    </a>
 
-      <div class="h-6"></div>
-    </nav>
+    <div class="h-6"></div>
+</nav>
+
+
+
 
     <!-- logout (fixed at bottom) -->
     <div class="pt-4 border-t mt-4">

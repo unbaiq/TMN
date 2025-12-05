@@ -61,28 +61,33 @@
   </script>
   <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const currentUrl = window.location.pathname;
+    const currentPage = window.location.pathname.split("/").pop();  
+    const navLinks = document.querySelectorAll(".nav-item");
 
-  // All sidebar nav links (both desktop & mobile)
-  const navLinks = document.querySelectorAll("a.nav-item");
+    navLinks.forEach(link => {
+        link.classList.remove("nav-active");
 
-  navLinks.forEach(link => {
-    // Remove previously active class
-    link.classList.remove("nav-active");
+        let href = link.getAttribute("href");
 
-    // Check if link href matches the current URL
-    const href = link.getAttribute("href");
+        if (!href || href === "#") return;
 
-    // For Laravel routes like /member/dashboard
-    if (href && currentUrl.includes(href)) {
-      link.classList.add("nav-active");
-    }
-  });
+        // Normalize link value
+        href = href.trim().toLowerCase();
+        const file = href.split("/").pop();
 
-  // Feather icons refresh
-  if (typeof feather !== 'undefined') feather.replace();
+        // Match HTML file or directory
+        if (currentPage === file || currentPage === file.replace(".html", "")) {
+            link.classList.add("nav-active");
+        }
+
+        // Special match for home page
+        if ((currentPage === "" || currentPage === "/") && href === "#") {
+            link.classList.add("nav-active");
+        }
+    });
 });
 </script>
+
 
 </body>
 </html>
