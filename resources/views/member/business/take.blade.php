@@ -206,19 +206,9 @@ tbody tr:hover {
     }
 }
 </style>
-</head>
-<body class="bg-gray-100">
-
-<!-- PAGE WRAPPER -->
-<div class="min-h-screen flex">
-
-  <!-- MOBILE OVERLAY FOR SIDEBAR -->
+<!-- MAIN CONTENT -->
+<main class="p-4 sm:p-6">
   <div id="sidebarOverlay" class="fixed inset-0 bg-black/40 z-30 hidden md:hidden"></div>
-
-  <!-- MAIN CONTENT -->
-  <main class="flex-1 md:ml-64">
-        <!-- TOOLBAR + TABLE -->
-    <div class="p-4 sm:p-6">
       <!-- TOP TOOLBAR -->
       <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
         <!-- LEFT: Search + Filters -->
@@ -254,7 +244,7 @@ tbody tr:hover {
         <!-- RIGHT: Add Request Button -->
         <button id="openAddReq"
         class="w-full sm:w-auto px-7 py-2.5 
-               bg-gradient-to-r from-[#2C3E50] to-[#1B2735]
+               bg-linear-to-r from-[#2C3E50] to-[#1B2735]
                text-white rounded-full flex justify-center items-center gap-2 
                shadow-lg hover:shadow-xl hover:scale-[1.03] active:scale-[0.98]
                transition-all duration-200">
@@ -293,9 +283,7 @@ tbody tr:hover {
         </div>
         <div id="paginationBtns" class="flex items-center gap-1"></div>
       </div>
-    </div>
   </main>
-</div>
 <!-- ==========================
      MODERN VIEW MODAL
 =========================== -->

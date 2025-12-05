@@ -29,10 +29,7 @@
     font-family: 'Inter', sans-serif;
   }
   </style>
-</head>
-<body class="bg-gray-100 font-sans antialiased">
-  <main class="flex-1 md:ml-64">
-    <div class="p-6 sm:p-10">
+    <main class="p-6 sm:p-10">
       <h2 class="text-2xl font-bold text-[#2C3E50] mb-6 flex items-center gap-2">
         <i data-feather="users"></i> 1-1 Meeting Management
       </h2>
@@ -225,12 +222,10 @@
           </div>
         </div>
       </div>
-    </div>
   </main>
 <script>
 /* Feather Icons */
 feather.replace();
-
 /* ---------------------------------------------------
    SIDEBAR + PROFILE DROPDOWN + MOBILE MENU
 --------------------------------------------------- */

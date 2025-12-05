@@ -129,7 +129,7 @@
       <!-- Logout -->
       <div class="p-4 border-t">
   <a href="login.html"
-     class="w-full block bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg
+     class="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg
             flex items-center justify-center gap-2 shadow-md text-center">
     <i data-feather="log-out" class="w-4"></i>
     <span class="hidden md:inline">Logout</span>
@@ -208,7 +208,7 @@
     <!-- logout (fixed at bottom) -->
     <div class="pt-4 border-t mt-4">
       <a href="login.html"
-         class="w-full block bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg flex items-center justify-center gap-2 shadow-md text-center"
+         class="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg flex items-center justify-center gap-2 shadow-md text-center"
          aria-label="Logout">
         <i data-feather="log-out" class="w-4"></i> Logout
       </a>

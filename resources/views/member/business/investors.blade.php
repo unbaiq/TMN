@@ -41,7 +41,7 @@
 </div>
 
 <!-- VIEW MODAL (investors) -->
-<div id="inv-viewModal" class="fixed inset-0 z-50 hidden flex items-center justify-center">
+<div id="inv-viewModal" class="fixed inset-0 z-50 hidden items-center justify-center">
 
   <div id="inv-viewOverlay" class="absolute inset-0 bg-black/40"></div>
 
@@ -66,7 +66,6 @@
   </div>
 </div>
 
-    </main>
   </div>
 <!-- ADD INVESTOR MODAL -->
 <div id="inv-addModal" class="fixed inset-0 z-50 hidden items-center justify-center">
@@ -342,6 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // show modal
     viewModal.classList.remove('hidden');
+    viewModal.style.display = 'flex';
     document.body.style.overflow = 'hidden';
   });
 

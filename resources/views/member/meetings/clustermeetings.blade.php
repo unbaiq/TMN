@@ -212,9 +212,7 @@ button:hover {
 
   </style>
   <!-- MAIN -->
-  <main class="flex-1 md:ml-64">
-    <!-- Page Content -->
-    <div class="p-6 sm:p-10">
+    <main class="p-6 sm:p-10">
       <!-- Page toolbar -->
       <div class="flex flex-col lg:flex-row gap-4 justify-between items-start mb-6">
         <div class="flex gap-3 flex-1">
@@ -268,7 +266,6 @@ button:hover {
       </div>
     </div>
   </main>
-</div>
 
 <!-- NEW CLUSTER MODAL -->
 <div id="newClusterModal" class="modal-hidden fixed inset-0 bg-black/50 z-50 items-center justify-center p-4">
@@ -323,7 +320,7 @@ button:hover {
       <div id="participantList" class="space-y-2"></div>
     </div>
 
-    <div id="attendanceActions" class="flex gap-3 justify-end hidden">
+    <div id="attendanceActions" class="gap-3 justify-end hidden">
     <button id="declineBtn" class="px-4 py-2 bg-red-500 text-white rounded">Decline</button>
     <button id="confirmBtn" class="px-4 py-2 bg-green-600 text-white rounded">Confirm Attendance</button>
 </div>
@@ -537,6 +534,7 @@ function openViewCluster(id) {
     // Member has not responded → show Confirm / Decline
     if (me.attendance === "pending" || me.attendance === "rejected") {
       actionsDiv.classList.remove("hidden");
+      actionsDiv.classList.add("flex");
 
       document.getElementById("confirmBtn").onclick = () => {
         me.attendance = "accepted";

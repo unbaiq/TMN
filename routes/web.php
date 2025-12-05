@@ -38,7 +38,7 @@ Route::prefix('member')->name('member.')->group(function () {
         Route::get('/investors', fn() => view('member.business.investors'))->name('investors');
     });
 
-
+    
     /*
     |--------------------------------------------------------------------------
     | CHAPTER
