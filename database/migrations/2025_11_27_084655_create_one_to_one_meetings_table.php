@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -11,45 +11,33 @@ return new class extends Migration
         Schema::create('one_to_one_meetings', function (Blueprint $table) {
             $table->id();
 
-            // Member who initiates the 1-to-1 request
-            $table->unsignedBigInteger('requester_member_id');
+            // Member who receives the 1-to-1 meet request
+            $table->unsignedBigInteger('requested_member_id');
 
-            // Member who receives the 1-to-1 request
-            $table->unsignedBigInteger('receiver_member_id');
+            // Location (face-to-face, café, office, online link, etc.)
+            $table->string('location')->nullable();
 
-            // Optional meeting details
+            // Meeting date & time
             $table->date('meeting_date')->nullable();
             $table->time('meeting_time')->nullable();
-            $table->string('location')->nullable(); // face-to-face or venue
 
-            // Virtual meeting link (if online)
-            $table->string('meeting_link')->nullable();
+            // Notes from requester
+            $table->text('notes')->nullable();
 
-            // Request notes
-            $table->text('requester_notes')->nullable();
-            $table->text('receiver_notes')->nullable();
-
-            // Meeting status
-           $table->enum('status', [
-    'requested',   // sent request
-    'scheduled',   // accepted + scheduled
-    'completed',   // meeting done
-    'cancelled'    // cancelled
-])->default('requested');
-
-
-            // Timestamp for when meeting was completed
-            $table->timestamp('completed_at')->nullable();
+            // Status
+            $table->enum('status', [
+                'requested',
+                'scheduled',
+                'completed',
+                'cancelled'
+            ])->default('requested');
 
             $table->timestamps();
-            $table->softDeletes();
 
-            // Foreign Keys
-            $table->foreign('requester_member_id')
-                  ->references('id')->on('members')->onDelete('cascade');
-
-            $table->foreign('receiver_member_id')
-                  ->references('id')->on('members')->onDelete('cascade');
+            // FK
+            $table->foreign('requested_member_id')
+                ->references('id')->on('members')
+                ->onDelete('cascade');
         });
     }
 
