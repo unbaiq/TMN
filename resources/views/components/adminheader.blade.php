@@ -61,7 +61,7 @@
            aria-label="Main sidebar">
       <!-- Logo -->
       <div class="flex items-center gap-3 px-6 py-5 border-b">
-        <img src="logo1.png" alt="TMN Logo" class="h-10 a">
+        <img  src="{{ asset('images/logo1.png') }}"  alt="TMN Logo" class="h-10 a">
        
       </div>
 

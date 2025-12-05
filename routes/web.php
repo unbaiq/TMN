@@ -21,7 +21,7 @@ Route::prefix('member')->name('member.')->group(function () {
 
     // Dashboard + Settings
     Route::get('/dashboard', fn() => view('member.dashboard.index'))->name('dashboard');
-    Route::get('/settings', fn() => view('member.dashboard.settings'))->name('settings');
+    Route::get('/settings', fn() => view('member.settings'))->name('settings');
 
 
     /*
