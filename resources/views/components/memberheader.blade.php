@@ -66,31 +66,16 @@
 
       <!-- Nav -->
       <nav class="flex-1 overflow-y-auto px-2 py-4 space-y-1">
+    <!-- Dashboard -->
+    <a href="{{ route('member.dashboard') }}"class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+       <i data-feather="home" class="w-5"></i>
+       <span class="hidden md:inline">Dashboard</span>
+    </a>
 
-<<<<<<< HEAD
         <a href="{{ route('member.chapter.events') }}"class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
           <i data-feather="calendar" class="w-5"></i>
           <span class="hidden md:inline">Chapter Events</span>
         </a>
-        <a href="{{ route('member.chapter.eventattended') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-          <i data-feather="check-circle" class="w-5"></i>
-          <span class="hidden md:inline">Chapter Attended</span>
-        </a>
-=======
-    <!-- Dashboard -->
-    <a href="{{ route('member.dashboard') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="home" class="w-5"></i>
-        <span class="hidden md:inline">Dashboard</span>
-    </a>
-
-    <!-- Chapter Events -->
-    <a href="{{ route('member.chapter.index') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-       <i data-feather="calendar" class="w-5"></i>
-       <span class="hidden md:inline">Chapter Events</span>
-    </a>
->>>>>>> 033bc3bd20fd5b64216dd563e8f6b2c61a2c17a8
 
     <!-- Chapter Attended -->
     <a href="{{ route('member.chapter.eventattended') }}"
@@ -100,10 +85,10 @@
     </a>
 
     <!-- Referrals -->
-    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-       <i data-feather="share-2" class="w-5"></i>
-       <span class="hidden md:inline">Referrals</span>
-    </a>
+    <a href="{{ route('member.referrals') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <i data-feather="share-2" class="w-5"></i>
+    <span class="hidden md:inline">Referrals</span>
+</a>
 
     <!-- Give Services -->
     <a href="{{ route('member.business.offer') }}"
@@ -127,19 +112,19 @@
     </a>
 
     <!-- 1-1 Meetup -->
-    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.meetings.1-1meetup') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
        <i data-feather="users" class="w-5"></i>
        <span class="hidden md:inline">1-1 Meetup</span>
     </a>
 
     <!-- Cluster Meeting -->
-    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.meetings.clustermeetings') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
        <i data-feather="grid" class="w-5"></i>
        <span class="hidden md:inline">Cluster Meeting</span>
     </a>
 
     <!-- Recognitions -->
-    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.awards.recognitions') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
        <i data-feather="award" class="w-5"></i>
        <span class="hidden md:inline">Recognitions</span>
     </a>
@@ -152,13 +137,13 @@
     </a>
 
     <!-- Branding -->
-    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.branding') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
        <i data-feather="book-open" class="w-5"></i>
        <span class="hidden md:inline">Branding</span>
     </a>
 
     <!-- Investors -->
-    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.business.investors') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
        <i data-feather="dollar-sign" class="w-5"></i>
        <span class="hidden md:inline">Investors</span>
     </a>
@@ -232,7 +217,7 @@
     </a>
 
     {{-- Chapter Events --}}
-    <a href="{{ route('member.chapter.index') }}"
+    <a href="{{ route('member.chapter.events') }}"
        class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="calendar" class="w-5"></i> <span>Chapter Events</span>
     </a>
@@ -244,7 +229,7 @@
     </a>
 
     {{-- Referrals --}}
-    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.referrals') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="share-2" class="w-5"></i> <span>Referrals</span>
     </a>
 
@@ -267,17 +252,16 @@
     </a>
 
     {{-- 1-1 Meetup --}}
-    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.meetings.1-1meetup') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="users" class="w-5"></i> <span>1-1 Meetup</span>
     </a>
 
     {{-- Cluster Meeting --}}
-    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.meetings.clustermeetings') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="grid" class="w-5"></i> <span>Cluster Meeting</span>
     </a>
-
     {{-- Recognitions --}}
-    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.awards.recognitions') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="award" class="w-5"></i> <span>Recognitions</span>
     </a>
 
@@ -288,12 +272,12 @@
     </a>
 
     {{-- Branding --}}
-    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.branding') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="book-open" class="w-5"></i> <span>Branding</span>
     </a>
 
     {{-- Investors --}}
-    <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.business.investors') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="dollar-sign" class="w-5"></i> <span>Investors</span>
     </a>
 

@@ -23,6 +23,8 @@ Route::prefix('member')->name('member.')->group(function () {
     Route::get('/dashboard', fn() => view('member.dashboard.index'))->name('dashboard');
     Route::get('/settings', fn() => view('member.settings'))->name('settings');
 
+     // ⭐ REFERRALS PAGE
+    Route::get('/referrals', fn() => view('member.referrals'))->name('referrals');
 
     /*
     |--------------------------------------------------------------------------
@@ -33,6 +35,7 @@ Route::prefix('member')->name('member.')->group(function () {
         Route::get('/list', fn() => view('member.business.businesses'))->name('list');
         Route::get('/offer', fn() => view('member.business.offer'))->name('offer');
         Route::get('/take', fn() => view('member.business.take'))->name('take');
+        Route::get('/investors', fn() => view('member.business.investors'))->name('investors');
     });
 
 
@@ -42,7 +45,9 @@ Route::prefix('member')->name('member.')->group(function () {
     |--------------------------------------------------------------------------
     */
     Route::prefix('chapter')->name('chapter.')->group(function () {
-        Route::get('/', fn() => view('member.chapter.index'))->name('index');
+
+        // ⭐ Missing route added here
+        Route::get('/events', fn() => view('member.chapter.index'))->name('events');
         Route::get('/eventattended', fn() => view('member.chapter.eventattended'))->name('eventattended');
     });
 
@@ -51,13 +56,10 @@ Route::prefix('member')->name('member.')->group(function () {
     |--------------------------------------------------------------------------
     | AWARDS
     |--------------------------------------------------------------------------
-    |
-    | Correct canonical URL: /member/awards
-    | Name: member.awards.index
-    |
     */
     Route::prefix('awards')->name('awards.')->group(function () {
         Route::get('/', fn() => view('member.awards.index'))->name('index');
+        Route::get('/recognitions', fn() => view('member.awards.recognitions'))->name('recognitions');
     });
 
 
@@ -70,8 +72,20 @@ Route::prefix('member')->name('member.')->group(function () {
         Route::get('/', fn() => view('member.csr.index'))->name('index');
     });
 
-});
+    /*|--------------------------------------------------------------------------
+    | MEETINGS
+    |--------------------------------------------------------------------------*/
+    Route::prefix('meetings')->name('meetings.')->group(function () {
+        Route::get('/1-1meetup', fn() => view('member.meetings.1-1meetup'))->name('1-1meetup');
+        Route::get('/clustermeetings', fn() => view('member.meetings.clustermeetings'))->name('clustermeetings');
+    });
 
+    /*|--------------------------------------------------------------------------
+    | BRANDING
+    |--------------------------------------------------------------------------*/
+    Route::get('/branding', fn() => view('member.branding'))->name('branding');
+
+});
 
 
 /*
@@ -79,7 +93,6 @@ Route::prefix('member')->name('member.')->group(function () {
 | LEGACY HTML SUPPORT (old links redirect)
 |--------------------------------------------------------------------------
 */
-
 Route::get('/chapterattended.html', fn() => redirect()->route('member.chapter.eventattended'));
 Route::get('/awards.html', fn() => redirect()->route('member.awards.index'));
 Route::get('/businesses.html', fn() => redirect()->route('member.business.list'));
