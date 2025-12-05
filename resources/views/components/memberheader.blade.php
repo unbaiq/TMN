@@ -188,69 +188,75 @@
     </div>
 
     <!-- navigation (scrollable) -->
-    <nav class="flex-1 overflow-y-auto space-y-1 pr-1" aria-label="Main navigation">
-      <a href="dashboard.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item nav-active">
+<nav class="flex-1 overflow-y-auto space-y-1 pr-1" aria-label="Main navigation">
+
+    {{-- Dashboard --}}
+    <a href="{{ route('member.dashboard') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item 
+       {{ request()->routeIs('member.dashboard') ? 'nav-active' : '' }}">
         <i data-feather="home" class="w-5"></i> <span>Dashboard</span>
-      </a>
+    </a>
 
-      <a href="chapterevents.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Chapter Events --}}
+    <a href="{{ route('member.chapter.index') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
+       {{ request()->routeIs('member.chapter.index') ? 'nav-active' : '' }}">
         <i data-feather="calendar" class="w-5"></i> <span>Chapter Events</span>
-      </a>
+    </a>
 
-      <a href="chapterattended.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Chapter Attended --}}
+    <a href="{{ route('member.chapter.eventattended') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
+       {{ request()->routeIs('member.chapter.eventattended') ? 'nav-active' : '' }}">
         <i data-feather="check-circle" class="w-5"></i> <span>Chapter Attended</span>
-      </a>
+    </a>
 
-      <a href="referrals.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="share-2" class="w-5"></i> <span>Referrals</span>
-      </a>
-
-      <a href="giveservices.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Give Services --}}
+    <a href="{{ route('member.business.offer') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
+       {{ request()->routeIs('member.business.offer') ? 'nav-active' : '' }}">
         <i data-feather="send" class="w-5"></i> <span>Give Services</span>
-      </a>
+    </a>
 
-      <a href="takeservices.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Take Services --}}
+    <a href="{{ route('member.business.take') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
+       {{ request()->routeIs('member.business.take') ? 'nav-active' : '' }}">
         <i data-feather="download" class="w-5"></i> <span>Take Services</span>
-      </a>
+    </a>
 
-      <a href="businesses.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Businesses --}}
+    <a href="{{ route('member.business.list') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
+       {{ request()->routeIs('member.business.*') ? 'nav-active' : '' }}">
         <i data-feather="briefcase" class="w-5"></i> <span>Businesses</span>
-      </a>
+    </a>
 
-      <a href="meetup.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="users" class="w-5"></i> <span>1-1 Meetup</span>
-      </a>
-
-      <a href="cluster.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="grid" class="w-5"></i> <span>Cluster Meeting</span>
-      </a>
-
-      <a href="recognitions.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="award" class="w-5"></i> <span>Recognitions</span>
-      </a>
-
-      <a href="awards.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Awards --}}
+    <a href="{{ route('member.awards.index') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
+       {{ request()->routeIs('member.awards.*') ? 'nav-active' : '' }}">
         <i data-feather="star" class="w-5"></i> <span>Awards</span>
-      </a>
+    </a>
 
-      <a href="branding.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="book-open" class="w-5"></i> <span>Branding</span>
-      </a>
-
-      <a href="investors.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="dollar-sign" class="w-5"></i> <span>Investors</span>
-      </a>
-
-      <a href="csr.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- CSR --}}
+    <a href="{{ route('member.csr.index') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
+       {{ request()->routeIs('member.csr.*') ? 'nav-active' : '' }}">
         <i data-feather="heart" class="w-5"></i> <span>CSR</span>
-      </a>
+    </a>
 
-      <a href="settings.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    {{-- Settings --}}
+    <a href="{{ route('member.settings') }}"
+       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
+       {{ request()->routeIs('member.settings') ? 'nav-active' : '' }}">
         <i data-feather="settings" class="w-5"></i> <span>Settings</span>
-      </a>
+    </a>
 
-      <div class="h-6"></div>
-    </nav>
+</nav>
+
+
+
 
     <!-- logout (fixed at bottom) -->
     <div class="pt-4 border-t mt-4">

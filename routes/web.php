@@ -4,76 +4,85 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes (Member Only)
+| HOME = Member Dashboard
 |--------------------------------------------------------------------------
-|
-| Homepage → Member Dashboard
-|
 */
-
-// HOME → Member Dashboard
 Route::get('/', function () {
     return view('member.dashboard.index');
 })->name('home');
 
 
-// ================================
-// MEMBER ROUTES
-// ================================
+/*
+|--------------------------------------------------------------------------
+| MEMBER ROUTES
+|--------------------------------------------------------------------------
+*/
 Route::prefix('member')->name('member.')->group(function () {
 
-    // Dashboard
-    Route::get('/dashboard', function () {
-        return view('member.dashboard.index');
-    })->name('dashboard');
+    // Dashboard + Settings
+    Route::get('/dashboard', fn() => view('member.dashboard.index'))->name('dashboard');
+    Route::get('/settings', fn() => view('member.dashboard.settings'))->name('settings');
 
-    // Settings
-    Route::get('/settings', function () {
-        return view('member.dashboard.settings');
-    })->name('settings');
 
-    // ----------------------------
-    // BUSINESS MODULE
-    // ----------------------------
+    /*
+    |--------------------------------------------------------------------------
+    | BUSINESS
+    |--------------------------------------------------------------------------
+    */
     Route::prefix('business')->name('business.')->group(function () {
-
-        Route::get('/list', function () {
-            return view('member.business.businesses');
-        })->name('list');
-
-        Route::get('/offer', function () {
-            return view('member.business.offer');
-        })->name('offer');
-
-        Route::get('/take', function () {
-            return view('member.business.take');
-        })->name('take');
+        Route::get('/list', fn() => view('member.business.businesses'))->name('list');
+        Route::get('/offer', fn() => view('member.business.offer'))->name('offer');
+        Route::get('/take', fn() => view('member.business.take'))->name('take');
     });
 
-    // ----------------------------
-    // CHAPTER MODULE
-    // ----------------------------
+
+    /*
+    |--------------------------------------------------------------------------
+    | CHAPTER
+    |--------------------------------------------------------------------------
+    */
     Route::prefix('chapter')->name('chapter.')->group(function () {
-
-        Route::get('/', function () {
-            return view('member.chapter.index');
-        })->name('index');
-
-        Route::get('/eventattended', function () {
-            return view('member.chapter.eventattended');
-        })->name('eventattended');
+        Route::get('/', fn() => view('member.chapter.index'))->name('index');
+        Route::get('/eventattended', fn() => view('member.chapter.eventattended'))->name('eventattended');
     });
-     Route::prefix('awards')->name('awards.')->group(function () {
 
-        Route::get('/awards', function () {
-            return view('member.awards.index');
-        })->name('awards');
+
+    /*
+    |--------------------------------------------------------------------------
+    | AWARDS
+    |--------------------------------------------------------------------------
+    |
+    | Correct canonical URL: /member/awards
+    | Name: member.awards.index
+    |
+    */
+    Route::prefix('awards')->name('awards.')->group(function () {
+        Route::get('/', fn() => view('member.awards.index'))->name('index');
     });
-     Route::prefix('csr')->name('csr.')->group(function () {
 
-        Route::get('/csr', function () {
-            return view('member.csr.index');
-        })->name('csr');
+
+    /*
+    |--------------------------------------------------------------------------
+    | CSR
+    |--------------------------------------------------------------------------
+    */
+    Route::prefix('csr')->name('csr.')->group(function () {
+        Route::get('/', fn() => view('member.csr.index'))->name('index');
     });
 
 });
+
+
+
+/*
+|--------------------------------------------------------------------------
+| LEGACY HTML SUPPORT (old links redirect)
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/chapterattended.html', fn() => redirect()->route('member.chapter.eventattended'));
+Route::get('/awards.html', fn() => redirect()->route('member.awards.index'));
+Route::get('/businesses.html', fn() => redirect()->route('member.business.list'));
+Route::get('/dashboard.html', fn() => redirect()->route('member.dashboard'));
+Route::get('/csr.html', fn() => redirect()->route('member.csr.index'));
+Route::get('/settings.html', fn() => redirect()->route('member.settings'));
