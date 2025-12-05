@@ -47,7 +47,7 @@ Route::prefix('member')->name('member.')->group(function () {
     Route::prefix('chapter')->name('chapter.')->group(function () {
 
         // ⭐ Missing route added here
-        Route::get('/events', fn() => view('member.chapter.index'))->name('events');
+        Route::get('/events', fn() => view('member.chapter.events'))->name('events');
         Route::get('/eventattended', fn() => view('member.chapter.eventattended'))->name('eventattended');
     });
 
@@ -99,3 +99,55 @@ Route::get('/businesses.html', fn() => redirect()->route('member.business.list')
 Route::get('/dashboard.html', fn() => redirect()->route('member.dashboard'));
 Route::get('/csr.html', fn() => redirect()->route('member.csr.index'));
 Route::get('/settings.html', fn() => redirect()->route('member.settings'));
+
+
+
+/*
+|--------------------------------------------------------------------------
+| ADMIN ROUTES
+|--------------------------------------------------------------------------
+*/
+
+Route::prefix('admin')->name('admin.')->group(function () {
+
+    // Dashboard
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard.index');
+    })->name('dashboard');
+
+    // Awards
+    Route::get('/awards', function () {
+        return view('admin.awards.index');
+    })->name('awards.index');
+
+    // Chapter Management
+    Route::get('/chapter', function () {
+        return view('admin.chapter.index');
+    })->name('chapter.index');
+
+    // Member Module
+    Route::prefix('member')->name('member.')->group(function () {
+
+        Route::get('/index', function () {
+            return view('admin.member.index');
+        })->name('index');
+        Route::get('/memberlist', function () {
+            return view('admin.member.memberlist');
+        })->name('memberlist');
+
+        Route::get('/list', function () {
+            return view('admin.member.memberlist');
+        })->name('list');
+
+        Route::get('/enquiry', function () {
+            return view('admin.member.enquiry');
+        })->name('enquiry');
+
+    });
+
+    // Settings
+    Route::get('/settings', function () {
+        return view('admin.settings.index');
+    })->name('settings.index');
+
+});

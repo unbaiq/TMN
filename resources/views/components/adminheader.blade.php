@@ -66,59 +66,65 @@
       </div>
 
       <!-- Nav -->
-     <nav class="flex-1 overflow-y-auto px-2 py-4 space-y-1">
+ <nav class="flex-1 overflow-y-auto px-2 py-4 space-y-1">
 
-  <!-- Dashboard (active) -->
-  <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item nav-active">
+  <!-- Dashboard -->
+  <a href="{{ route('admin.dashboard') }}"
+     class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item nav-active">
     <span class="nav-icon"><i data-feather="home" class="w-5 h-5"></i></span>
     <span class="hidden md:inline">Dashboard</span>
   </a>
 
   <!-- Enquiry -->
-  <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+  <a href="{{ route('admin.member.enquiry') }}"
+     class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
     <span class="nav-icon"><i data-feather="message-square" class="w-5 h-5"></i></span>
     <span class="hidden md:inline">Enquiry</span>
   </a>
 
   <!-- Members -->
-  <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+  <a href="{{ route('admin.member.memberlist') }}"
+     class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
     <span class="nav-icon"><i data-feather="users" class="w-5 h-5"></i></span>
     <span class="hidden md:inline">Members</span>
   </a>
 
   <!-- Assigned Members -->
-  <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+  <a href="{{ route('admin.member.list') }}"
+     class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
     <span class="nav-icon"><i data-feather="user-check" class="w-5 h-5"></i></span>
     <span class="hidden md:inline">Assigned Members</span>
   </a>
 
   <!-- Chapters -->
-  <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+  <a href="{{ route('admin.chapter.index') }}"
+     class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
     <span class="nav-icon"><i data-feather="map" class="w-5 h-5"></i></span>
     <span class="hidden md:inline">Chapters</span>
   </a>
 
-  <!-- Events -->
+  <!-- Events (Not created yet) -->
   <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
     <span class="nav-icon"><i data-feather="calendar" class="w-5 h-5"></i></span>
     <span class="hidden md:inline">Events</span>
   </a>
 
   <!-- Awards -->
-  <a href="awards.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+  <a href="{{ route('admin.awards.index') }}"
+     class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
     <span class="nav-icon"><i data-feather="award" class="w-5 h-5"></i></span>
     <span class="hidden md:inline">Awards</span>
   </a>
 
   <!-- Settings -->
-  <a href="settings.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+  <a href="{{ route('admin.settings.index') }}"
+     class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
     <span class="nav-icon"><i data-feather="settings" class="w-5 h-5"></i></span>
     <span class="hidden md:inline">Settings</span>
   </a>
 
-
-
 </nav>
+
 
       <!-- Logout -->
       <div class="p-4 border-t">

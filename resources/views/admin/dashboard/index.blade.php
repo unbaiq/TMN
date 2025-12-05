@@ -1,3 +1,3 @@
-@include('components.header')
-</body>
-</html>
+@include('components.adminheader')
+
+@include('components.script')
