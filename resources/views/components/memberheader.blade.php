@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>TMN Member Dashboard — Responsive</title>
 
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
   <!-- Feather icons -->
   <script src="https://unpkg.com/feather-icons"></script>
-
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <style>
     /* Animated Active Item */
     .nav-active {
@@ -74,12 +73,11 @@
           <span class="hidden md:inline">Dashboard</span>
         </a>
 
-        <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+        <a href="{{ route('member.chapter.events') }}"class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
           <i data-feather="calendar" class="w-5"></i>
           <span class="hidden md:inline">Chapter Events</span>
         </a>
-
-        <a href="chapterattended.html" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+        <a href="{{ route('member.chapter.eventattended') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
           <i data-feather="check-circle" class="w-5"></i>
           <span class="hidden md:inline">Chapter Attended</span>
         </a>
