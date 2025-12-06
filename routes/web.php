@@ -114,6 +114,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard.index');
     })->name('dashboard');
+    Route::get('/events', function () {
+        return view('admin.dashboard.events');
+    })->name('dashboard.events');
 
     // Awards
     Route::get('/awards', function () {

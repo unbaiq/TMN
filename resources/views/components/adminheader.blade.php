@@ -104,7 +104,7 @@
   </a>
 
   <!-- Events (Not created yet) -->
-  <a href="#" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+  <a href="{{ route('admin.dashboard.events') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
     <span class="nav-icon"><i data-feather="calendar" class="w-5 h-5"></i></span>
     <span class="hidden md:inline">Events</span>
   </a>
