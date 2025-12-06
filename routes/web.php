@@ -148,6 +148,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     });
 
+    
+    /*
+    |--------------------------------------------------------------------------
+    | ADMIN EVENT ATTENDED PAGE (UI ONLY)
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/events/attended', function () {
+        return view('admin.events.attended');
+    })->name('events.attended');
+
+
     // Settings
     Route::get('/settings', function () {
         return view('admin.settings.index');
