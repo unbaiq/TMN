@@ -1,4 +1,6 @@
-@include('components.adminheader')
+@extends('layouts.app')
+
+@section('content')
 <style>
     :root { --brand: #e53935; }
     body { font-family: ui-sans-serif, system-ui, "Segoe UI", Arial; }
@@ -114,5 +116,4 @@
     setTimeout(() => box.remove(), 2200);
   }
 </script>
-
-@include('components.script')
+@endsection

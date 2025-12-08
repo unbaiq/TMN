@@ -1,4 +1,6 @@
-@include('components.memberheader')
+@extends('layouts.app')
+
+@section('content')
   <style>
 /* Existing styles kept — only enhancements added */
 
@@ -345,9 +347,8 @@ function copyReferralLink() {
     alert("Referral link copied!");
 }
 // SEARCH + SORT + FILTER SYSTEM
-const rows = document.querySelectorAll(".ref-row");
+const rows = document.querySelectorAll("tbody tr");
 const searchInput = document.getElementById("searchInput");
-const sortSelect = document.getElementById("sortSelect");
 const statusFilter = document.getElementById("statusFilter");
 
 function filterTable() {
@@ -371,23 +372,8 @@ function filterTable() {
     });
 }
 
-function sortTable() {
-    let sortValue = sortSelect.value;
-    let tbody = document.querySelector("tbody");
-
-    let sorted = Array.from(rows).sort((a, b) => {
-        if (sortValue === "latest") return new Date(b.dataset.date) - new Date(a.dataset.date);
-        if (sortValue === "oldest") return new Date(a.dataset.date) - new Date(b.dataset.date);
-        if (sortValue === "status") return a.dataset.status.localeCompare(b.dataset.status);
-        if (sortValue === "name") return a.dataset.name.localeCompare(b.dataset.name);
-    });
-
-    sorted.forEach(r => tbody.appendChild(r));
-}
-
 searchInput.addEventListener("input", filterTable);
 statusFilter.addEventListener("change", filterTable);
-sortSelect.addEventListener("change", sortTable);
 
 /* ------------------ VIEW MODAL ------------------ */
 function openViewModal(name, phone, email, status, date) {
@@ -405,6 +391,23 @@ function closeViewModal() {
 }
 function closeViewModal() { viewModal.classList.add("hidden"); }
 
+/* ------------------ VIEW MODAL ------------------ */
+function openViewModal(name, phone, email, status, date) {
+    viewName.innerText = "Name: " + name;
+    viewPhone.innerText = "Phone: " + phone;
+    viewEmail.innerText = "Email: " + email;
+    viewStatus.innerText = "Status: " + status;
+    viewDate.innerText = "Date: " + date;
+
+    viewModal.classList.remove("hidden");
+    viewModal.classList.add("flex");
+}
+
+function closeViewModal() { 
+    viewModal.classList.add("hidden");
+    viewModal.classList.remove("flex");
+}
+
 /* ------------------ EDIT MODAL ------------------ */
 function openEditModal(name, phone, email, status) {
     editName.value = name;
@@ -414,27 +417,12 @@ function openEditModal(name, phone, email, status) {
 
     editModal.classList.remove("hidden");
     editModal.classList.add("flex");
+}
+
 function closeEditModal() { 
     editModal.classList.add("hidden");
     editModal.classList.remove("flex");
 }
-function closeEditModal() { editModal.classList.add("hidden"); }
-
-function saveReferral() {
-    alert("Referral updated!");
-    closeEditModal();
-}
-
-/* ------------------ DELETE MODAL ------------------ */
-let deleteName = "";
-
-function openDeleteModal(name) {
-    deleteName = name;
-    deleteText.innerText = `Are you sure you want to delete referral of ${name}?`;
-
-    const modal = document.getElementById("deleteModal");
-    modal.classList.remove("hidden");
-    modal.classList.add("flex");     // show modal container
     document.body.style.overflow = "hidden";  // prevent scrolling
 }
 
@@ -451,6 +439,5 @@ function confirmDelete() {
     alert("Referral deleted: " + deleteName);
     closeDeleteModal();
 }
-
 </script>
-@include('components.script')
+@endsection

@@ -1,4 +1,6 @@
-@include('components.memberheader')
+@extends('layouts.app')
+
+@section('content')
   <style>
     /* Re-using styles from your sidebar/header */
     .nav-active {
@@ -717,5 +719,4 @@ document.addEventListener('keydown', (e)=> {
   m.addEventListener('click', (ev) => { if(ev.target === m) { m.classList.add('modal-hidden'); m.classList.remove('modal-show'); } });
 });
 </script>
-
-@include('components.script')
+@endsection

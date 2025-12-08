@@ -1,4 +1,6 @@
-@include('components.adminheader')
+@extends('layouts.app')
+
+@section('content')
 
 <script src="https://unpkg.com/feather-icons"></script>
 
@@ -917,6 +919,6 @@
   })();
 </script>
 
-<script>feather.replace()</script>
-
-@include('components.script')
+<script>feather.replace()
+</script>
+@endsection

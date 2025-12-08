@@ -55,9 +55,7 @@
   <div class="min-h-screen flex">
 
     <!-- ========== DESKTOP SIDEBAR (visible md+) ========== -->
-    <aside id="desktopSidebar"
-           class="hidden md:flex flex-col w-64 bg-white h-screen fixed top-0 left-0 shadow-xl sidebar-scrollbar"
-           aria-label="Main sidebar">
+    <aside id="desktopSidebar" class="hidden md:flex flex-col w-64 bg-white h-screen fixed top-0 left-0 shadow-xl sidebar-scrollbar" aria-label="Main sidebar">
       <!-- Logo -->
       <div class="flex items-center gap-3 px-6 py-5 border-b">
         <img  src="{{ asset('images/logo1.png') }}"  alt="TMN Logo" class="h-10 a">
@@ -78,8 +76,7 @@
         </a>
 
     <!-- Chapter Attended -->
-    <a href="{{ route('member.chapter.eventattended') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.chapter.eventattended') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
        <i data-feather="check-circle" class="w-5"></i>
        <span class="hidden md:inline">Chapter Attended</span>
     </a>
@@ -91,22 +88,19 @@
 </a>
 
     <!-- Give Services -->
-    <a href="{{ route('member.business.offer') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.business.offer') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
        <i data-feather="send" class="w-5"></i>
        <span class="hidden md:inline">Give Services</span>
     </a>
 
     <!-- Take Services -->
-    <a href="{{ route('member.business.take') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.business.take') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
        <i data-feather="download" class="w-5"></i>
        <span class="hidden md:inline">Take Services</span>
     </a>
 
     <!-- Businesses -->
-    <a href="{{ route('member.business.list') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.business.list') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
        <i data-feather="briefcase" class="w-5"></i>
        <span class="hidden md:inline">Businesses</span>
     </a>
@@ -130,8 +124,7 @@
     </a>
 
     <!-- Awards -->
-    <a href="{{ route('member.awards.index') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.awards.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
        <i data-feather="star" class="w-5"></i>
        <span class="hidden md:inline">Awards</span>
     </a>
@@ -149,8 +142,7 @@
     </a>
 
     <!-- CSR -->
-    <a href="{{ route('member.csr.index') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.csr.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
        <i data-feather="heart" class="w-5"></i>
        <span class="hidden md:inline">CSR</span>
     </a>
@@ -162,17 +154,13 @@
     </a>
 </nav>
 
-
   <!-- Logout -->
       <div class="p-4 border-t">
-  <a href="login.html"
-     class="w-full flex bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg
-            items-center justify-center gap-2 shadow-md text-center">
+  <a href="login.html" class="w-full flex bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg items-center justify-center gap-2 shadow-md text-center">
     <i data-feather="log-out" class="w-4"></i>
     <span class="hidden md:inline">Logout</span>
   </a>
 </div>
-
     </aside>
 
     <!-- ========== MOBILE ICON RAIL (optional tiny left rail, visible on sm only) ========== -->
@@ -193,9 +181,7 @@
   <div id="mobileSidebarOverlay" class="absolute inset-0 bg-black/40" aria-hidden="true"></div>
 
   <!-- panel -->
-  <aside id="mobilePanel"
-         class="absolute left-0 top-0 bottom-0 w-72 bg-white border-r shadow-lg p-4 mobile-slide sidebar-scrollbar flex flex-col h-full"
-         role="dialog" aria-modal="true" aria-label="Mobile menu">
+  <aside id="mobilePanel" class="absolute left-0 top-0 bottom-0 w-72 bg-white border-r shadow-lg p-4 mobile-slide sidebar-scrollbar flex flex-col h-full" role="dialog" aria-modal="true" aria-label="Mobile menu">
 
     <!-- header -->
     <div class="flex items-center justify-between mb-4">
@@ -209,20 +195,17 @@
 <nav class="flex-1 overflow-y-auto space-y-1 pr-1" aria-label="Main navigation">
 
     {{-- Dashboard --}}
-    <a href="{{ route('member.dashboard') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.dashboard') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="home" class="w-5"></i> <span>Dashboard</span>
     </a>
 
     {{-- Chapter Events --}}
-    <a href="{{ route('member.chapter.events') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.chapter.events') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="calendar" class="w-5"></i> <span>Chapter Events</span>
     </a>
 
     {{-- Chapter Attended --}}
-    <a href="{{ route('member.chapter.eventattended') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.chapter.eventattended') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="check-circle" class="w-5"></i> <span>Chapter Attended</span>
     </a>
 
@@ -232,20 +215,17 @@
     </a>
 
     {{-- Give Services --}}
-    <a href="{{ route('member.business.offer') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.business.offer') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="send" class="w-5"></i> <span>Give Services</span>
     </a>
 
     {{-- Take Services --}}
-    <a href="{{ route('member.business.take') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.business.take') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="download" class="w-5"></i> <span>Take Services</span>
     </a>
 
     {{-- Businesses --}}
-    <a href="{{ route('member.business.list') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.business.list') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="briefcase" class="w-5"></i> <span>Businesses</span>
     </a>
 
@@ -284,31 +264,21 @@
        class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="heart" class="w-5"></i> <span>CSR</span>
     </a>
-
     {{-- Settings --}}
-    <a href="{{ route('member.settings') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.settings') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="settings" class="w-5"></i> <span>Settings</span>
     </a>
-
     <div class="h-6"></div>
 </nav>
-
-
-
-
     <!-- logout (fixed at bottom) -->
     <div class="p-4 border-t">
-      <a href="#" 
-         class="w-full flex bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg items-center justify-center gap-2 shadow-md text-center"
-         aria-label="Logout">
+      <a href="#" class="w-full flex bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg items-center justify-center gap-2 shadow-md text-center" aria-label="Logout">
         <i data-feather="log-out" class="w-4"></i>
         <span class="hidden md:inline">Logout</span>
       </a>
     </div>
   </aside>
 </div>
-
     <!-- ========== MAIN CONTENT ========== -->
     <main id="mainContent" class="flex-1 md:ml-64 ml-0">
       <!-- Header -->
@@ -320,13 +290,10 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
             </svg>
           </button>
-
           @php
     $r = request()->route()->getName() ?? '';
 @endphp
-
 <h1 class="text-lg sm:text-xl font-semibold text-red-600 flex items-center gap-2">
-
     {{-- AUTO ICON --}}
     @switch(true)
         @case(str_starts_with($r, 'member.dashboard'))
@@ -388,8 +355,6 @@
         @default
             <i data-feather="file-text" class="w-4"></i>
     @endswitch
-
-
     {{-- DESKTOP TITLE --}}
     <span class="hidden sm:inline">
         @switch(true)
@@ -457,7 +422,6 @@
                 Member Panel
         @endswitch
     </span>
-
     {{-- MOBILE TITLE --}}
     <span class="inline sm:hidden text-sm text-gray-600">
         @switch(true)
@@ -480,11 +444,8 @@
                 Menu
         @endswitch
     </span>
-
-</h1>
-
+    </h1>
         </div>
-
         <!-- Profile -->
         <div class="relative">
           <div id="profileBtn" class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
@@ -492,15 +453,12 @@
               <div class="w-10 h-10 bg-red-500 text-white flex items-center justify-center rounded-xl text-lg font-bold shadow">M</div>
               <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
             </div>
-
             <div class="hidden sm:block">
               <p class="font-medium text-gray-800">Member</p>
               <p class="text-xs text-gray-500">Member</p>
             </div>
-
             <i id="dropdownArrow" data-feather="chevron-down" class="w-5 h-5 text-gray-600 transition-transform"></i>
           </div>
-
           <div id="profileDropdown" class="absolute right-0 mt-3 w-64 bg-white shadow-xl rounded-2xl border border-gray-100 p-4 dropdown-hidden transform scale-95 opacity-0 transition-all duration-200 z-50">
             <div class="flex items-center gap-4 p-4 rounded-xl bg-red-50 nav-item">
               <div class="relative">
@@ -619,7 +577,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 </script>
-
-
 </body>
 </html>

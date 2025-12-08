@@ -1,4 +1,6 @@
-@include('components.memberheader')
+@extends('layouts.app')
+
+@section('content')
 <div class="p-6 sm:p-10 space-y-6">
 
         <!-- grid: left settings form, right quick actions -->
@@ -153,10 +155,7 @@
           
         </div>
       </div>
-
-
       </main>
- 
 <script>
   // ----------------------
   // UI wiring (trimmed: removed quick-actions/delete modal)
@@ -300,6 +299,5 @@
     });
   });
 </script>
-
-@include('components.script')
+@endsection
 

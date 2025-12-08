@@ -1,5 +1,6 @@
-@include('components.adminheader')
+@extends('layouts.app')
 
+@section('content')
 <style>
  /* Enquiry page specific styles (updated) */
 .enq-container .card { background: #fff; border-radius: .5rem; box-shadow: 0 1px 4px rgba(2,6,23,0.06); }
@@ -319,4 +320,4 @@ document.addEventListener('DOMContentLoaded', function () {
   render();
 });
 </script>
-@include('components.script')       
+@endsection

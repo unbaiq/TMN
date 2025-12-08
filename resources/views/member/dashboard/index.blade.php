@@ -1,4 +1,5 @@
-@include('components.memberheader')
+@extends('layouts.app')
 
+@section('content')
 
-@include('components.script')
+@endsection

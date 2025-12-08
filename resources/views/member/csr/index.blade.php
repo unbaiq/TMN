@@ -1,4 +1,6 @@
-@include('components.memberheader')
+@extends('layouts.app')
+
+@section('content')
 <main class="flex-1 p-6 sm:p-10">
       <!-- Header -->
       <div class="flex items-start justify-between gap-4 mb-6">
@@ -497,6 +499,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 </script>
-
-
-@include('components.script')
+@endsection

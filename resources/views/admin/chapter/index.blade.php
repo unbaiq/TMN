@@ -1,5 +1,6 @@
-{{-- resources/views/admin/chapter/manage.blade.php --}}
-@include('components.adminheader')
+@extends('layouts.app')
+
+@section('content')
 <script src="https://unpkg.com/feather-icons"></script>
 
 <style>
@@ -550,4 +551,4 @@
 
 })();
 </script>
-@include('components.script')
+@endsection

@@ -1,5 +1,6 @@
-@include('components.adminheader')
+@extends('layouts.app')
 
+@section('content')
   <style>
     :root { --brand: #e53935; --brand-600: #e53935; }
     body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:#f3f4f6; }
@@ -437,5 +438,5 @@
     // expose for debugging (optional)
     window.__tmn_awards = { awards, chapters, members, save, render };
   })();
-</script>
-@include('components.script')
+  </script>
+@endsection

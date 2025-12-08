@@ -1,4 +1,6 @@
-@include('components.memberheader')
+@extends('layouts.app')
+
+@section('content')
   <style>
     /* Sidebar/Header shared styles (taken from your last layout) */
     .nav-active {
@@ -613,4 +615,4 @@ document.addEventListener("click", (e) => {
     }
 });
 </script>
-@include('components.script')
+@endsection

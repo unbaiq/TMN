@@ -1,5 +1,6 @@
-{{-- resources/views/admin/member/assigned.blade.php --}}
-@include('components.adminheader')
+@extends('layouts.app')
+
+@section('content')
 
 <main class="flex-1 p-6 max-w-7xl mx-auto">
   <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -422,4 +423,4 @@
 })();
 </script>
 
-@include('components.script')
+@endsection

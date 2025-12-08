@@ -1,4 +1,6 @@
-@include('components.memberheader')
+@extends('layouts.app')
+
+@section('content')
  <style>
     .nav-active {
       background: linear-gradient(to right, #ffe6e6, #ffffff);
@@ -655,8 +657,4 @@ document.getElementById("confirmDeleteBtn").onclick = () => {
   applyFilters();
 };
 </script>
-</body>
-</html>
-
-
-@include('components.script')
+@endsection

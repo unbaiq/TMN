@@ -1,5 +1,6 @@
-@include('components.adminheader')
+@extends('layouts.app')
 
+@section('content')
 <div class="p-6 sm:p-8">
 
   <!-- Title + Add Member Button -->
@@ -379,5 +380,4 @@
   document.getElementById('refreshBtn').addEventListener('click', () => location.reload());
 
 </script>
-
-@include('components.script')
+@endsection

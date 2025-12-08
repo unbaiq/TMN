@@ -1,3 +1,5 @@
-@include('components.adminheader')
+@extends('layouts.app')
 
-@include('components.script')
+@section('content')
+
+@endsection
