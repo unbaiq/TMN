@@ -160,7 +160,6 @@
        <i data-feather="settings" class="w-5"></i>
        <span class="hidden md:inline">Settings</span>
     </a>
-
 </nav>
 
 
