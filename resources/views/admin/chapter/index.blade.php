@@ -1,154 +1,156 @@
+{{-- resources/views/admin/chapter/manage.blade.php --}}
 @include('components.adminheader')
- <script src="https://unpkg.com/feather-icons"></script>
+<script src="https://unpkg.com/feather-icons"></script>
 
-  <style>
-    body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
-    .chapter-card { position: relative; overflow: visible; }
-    .chapter-card::after { content:""; position:absolute; inset:0; z-index:-1; border-radius:1rem; background: linear-gradient(180deg, rgba(229,57,53,0.02), rgba(229,57,53,0)); opacity:0; transition:opacity .25s; }
-    .chapter-card:hover::after { opacity:1; }
-    .badge-active { background: linear-gradient(90deg, #ecfdf5, #bbf7d0); color:#065f46; }
-    .badge-inactive { background:#f3f4f6; color:#6b7280; }
-    .card-accent { position:absolute; left:1rem; right:1rem; top:-6px; height:6px; border-radius:8px; background:linear-gradient(90deg,#f97316,#ef4444); opacity:0.12; }
-    .fade-in { animation: fadeIn .18s ease both; } @keyframes fadeIn { from {opacity:0; transform: translateY(6px)} to {opacity:1; transform:none} }
-    #toast > div { margin-top: 6px; }
-  </style>
-   <div class="max-w-7xl mx-auto p-6">
-        <div class="flex items-center justify-between mb-6">
-          <div>
-            <h2 class="text-2xl font-semibold text-gray-800">Manage Chapters</h2>
-            <p class="text-gray-600 mt-1">Create chapters and assign members. Data stored locally in your browser.</p>
-          </div>
+<style>
+  body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+  .chapter-card { position: relative; overflow: visible; }
+  .chapter-card::after { content:""; position:absolute; inset:0; z-index:-1; border-radius:1rem; background: linear-gradient(180deg, rgba(229,57,53,0.02), rgba(229,57,53,0)); opacity:0; transition:opacity .25s; }
+  .chapter-card:hover::after { opacity:1; }
+  .badge-active { background: linear-gradient(90deg, #ecfdf5, #bbf7d0); color:#065f46; }
+  .badge-inactive { background:#f3f4f6; color:#6b7280; }
+  .card-accent { position:absolute; left:1rem; right:1rem; top:-6px; height:6px; border-radius:8px; background:linear-gradient(90deg,#f97316,#ef4444); opacity:0.12; }
+  .fade-in { animation: fadeIn .18s ease both; } @keyframes fadeIn { from {opacity:0; transform: translateY(6px)} to {opacity:1; transform:none} }
+  #toast > div { margin-top: 6px; }
+</style>
 
-          <div class="flex items-center gap-3">
-            <input id="chapterSearch" type="search" placeholder="Search chapters..." class="px-3 py-2 border rounded-md w-64" />
-            <button id="openCreateChapter" class="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg flex items-center gap-2">
-              <i data-feather="plus-circle" class="w-4 h-4"></i> Create Chapter
-            </button>
-          </div>
-        </div>
+<div class="max-w-7xl mx-auto p-6">
+  <div class="flex items-center justify-between mb-6">
+    <div>
+      <h2 class="text-2xl font-semibold text-gray-800">Manage Chapters</h2>
+      <p class="text-gray-600 mt-1">Create chapters and assign members. Data stored locally in your browser.</p>
+    </div>
 
-        <div id="chaptersGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-        <div class="mt-6 text-sm text-gray-600" id="chaptersCount"></div>
-      </div>
-    </main>
-  </div>
-
-  <!-- Create / Edit Chapter Modal -->
-  <div id="chapterModal" class="fixed inset-0 z-50 hidden items-center justify-center">
-    <div class="absolute inset-0 bg-black/40"></div>
-    <div class="relative z-10 bg-white rounded-2xl max-w-2xl w-full p-6 shadow-xl">
-      <div class="flex items-center justify-between mb-4">
-        <h3 id="chapterModalTitle" class="text-lg font-semibold text-gray-800">Create Chapter</h3>
-        <button id="closeChapterModal" class="text-gray-400 hover:text-gray-600">✕</button>
-      </div>
-
-      <form id="chapterForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input type="hidden" id="chapterEditingId">
-
-        <div>
-          <label class="block text-sm text-gray-700">Name</label>
-          <input id="chapterName" class="mt-1 w-full border rounded px-3 py-2" required>
-
-          <label class="block text-sm text-gray-700 mt-3">Slug</label>
-          <input id="chapterSlug" class="mt-1 w-full border rounded px-3 py-2">
-
-          <label class="block text-sm text-gray-700 mt-3">Order No</label>
-          <input id="chapterOrder" type="number" min="1" value="1" class="mt-1 w-full border rounded px-3 py-2">
-        </div>
-
-        <div>
-          <label class="block text-sm text-gray-700">City</label>
-          <input id="chapterCity" class="mt-1 w-full border rounded px-3 py-2">
-
-          <label class="block text-sm text-gray-700 mt-3">Pincode</label>
-          <input id="chapterPincode" class="mt-1 w-full border rounded px-3 py-2">
-
-          <label class="block text-sm text-gray-700 mt-3">Active</label>
-          <div class="mt-1">
-            <label class="inline-flex items-center gap-2">
-              <input id="chapterActive" type="checkbox" class="h-4 w-4" checked>
-              <span class="text-sm text-gray-700">Is Active</span>
-            </label>
-          </div>
-        </div>
-
-        <div class="md:col-span-2">
-          <label class="block text-sm text-gray-700">Description</label>
-          <textarea id="chapterDesc" rows="3" class="mt-1 w-full border rounded px-3 py-2"></textarea>
-
-          <div class="mt-4 flex items-center justify-end gap-3">
-            <button type="button" id="cancelChapter" class="px-4 py-2 rounded bg-gray-100">Cancel</button>
-            <button type="submit" id="saveChapter" class="px-4 py-2 rounded bg-gradient-to-r from-red-500 to-red-600 text-white">Save Chapter</button>
-          </div>
-        </div>
-      </form>
+    <div class="flex items-center gap-3">
+      <input id="chapterSearch" type="search" placeholder="Search chapters..." class="px-3 py-2 border rounded-md w-64" />
+      <button id="openCreateChapter" class="px-4 py-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg flex items-center gap-2">
+        <i data-feather="plus-circle" class="w-4 h-4"></i> Create Chapter
+      </button>
     </div>
   </div>
 
-  <!-- Assign Members Modal (clean - no create section) -->
-  <div id="assignModal" class="fixed inset-0 z-50 hidden items-center justify-center">
-    <div class="absolute inset-0 bg-black/40"></div>
-    <div class="relative z-10 bg-white rounded-2xl max-w-xl w-full p-6 shadow-xl">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="text-lg font-semibold text-gray-800">
-          Assign Members to <span id="assignModalChapterName" class="font-semibold"></span>
-        </h3>
-        <button id="closeAssignModal" class="text-gray-400 hover:text-gray-600">✕</button>
+  <div id="chaptersGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+  <div class="mt-6 text-sm text-gray-600" id="chaptersCount"></div>
+</div>
+</main>
+</div>
+
+<!-- Create / Edit Chapter Modal -->
+<div id="chapterModal" class="fixed inset-0 z-50 hidden items-center justify-center">
+  <div class="absolute inset-0 bg-black/40"></div>
+  <div class="relative z-10 bg-white rounded-2xl max-w-2xl w-full p-6 shadow-xl">
+    <div class="flex items-center justify-between mb-4">
+      <h3 id="chapterModalTitle" class="text-lg font-semibold text-gray-800">Create Chapter</h3>
+      <button id="closeChapterModal" class="text-gray-400 hover:text-gray-600">✕</button>
+    </div>
+
+    <form id="chapterForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <input type="hidden" id="chapterEditingId">
+
+      <div>
+        <label class="block text-sm text-gray-700">Name</label>
+        <input id="chapterName" class="mt-1 w-full border rounded px-3 py-2" required>
+
+        <label class="block text-sm text-gray-700 mt-3">Slug</label>
+        <input id="chapterSlug" class="mt-1 w-full border rounded px-3 py-2">
+
+        <label class="block text-sm text-gray-700 mt-3">Capacity</label>
+        <input id="chapterCapacity" type="number" min="0" value="1" class="mt-1 w-full border rounded px-3 py-2">
       </div>
 
-      <!-- Search -->
-      <div class="mb-3">
-        <input id="assignMemberSearch" type="search"
-               class="w-full border rounded px-3 py-2"
-               placeholder="Search members..." />
+      <div>
+        <label class="block text-sm text-gray-700">City</label>
+        <input id="chapterCity" class="mt-1 w-full border rounded px-3 py-2">
+
+        <label class="block text-sm text-gray-700 mt-3">Pincode</label>
+        <input id="chapterPincode" class="mt-1 w-full border rounded px-3 py-2">
+
+        <label class="block text-sm text-gray-700 mt-3">Active</label>
+        <div class="mt-1">
+          <label class="inline-flex items-center gap-2">
+            <input id="chapterActive" type="checkbox" class="h-4 w-4" checked>
+            <span class="text-sm text-gray-700">Is Active</span>
+          </label>
+        </div>
       </div>
 
-      <!-- Member list -->
-      <div id="assignMembersList"
-           class="max-h-72 overflow-y-auto border rounded p-2 space-y-2 bg-gray-50">
-      </div>
+      <div class="md:col-span-2">
+        <label class="block text-sm text-gray-700">Description</label>
+        <textarea id="chapterDesc" rows="3" class="mt-1 w-full border rounded px-3 py-2"></textarea>
 
-      <!-- Footer buttons -->
-      <div class="mt-4 flex items-center justify-end gap-3">
-        <button id="cancelAssign" class="px-4 py-2 rounded bg-gray-100">Cancel</button>
-        <button id="confirmAssign"
-                class="px-4 py-2 rounded bg-gradient-to-r from-red-500 to-red-600 text-white">
-          Save Assigned Members
-        </button>
+        <div class="mt-4 flex items-center justify-end gap-3">
+          <button type="button" id="cancelChapter" class="px-4 py-2 rounded bg-gray-100">Cancel</button>
+          <button type="submit" id="saveChapter" class="px-4 py-2 rounded bg-gradient-to-r from-red-500 to-red-600 text-white">Save Chapter</button>
+        </div>
       </div>
+    </form>
+  </div>
+</div>
+
+<!-- Assign Members Modal (clean - no create section) -->
+<div id="assignModal" class="fixed inset-0 z-50 hidden items-center justify-center">
+  <div class="absolute inset-0 bg-black/40"></div>
+  <div class="relative z-10 bg-white rounded-2xl max-w-xl w-full p-6 shadow-xl">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-lg font-semibold text-gray-800">
+        Assign Members to <span id="assignModalChapterName" class="font-semibold"></span>
+      </h3>
+      <button id="closeAssignModal" class="text-gray-400 hover:text-gray-600">✕</button>
+    </div>
+
+    <!-- Search -->
+    <div class="mb-3">
+      <input id="assignMemberSearch" type="search"
+             class="w-full border rounded px-3 py-2"
+             placeholder="Search members..." />
+    </div>
+
+    <!-- Member list -->
+    <div id="assignMembersList"
+         class="max-h-72 overflow-y-auto border rounded p-2 space-y-2 bg-gray-50">
+    </div>
+
+    <!-- Footer buttons -->
+    <div class="mt-4 flex items-center justify-end gap-3">
+      <button id="cancelAssign" class="px-4 py-2 rounded bg-gray-100">Cancel</button>
+      <button id="confirmAssign"
+              class="px-4 py-2 rounded bg-gradient-to-r from-red-500 to-red-600 text-white">
+        Save Assigned Members
+      </button>
     </div>
   </div>
+</div>
 
-  <!-- View / Edit Members Modal -->
-  <div id="viewMembersModal" class="fixed inset-0 z-50 hidden items-center justify-center">
-    <div class="absolute inset-0 bg-black/40"></div>
-    <div class="relative z-10 bg-white rounded-2xl max-w-2xl w-full p-6 shadow-xl">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="text-lg font-semibold text-gray-800">Members in <span id="viewModalChapterName" class="font-semibold"></span></h3>
-        <button id="closeViewMembers" class="text-gray-400 hover:text-gray-600">✕</button>
-      </div>
+<!-- View / Edit Members Modal -->
+<div id="viewMembersModal" class="fixed inset-0 z-50 hidden items-center justify-center">
+  <div class="absolute inset-0 bg-black/40"></div>
+  <div class="relative z-10 bg-white rounded-2xl max-w-2xl w-full p-6 shadow-xl">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-lg font-semibold text-gray-800">Members in <span id="viewModalChapterName" class="font-semibold"></span></h3>
+      <button id="closeViewMembers" class="text-gray-400 hover:text-gray-600">✕</button>
+    </div>
 
-      <div id="chapterMembersContainer" class="max-h-72 overflow-y-auto border rounded p-2 space-y-2"></div>
+    <div id="chapterMembersContainer" class="max-h-72 overflow-y-auto border rounded p-2 space-y-2"></div>
 
-      <div class="mt-4 flex items-center justify-end gap-3">
-        <button id="closeViewMembers2" class="px-4 py-2 rounded bg-gray-100">Close</button>
-      </div>
+    <div class="mt-4 flex items-center justify-end gap-3">
+      <button id="closeViewMembers2" class="px-4 py-2 rounded bg-gray-100">Close</button>
     </div>
   </div>
+</div>
 
-  <!-- Toast container -->
-  <div id="toast" class="fixed right-6 bottom-6 z-50"></div>
+<!-- Toast container -->
+<div id="toast" class="fixed right-6 bottom-6 z-50"></div>
 
-  <!-- Script -->
-  <script>
+<!-- Script -->
+<script>
 (function(){
   // persistence key
   const STORAGE_KEY = 'tmn_chapters_v2';
 
   // sample seed data (keeps chapter_code if present)
   let chapters = [
-    { id: 1, chapter_code: 'CHP-001', name: 'Delhi Chapter', slug:'delhi-chapter', description:'Delhi events & networking', city:'Delhi', pincode:'110001', is_active:true, order_no:1, members:[101,102] },
-    { id: 2, chapter_code: 'CHP-002', name: 'Mumbai Chapter', slug:'mumbai-chapter', description:'Mumbai networking', city:'Mumbai', pincode:'400001', is_active:true, order_no:2, members:[] },
+    { id: 1, chapter_code: 'CHP-001', name: 'Delhi Chapter', slug:'delhi-chapter', description:'Delhi events & networking', city:'Delhi', pincode:'110001', is_active:true, capacity_no: 50, members:[101,102] },
+    { id: 2, chapter_code: 'CHP-002', name: 'Mumbai Chapter', slug:'mumbai-chapter', description:'Mumbai networking', city:'Mumbai', pincode:'400001', is_active:true, capacity_no: 75, members:[] },
   ];
 
   let allMembers = [
@@ -181,7 +183,6 @@
 
   // NEW helper: pad id to create human-friendly chapter_code
   function padChapterCodeFromId(id){
-    // 3-digit padded: CHP-001, CHP-012, CHP-123
     const num = Number(id) || 0;
     return 'CHP-' + String(num).padStart(3, '0');
   }
@@ -210,11 +211,10 @@
     pincode: document.getElementById('chapterPincode'),
     desc: document.getElementById('chapterDesc'),
     active: document.getElementById('chapterActive'),
-    order: document.getElementById('chapterOrder')
+    capacity: document.getElementById('chapterCapacity')
   };
 
   // place to show meta (ID / code) in modal
-  // create meta element if not present
   let chapterMeta = document.getElementById('chapterMeta');
   if (!chapterMeta) {
     chapterMeta = document.createElement('div');
@@ -248,8 +248,9 @@
     card.setAttribute('data-id', ch.id);
 
     const memberCount = (ch.members || []).length;
-    // use chapter.chapter_code if exists, otherwise generate from id
     const code = ch.chapter_code ? escapeHtml(ch.chapter_code) : escapeHtml(padChapterCodeFromId(ch.id));
+    // capacity display (fall back to '—' if undefined or null)
+    const capacityDisplay = (typeof ch.capacity_no !== 'undefined' && ch.capacity_no !== null) ? escapeHtml(String(ch.capacity_no)) : '—';
 
     card.innerHTML = `
       <div class="card-accent"></div>
@@ -264,7 +265,7 @@
           <div class="${ch.is_active ? 'badge-active' : 'badge-inactive'} inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium">
             ${ch.is_active ? '<svg class="w-3 h-3" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="4" cy="4" r="3" fill="#16A34A"/></svg> Active' : 'Inactive'}
           </div>
-          <div class="text-xs text-gray-400 mt-2">Order: <span class="chapter-order font-medium">${escapeHtml(ch.order_no)}</span></div>
+          <div class="text-xs text-gray-400 mt-2">Capacity: <span class="chapter-capacity font-medium">${capacityDisplay}</span></div>
           <div class="text-xs text-gray-500 mt-2 member-count-pill">${memberCount ? memberCount + ' member' + (memberCount>1?'s':'') : 'No members'}</div>
         </div>
       </div>
@@ -323,6 +324,12 @@
       const pill = card.querySelector('.member-count-pill');
       const count = (ch.members||[]).length;
       if (pill) pill.textContent = count ? `${count} member${count>1?'s':''}` : 'No members';
+
+      // update capacity display if present
+      const capEl = card.querySelector('.chapter-capacity');
+      if (capEl) {
+        capEl.textContent = (typeof ch.capacity_no !== 'undefined' && ch.capacity_no !== null) ? String(ch.capacity_no) : '—';
+      }
     });
   }
 
@@ -340,6 +347,8 @@
     chapterForm.reset();
     fields.active.checked = true;
     chapterModalTitle.textContent = 'Create Chapter';
+    // set default capacity to 1
+    fields.capacity.value = 1;
     // show meta for new (will display expected next code)
     const nextId = getNextSequentialId();
     chapterMeta.textContent = `Next ID: ${nextId} • Code: ${padChapterCodeFromId(nextId)}`;
@@ -355,9 +364,8 @@
     fields.pincode.value = ch.pincode || '';
     fields.desc.value = ch.description || '';
     fields.active.checked = !!ch.is_active;
-    fields.order.value = ch.order_no || 1;
+    fields.capacity.value = (typeof ch.capacity_no !== 'undefined' && ch.capacity_no !== null) ? ch.capacity_no : 1;
     chapterModalTitle.textContent = 'Edit Chapter';
-    // show meta
     const code = ch.chapter_code ? ch.chapter_code : padChapterCodeFromId(ch.id);
     chapterMeta.textContent = `ID: ${ch.id} • Code: ${code}`;
     chapterModal.classList.remove('hidden'); chapterModal.classList.add('flex');
@@ -369,7 +377,6 @@
   chapterForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const id = chapterEditingId.value ? Number(chapterEditingId.value) : null;
-    // if creating new, use next sequential id (keeps codes nice)
     const newId = id || getNextSequentialId();
     const payload = {
       id: newId,
@@ -380,12 +387,11 @@
       pincode: fields.pincode.value.trim(),
       description: fields.desc.value.trim(),
       is_active: !!fields.active.checked,
-      order_no: Number(fields.order.value) || 1,
+      capacity_no: Number(fields.capacity.value) || 0,
       members: id ? (chapters.find(c=>c.id===id).members || []) : []
     };
     if (!payload.name) return alert('Name is required');
 
-    // if existing chapter has chapter_code, preserve it; otherwise generate from numeric id
     const existing = chapters.find(c => c.id === newId);
     if (existing && existing.chapter_code) {
       payload.chapter_code = existing.chapter_code;
