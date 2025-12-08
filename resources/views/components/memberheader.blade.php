@@ -300,11 +300,12 @@
 
 
     <!-- logout (fixed at bottom) -->
-    <div class="pt-4 border-t mt-4">
-      <a href="login.html"
+    <div class="p-4 border-t">
+      <a href="#" 
          class="w-full flex bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg items-center justify-center gap-2 shadow-md text-center"
          aria-label="Logout">
-        <i data-feather="log-out" class="w-4"></i> Logout
+        <i data-feather="log-out" class="w-4"></i>
+        <span class="hidden md:inline">Logout</span>
       </a>
     </div>
   </aside>
@@ -322,11 +323,168 @@
             </svg>
           </button>
 
-          <h1 class="text-lg sm:text-xl font-semibold text-red-600 flex items-center gap-2">
+          @php
+    $r = request()->route()->getName() ?? '';
+@endphp
+
+<h1 class="text-lg sm:text-xl font-semibold text-red-600 flex items-center gap-2">
+
+    {{-- AUTO ICON --}}
+    @switch(true)
+        @case(str_starts_with($r, 'member.dashboard'))
             <i data-feather="home" class="w-4"></i>
-            <span class="hidden sm:inline">Dashboard Overview</span>
-            <span class="inline sm:hidden text-sm text-gray-600">Overview</span>
-          </h1>
+            @break
+
+        @case(str_contains($r, 'chapter.events'))
+            <i data-feather="calendar" class="w-4"></i>
+            @break
+
+        @case(str_contains($r, 'chapter.eventattended'))
+            <i data-feather="check-circle" class="w-4"></i>
+            @break
+
+        @case(str_contains($r, 'referrals'))
+            <i data-feather="share-2" class="w-4"></i>
+            @break
+
+        @case(str_contains($r, 'business.offer'))
+            <i data-feather="send" class="w-4"></i>
+            @break
+
+        @case(str_contains($r, 'business.take'))
+            <i data-feather="download" class="w-4"></i>
+            @break
+
+        @case(str_contains($r, 'business.list'))
+            <i data-feather="briefcase" class="w-4"></i>
+            @break
+
+        @case(str_contains($r, 'meetings'))
+            <i data-feather="users" class="w-4"></i>
+            @break
+
+        @case(str_contains($r, 'awards.recognitions'))
+            <i data-feather="award" class="w-4"></i>
+            @break
+
+        @case(str_contains($r, 'awards.index'))
+            <i data-feather="star" class="w-4"></i>
+            @break
+
+        @case(str_contains($r, 'branding'))
+            <i data-feather="book-open" class="w-4"></i>
+            @break
+
+        @case(str_contains($r, 'business.investors'))
+            <i data-feather="dollar-sign" class="w-4"></i>
+            @break
+
+        @case(str_contains($r, 'csr'))
+            <i data-feather="heart" class="w-4"></i>
+            @break
+
+        @case(str_contains($r, 'settings'))
+            <i data-feather="settings" class="w-4"></i>
+            @break
+
+        @default
+            <i data-feather="file-text" class="w-4"></i>
+    @endswitch
+
+
+    {{-- DESKTOP TITLE --}}
+    <span class="hidden sm:inline">
+        @switch(true)
+            @case(str_starts_with($r, 'member.dashboard'))
+                Dashboard Overview
+                @break
+
+            @case(str_contains($r, 'chapter.events'))
+                Chapter Events
+                @break
+
+            @case(str_contains($r, 'chapter.eventattended'))
+                Chapter Attended
+                @break
+
+            @case(str_contains($r, 'referrals'))
+                Referrals
+                @break
+
+            @case(str_contains($r, 'business.offer'))
+                Give Services
+                @break
+
+            @case(str_contains($r, 'business.take'))
+                Take Services
+                @break
+
+            @case(str_contains($r, 'business.list'))
+                Businesses
+                @break
+
+            @case(str_contains($r, 'meetings.1-1meetup'))
+                1-1 Meetup
+                @break
+
+            @case(str_contains($r, 'meetings.clustermeetings'))
+                Cluster Meetings
+                @break
+
+            @case(str_contains($r, 'awards.recognitions'))
+                Recognitions
+                @break
+
+            @case(str_contains($r, 'awards.index'))
+                Awards
+                @break
+
+            @case(str_contains($r, 'branding'))
+                Branding
+                @break
+
+            @case(str_contains($r, 'business.investors'))
+                Investors
+                @break
+
+            @case(str_contains($r, 'csr'))
+                CSR
+                @break
+
+            @case(str_contains($r, 'settings'))
+                Settings
+                @break
+
+            @default
+                Member Panel
+        @endswitch
+    </span>
+
+    {{-- MOBILE TITLE --}}
+    <span class="inline sm:hidden text-sm text-gray-600">
+        @switch(true)
+            @case(str_starts_with($r, 'member.dashboard'))
+                Overview
+                @break
+            @case(str_contains($r, 'events'))
+                Events
+                @break
+            @case(str_contains($r, 'offer'))
+                Give
+                @break
+            @case(str_contains($r, 'take'))
+                Take
+                @break
+            @case(str_contains($r, 'business'))
+                Business
+                @break
+            @default
+                Menu
+        @endswitch
+    </span>
+
+</h1>
+
         </div>
 
         <!-- Profile -->

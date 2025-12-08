@@ -128,25 +128,18 @@
 
       <!-- Logout -->
       <div class="p-4 border-t">
-  <a href="login.html"
-     class="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg
-            flex items-center justify-center gap-2 shadow-md text-center">
-    <i data-feather="log-out" class="w-4"></i>
-    <span class="hidden md:inline">Logout</span>
-  </a>
-</div>
+      <a href="#" 
+         class="w-full flex bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg items-center justify-center gap-2 shadow-md text-center"
+         aria-label="Logout">
+        <i data-feather="log-out" class="w-4"></i>
+        <span class="hidden md:inline">Logout</span>
+      </a>
+    </div>
 
     </aside>
 
     
-    <aside class="flex md:hidden fixed left-0 top-0 h-full w-14 bg-white/90 border-r z-20">
-      <nav class="flex flex-col items-center py-4 gap-2">
-        <a href="#" class="p-2 rounded hover:bg-gray-100"><i data-feather="home" class="w-5"></i></a>
-        <a href="#" class="p-2 rounded hover:bg-gray-100"><i data-feather="calendar" class="w-5"></i></a>
-        <a href="#" class="p-2 rounded hover:bg-gray-100"><i data-feather="users" class="w-5"></i></a>
-      </nav>
-    </aside>
-
+   
 
     <!-- ========== MOBILE SIDEBAR SLIDE-OVER ========== -->
    <div id="mobileSidebar" class="fixed inset-0 z-40 hidden" aria-hidden="true">
@@ -227,12 +220,110 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
             </svg>
           </button>
+@php
+    // safe route name (string)
+    $routeName = optional(request()->route())->getName() ?? '';
+    $routeNameLower = strtolower($routeName);
+    // helper boolean: any route name that looks like events
+    $isEvents = str_contains($routeNameLower, 'events') ||
+                request()->routeIs('admin.events.*') ||
+                request()->routeIs('events.*') ||
+                request()->routeIs('admin.dashboard.events') ||
+                request()->routeIs('dashboard.events');
+@endphp
 
-          <h1 class="text-lg sm:text-xl font-semibold text-red-600 flex items-center gap-2">
-            <i data-feather="home" class="w-4"></i>
-            <span class="hidden sm:inline">Dashboard Overview</span>
-            <span class="inline sm:hidden text-sm text-gray-600">Overview</span>
-          </h1>
+<h1 class="text-lg sm:text-xl font-semibold text-red-600 flex items-center gap-2">
+  {{-- ICON --}}
+  @if(request()->routeIs('admin.dashboard') || request()->routeIs('dashboard'))
+    <i data-feather="home" class="w-4"></i>
+
+  @elseif($isEvents)
+    <i data-feather="calendar" class="w-4"></i>
+
+  @elseif(request()->routeIs('admin.awards.*') || request()->routeIs('awards.*') || str_contains($routeNameLower, 'award'))
+    <i data-feather="award" class="w-4"></i>
+
+  @elseif(request()->routeIs('admin.member.enquiry') || request()->routeIs('member.enquiry') || str_contains($routeNameLower, 'enquiry'))
+    <i data-feather="message-square" class="w-4"></i>
+
+  @elseif(request()->routeIs('admin.member.*') || request()->routeIs('member.*'))
+    <i data-feather="users" class="w-4"></i>
+
+  @elseif(request()->routeIs('admin.chapter.*') || request()->routeIs('chapter.*'))
+    <i data-feather="map" class="w-4"></i>
+
+  @elseif(request()->routeIs('admin.settings.*') || request()->routeIs('settings.*'))
+    <i data-feather="settings" class="w-4"></i>
+
+  @else
+    <i data-feather="file-text" class="w-4"></i>
+  @endif
+
+  {{-- PAGE TITLE (desktop) --}}
+  <span class="hidden sm:inline">
+    @if(request()->routeIs('admin.dashboard') || request()->routeIs('dashboard'))
+      Dashboard Overview
+
+    @elseif($isEvents)
+      Events
+
+    @elseif(request()->routeIs('admin.awards.*') || request()->routeIs('awards.*') || str_contains($routeNameLower, 'award'))
+      Awards
+
+    @elseif(request()->routeIs('admin.member.enquiry') || request()->routeIs('member.enquiry') || str_contains($routeNameLower, 'enquiry'))
+      Enquiry
+
+    @elseif(
+        request()->routeIs('admin.member.list') ||
+        request()->routeIs('admin.member.memberlist') ||
+        request()->routeIs('member.list') ||
+        request()->routeIs('member.memberlist') ||
+        str_contains($routeNameLower, 'assigned')
+    )
+      Assigned Members
+
+    @elseif(request()->routeIs('admin.member.*') || request()->routeIs('member.*'))
+      Members
+
+    @elseif(request()->routeIs('admin.chapter.*') || request()->routeIs('chapter.*'))
+      Chapters
+
+    @elseif(request()->routeIs('admin.settings.*') || request()->routeIs('settings.*'))
+      Settings
+
+    @else
+      Admin Panel
+    @endif
+  </span>
+
+  {{-- PAGE TITLE (mobile) --}}
+  <span class="inline sm:hidden text-sm text-gray-600">
+    @if(request()->routeIs('admin.dashboard') || request()->routeIs('dashboard'))
+      Overview
+    @elseif($isEvents)
+      Events
+    @elseif(request()->routeIs('admin.awards.*') || request()->routeIs('awards.*') || str_contains($routeNameLower, 'award'))
+      Awards
+    @elseif(request()->routeIs('admin.member.*') || request()->routeIs('member.*') || str_contains($routeNameLower, 'enquiry'))
+      Members
+    @elseif(request()->routeIs('admin.chapter.*') || request()->routeIs('chapter.*'))
+      Chapters
+    @elseif(request()->routeIs('admin.settings.*') || request()->routeIs('settings.*'))
+      Settings
+    @else
+      Admin
+    @endif
+  </span>
+</h1>
+
+{{-- ensure icons render --}}
+@if (isset($feather) || true)
+  @pushonce('feather-replace')
+  <script> if (typeof feather !== 'undefined') feather.replace(); </script>
+  @endpushonce
+@endif
+
+
         </div>
 
         <!-- Profile -->
