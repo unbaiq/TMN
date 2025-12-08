@@ -1,4 +1,6 @@
-@include('components.memberheader')
+@extends('layouts.app')
+
+@section('content')
 
 <div id="inv-page" class="max-w-7xl mx-auto px-4 py-8">
   <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-4 gap-4">
@@ -401,5 +403,4 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof feather !== 'undefined') feather.replace();
 });
 </script>
-
-@include('components.script')
+@endsection

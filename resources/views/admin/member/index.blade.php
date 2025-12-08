@@ -2,284 +2,565 @@
 
 <script src="https://unpkg.com/feather-icons"></script>
 
-  <style>
+<style>
     :root{
-      --tmn-red:#e53935;
-      --panel-bg:#ffffff;
-      --muted:#6b7280;
+        --tmn-red:#e53935;
+        --panel-bg:#ffffff;
+        --muted:#6b7280;
+        --bg-soft:#f3f4f8;
     }
-    body { background: #f3f4f6; font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
-    .card { background: var(--panel-bg); border-radius: 12px; box-shadow: 0 4px 10px rgba(15,23,42,0.04); }
-    .accent-line { height:6px; border-radius:8px; background: linear-gradient(90deg,#fb923c,#ef4444, #ef5350); opacity:.12; margin-top:-1rem; margin-left:1rem; margin-right:1rem; }
-    .pill { padding:6px 10px; border-radius:999px; font-size:.75rem; font-weight:600; }
-    .badge-active { background: linear-gradient(90deg,#ecfdf5,#bbf7d0); color:#065f46; }
-    .muted { color:var(--muted); }
-    .section-title { font-weight:700; color:#111827; }
-    .tab-active { border-bottom:3px solid var(--tmn-red); padding-bottom:0.5rem; }
-    .small { font-size:0.85rem; }
-    .info-row { border-top:1px solid #f3f4f6; padding-top:0.75rem; padding-bottom:0.75rem; }
-  </style>
 
+    body{
+        background: var(--bg-soft);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
 
-      <div class="max-w-6xl mx-auto px-6 py-6 space-y-6">
+    .card{
+        background: var(--panel-bg);
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(15,23,42,0.06);
+        border: 1px solid rgba(148,163,184,0.18);
+    }
 
-        <!-- PROFILE TOP -->
-        <section class="card p-6 relative">
-          <div class="accent-line"></div>
-          <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div class="flex items-center gap-4">
-              <div class="w-20 h-20 rounded-xl bg-red-100 flex items-center justify-center text-red-600 text-2xl font-bold">R</div>
-              <div>
-                <div class="flex items-center gap-3">
-                  <h2 id="memberName" class="text-2xl font-semibold">Ramesh Kumar</h2>
-                  <div id="roleBadge" class="pill badge-active">Member</div>
-                  <div id="activeBadge" class="pill bg-gray-100 text-gray-700">Active</div>
-                </div>
-                <div class="text-sm muted mt-1" id="memberBusiness">Ramesh Enterprises • Delhi</div>
-                <div class="text-xs muted mt-1">Referral: <span id="referralCode">TMN-AB12</span> • Member since <span id="memberStart">2024-02-01</span> • Expires: <span id="memberEnd">2025-02-01</span></div>
-              </div>
+    .pill{
+        padding:6px 10px;
+        border-radius:999px;
+        font-size:.75rem;
+        font-weight:600;
+    }
+    .badge-active{
+        background: linear-gradient(90deg,#ecfdf5,#bbf7d0);
+        color:#065f46;
+    }
+    .muted{ color:var(--muted); }
+    .section-title{ font-weight:700; color:#111827; }
+    .small{ font-size:0.85rem; }
+
+    .info-row{
+        border-top:1px solid #f3f4f6;
+        padding-top:0.75rem;
+        padding-bottom:0.75rem;
+    }
+
+    /* PAGE HEADER (like screenshot) */
+    .page-icon{
+        width: 38px;
+        height: 38px;
+        border-radius: 12px;
+        background: #fee2e2;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        color:#b91c1c;
+    }
+
+    /* TOP SUMMARY CARD */
+    .accent-line{
+        height:6px;
+        border-radius:8px;
+        background: linear-gradient(90deg,#fb923c,#ef4444,#ef5350);
+        opacity:.14;
+        margin:-1rem 1.5rem 0.5rem;
+    }
+
+    .summary-tag{
+        font-size:.75rem;
+        color:#6b7280;
+    }
+
+    /* coloured tiles row (Email / Phone / Profession / Status) */
+    .summary-tiles{
+        display:grid;
+        grid-template-columns: repeat(1,minmax(0,1fr));
+        gap:0.75rem;
+    }
+
+    @media (min-width:768px){
+        .summary-tiles{
+            grid-template-columns: repeat(4,minmax(0,1fr));
+        }
+    }
+
+    .summary-tile{
+        border-radius:14px;
+        padding:0.9rem 1rem;
+        display:flex;
+        align-items:flex-start;
+        gap:0.65rem;
+        color:#fff;
+        box-shadow: 0 10px 25px rgba(15,23,42,0.18);
+    }
+    .summary-tile span.label{
+        font-size:0.75rem;
+        opacity:.9;
+    }
+    .summary-tile span.value{
+        font-size:0.9rem;
+        font-weight:600;
+    }
+
+    .tile-email{
+        background: linear-gradient(135deg,#2563eb,#1d4ed8);
+    }
+    .tile-phone{
+        background: linear-gradient(135deg,#16a34a,#15803d);
+    }
+    .tile-prof{
+        background: linear-gradient(135deg,#8b5cf6,#7c3aed);
+    }
+    .tile-status{
+        background: linear-gradient(135deg,#f9fafb,#e5e7eb);
+        color:#111827;
+        box-shadow: 0 8px 18px rgba(148,163,184,0.35);
+    }
+
+    /* small info cards like Membership / Payment / Account */
+    .mini-info-row{
+        margin-top:1rem;
+        display:grid;
+        gap:0.75rem;
+    }
+    @media (min-width:768px){
+        .mini-info-row{
+            grid-template-columns: repeat(3,minmax(0,1fr));
+        }
+    }
+    .mini-card{
+        border-radius:14px;
+        border:1px solid #e5e7eb;
+        background:#fdfdfd;
+        padding:0.75rem 1rem;
+        font-size:0.8rem;
+    }
+    .mini-card-title{
+        font-weight:600;
+        color:#111827;
+        margin-bottom:0.25rem;
+    }
+    .mini-card-label{
+        font-size:0.7rem;
+        color:#9ca3af;
+    }
+
+    /* TABS (look like screenshot) */
+    .tab-bar{
+        border-bottom:1px solid #e5e7eb;
+    }
+    .tab-btn{
+        position:relative;
+        padding:0.6rem 0.4rem;
+        margin-right:1.5rem;
+        font-size:0.85rem;
+        color:#6b7280;
+        display:inline-flex;
+        align-items:center;
+        gap:0.4rem;
+        font-weight:500;
+    }
+    .tab-btn svg{
+        width:16px;
+        height:16px;
+    }
+    .tab-btn.tab-active{
+        color:#111827;
+    }
+    .tab-btn.tab-active::after{
+        content:"";
+        position:absolute;
+        left:0;
+        right:0;
+        bottom:-1px;
+        height:3px;
+        border-radius:999px;
+        background:#2563eb;
+    }
+
+    /* Toast */
+    #toast > div{
+        margin-top:0.5rem;
+    }
+</style>
+
+<div class="max-w-6xl mx-auto px-4 lg:px-8 py-6 space-y-6">
+
+    {{-- PAGE HEADING (top bar like screenshot) --}}
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <div class="page-icon">
+                <i data-feather="users"></i>
             </div>
-
-            <div class="flex items-center gap-3">
-              <div class="text-right mr-2">
-                <div class="text-sm muted">Total Amount</div>
-                <div id="totalAmount" class="text-xl font-semibold">₹ 12,500.00</div>
-              </div>
-
-              <div class="flex items-center gap-2">
-                <button id="editProfileBtn" class="px-3 py-2 bg-white border rounded shadow-sm flex items-center gap-2">
-                  <i data-feather="edit-2" class="w-4"></i> Edit
-                </button>
-                <button id="messageBtn" class="px-3 py-2 bg-red-600 text-white rounded flex items-center gap-2">
-                  <i data-feather="send" class="w-4"></i> Message
-                </button>
-              </div>
+            <div>
+                <h1 class="text-xl sm:text-2xl font-semibold text-slate-900">Member Details</h1>
+                <p class="text-xs sm:text-sm text-slate-500 mt-0.5">
+                    View and manage member profile, attendance, services and more.
+                </p>
             </div>
-          </div>
-        </section>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-          <!-- LEFT: Contact & Profile -->
-          <div class="space-y-6">
-            <div class="card p-4">
-              <h3 class="section-title">Contact & Profile</h3>
-              <div class="mt-3 space-y-2">
-                <div class="info-row flex items-center justify-between">
-                  <div>
-                    <div class="text-sm muted">Email</div>
-                    <div id="memberEmail" class="font-medium">ramesh@example.com</div>
-                  </div>
-                </div>
-
-                <div class="info-row flex items-center justify-between">
-                  <div>
-                    <div class="text-sm muted">Phone</div>
-                    <div id="memberPhone" class="font-medium">+91 98765 43210</div>
-                  </div>
-                </div>
-
-                <div class="info-row">
-                  <div class="text-sm muted">Address</div>
-                  <div id="memberAddress" class="mt-1">12, MG Road, Connaught Place, New Delhi, 110001</div>
-                </div>
-
-                <div class="info-row">
-                  <div class="text-sm muted">Business</div>
-                  <div id="memberBusinessFull" class="mt-1">Ramesh Enterprises — Manufacturing & Distribution</div>
-                  <div class="text-xs muted mt-1">Designation: <span id="memberDesignation">Founder & CEO</span></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="card p-4">
-              <h3 class="section-title">Profile Details</h3>
-              <div class="mt-3 space-y-2">
-                <div class="flex items-center justify-between">
-                  <div class="text-sm muted">Referral ID</div>
-                  <div id="referId" class="font-medium">101</div>
-                </div>
-                <div class="flex items-center justify-between">
-                  <div class="text-sm muted">Membership Role</div>
-                  <div id="role" class="font-medium">member</div>
-                </div>
-                <div class="flex items-center justify-between">
-                  <div class="text-sm muted">Email verified</div>
-                  <div id="emailVerified" class="font-medium">Yes</div>
-                </div>
-                <div class="flex items-center justify-between">
-                  <div class="text-sm muted">Is Active</div>
-                  <div id="isActive" class="font-medium">Yes</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="card p-4">
-              <h3 class="section-title">CSR & Philanthropy</h3>
-              <div class="mt-3 space-y-2">
-                <div class="flex items-center justify-between">
-                  <div>
-                    <div class="text-sm muted">CSR Interested Areas</div>
-                    <div id="csrCategories" class="font-medium">Skill development, Health support</div>
-                  </div>
-                </div>
-
-                <div class="flex items-center justify-between mt-3">
-                  <div class="text-sm muted">CSR Amount Pledged</div>
-                  <div id="csrAmount" class="font-medium">₹ 50,000</div>
-                </div>
-
-                <div class="mt-3 text-xs muted">Collaboration notes: <div id="csrNotes">Open to local skill development programs; prefers education & health</div></div>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- MIDDLE: Tabs & Main Content -->
-          <div class="lg:col-span-2">
-            <div class="card p-4">
-              <!-- tabs -->
-              <div class="flex items-center gap-4 border-b pb-3">
-                <button class="tab-btn tab-active text-sm pb-2" data-tab="overview">Overview</button>
-                <button class="tab-btn text-sm pb-2" data-tab="attendance">Attendance</button>
-                <button class="tab-btn text-sm pb-2" data-tab="invest">Investments</button>
-                <button class="tab-btn text-sm pb-2" data-tab="meet">1-1 Meetups</button>
-                <button class="tab-btn text-sm pb-2" data-tab="services">Services</button>
-              </div>
-
-              <div class="mt-4">
-                <!-- Overview Tab -->
-                <div class="tab-content" id="overview">
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="p-4 border rounded">
-                      <h4 class="font-semibold">Chapter & Participation</h4>
-                      <div class="mt-3 small muted">Assigned Chapter</div>
-                      <div id="assignedChapter" class="font-medium">Delhi Chapter</div>
-                      <div class="small muted mt-3">Cluster Meetings attended</div>
-                      <ul id="clusterList" class="mt-2 list-disc list-inside text-sm">
-                        <!-- filled by js -->
-                      </ul>
-                    </div>
-
-                    <div class="p-4 border rounded">
-                      <h4 class="font-semibold">Business Snapshot</h4>
-                      <div class="mt-3 small muted">Turnover (last FY)</div>
-                      <div id="businessTurnover" class="font-medium">₹ 25,00,000</div>
-                      <div class="small muted mt-3">Business category</div>
-                      <div id="businessCategory" class="font-medium">Manufacturing</div>
-                    </div>
-                  </div>
-
-                  <div class="mt-4">
-                    <h4 class="font-semibold">Recent Activity</h4>
-                    <div id="activityList" class="mt-2 space-y-2 small muted">
-                      <!-- js -->
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Attendance Tab -->
-                <div class="tab-content hidden" id="attendance">
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="p-4 border rounded">
-                      <h4 class="font-semibold">Events Attended</h4>
-                      <table class="w-full text-sm mt-3">
-                        <thead class="text-left text-xs muted">
-                          <tr><th>Event</th><th>Date</th><th>Status</th></tr>
-                        </thead>
-                        <tbody id="eventsAttended" class="text-sm">
-                          <!-- js -->
-                        </tbody>
-                      </table>
-                    </div>
-
-                    <div class="p-4 border rounded">
-                      <h4 class="font-semibold">Chapter Attendance</h4>
-                      <table class="w-full text-sm mt-3">
-                        <thead class="text-left text-xs muted"><tr><th>Chapter</th><th>Meet</th><th>Date</th></tr></thead>
-                        <tbody id="chapterAttendance">
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Investments Tab -->
-                <div class="tab-content hidden" id="invest">
-                  <div class="p-4 border rounded">
-                    <h4 class="font-semibold">Investor Details</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-3">
-                      <div>
-                        <div class="text-sm muted">Amount to Invest</div>
-                        <div id="investAmount" class="font-medium">₹ 10,00,000</div>
-                      </div>
-                      <div>
-                        <div class="text-sm muted">Interested Categories</div>
-                        <div id="investCategories" class="font-medium">Startup, Partner</div>
-                      </div>
-                      <div>
-                        <div class="text-sm muted">Preferred Stage</div>
-                        <div id="investStage" class="font-medium">Seed / Early</div>
-                      </div>
-                    </div>
-
-                    <div class="mt-4">
-                      <h5 class="font-semibold">Past Investments</h5>
-                      <table class="w-full text-sm mt-2">
-                        <thead class="text-xs muted"><tr><th>Recipient</th><th>Amount</th><th>Date</th></tr></thead>
-                        <tbody id="pastInvestments"></tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- 1-1 Meetups Tab -->
-                <div class="tab-content hidden" id="meet">
-                  <div class="p-4 border rounded">
-                    <h4 class="font-semibold">1-1 Meetups</h4>
-                    <table class="w-full text-sm mt-3">
-                      <thead class="text-xs muted"><tr><th>With</th><th>Date</th><th>Notes</th></tr></thead>
-                      <tbody id="meetupsList"></tbody>
-                    </table>
-                  </div>
-                </div>
-
-                <!-- Services Tab -->
-                <div class="tab-content hidden" id="services">
-                  <div class="p-4 border rounded">
-                    <h4 class="font-semibold">Services Availed</h4>
-                    <table class="w-full text-sm mt-3">
-                      <thead class="text-xs muted"><tr><th>Service</th><th>Provider</th><th>Date</th><th>Status</th></tr></thead>
-                      <tbody id="servicesAvailed"></tbody>
-                    </table>
-
-                    <div class="mt-4">
-                      <h4 class="font-semibold">Services Given</h4>
-                      <table class="w-full text-sm mt-3">
-                        <thead class="text-xs muted"><tr><th>Service</th><th>Client</th><th>Date</th></tr></thead>
-                        <tbody id="servicesGiven"></tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-          </div>
         </div>
 
-      </div>
+        {{-- optional toolbar (export / import / reset demo) --}}
+        <div class="flex items-center gap-2">
+            <button id="exportBtn"
+                    class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 text-xs rounded-lg border bg-white hover:bg-slate-50">
+                <i data-feather="download" class="w-3 h-3"></i> Export JSON
+            </button>
+            <button id="importBtn"
+                    class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 text-xs rounded-lg border bg-white hover:bg-slate-50">
+                <i data-feather="upload" class="w-3 h-3"></i> Import
+            </button>
+            <button id="resetBtn"
+                    class="hidden sm:inline-flex items-center gap-2 px-3 py-1.5 text-xs rounded-lg border border-red-100 text-red-600 bg-red-50/60 hover:bg-red-100/80">
+                <i data-feather="rotate-ccw" class="w-3 h-3"></i> Reset Demo
+            </button>
+            <input id="importFile" type="file" accept="application/json" class="hidden">
+        </div>
+    </div>
 
-      <!-- EDIT PROFILE MODAL -->
-      <div id="editModal" class="fixed inset-0 z-50 hidden items-center justify-center">
-        <div class="absolute inset-0 bg-black/40"></div>
-        <div class="relative z-10 bg-white rounded-2xl max-w-2xl w-full p-6 shadow-xl">
-          <div class="flex items-center justify-between mb-3">
+    <!-- PROFILE TOP / SUMMARY (styled like screenshot) -->
+    <section class="card p-5 lg:p-6 relative">
+        <div class="accent-line"></div>
+
+        <div class="mt-2 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div class="flex items-center gap-4">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-red-100 flex items-center justify-center text-red-600 text-xl sm:text-2xl font-bold">
+                    R
+                </div>
+                <div>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <h2 id="memberName" class="text-xl sm:text-2xl font-semibold">Ramesh Kumar</h2>
+                        <div id="roleBadge" class="pill badge-active">Member</div>
+                        <div id="activeBadge" class="pill bg-gray-100 text-gray-700">Active</div>
+                    </div>
+                    <div class="text-sm muted mt-1" id="memberBusiness">Ramesh Enterprises • Delhi</div>
+                    <div class="summary-tag mt-1">
+                        Member ID: <span class="font-medium">TMN-201</span> •
+                        Referral: <span id="referralCode">TMN-AB12</span> •
+                        Member since <span id="memberStart">2024-02-01</span> •
+                        Expires <span id="memberEnd">2025-02-01</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-end gap-4 justify-between md:justify-end">
+                <div class="text-right">
+                    <div class="text-xs summary-tag">Total Amount</div>
+                    <div id="totalAmount" class="text-xl font-semibold text-slate-900">₹ 12,500.00</div>
+                </div>
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                    <button id="editProfileBtn"
+                            class="inline-flex items-center justify-center gap-2 px-3 py-2 text-xs sm:text-sm bg-white border border-slate-200 rounded-lg shadow-sm hover:bg-slate-50">
+                        <i data-feather="edit-2" class="w-4 h-4"></i>
+                        Edit
+                    </button>
+                    <button id="messageBtn"
+                            class="inline-flex items-center justify-center gap-2 px-3 py-2 text-xs sm:text-sm bg-[#2563eb] hover:bg-[#1d4ed8] text-white rounded-lg shadow">
+                        <i data-feather="send" class="w-4 h-4"></i>
+                        Message
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        {{-- coloured tiles like screenshot --}}
+        <div class="mt-5 summary-tiles">
+            <div class="summary-tile tile-email">
+                <div class="pt-0.5">
+                    <i data-feather="mail" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <span class="label block">Email</span>
+                    <span id="memberEmailSummary" class="value block">ramesh@example.com</span>
+                </div>
+            </div>
+
+            <div class="summary-tile tile-phone">
+                <div class="pt-0.5">
+                    <i data-feather="phone" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <span class="label block">Phone</span>
+                    <span class="value block">+91 98765 43210</span>
+                </div>
+            </div>
+
+            <div class="summary-tile tile-prof">
+                <div class="pt-0.5">
+                    <i data-feather="briefcase" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <span class="label block">Profession</span>
+                    <span class="value block">Not specified</span>
+                </div>
+            </div>
+
+            <div class="summary-tile tile-status">
+                <div class="pt-0.5">
+                    <i data-feather="shield" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <span class="label block">Status</span>
+                    <span class="value block" id="statusSummary">Active</span>
+                </div>
+            </div>
+        </div>
+
+        {{-- small info cards row (Membership / Payment / Account) --}}
+        <div class="mini-info-row">
+            <div class="mini-card">
+                <div class="mini-card-title flex items-center gap-1">
+                    <i data-feather="credit-card" class="w-4 h-4 text-indigo-500"></i>
+                    Membership
+                </div>
+                <div class="grid grid-cols-2 gap-y-1 mt-2">
+                    <div class="mini-card-label">Number</div>
+                    <div class="text-xs text-slate-700 text-right">Not assigned</div>
+                    <div class="mini-card-label">Start date</div>
+                    <div class="text-xs text-slate-700 text-right" id="membershipStartMini">2024-02-01</div>
+                </div>
+            </div>
+
+            <div class="mini-card">
+                <div class="mini-card-title flex items-center gap-1">
+                    <i data-feather="dollar-sign" class="w-4 h-4 text-emerald-500"></i>
+                    Payment
+                </div>
+                <div class="grid grid-cols-2 gap-y-1 mt-2">
+                    <div class="mini-card-label">Amount</div>
+                    <div class="text-xs text-slate-700 text-right">N/A</div>
+                    <div class="mini-card-label">Last paid</div>
+                    <div class="text-xs text-slate-700 text-right">N/A</div>
+                </div>
+            </div>
+
+            <div class="mini-card">
+                <div class="mini-card-title flex items-center gap-1">
+                    <i data-feather="user-check" class="w-4 h-4 text-violet-500"></i>
+                    Account
+                </div>
+                <div class="grid grid-cols-2 gap-y-1 mt-2">
+                    <div class="mini-card-label">Role</div>
+                    <div class="text-xs text-slate-700 text-right" id="roleMini">Member</div>
+                    <div class="mini-card-label">Created</div>
+                    <div class="text-xs text-slate-700 text-right">7 Oct 2024</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- BELOW: main layout: left column cards + tabs (JS unchanged) --}}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+
+<!-- RIGHT: Tabs & Main Content -->
+<div class="w-full">
+    <div class="card p-4">
+
+        <!-- TAB BAR -->
+        <div class="tab-bar flex items-center gap-6 pb-1 border-b overflow-x-auto">
+            <button class="tab-btn tab-active" data-tab="overview"><i data-feather="grid"></i><span>Overview</span></button>
+            <button class="tab-btn" data-tab="attendance"><i data-feather="calendar"></i><span>Attendance</span></button>
+            <button class="tab-btn" data-tab="invest"><i data-feather="trending-up"></i><span>Investments</span></button>
+            <button class="tab-btn" data-tab="meet"><i data-feather="users"></i><span>1-1 Meetups</span></button>
+            <button class="tab-btn" data-tab="services"><i data-feather="briefcase"></i><span>Services</span></button>
+            <button class="tab-btn" data-tab="give"><i data-feather="arrow-up-circle"></i><span>Give</span></button>
+            <button class="tab-btn" data-tab="take"><i data-feather="arrow-down-circle"></i><span>Take</span></button>
+            <button class="tab-btn" data-tab="referrals"><i data-feather="share-2"></i><span>Referrals</span></button>
+            <button class="tab-btn" data-tab="business"><i data-feather="briefcase"></i><span>Business</span></button>
+            <button class="tab-btn" data-tab="cluster"><i data-feather="layers"></i><span>Cluster Meetings</span></button>
+            <button class="tab-btn" data-tab="recognitions"><i data-feather="award"></i><span>Recognitions</span></button>
+        </div>
+
+        <div class="mt-4">
+
+            <!-- ========== OVERVIEW TAB ========== -->
+            <div class="tab-content" id="overview">
+
+                <div class="p-4 border rounded-xl bg-slate-50/40">
+                    <h4 class="font-semibold text-slate-900">Chapter & Participation</h4>
+                    <div class="mt-3 small muted">Assigned Chapter</div>
+                    <div id="assignedChapter" class="font-medium text-slate-900"></div>
+
+                    <div class="small muted mt-3">Cluster Meetings attended</div>
+                    <ul id="clusterList" class="mt-2 list-disc list-inside text-sm"></ul>
+                </div>
+
+                <div class="p-4 border rounded-xl bg-slate-50/40 mt-4">
+                    <h4 class="font-semibold text-slate-900">Business Snapshot</h4>
+
+                    <div class="mt-3 small muted">Turnover (last FY)</div>
+                    <div id="businessTurnover" class="font-medium text-slate-900"></div>
+
+                    <div class="small muted mt-3">Business Category</div>
+                    <div id="businessCategory" class="font-medium text-slate-900"></div>
+                </div>
+
+                <div class="mt-4">
+                    <h4 class="font-semibold text-slate-900">Recent Activity</h4>
+                    <div id="activityList" class="mt-2 space-y-2 small muted"></div>
+                </div>
+
+            </div>
+
+            <!-- ========== ATTENDANCE TAB ========== -->
+            <div class="tab-content hidden" id="attendance">
+
+                <div class="p-4 border rounded-xl bg-slate-50/40">
+                    <h4 class="font-semibold text-slate-900">Events Attended</h4>
+                    <table class="w-full text-sm mt-3">
+                        <thead class="text-xs muted"><tr><th>Event</th><th>Date</th><th>Status</th></tr></thead>
+                        <tbody id="eventsAttended"></tbody>
+                    </table>
+                </div>
+
+                <div class="p-4 border rounded-xl bg-slate-50/40 mt-4">
+                    <h4 class="font-semibold text-slate-900">Chapter Attendance</h4>
+                    <table class="w-full text-sm mt-3">
+                        <thead class="text-xs muted"><tr><th>Chapter</th><th>Meet</th><th>Date</th></tr></thead>
+                        <tbody id="chapterAttendance"></tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <!-- ========== INVESTMENTS TAB ========== -->
+            <div class="tab-content hidden" id="invest">
+
+                <div class="p-4 border rounded-xl bg-slate-50/40">
+                    <h4 class="font-semibold text-slate-900">Investor Details</h4>
+
+                    <div class="mt-3 small muted">Amount to Invest</div>
+                    <div id="investAmount" class="font-medium text-slate-900"></div>
+
+                    <div class="mt-3 small muted">Interested Categories</div>
+                    <div id="investCategories" class="font-medium text-slate-900"></div>
+
+                    <div class="mt-3 small muted">Preferred Stage</div>
+                    <div id="investStage" class="font-medium text-slate-900"></div>
+
+                    <div class="mt-4">
+                        <h5 class="font-semibold text-slate-900">Past Investments</h5>
+                        <table class="w-full text-sm mt-2">
+                            <thead class="text-xs muted"><tr><th>Recipient</th><th>Amount</th><th>Date</th></tr></thead>
+                            <tbody id="pastInvestments"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ========== 1-1 MEETUPS TAB ========== -->
+            <div class="tab-content hidden" id="meet">
+
+                <div class="p-4 border rounded-xl bg-slate-50/40">
+                    <h4 class="font-semibold text-slate-900">1-1 Meetups</h4>
+                    <table class="w-full text-sm mt-3">
+                        <thead class="text-xs muted"><tr><th>With</th><th>Date</th><th>Notes</th></tr></thead>
+                        <tbody id="meetupsList"></tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            <!-- ========== SERVICES TAB ========== -->
+            <div class="tab-content hidden" id="services">
+
+                <div class="p-4 border rounded-xl bg-slate-50/40">
+                    <h4 class="font-semibold text-slate-900">Services Availed</h4>
+                    <table class="w-full text-sm mt-3">
+                        <thead class="text-xs muted"><tr><th>Service</th><th>Provider</th><th>Date</th><th>Status</th></tr></thead>
+                        <tbody id="servicesAvailed"></tbody>
+                    </table>
+
+                    <div class="mt-4">
+                        <h4 class="font-semibold text-slate-900">Services Given</h4>
+                        <table class="w-full text-sm mt-3">
+                            <thead class="text-xs muted"><tr><th>Service</th><th>Client</th><th>Date</th></tr></thead>
+                            <tbody id="servicesGiven"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ========== GIVE TAB ========== -->
+            <div class="tab-content hidden" id="give">
+                <div class="p-4 border rounded-xl bg-slate-50/40">
+                    <h4 class="font-semibold text-slate-900">Give Records</h4>
+                    <table class="w-full text-sm mt-3">
+                        <thead class="text-xs muted"><tr><th>Date</th><th>To</th><th>Category</th><th>Value</th><th>Notes</th></tr></thead>
+                        <tbody id="giveTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ========== TAKE TAB ========== -->
+            <div class="tab-content hidden" id="take">
+                <div class="p-4 border rounded-xl bg-slate-50/40">
+                    <h4 class="font-semibold text-slate-900">Take Records</h4>
+                    <table class="w-full text-sm mt-3">
+                        <thead class="text-xs muted"><tr><th>Date</th><th>From</th><th>Category</th><th>Value</th><th>Notes</th></tr></thead>
+                        <tbody id="takeTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ========== REFERRALS TAB ========== -->
+            <div class="tab-content hidden" id="referrals">
+                <div class="p-4 border rounded-xl bg-slate-50/40">
+                    <h4 class="font-semibold text-slate-900">Referral Records</h4>
+                    <table class="w-full text-sm mt-3">
+                        <thead class="text-xs muted"><tr><th>ID</th><th>To</th><th>Status</th><th>Value</th><th>Date</th></tr></thead>
+                        <tbody id="referralTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ========== BUSINESS TAB ========== -->
+            <div class="tab-content hidden" id="business">
+                <div class="p-4 border rounded-xl bg-slate-50/40">
+                    <h4 class="font-semibold text-slate-900">Business Information</h4>
+                    <table class="w-full text-sm mt-3">
+                        <thead class="text-xs muted"><tr><th>Name</th><th>Category</th><th>Turnover</th><th>City</th><th>Website</th></tr></thead>
+                        <tbody id="businessTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ========== CLUSTER MEETINGS TAB ========== -->
+            <div class="tab-content hidden" id="cluster">
+                <div class="p-4 border rounded-xl bg-slate-50/40">
+                    <h4 class="font-semibold text-slate-900">Cluster Meetings</h4>
+                    <table class="w-full text-sm mt-3">
+                        <thead class="text-xs muted"><tr><th>Title</th><th>Chapter</th><th>Date</th><th>Notes</th></tr></thead>
+                        <tbody id="clusterTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ========== RECOGNITIONS TAB ========== -->
+            <div class="tab-content hidden" id="recognitions">
+                <div class="p-4 border rounded-xl bg-slate-50/40">
+                    <h4 class="font-semibold text-slate-900">Recognitions</h4>
+                    <table class="w-full text-sm mt-3">
+                        <thead class="text-xs muted"><tr><th>Title</th><th>By</th><th>Category</th><th>Date</th></tr></thead>
+                        <tbody id="recognitionsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- EDIT PROFILE MODAL (unchanged structure, just works with new UI) -->
+<div id="editModal" class="fixed inset-0 z-50 hidden items-center justify-center">
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="relative z-10 bg-white rounded-2xl max-w-2xl w-full p-6 shadow-xl">
+        <div class="flex items-center justify-between mb-3">
             <h3 class="text-lg font-semibold">Edit Member Profile</h3>
             <button id="closeEdit" class="text-gray-400">✕</button>
-          </div>
-          <form id="editForm" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        </div>
+        <form id="editForm" class="grid grid-cols-1 md:grid-cols-2 gap-3">
             <input id="formName" class="border rounded px-3 py-2" placeholder="Full name" required />
             <input id="formEmail" class="border rounded px-3 py-2" placeholder="Email" required />
             <input id="formPhone" class="border rounded px-3 py-2" placeholder="Phone"/>
@@ -290,28 +571,23 @@
             <textarea id="formAddress" class="border rounded px-3 py-2 md:col-span-2" rows="3" placeholder="Address"></textarea>
 
             <div class="md:col-span-2 flex items-center justify-end gap-3">
-              <button type="button" id="cancelEdit" class="px-4 py-2 rounded bg-gray-100">Cancel</button>
-              <button type="submit" class="px-4 py-2 rounded bg-red-600 text-white">Save</button>
+                <button type="button" id="cancelEdit" class="px-4 py-2 rounded bg-gray-100">Cancel</button>
+                <button type="submit" class="px-4 py-2 rounded bg-red-600 text-white">Save</button>
             </div>
-          </form>
-        </div>
-      </div>
+        </form>
+    </div>
+</div>
 
-    </main>
-  </div>
+<!-- Toast -->
+<div id="toast" class="fixed right-6 bottom-6 z-50"></div>
 
-  <!-- Toast -->
-  <div id="toast" class="fixed right-6 bottom-6 z-50"></div>
-
-  <script>
-  // === Demo client-side Member Detail page ===
+<script>
+  // === Demo client-side Member Detail page (JS unchanged, just works with new UI) ===
   (function(){
     feather.replace();
 
-    // Storage key
     const KEY = 'tmn_member_demo_v1';
 
-    // Seed demo data (matches migrations & fields)
     const seed = {
       user: {
         id: 201,
@@ -387,7 +663,6 @@
       ]
     };
 
-    // load or initialize
     function load(){
       try {
         const raw = localStorage.getItem(KEY);
@@ -405,6 +680,14 @@
 
     let data = load();
 
+    function showToast(msg='Saved', type='success'){
+      const t = document.createElement('div');
+      t.className = 'px-4 py-2 rounded shadow text-white ' + (type==='success' ? 'bg-green-600' : 'bg-gray-800');
+      t.textContent = msg;
+      document.getElementById('toast').appendChild(t);
+      setTimeout(()=> t.remove(), 2200);
+    }
+
     function save(){
       localStorage.setItem(KEY, JSON.stringify(data));
       showToast('Saved');
@@ -418,16 +701,6 @@
       showToast('Demo reset');
     }
 
-    // utility
-    function showToast(msg='Saved', type='success'){
-      const t = document.createElement('div');
-      t.className = 'px-4 py-2 rounded shadow text-white ' + (type==='success' ? 'bg-green-600' : 'bg-gray-800');
-      t.textContent = msg;
-      document.getElementById('toast').appendChild(t);
-      setTimeout(()=> t.remove(), 2200);
-    }
-
-    // render functions
     function renderProfile(){
       const u = data.user;
       const p = data.profile;
@@ -436,28 +709,30 @@
       document.getElementById('memberBusiness').textContent = `${p.business_name} • ${p.city}`;
       document.getElementById('memberBusinessFull').textContent = `${p.business_name} — ${p.business_description}`;
       document.getElementById('memberEmail').textContent = u.email;
+      document.getElementById('memberEmailSummary').textContent = u.email;
       document.getElementById('memberPhone').textContent = u.phone;
       document.getElementById('memberAddress').textContent = p.address;
       document.getElementById('memberDesignation').textContent = p.designation;
       document.getElementById('referId').textContent = u.refer_id || '-';
       document.getElementById('role').textContent = u.role;
+      document.getElementById('roleMini').textContent = u.role || '-';
       document.getElementById('emailVerified').textContent = u.email_verified_at ? 'Yes' : 'No';
       document.getElementById('isActive').textContent = u.is_active ? 'Yes' : 'No';
+      document.getElementById('statusSummary').textContent = u.is_active ? 'Active' : 'Inactive';
       document.getElementById('totalAmount').textContent = `₹ ${Number(u.total_amount||0).toLocaleString('en-IN')}`;
       document.getElementById('referralCode').textContent = u.referral_code || '-';
       document.getElementById('memberStart').textContent = u.membership_start || '-';
       document.getElementById('memberEnd').textContent = u.membership_end || '-';
+      document.getElementById('membershipStartMini').textContent = u.membership_start || '-';
       document.getElementById('roleBadge').textContent = (u.role || 'member').toUpperCase();
       document.getElementById('activeBadge').textContent = u.is_active ? 'Active' : 'Inactive';
 
-      // CSR
       document.getElementById('csrCategories').textContent = (data.csr.categories || []).join(', ');
       document.getElementById('csrAmount').textContent = `₹ ${Number(data.csr.pledged_amount||0).toLocaleString('en-IN')}`;
       document.getElementById('csrNotes').textContent = data.csr.notes || '-';
 
-      // overview fields
       document.getElementById('assignedChapter').textContent = data.chapter.assigned?.name || '-';
-      // cluster list
+
       const clusterList = document.getElementById('clusterList');
       clusterList.innerHTML = '';
       data.cluster_meetings.forEach(m => {
@@ -466,7 +741,6 @@
         clusterList.appendChild(li);
       });
 
-      // activity
       const al = document.getElementById('activityList');
       al.innerHTML = '';
       data.activity.forEach(a => {
@@ -543,7 +817,6 @@
       document.getElementById('businessCategory').textContent = data.profile.business_type || '-';
     }
 
-    // Render all
     function renderAll(){
       renderProfile();
       renderAttendance();
@@ -568,7 +841,6 @@
     // Edit Modal
     const editModal = document.getElementById('editModal');
     document.getElementById('editProfileBtn').addEventListener('click', () => {
-      // fill form
       const u = data.user, p = data.profile;
       document.getElementById('formName').value = u.name || '';
       document.getElementById('formEmail').value = u.email || '';
@@ -586,7 +858,6 @@
 
     document.getElementById('editForm').addEventListener('submit', function(e){
       e.preventDefault();
-      // save
       data.user.name = document.getElementById('formName').value;
       data.user.email = document.getElementById('formEmail').value;
       data.user.phone = document.getElementById('formPhone').value;
@@ -601,41 +872,51 @@
     });
 
     // Export / Import / Reset
-    document.getElementById('exportBtn').addEventListener('click', () => {
-      const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url; a.download = `tmn_member_${data.user.id || 'member'}.json`;
-      document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-    });
+    const exportBtn = document.getElementById('exportBtn');
+    const importBtn = document.getElementById('importBtn');
+    const resetBtn  = document.getElementById('resetBtn');
+    const importFile= document.getElementById('importFile');
 
-    document.getElementById('importBtn').addEventListener('click', ()=> document.getElementById('importFile').click());
-    document.getElementById('importFile').addEventListener('change', function(e){
-      const f = e.target.files[0];
-      if (!f) return;
-      const reader = new FileReader();
-      reader.onload = function(evt){
-        try {
-          const obj = JSON.parse(evt.target.result);
-          if (confirm('Replace current member data with imported?')) {
-            data = obj;
-            save();
-            renderAll();
-            showToast('Imported');
-          }
-        } catch(err) { alert('Invalid JSON'); }
-      };
-      reader.readAsText(f);
-      this.value = '';
-    });
+    if (exportBtn){
+      exportBtn.addEventListener('click', () => {
+        const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = `tmn_member_${data.user.id || 'member'}.json`;
+        document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+      });
+    }
 
-    document.getElementById('resetBtn').addEventListener('click', resetDemo);
+    if (importBtn && importFile){
+      importBtn.addEventListener('click', ()=> importFile.click());
+      importFile.addEventListener('change', function(e){
+        const f = e.target.files[0];
+        if (!f) return;
+        const reader = new FileReader();
+        reader.onload = function(evt){
+          try {
+            const obj = JSON.parse(evt.target.result);
+            if (confirm('Replace current member data with imported?')) {
+              data = obj;
+              save();
+              renderAll();
+              showToast('Imported');
+            }
+          } catch(err) { alert('Invalid JSON'); }
+        };
+        reader.readAsText(f);
+        this.value = '';
+      });
+    }
 
-    // initial render
+    if (resetBtn){
+      resetBtn.addEventListener('click', resetDemo);
+    }
+
     renderAll();
-
   })();
-  </script>
+</script>
 
-  <script>feather.replace()</script>
+<script>feather.replace()</script>
+
 @include('components.script')

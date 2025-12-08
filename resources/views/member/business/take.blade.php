@@ -1,4 +1,6 @@
-@include('components.memberheader')
+@extends('layouts.app')
+
+@section('content')
 <style>
 .modal-hidden { display:none !important; pointer-events:none; }
 .modal-show { display:flex !important; pointer-events:auto; }
@@ -785,4 +787,4 @@ tr.innerHTML = `
 
 });
 </script>
-@include('components.script')
+@endsection

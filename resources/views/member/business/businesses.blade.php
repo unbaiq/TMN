@@ -1,4 +1,6 @@
-@include('components.memberheader')
+@extends('layouts.app')
+
+@section('content')
 
 <div class="p-6 sm:p-10">
     <div class="flex items-center justify-between mb-6">
@@ -539,4 +541,4 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof feather !== 'undefined' && feather.replace) feather.replace();
 });
 </script>
-@include('components.script')
+@endsection

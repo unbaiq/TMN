@@ -1,4 +1,6 @@
-@include('components.memberheader')
+@extends('layouts.app')
+
+@section('content')
   <style>
     .nav-active {
       background: linear-gradient(to right, #ffe6e6, #ffffff);
@@ -440,4 +442,4 @@ document.addEventListener("keydown", (e) => {
 updateUI();
 feather.replace();
 </script>
-@include('components.script')
+@endsection

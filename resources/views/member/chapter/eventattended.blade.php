@@ -1,4 +1,6 @@
-@include('components.memberheader')
+@extends('layouts.app')
+
+@section('content')
  <div class="p-6 sm:p-10 space-y-6">
 
   <!-- PAGE HEADER (moved out of filters) -->
@@ -437,5 +439,4 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof feather !== 'undefined' && feather.replace) feather.replace();
 });
 </script>
-
-@include('components.script')
+@endsection

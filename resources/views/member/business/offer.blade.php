@@ -1,4 +1,6 @@
-@include('components.memberheader')
+@extends('layouts.app')
+
+@section('content')
 
 <div class="p-4 sm:p-6 lg:p-10 space-y-6">
 
@@ -420,5 +422,4 @@ document.addEventListener('DOMContentLoaded', () => {
   render();
 });
 </script>
-
-@include('components.script')
+@endsection

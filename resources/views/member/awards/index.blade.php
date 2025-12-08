@@ -1,7 +1,7 @@
-@include('components.memberheader')
-   <div class="max-w-7xl mx-auto px-4 py-8">
-  <!-- single column layout, no empty left panel -->
-  <div class="grid grid-cols-1 gap-6 items-start">
+@extends('layouts.app')
+
+@section('content')
+
     <!-- controls + table -->
     <section class="space-y-4">
       <!-- controls row -->
@@ -622,5 +622,4 @@ document.addEventListener('keydown', (e) => {
       if (typeof feather !== 'undefined') feather.replace();
     });
   </script>
-
-@include('components.script')
+@endsection
