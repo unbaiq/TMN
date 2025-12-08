@@ -138,9 +138,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
             return view('admin.member.memberlist');
         })->name('memberlist');
 
-        Route::get('/list', function () {
-            return view('admin.member.memberlist');
-        })->name('list');
+        Route::get('/assigned', function () {
+            return view('admin.member.assigned');
+        })->name('assigned');
 
         Route::get('/enquiry', function () {
             return view('admin.member.enquiry');
