@@ -156,8 +156,7 @@
     </a>
 
     <!-- Settings -->
-    <a href="{{ route('member.settings') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <a href="{{ route('member.settings') }}"class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
        <i data-feather="settings" class="w-5"></i>
        <span class="hidden md:inline">Settings</span>
     </a>

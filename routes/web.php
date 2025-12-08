@@ -38,7 +38,7 @@ Route::prefix('member')->name('member.')->group(function () {
         Route::get('/investors', fn() => view('member.business.investors'))->name('investors');
     });
 
-    
+
     /*
     |--------------------------------------------------------------------------
     | CHAPTER
@@ -147,6 +147,17 @@ Route::prefix('admin')->name('admin.')->group(function () {
         })->name('enquiry');
 
     });
+
+    
+    /*
+    |--------------------------------------------------------------------------
+    | ADMIN EVENT ATTENDED PAGE (UI ONLY)
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/events/attended', function () {
+        return view('admin.events.attended');
+    })->name('events.attended');
+
 
     // Settings
     Route::get('/settings', function () {

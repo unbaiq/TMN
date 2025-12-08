@@ -108,6 +108,12 @@
     <span class="nav-icon"><i data-feather="calendar" class="w-5 h-5"></i></span>
     <span class="hidden md:inline">Events</span>
   </a>
+  
+  <!-- Event Attendance -->
+  <a href="{{ route('admin.events.attended') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+    <span class="nav-icon"><i data-feather="check-circle" class="w-5 h-5"></i></span>
+    <span class="hidden md:inline">Event Attendance</span>
+  </a>
 
   <!-- Awards -->
   <a href="{{ route('admin.awards.index') }}"
@@ -181,8 +187,12 @@
         <i data-feather="send" class="w-5"></i> <span>Chapters</span>
       </a>
 
-      <a href="" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <a href="{{ route('admin.dashboard.events') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
         <i data-feather="download" class="w-5"></i> <span>Events</span>
+      </a>
+
+      <a href="{{ route('admin.events.attended') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+        <i data-feather="check-circle" class="w-5"></i> <span>Event Attendance</span>
       </a>
 
       <a href="" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">

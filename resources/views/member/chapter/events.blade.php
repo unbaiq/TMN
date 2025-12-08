@@ -157,9 +157,7 @@
              class="w-5 h-5 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
              
              <input type="text"
-             placeholder="Search events..."
-             class="w-full pl-11 pr-4 py-2.5 bg-white border border-gray-300 rounded-xl shadow-sm
-             focus:outline-none focus:ring-2 focus:ring-[#2C3E50] transition-all">
+             placeholder="Search events..."class="w-full pl-11 pr-4 py-2.5 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none">
             </div>
             
             <!-- Filter Pills -->
