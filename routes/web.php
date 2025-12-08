@@ -4,12 +4,30 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| HOME = Member Dashboard
+| LOGIN PAGE AS DEFAULT
 |--------------------------------------------------------------------------
 */
+Route::get('/admin/login', function () {
+    return view('auth.login');
+})->name('admin.login');
+
+
+// Root should OPEN LOGIN PAGE
 Route::get('/', function () {
+    return redirect()->route('admin.login');
+});
+
+
+
+/*
+|--------------------------------------------------------------------------
+| HOME (Member Dashboard — not default anymore)
+|--------------------------------------------------------------------------
+*/
+Route::get('/home', function () {
     return view('member.dashboard.index');
 })->name('home');
+
 
 
 /*
@@ -19,18 +37,11 @@ Route::get('/', function () {
 */
 Route::prefix('member')->name('member.')->group(function () {
 
-    // Dashboard + Settings
     Route::get('/dashboard', fn() => view('member.dashboard.index'))->name('dashboard');
     Route::get('/settings', fn() => view('member.settings'))->name('settings');
 
-     // ⭐ REFERRALS PAGE
     Route::get('/referrals', fn() => view('member.referrals'))->name('referrals');
 
-    /*
-    |--------------------------------------------------------------------------
-    | BUSINESS
-    |--------------------------------------------------------------------------
-    */
     Route::prefix('business')->name('business.')->group(function () {
         Route::get('/list', fn() => view('member.business.businesses'))->name('list');
         Route::get('/offer', fn() => view('member.business.offer'))->name('offer');
@@ -38,59 +49,32 @@ Route::prefix('member')->name('member.')->group(function () {
         Route::get('/investors', fn() => view('member.business.investors'))->name('investors');
     });
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | CHAPTER
-    |--------------------------------------------------------------------------
-    */
     Route::prefix('chapter')->name('chapter.')->group(function () {
-
-        // ⭐ Missing route added here
         Route::get('/events', fn() => view('member.chapter.events'))->name('events');
         Route::get('/eventattended', fn() => view('member.chapter.eventattended'))->name('eventattended');
     });
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | AWARDS
-    |--------------------------------------------------------------------------
-    */
     Route::prefix('awards')->name('awards.')->group(function () {
         Route::get('/', fn() => view('member.awards.index'))->name('index');
         Route::get('/recognitions', fn() => view('member.awards.recognitions'))->name('recognitions');
     });
 
-
-    /*
-    |--------------------------------------------------------------------------
-    | CSR
-    |--------------------------------------------------------------------------
-    */
     Route::prefix('csr')->name('csr.')->group(function () {
         Route::get('/', fn() => view('member.csr.index'))->name('index');
     });
 
-    /*|--------------------------------------------------------------------------
-    | MEETINGS
-    |--------------------------------------------------------------------------*/
     Route::prefix('meetings')->name('meetings.')->group(function () {
         Route::get('/1-1meetup', fn() => view('member.meetings.1-1meetup'))->name('1-1meetup');
         Route::get('/clustermeetings', fn() => view('member.meetings.clustermeetings'))->name('clustermeetings');
     });
 
-    /*|--------------------------------------------------------------------------
-    | BRANDING
-    |--------------------------------------------------------------------------*/
     Route::get('/branding', fn() => view('member.branding'))->name('branding');
-
 });
 
 
 /*
 |--------------------------------------------------------------------------
-| LEGACY HTML SUPPORT (old links redirect)
+| LEGACY HTML SUPPORT
 |--------------------------------------------------------------------------
 */
 Route::get('/chapterattended.html', fn() => redirect()->route('member.chapter.eventattended'));
@@ -107,61 +91,23 @@ Route::get('/settings.html', fn() => redirect()->route('member.settings'));
 | ADMIN ROUTES
 |--------------------------------------------------------------------------
 */
-
 Route::prefix('admin')->name('admin.')->group(function () {
 
-    // Dashboard
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard.index');
-    })->name('dashboard');
-    Route::get('/events', function () {
-        return view('admin.dashboard.events');
-    })->name('dashboard.events');
+    Route::get('/dashboard', fn() => view('admin.dashboard.index'))->name('dashboard');
+    Route::get('/events', fn() => view('admin.dashboard.events'))->name('dashboard.events');
 
-    // Awards
-    Route::get('/awards', function () {
-        return view('admin.awards.index');
-    })->name('awards.index');
+    Route::get('/awards', fn() => view('admin.awards.index'))->name('awards.index');
 
-    // Chapter Management
-    Route::get('/chapter', function () {
-        return view('admin.chapter.index');
-    })->name('chapter.index');
+    Route::get('/chapter', fn() => view('admin.chapter.index'))->name('chapter.index');
 
-    // Member Module
     Route::prefix('member')->name('member.')->group(function () {
-
-        Route::get('/index', function () {
-            return view('admin.member.index');
-        })->name('index');
-        Route::get('/memberlist', function () {
-            return view('admin.member.memberlist');
-        })->name('memberlist');
-
-        Route::get('/assigned', function () {
-            return view('admin.member.assigned');
-        })->name('assigned');
-
-        Route::get('/enquiry', function () {
-            return view('admin.member.enquiry');
-        })->name('enquiry');
-
+        Route::get('/index', fn() => view('admin.member.index'))->name('index');
+        Route::get('/memberlist', fn() => view('admin.member.memberlist'))->name('memberlist');
+        Route::get('/assigned', fn() => view('admin.member.assigned'))->name('assigned');
+        Route::get('/enquiry', fn() => view('admin.member.enquiry'))->name('enquiry');
     });
 
-    
-    /*
-    |--------------------------------------------------------------------------
-    | ADMIN EVENT ATTENDED PAGE (UI ONLY)
-    |--------------------------------------------------------------------------
-    */
-    Route::get('/events/attended', function () {
-        return view('admin.events.attended');
-    })->name('events.attended');
+    Route::get('/events/attended', fn() => view('admin.events.attended'))->name('events.attended');
 
-
-    // Settings
-    Route::get('/settings', function () {
-        return view('admin.settings.index');
-    })->name('settings.index');
-
+    Route::get('/settings', fn() => view('admin.settings.index'))->name('settings.index');
 });

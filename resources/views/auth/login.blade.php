@@ -28,7 +28,7 @@
             </ul>
         </div>
     @endif
-    <form action="{{ route('admin.login.submit') }}" method="POST" class="space-y-6">
+    <form action="" method="POST" class="space-y-6">
         @csrf
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
