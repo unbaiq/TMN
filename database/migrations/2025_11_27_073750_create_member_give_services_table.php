@@ -11,38 +11,24 @@ return new class extends Migration
         Schema::create('give_services', function (Blueprint $table) {
             $table->id();
 
-            // Member who is giving the service
-            $table->unsignedBigInteger('giver_member_id');
+            // use foreignId so Laravel sets unsignedBigInteger by default
+            $table->foreignId('giver_member_id')
+                  ->constrained('members')     // references members(id)
+                  ->cascadeOnDelete();
 
-            // Member who is receiving the service
-            $table->unsignedBigInteger('receiver_member_id')->nullable();
+            $table->foreignId('receiver_member_id')
+                  ->nullable()
+                  ->constrained('members')
+                  ->nullOnDelete();
 
-            // What service is given
-            $table->string('service_name');
-
-            // Description of what was given
+            // service metadata
+            $table->string('service_title');
             $table->text('description')->nullable();
-
-            // Optional attachment (e.g., file/image proof)
-            $table->string('attachment')->nullable();
-
-            // Status of the service providing
-            $table->enum('status', [
-                'given',         // giver has provided service
-                'received',      // receiver confirmed
-                'cancelled'
-            ])->default('given');
-
-            // Notes
-            $table->text('giver_notes')->nullable();
-            $table->text('receiver_notes')->nullable();
+            $table->decimal('fee', 12, 2)->nullable();
+            $table->enum('status', ['open','accepted','completed','cancelled'])->default('open');
 
             $table->timestamps();
             $table->softDeletes();
-
-            // Foreign keys
-            $table->foreign('giver_member_id')->references('id')->on('members')->onDelete('cascade');
-            $table->foreign('receiver_member_id')->references('id')->on('members')->onDelete('set null');
         });
     }
 
