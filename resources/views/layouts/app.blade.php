@@ -487,7 +487,7 @@
     <div class="container">
         @yield('content')
     </div>
-
+    
     <script>
     // Activate feather icons
     feather.replace();
