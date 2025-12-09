@@ -11,46 +11,43 @@ return new class extends Migration
         Schema::create('chapter_event_attendance', function (Blueprint $table) {
             $table->id();
 
-            // Member
-            $table->unsignedBigInteger('member_id');
+            // Member → users table
+            $table->foreignId('member_id')
+                  ->constrained('users')
+                  ->onDelete('cascade');
 
-            // Chapter Event reference
-            $table->unsignedBigInteger('chapter_event_id'); 
-            // This links to your chapter events table
+            // Event reference
+            $table->foreignId('chapter_event_id')
+                  ->constrained('chapter_events')
+                  ->onDelete('cascade');
 
-            // Attendance status
+            // Attendance
             $table->enum('attendance_status', [
                 'present',
                 'absent',
                 'interested'
             ])->default('interested');
 
-            // Optional proof (image/pdf of participation)
             $table->string('proof_file')->nullable();
-
-            // Notes by member
             $table->text('member_notes')->nullable();
 
-            // Admin verification
+            // Verification
             $table->enum('verification_status', [
                 'pending',
                 'verified',
                 'rejected'
             ])->default('pending');
 
-            $table->unsignedBigInteger('verified_by')->nullable();
-            $table->text('rejection_reason')->nullable();
+            $table->foreignId('verified_by')
+                  ->nullable()
+                  ->constrained('users')
+                  ->onDelete('set null');
 
-            // Admin notes
+            $table->text('rejection_reason')->nullable();
             $table->text('admin_notes')->nullable();
 
             $table->timestamps();
             $table->softDeletes();
-
-            // Foreign Keys
-            $table->foreign('member_id')->references('id')->on('members')->onDelete('cascade');
-            $table->foreign('chapter_event_id')->references('id')->on('chapter_events')->onDelete('cascade');
-            $table->foreign('verified_by')->references('id')->on('admins')->onDelete('set null');
         });
     }
 
