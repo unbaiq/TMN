@@ -4,15 +4,22 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| LOGIN PAGE AS DEFAULT
+| LOGIN PAGE
 |--------------------------------------------------------------------------
 */
 Route::get('/admin/login', function () {
     return view('auth.login');
 })->name('admin.login');
 
+/* ✅ LOGIN SUBMIT (ADD THIS HERE) */
+Route::post('/admin/login', [\App\Http\Controllers\Auth\LoginController::class, 'login'])
+    ->name('admin.login.submit');
 
-// Root should OPEN LOGIN PAGE
+/* ✅ LOGOUT ROUTE (ADD THIS HERE) */
+Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])
+    ->name('logout');
+
+/* Redirect root to login */
 Route::get('/', function () {
     return redirect()->route('admin.login');
 });
@@ -21,7 +28,7 @@ Route::get('/', function () {
 
 /*
 |--------------------------------------------------------------------------
-| HOME (Member Dashboard — not default anymore)
+| HOME (Legacy)
 |--------------------------------------------------------------------------
 */
 Route::get('/home', function () {
@@ -32,10 +39,13 @@ Route::get('/home', function () {
 
 /*
 |--------------------------------------------------------------------------
-| MEMBER ROUTES
+| MEMBER ROUTES (Protected: auth + role:member)
 |--------------------------------------------------------------------------
 */
-Route::prefix('member')->name('member.')->group(function () {
+Route::middleware(['auth', 'role:member'])
+    ->prefix('member')
+    ->name('member.')
+    ->group(function () {
 
     Route::get('/dashboard', fn() => view('member.dashboard.index'))->name('dashboard');
     Route::get('/settings', fn() => view('member.settings'))->name('settings');
@@ -74,7 +84,7 @@ Route::prefix('member')->name('member.')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| LEGACY HTML SUPPORT
+| LEGACY HTML SUPPORT (Keep same)
 |--------------------------------------------------------------------------
 */
 Route::get('/chapterattended.html', fn() => redirect()->route('member.chapter.eventattended'));
@@ -88,10 +98,13 @@ Route::get('/settings.html', fn() => redirect()->route('member.settings'));
 
 /*
 |--------------------------------------------------------------------------
-| ADMIN ROUTES
+| ADMIN ROUTES (Protected: auth + role:admin)
 |--------------------------------------------------------------------------
 */
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'role:admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
 
     Route::get('/dashboard', fn() => view('admin.dashboard.index'))->name('dashboard');
     Route::get('/events', fn() => view('admin.dashboard.events'))->name('dashboard.events');
