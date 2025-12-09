@@ -1,581 +1,448 @@
+{{-- resources/views/layouts/app.blade.php --}}
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>TMN Member Dashboard — Responsive</title>
+  <title>{{ config('app.name', 'TMN') }} — Dashboard</title>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <!-- Tailwind CDN -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Feather icons -->
   <script src="https://unpkg.com/feather-icons"></script>
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+
   <style>
-    /* Animated Active Item */
+    /* Shared layout styles */
     .nav-active {
       background: linear-gradient(to right, #ffe6e6, #ffffff);
       border-right: 4px solid #e53935;
       box-shadow: inset 0 0 10px rgba(229, 57, 53, 0.15);
     }
-    /* Hover Glow Animation */
     .nav-item:hover {
       background: rgba(255, 100, 100, 0.08);
-      transition: 0.25s ease-in-out;
+      transition: all 0.18s ease;
       transform: translateX(4px);
     }
-
-    /* Dropdown helper classes */
     .dropdown-hidden { display: none; }
     .dropdown-visible {
       display: block !important;
       opacity: 1 !important;
       transform: scale(1) !important;
     }
-
-    /* Sidebar scrollbar nicety */
     .sidebar-scrollbar::-webkit-scrollbar { width: 8px; }
     .sidebar-scrollbar::-webkit-scrollbar-thumb {
       background: rgba(0,0,0,0.12);
       border-radius: 9999px;
     }
-
-    /* Small improvement: smooth slide for mobile sidebar */
-    .mobile-slide {
-      transform: translateX(-100%);
-      transition: transform 240ms ease-in-out;
-    }
-    .mobile-open {
-      transform: translateX(0);
-    }
+    .mobile-slide { transform: translateX(-100%); transition: transform 240ms ease-in-out; }
+    .mobile-open { transform: translateX(0); }
   </style>
 </head>
+
 <body class="bg-gray-100 font-sans antialiased">
 
-  <!-- PAGE WRAPPER -->
-  <div class="min-h-screen flex">
+@php
+    $user = auth()->user();
+    $role = $user->role ?? null;
+@endphp
 
-    <!-- ========== DESKTOP SIDEBAR (visible md+) ========== -->
-    <aside id="desktopSidebar" class="hidden md:flex flex-col w-64 bg-white h-screen fixed top-0 left-0 shadow-xl sidebar-scrollbar" aria-label="Main sidebar">
-      <!-- Logo -->
-      <div class="flex items-center gap-3 px-6 py-5 border-b">
-        <img  src="{{ asset('images/logo1.png') }}"  alt="TMN Logo" class="h-10 a">
-       
-      </div>
+<div class="min-h-screen flex">
 
-      <!-- Nav -->
-      <nav class="flex-1 overflow-y-auto px-2 py-4 space-y-1">
-    <!-- Dashboard -->
-    <a href="{{ route('member.dashboard') }}"class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-       <i data-feather="home" class="w-5"></i>
-       <span class="hidden md:inline">Dashboard</span>
-    </a>
-
-        <a href="{{ route('member.chapter.events') }}"class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-          <i data-feather="calendar" class="w-5"></i>
-          <span class="hidden md:inline">Chapter Events</span>
-        </a>
-
-    <!-- Chapter Attended -->
-    <a href="{{ route('member.chapter.eventattended') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-       <i data-feather="check-circle" class="w-5"></i>
-       <span class="hidden md:inline">Chapter Attended</span>
-    </a>
-
-    <!-- Referrals -->
-    <a href="{{ route('member.referrals') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-    <i data-feather="share-2" class="w-5"></i>
-    <span class="hidden md:inline">Referrals</span>
-</a>
-
-    <!-- Give Services -->
-    <a href="{{ route('member.business.offer') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-       <i data-feather="send" class="w-5"></i>
-       <span class="hidden md:inline">Give Services</span>
-    </a>
-
-    <!-- Take Services -->
-    <a href="{{ route('member.business.take') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-       <i data-feather="download" class="w-5"></i>
-       <span class="hidden md:inline">Take Services</span>
-    </a>
-
-    <!-- Businesses -->
-    <a href="{{ route('member.business.list') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-       <i data-feather="briefcase" class="w-5"></i>
-       <span class="hidden md:inline">Businesses</span>
-    </a>
-
-    <!-- 1-1 Meetup -->
-    <a href="{{ route('member.meetings.1-1meetup') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-       <i data-feather="users" class="w-5"></i>
-       <span class="hidden md:inline">1-1 Meetup</span>
-    </a>
-
-    <!-- Cluster Meeting -->
-    <a href="{{ route('member.meetings.clustermeetings') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-       <i data-feather="grid" class="w-5"></i>
-       <span class="hidden md:inline">Cluster Meeting</span>
-    </a>
-
-    <!-- Recognitions -->
-    <a href="{{ route('member.awards.recognitions') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-       <i data-feather="award" class="w-5"></i>
-       <span class="hidden md:inline">Recognitions</span>
-    </a>
-
-    <!-- Awards -->
-    <a href="{{ route('member.awards.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-       <i data-feather="star" class="w-5"></i>
-       <span class="hidden md:inline">Awards</span>
-    </a>
-
-    <!-- Branding -->
-    <a href="{{ route('member.branding') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-       <i data-feather="book-open" class="w-5"></i>
-       <span class="hidden md:inline">Branding</span>
-    </a>
-
-    <!-- Investors -->
-    <a href="{{ route('member.business.investors') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-       <i data-feather="dollar-sign" class="w-5"></i>
-       <span class="hidden md:inline">Investors</span>
-    </a>
-
-    <!-- CSR -->
-    <a href="{{ route('member.csr.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-       <i data-feather="heart" class="w-5"></i>
-       <span class="hidden md:inline">CSR</span>
-    </a>
-
-    <!-- Settings -->
-    <a href="{{ route('member.settings') }}"class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-       <i data-feather="settings" class="w-5"></i>
-       <span class="hidden md:inline">Settings</span>
-    </a>
-</nav>
-
-  <!-- Logout -->
-      <div class="p-4 border-t">
-  <a href="login.html" class="w-full flex bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg items-center justify-center gap-2 shadow-md text-center">
-    <i data-feather="log-out" class="w-4"></i>
-    <span class="hidden md:inline">Logout</span>
-  </a>
-</div>
-    </aside>
-
-    <!-- ========== MOBILE ICON RAIL (optional tiny left rail, visible on sm only) ========== -->
-    <!-- This is optional; uncomment if you want a thin icon rail on small screens -->
-    <!--
-    <aside class="flex md:hidden fixed left-0 top-0 h-full w-14 bg-white/90 border-r z-20">
-      <nav class="flex flex-col items-center py-4 gap-2">
-        <a href="#" class="p-2 rounded hover:bg-gray-100"><i data-feather="home" class="w-5"></i></a>
-        <a href="#" class="p-2 rounded hover:bg-gray-100"><i data-feather="calendar" class="w-5"></i></a>
-        <a href="#" class="p-2 rounded hover:bg-gray-100"><i data-feather="users" class="w-5"></i></a>
-      </nav>
-    </aside>
-    -->
-
-    <!-- ========== MOBILE SIDEBAR SLIDE-OVER ========== -->
-   <div id="mobileSidebar" class="fixed inset-0 z-40 hidden" aria-hidden="true">
-  <!-- overlay -->
-  <div id="mobileSidebarOverlay" class="absolute inset-0 bg-black/40" aria-hidden="true"></div>
-
-  <!-- panel -->
-  <aside id="mobilePanel" class="absolute left-0 top-0 bottom-0 w-72 bg-white border-r shadow-lg p-4 mobile-slide sidebar-scrollbar flex flex-col h-full" role="dialog" aria-modal="true" aria-label="Mobile menu">
-
-    <!-- header -->
-    <div class="flex items-center justify-between mb-4">
-      <div class="flex items-center gap-3">
-        <img src="logo1.png" alt="TMN Logo" class="h-10">
-      </div>
-      <button id="closeMobileSidebar" class="p-2 rounded-md hover:bg-gray-100" aria-label="Close menu">✕</button>
-    </div>
-
-    <!-- navigation (scrollable) -->
-<nav class="flex-1 overflow-y-auto space-y-1 pr-1" aria-label="Main navigation">
-
-    {{-- Dashboard --}}
-    <a href="{{ route('member.dashboard') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="home" class="w-5"></i> <span>Dashboard</span>
-    </a>
-
-    {{-- Chapter Events --}}
-    <a href="{{ route('member.chapter.events') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="calendar" class="w-5"></i> <span>Chapter Events</span>
-    </a>
-
-    {{-- Chapter Attended --}}
-    <a href="{{ route('member.chapter.eventattended') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="check-circle" class="w-5"></i> <span>Chapter Attended</span>
-    </a>
-
-    {{-- Referrals --}}
-    <a href="{{ route('member.referrals') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="share-2" class="w-5"></i> <span>Referrals</span>
-    </a>
-
-    {{-- Give Services --}}
-    <a href="{{ route('member.business.offer') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="send" class="w-5"></i> <span>Give Services</span>
-    </a>
-
-    {{-- Take Services --}}
-    <a href="{{ route('member.business.take') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="download" class="w-5"></i> <span>Take Services</span>
-    </a>
-
-    {{-- Businesses --}}
-    <a href="{{ route('member.business.list') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="briefcase" class="w-5"></i> <span>Businesses</span>
-    </a>
-
-    {{-- 1-1 Meetup --}}
-    <a href="{{ route('member.meetings.1-1meetup') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="users" class="w-5"></i> <span>1-1 Meetup</span>
-    </a>
-
-    {{-- Cluster Meeting --}}
-    <a href="{{ route('member.meetings.clustermeetings') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="grid" class="w-5"></i> <span>Cluster Meeting</span>
-    </a>
-    {{-- Recognitions --}}
-    <a href="{{ route('member.awards.recognitions') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="award" class="w-5"></i> <span>Recognitions</span>
-    </a>
-
-    {{-- Awards --}}
-    <a href="{{ route('member.awards.index') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="star" class="w-5"></i> <span>Awards</span>
-    </a>
-
-    {{-- Branding --}}
-    <a href="{{ route('member.branding') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="book-open" class="w-5"></i> <span>Branding</span>
-    </a>
-
-    {{-- Investors --}}
-    <a href="{{ route('member.business.investors') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="dollar-sign" class="w-5"></i> <span>Investors</span>
-    </a>
-
-    {{-- CSR --}}
-    <a href="{{ route('member.csr.index') }}"
-       class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="heart" class="w-5"></i> <span>CSR</span>
-    </a>
-    {{-- Settings --}}
-    <a href="{{ route('member.settings') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-        <i data-feather="settings" class="w-5"></i> <span>Settings</span>
-    </a>
-    <div class="h-6"></div>
-</nav>
-    <!-- logout (fixed at bottom) -->
-    <div class="p-4 border-t">
-      <a href="#" class="w-full flex bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg items-center justify-center gap-2 shadow-md text-center" aria-label="Logout">
-        <i data-feather="log-out" class="w-4"></i>
-        <span class="hidden md:inline">Logout</span>
+  {{-- DESKTOP SIDEBAR (role-aware) --}}
+  <aside id="desktopSidebar" class="hidden md:flex flex-col w-64 bg-white h-screen fixed top-0 left-0 shadow-xl sidebar-scrollbar" aria-label="Main sidebar">
+    <div class="flex items-center gap-3 px-6 py-5 border-b">
+      <a href="{{ $role === 'admin' ? route('admin.dashboard') : route('member.dashboard') }}">
+        <img src="{{ asset('images/logo1.png') }}" alt="TMN Logo" class="h-10">
       </a>
     </div>
-  </aside>
-</div>
-    <!-- ========== MAIN CONTENT ========== -->
-    <main id="mainContent" class="flex-1 md:ml-64 ml-0">
-      <!-- Header -->
-      <header class="bg-white shadow-md px-4 sm:px-6 py-3 flex justify-between items-center sticky top-0 z-30">
-        <div class="flex items-center gap-4">
-          <!-- Hamburger (mobile) -->
-          <button id="openMobileSidebar" class="md:hidden p-2 rounded-md hover:bg-gray-100" aria-label="Open menu">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
+
+    <nav class="flex-1 overflow-y-auto px-2 py-4 space-y-1">
+      {{-- MEMBER NAV --}}
+      @if($role === 'member')
+        <a href="{{ route('member.dashboard') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.dashboard') ? 'nav-active' : '' }}">
+          <i data-feather="home" class="w-5"></i><span class="hidden md:inline">Dashboard</span>
+        </a>
+
+        <a href="{{ route('member.chapter.events') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.chapter.events') ? 'nav-active' : '' }}">
+          <i data-feather="calendar" class="w-5"></i><span class="hidden md:inline">Chapter Events</span>
+        </a>
+
+        <a href="{{ route('member.chapter.eventattended') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.chapter.eventattended') ? 'nav-active' : '' }}">
+          <i data-feather="check-circle" class="w-5"></i><span class="hidden md:inline">Chapter Attended</span>
+        </a>
+
+        <a href="{{ route('member.referrals') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.referrals') ? 'nav-active' : '' }}">
+          <i data-feather="share-2" class="w-5"></i><span class="hidden md:inline">Referrals</span>
+        </a>
+
+        <a href="{{ route('member.business.offer') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.business.offer') ? 'nav-active' : '' }}">
+          <i data-feather="send" class="w-5"></i><span class="hidden md:inline">Give Services</span>
+        </a>
+
+        <a href="{{ route('member.business.take') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.business.take') ? 'nav-active' : '' }}">
+          <i data-feather="download" class="w-5"></i><span class="hidden md:inline">Take Services</span>
+        </a>
+
+        <a href="{{ route('member.business.list') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.business.*') ? 'nav-active' : '' }}">
+          <i data-feather="briefcase" class="w-5"></i><span class="hidden md:inline">Businesses</span>
+        </a>
+
+        <a href="{{ route('member.meetings.1-1meetup') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.meetings.1-1meetup') ? 'nav-active' : '' }}">
+          <i data-feather="users" class="w-5"></i><span class="hidden md:inline">1-1 Meetup</span>
+        </a>
+
+        <a href="{{ route('member.meetings.clustermeetings') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.meetings.clustermeetings') ? 'nav-active' : '' }}">
+          <i data-feather="grid" class="w-5"></i><span class="hidden md:inline">Cluster Meeting</span>
+        </a>
+
+        <a href="{{ route('member.awards.recognitions') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.awards.recognitions') ? 'nav-active' : '' }}">
+          <i data-feather="award" class="w-5"></i><span class="hidden md:inline">Recognitions</span>
+        </a>
+
+        <a href="{{ route('member.awards.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.awards.index') ? 'nav-active' : '' }}">
+          <i data-feather="star" class="w-5"></i><span class="hidden md:inline">Awards</span>
+        </a>
+
+        <a href="{{ route('member.branding') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.branding') ? 'nav-active' : '' }}">
+          <i data-feather="book-open" class="w-5"></i><span class="hidden md:inline">Branding</span>
+        </a>
+
+        <a href="{{ route('member.business.investors') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.business.investors') ? 'nav-active' : '' }}">
+          <i data-feather="dollar-sign" class="w-5"></i><span class="hidden md:inline">Investors</span>
+        </a>
+
+        <a href="{{ route('member.csr.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.csr.*') ? 'nav-active' : '' }}">
+          <i data-feather="heart" class="w-5"></i><span class="hidden md:inline">CSR</span>
+        </a>
+
+        <a href="{{ route('member.settings') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.settings') ? 'nav-active' : '' }}">
+          <i data-feather="settings" class="w-5"></i><span class="hidden md:inline">Settings</span>
+        </a>
+
+      {{-- ADMIN NAV --}}
+      @elseif($role === 'admin')
+
+        <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('admin.dashboard') ? 'nav-active' : '' }}">
+          <i data-feather="home" class="w-5"></i><span class="hidden md:inline">Dashboard</span>
+        </a>
+
+        <a href="{{ route('admin.member.enquiry') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('admin.member.enquiry') ? 'nav-active' : '' }}">
+          <i data-feather="message-square" class="w-5"></i><span class="hidden md:inline">Enquiry</span>
+        </a>
+
+        <a href="{{ route('admin.member.memberlist') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('admin.member.memberlist') ? 'nav-active' : '' }}">
+          <i data-feather="users" class="w-5"></i><span class="hidden md:inline">Members</span>
+        </a>
+
+        <a href="{{ route('admin.member.assigned') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('admin.member.assigned') ? 'nav-active' : '' }}">
+          <i data-feather="user-check" class="w-5"></i><span class="hidden md:inline">Assigned Members</span>
+        </a>
+
+        <a href="{{ route('admin.chapter.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('admin.chapter.*') ? 'nav-active' : '' }}">
+          <i data-feather="map" class="w-5"></i><span class="hidden md:inline">Chapters</span>
+        </a>
+
+        <a href="{{ route('admin.dashboard.events') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('admin.dashboard.events') ? 'nav-active' : '' }}">
+          <i data-feather="calendar" class="w-5"></i><span class="hidden md:inline">Events</span>
+        </a>
+
+        <a href="{{ route('admin.events.attended') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('admin.events.attended') ? 'nav-active' : '' }}">
+          <i data-feather="check-circle" class="w-5"></i><span class="hidden md:inline">Event Attendance</span>
+        </a>
+
+        <a href="{{ route('admin.awards.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('admin.awards.*') ? 'nav-active' : '' }}">
+          <i data-feather="award" class="w-5"></i><span class="hidden md:inline">Awards</span>
+        </a>
+
+        <a href="{{ route('admin.settings.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('admin.settings.*') ? 'nav-active' : '' }}">
+          <i data-feather="settings" class="w-5"></i><span class="hidden md:inline">Settings</span>
+        </a>
+
+      @else
+        {{-- not logged in / role unknown --}}
+        <a href="{{ url('/') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+          <i data-feather="log-in" class="w-5"></i><span class="hidden md:inline">Login</span>
+        </a>
+      @endif
+    </nav>
+
+    {{-- Logout common --}}
+    <div class="p-4 border-t">
+      @if(auth()->check())
+        <form method="POST" action="{{ route('logout') }}">
+          @csrf
+          <button class="w-full flex bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg items-center justify-center gap-2">
+            <i data-feather="log-out" class="w-4"></i><span class="hidden md:inline">Logout</span>
           </button>
-          @php
-    $r = request()->route()->getName() ?? '';
-@endphp
-<h1 class="text-lg sm:text-xl font-semibold text-red-600 flex items-center gap-2">
-    {{-- AUTO ICON --}}
-    @switch(true)
-        @case(str_starts_with($r, 'member.dashboard'))
-            <i data-feather="home" class="w-4"></i>
-            @break
-
-        @case(str_contains($r, 'chapter.events'))
-            <i data-feather="calendar" class="w-4"></i>
-            @break
-
-        @case(str_contains($r, 'chapter.eventattended'))
-            <i data-feather="check-circle" class="w-4"></i>
-            @break
-
-        @case(str_contains($r, 'referrals'))
-            <i data-feather="share-2" class="w-4"></i>
-            @break
-
-        @case(str_contains($r, 'business.offer'))
-            <i data-feather="send" class="w-4"></i>
-            @break
-
-        @case(str_contains($r, 'business.take'))
-            <i data-feather="download" class="w-4"></i>
-            @break
-
-        @case(str_contains($r, 'business.list'))
-            <i data-feather="briefcase" class="w-4"></i>
-            @break
-
-        @case(str_contains($r, 'meetings'))
-            <i data-feather="users" class="w-4"></i>
-            @break
-
-        @case(str_contains($r, 'awards.recognitions'))
-            <i data-feather="award" class="w-4"></i>
-            @break
-
-        @case(str_contains($r, 'awards.index'))
-            <i data-feather="star" class="w-4"></i>
-            @break
-
-        @case(str_contains($r, 'branding'))
-            <i data-feather="book-open" class="w-4"></i>
-            @break
-
-        @case(str_contains($r, 'business.investors'))
-            <i data-feather="dollar-sign" class="w-4"></i>
-            @break
-
-        @case(str_contains($r, 'csr'))
-            <i data-feather="heart" class="w-4"></i>
-            @break
-
-        @case(str_contains($r, 'settings'))
-            <i data-feather="settings" class="w-4"></i>
-            @break
-
-        @default
-            <i data-feather="file-text" class="w-4"></i>
-    @endswitch
-    {{-- DESKTOP TITLE --}}
-    <span class="hidden sm:inline">
-        @switch(true)
-            @case(str_starts_with($r, 'member.dashboard'))
-                Dashboard Overview
-                @break
-
-            @case(str_contains($r, 'chapter.events'))
-                Chapter Events
-                @break
-
-            @case(str_contains($r, 'chapter.eventattended'))
-                Chapter Attended
-                @break
-
-            @case(str_contains($r, 'referrals'))
-                Referrals
-                @break
-
-            @case(str_contains($r, 'business.offer'))
-                Give Services
-                @break
-
-            @case(str_contains($r, 'business.take'))
-                Take Services
-                @break
-
-            @case(str_contains($r, 'business.list'))
-                Businesses
-                @break
-
-            @case(str_contains($r, 'meetings.1-1meetup'))
-                1-1 Meetup
-                @break
-
-            @case(str_contains($r, 'meetings.clustermeetings'))
-                Cluster Meetings
-                @break
-
-            @case(str_contains($r, 'awards.recognitions'))
-                Recognitions
-                @break
-
-            @case(str_contains($r, 'awards.index'))
-                Awards
-                @break
-
-            @case(str_contains($r, 'branding'))
-                Branding
-                @break
-
-            @case(str_contains($r, 'business.investors'))
-                Investors
-                @break
-
-            @case(str_contains($r, 'csr'))
-                CSR
-                @break
-
-            @case(str_contains($r, 'settings'))
-                Settings
-                @break
-
-            @default
-                Member Panel
-        @endswitch
-    </span>
-    {{-- MOBILE TITLE --}}
-    <span class="inline sm:hidden text-sm text-gray-600">
-        @switch(true)
-            @case(str_starts_with($r, 'member.dashboard'))
-                Overview
-                @break
-            @case(str_contains($r, 'events'))
-                Events
-                @break
-            @case(str_contains($r, 'offer'))
-                Give
-                @break
-            @case(str_contains($r, 'take'))
-                Take
-                @break
-            @case(str_contains($r, 'business'))
-                Business
-                @break
-            @default
-                Menu
-        @endswitch
-    </span>
-    </h1>
-        </div>
-        <!-- Profile -->
-        <div class="relative">
-          <div id="profileBtn" class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
-            <div class="relative">
-              <div class="w-10 h-10 bg-red-500 text-white flex items-center justify-center rounded-xl text-lg font-bold shadow">M</div>
-              <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
-            </div>
-            <div class="hidden sm:block">
-              <p class="font-medium text-gray-800">Member</p>
-              <p class="text-xs text-gray-500">Member</p>
-            </div>
-            <i id="dropdownArrow" data-feather="chevron-down" class="w-5 h-5 text-gray-600 transition-transform"></i>
-          </div>
-          <div id="profileDropdown" class="absolute right-0 mt-3 w-64 bg-white shadow-xl rounded-2xl border border-gray-100 p-4 dropdown-hidden transform scale-95 opacity-0 transition-all duration-200 z-50">
-            <div class="flex items-center gap-4 p-4 rounded-xl bg-red-50 nav-item">
-              <div class="relative">
-                <div class="w-12 h-12 bg-red-500 text-white flex items-center justify-center rounded-xl text-xl font-bold shadow">M</div>
-                <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-red-50 rounded-full"></span>
-              </div>
-              <div>
-                <h3 class="font-semibold text-gray-900 text-sm">Member</h3>
-                <p class="text-xs text-gray-500">Member</p>
-                <div class="flex items-center gap-1 mt-1">
-                  <span class="w-2 h-2 rounded-full bg-green-500"></span>
-                  <span class="text-xs font-medium text-green-600">Online</span>
-                </div>
-              </div>
-            </div>
-
-            <button class="mt-4 flex items-center gap-2 text-red-600 font-medium px-4 py-2 rounded-lg hover:bg-red-50 transition w-full nav-item">
-              <i data-feather="user" class="w-4"></i> Profile
-            </button>
-          </div>
-        </div>
-      </header>
-         <div class="max-w-7xl mx-auto px-4 py-8">
-  <!-- single column layout, no empty left panel -->
-  <div class="grid grid-cols-1 gap-6 items-start">
-    <div class="container">
-        @yield('content')
+        </form>
+      @endif
     </div>
-    
-    <script>
-    // Activate feather icons
-    feather.replace();
+  </aside>
 
-    // Mobile sidebar elements
-    const openMobileBtn = document.getElementById('openMobileSidebar');
-    const mobileSidebar = document.getElementById('mobileSidebar');
-    const mobilePanel = document.getElementById('mobilePanel');
-    const mobileOverlay = document.getElementById('mobileSidebarOverlay');
-    const closeMobileBtn = document.getElementById('closeMobileSidebar');
+  {{-- MOBILE SIDEBAR SLIDE-OVER --}}
+  <div id="mobileSidebar" class="fixed inset-0 z-40 hidden" aria-hidden="true">
+    <div id="mobileSidebarOverlay" class="absolute inset-0 bg-black/40" aria-hidden="true"></div>
 
-    function openMobileSidebar() {
-      // show container and slide in
-      mobileSidebar.classList.remove('hidden');
-      setTimeout(() => mobilePanel.classList.add('mobile-open'), 10);
+    <aside id="mobilePanel" class="absolute left-0 top-0 bottom-0 w-72 bg-white border-r shadow-lg p-4 mobile-slide sidebar-scrollbar flex flex-col h-full" role="dialog" aria-modal="true" aria-label="Mobile menu">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-3">
+          <img src="{{ asset('images/logo1.png') }}" alt="TMN Logo" class="h-10">
+        </div>
+        <button id="closeMobileSidebar" class="p-2 rounded-md hover:bg-gray-100" aria-label="Close menu">✕</button>
+      </div>
 
-      // lock body scroll
-      document.documentElement.style.overflow = 'hidden';
+      <nav class="flex-1 overflow-y-auto space-y-1 pr-1" aria-label="Main navigation">
+  @if($role === 'member')
+    <a href="{{ route('member.dashboard') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="home" class="w-5"></i> Dashboard
+    </a>
+
+    <a href="{{ route('member.chapter.events') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="calendar" class="w-5"></i> Chapter Events
+    </a>
+
+    <a href="{{ route('member.chapter.eventattended') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="check-circle" class="w-5"></i> Chapter Attended
+    </a>
+
+    <a href="{{ route('member.referrals') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="share-2" class="w-5"></i> Referrals
+    </a>
+
+    <a href="{{ route('member.business.offer') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="send" class="w-5"></i> Give Services
+    </a>
+
+    <a href="{{ route('member.business.take') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="download" class="w-5"></i> Take Services
+    </a>
+
+    <a href="{{ route('member.business.list') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="briefcase" class="w-5"></i> Businesses
+    </a>
+
+    <a href="{{ route('member.meetings.1-1meetup') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="users" class="w-5"></i> 1-1 Meetup
+    </a>
+
+    <a href="{{ route('member.meetings.clustermeetings') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="grid" class="w-5"></i> Cluster Meetings
+    </a>
+
+    <a href="{{ route('member.awards.recognitions') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="award" class="w-5"></i> Recognitions
+    </a>
+
+    <a href="{{ route('member.awards.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="star" class="w-5"></i> Awards
+    </a>
+
+    <a href="{{ route('member.branding') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="book-open" class="w-5"></i> Branding
+    </a>
+
+    <a href="{{ route('member.business.investors') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="dollar-sign" class="w-5"></i> Investors
+    </a>
+
+    <a href="{{ route('member.csr.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="heart" class="w-5"></i> CSR
+    </a>
+
+    <a href="{{ route('member.settings') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="settings" class="w-5"></i> Settings
+    </a>
+
+  @elseif($role === 'admin')
+    <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="home" class="w-5"></i> Dashboard
+    </a>
+
+    <a href="{{ route('admin.member.enquiry') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="message-square" class="w-5"></i> Enquiry
+    </a>
+
+    <a href="{{ route('admin.member.memberlist') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="users" class="w-5"></i> Members
+    </a>
+
+    <a href="{{ route('admin.member.assigned') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="user-check" class="w-5"></i> Assigned Members
+    </a>
+
+    <a href="{{ route('admin.chapter.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="map" class="w-5"></i> Chapters
+    </a>
+
+    <a href="{{ route('admin.dashboard.events') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="calendar" class="w-5"></i> Events
+    </a>
+
+    <a href="{{ route('admin.events.attended') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="check-circle" class="w-5"></i> Event Attendance
+    </a>
+
+    <a href="{{ route('admin.awards.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="award" class="w-5"></i> Awards
+    </a>
+
+    <a href="{{ route('admin.settings.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="settings" class="w-5"></i> Settings
+    </a>
+
+  @else
+    <a href="{{ url('/') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
+      <i data-feather="log-in" class="w-5"></i> Login
+    </a>
+  @endif
+</nav>
+
+      <div class="pt-4 border-t mt-4">
+        @if(auth()->check())
+          <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button class="w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg flex items-center justify-center gap-2"><i data-feather="log-out" class="w-4"></i> Logout</button>
+          </form>
+        @endif
+      </div>
+    </aside>
+  </div>
+
+  {{-- MAIN CONTENT + HEADER --}}
+  <main id="mainContent" class="flex-1 md:ml-64 ml-0">
+    <header class="bg-white shadow-md px-4 sm:px-6 py-3 flex justify-between items-center sticky top-0 z-30">
+      <div class="flex items-center gap-4">
+        <button id="openMobileSidebar" class="md:hidden p-2 rounded-md hover:bg-gray-100" aria-label="Open menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+
+        @if($role === 'admin')
+          <h1 class="text-lg sm:text-xl font-semibold text-red-600 flex items-center gap-2"><i data-feather="shield" class="w-4"></i><span class="hidden sm:inline">Admin Panel</span><span class="inline sm:hidden">Admin</span></h1>
+        @elseif($role === 'member')
+          <h1 class="text-lg sm:text-xl font-semibold text-red-600 flex items-center gap-2"><i data-feather="user" class="w-4"></i><span class="hidden sm:inline">Member Panel</span><span class="inline sm:hidden">Member</span></h1>
+        @else
+          <h1 class="text-lg sm:text-xl font-semibold text-red-600 flex items-center gap-2"><i data-feather="file-text" class="w-4"></i><span class="hidden sm:inline">Welcome</span></h1>
+        @endif
+      </div>
+
+      {{-- Profile area --}}
+      <div class="relative">
+        <div id="profileBtn" class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
+          <div class="relative">
+            <div class="w-10 h-10 bg-red-500 text-white flex items-center justify-center rounded-xl text-lg font-bold shadow">
+              {{ strtoupper(substr($user->name ?? 'U', 0, 1)) }}
+            </div>
+            <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full"></span>
+          </div>
+
+          <div class="hidden sm:block">
+            <p class="font-medium text-gray-800">{{ $user->name ?? 'Guest' }}</p>
+            <p class="text-xs text-gray-500">{{ $role ? ucfirst($role) : 'Visitor' }}</p>
+          </div>
+
+          <i id="dropdownArrow" data-feather="chevron-down" class="w-5 h-5 text-gray-600 transition-transform"></i>
+        </div>
+
+        <div id="profileDropdown" class="absolute right-0 mt-3 w-64 bg-white shadow-xl rounded-2xl border border-gray-100 p-4 dropdown-hidden transform scale-95 opacity-0 transition-all duration-200 z-50">
+          <div class="flex items-center gap-4 p-4 rounded-xl bg-red-50 nav-item">
+            <div class="relative">
+              <div class="w-12 h-12 bg-red-500 text-white flex items-center justify-center rounded-xl text-xl font-bold shadow">{{ strtoupper(substr($user->name ?? 'U', 0, 1)) }}</div>
+              <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-red-50 rounded-full"></span>
+            </div>
+            <div>
+              <h3 class="font-semibold text-gray-900 text-sm">{{ $user->name ?? 'Guest' }}</h3>
+              <p class="text-xs text-gray-500">{{ $user->email ?? '-' }}</p>
+            </div>
+          </div>
+
+          <a href="#" class="mt-4 flex items-center gap-2 text-red-600 font-medium px-4 py-2 rounded-lg hover:bg-red-50 transition w-full nav-item">
+            <i data-feather="user" class="w-4"></i> Profile
+          </a>
+
+          @if(auth()->check())
+            <form method="POST" action="{{ route('logout') }}">
+              @csrf
+              <button type="submit" class="mt-3 w-full px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600">Logout</button>
+            </form>
+          @endif
+        </div>
+      </div>
+    </header>
+
+    {{-- Page container --}}
+    <div class="max-w-7xl mx-auto px-4 py-8">
+      <div class="grid grid-cols-1 gap-6 items-start">
+        <div class="container">
+          @yield('content')
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+{{-- Scripts --}}
+<script>
+  // Activate feather icons
+  if (typeof feather !== 'undefined') feather.replace();
+
+  // Mobile sidebar elements
+  const openMobileBtn = document.getElementById('openMobileSidebar');
+  const mobileSidebar = document.getElementById('mobileSidebar');
+  const mobilePanel = document.getElementById('mobilePanel');
+  const mobileOverlay = document.getElementById('mobileSidebarOverlay');
+  const closeMobileBtn = document.getElementById('closeMobileSidebar');
+
+  function openMobileSidebar() {
+    mobileSidebar.classList.remove('hidden');
+    setTimeout(() => mobilePanel.classList.add('mobile-open'), 10);
+    document.documentElement.style.overflow = 'hidden';
+  }
+  function closeMobileSidebar() {
+    mobilePanel.classList.remove('mobile-open');
+    document.documentElement.style.overflow = '';
+    setTimeout(() => mobileSidebar.classList.add('hidden'), 220);
+  }
+  if (openMobileBtn) openMobileBtn.addEventListener('click', openMobileSidebar);
+  if (closeMobileBtn) closeMobileBtn.addEventListener('click', closeMobileSidebar);
+  if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobileSidebar);
+
+  // Profile dropdown
+  const profileBtn = document.getElementById('profileBtn');
+  const profileDropdown = document.getElementById('profileDropdown');
+  const dropdownArrow = document.getElementById('dropdownArrow');
+
+  if (profileBtn) {
+    profileBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdownArrow.classList.toggle('rotate-180');
+      profileDropdown.classList.toggle('dropdown-hidden');
+      profileDropdown.classList.toggle('dropdown-visible');
+    });
+  }
+
+  // Click outside to close profile dropdown
+  document.addEventListener('click', (ev) => {
+    if (profileBtn && profileDropdown && !profileBtn.contains(ev.target) && !profileDropdown.contains(ev.target)) {
+      dropdownArrow.classList.remove('rotate-180');
+      profileDropdown.classList.add('dropdown-hidden');
+      profileDropdown.classList.remove('dropdown-visible');
     }
+  });
 
-    function closeMobileSidebar() {
-      // slide out then hide
-      mobilePanel.classList.remove('mobile-open');
-      document.documentElement.style.overflow = '';
-      setTimeout(() => mobileSidebar.classList.add('hidden'), 220);
-    }
-
-    if (openMobileBtn) openMobileBtn.addEventListener('click', openMobileSidebar);
-    if (closeMobileBtn) closeMobileBtn.addEventListener('click', closeMobileSidebar);
-    if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobileSidebar);
-
-    // Close mobile sidebar on resize to desktop
-    window.addEventListener('resize', () => {
-      if (window.innerWidth >= 768 && !mobileSidebar.classList.contains('hidden')) {
-        closeMobileSidebar();
+  // Keep nav-active in sync (simple)
+  document.addEventListener("DOMContentLoaded", () => {
+    const currentPath = window.location.pathname.toLowerCase();
+    document.querySelectorAll('.nav-item').forEach(a => {
+      const href = (a.getAttribute('href') || '').toLowerCase();
+      if (href && currentPath.startsWith(new URL(href, window.location.origin).pathname)) {
+        a.classList.add('nav-active');
       }
     });
-
-    // Profile dropdown
-    const profileBtn = document.getElementById('profileBtn');
-    const profileDropdown = document.getElementById('profileDropdown');
-    const dropdownArrow = document.getElementById('dropdownArrow');
-
-    if (profileBtn) {
-      profileBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdownArrow.classList.toggle('rotate-180');
-        profileDropdown.classList.toggle('dropdown-hidden');
-        profileDropdown.classList.toggle('dropdown-visible');
-      });
-    }
-
-    // Click outside to close profile dropdown
-    document.addEventListener('click', (ev) => {
-      if (!profileBtn.contains(ev.target) && !profileDropdown.contains(ev.target)) {
-        dropdownArrow.classList.remove('rotate-180');
-        profileDropdown.classList.add('dropdown-hidden');
-        profileDropdown.classList.remove('dropdown-visible');
-      }
-    });
-  </script>
-  <script>
-document.addEventListener("DOMContentLoaded", () => {
-    const currentPage = window.location.pathname.split("/").pop();  
-    const navLinks = document.querySelectorAll(".nav-item");
-
-    navLinks.forEach(link => {
-        link.classList.remove("nav-active");
-
-        let href = link.getAttribute("href");
-
-        if (!href || href === "#") return;
-
-        // Normalize link value
-        href = href.trim().toLowerCase();
-        const file = href.split("/").pop();
-
-        // Match HTML file or directory
-        if (currentPage === file || currentPage === file.replace(".html", "")) {
-            link.classList.add("nav-active");
-        }
-
-        // Special match for home page
-        if ((currentPage === "" || currentPage === "/") && href === "#") {
-            link.classList.add("nav-active");
-        }
-    });
-});
+  });
 </script>
+
 </body>
 </html>
