@@ -11,9 +11,9 @@ return new class extends Migration
         Schema::create('member_businesses', function (Blueprint $table) {
             $table->id();
 
-            // Participants
-            $table->foreignId('member_one_id')->constrained('members')->cascadeOnDelete();
-            $table->foreignId('member_two_id')->nullable()->constrained('members')->cascadeOnDelete();
+            // reference users table (members stored in users)
+            $table->foreignId('member_one_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('member_two_id')->nullable()->constrained('users')->nullOnDelete();
 
             // Role of member_one
             $table->enum('member_one_role', ['giver', 'taker']);

@@ -37,18 +37,17 @@ return new class extends Migration
          * ============================
          *  EVENT ATTENDEES TABLE
          * ============================
-         * Stores which member confirmed attendance.
          */
         Schema::create('event_attendees', function (Blueprint $table) {
             $table->id();
 
-            // Member who is attending
-            $table->foreignId('member_id')->constrained('members')->onDelete('cascade');
+            // Member who is attending — now references users table
+            $table->foreignId('member_id')->constrained('users')->onDelete('cascade');
 
-            // The event they are attending
+            // The chapter event they are attending
             $table->foreignId('chapter_event_id')->constrained('chapter_events')->onDelete('cascade');
 
-            // Confirmation (true = confirmed)
+            // Confirmation
             $table->boolean('is_confirmed')->default(true);
 
             $table->timestamps();

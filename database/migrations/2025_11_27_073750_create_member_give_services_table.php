@@ -11,17 +11,16 @@ return new class extends Migration
         Schema::create('give_services', function (Blueprint $table) {
             $table->id();
 
-            // use foreignId so Laravel sets unsignedBigInteger by default
+            // reference users table (members are stored in `users`)
             $table->foreignId('giver_member_id')
-                  ->constrained('members')     // references members(id)
+                  ->constrained('users')
                   ->cascadeOnDelete();
 
             $table->foreignId('receiver_member_id')
                   ->nullable()
-                  ->constrained('members')
+                  ->constrained('users')
                   ->nullOnDelete();
 
-            // service metadata
             $table->string('service_title');
             $table->text('description')->nullable();
             $table->decimal('fee', 12, 2)->nullable();

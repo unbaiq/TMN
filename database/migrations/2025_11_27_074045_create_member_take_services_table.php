@@ -11,11 +11,14 @@ return new class extends Migration
         Schema::create('take_services', function (Blueprint $table) {
             $table->id();
 
-            // Member requesting the service
-            $table->unsignedBigInteger('taker_member_id');
+            // Member requesting the service (references users table primary key)
+            $table->foreignId('taker_member_id')->constrained('users')->cascadeOnDelete();
 
             // Giver stored as NAME (because frontend uses name dropdown)
             $table->string('giver_name')->nullable();
+
+            // If you want to optionally link giver to a user record, add this column:
+            $table->foreignId('giver_member_id')->nullable()->constrained('users')->nullOnDelete();
 
             // Service fields
             $table->string('service_name');
@@ -31,12 +34,6 @@ return new class extends Migration
 
             $table->timestamps();
             $table->softDeletes();
-
-            // Foreign Keys
-            $table->foreign('taker_member_id')->references('id')->on('members')->onDelete('cascade');
-
-            // Giver FK optional (NULL because UI does not use member_id)
-            $table->foreign('giver_member_id')->references('id')->on('members')->nullOnDelete();
         });
     }
 
