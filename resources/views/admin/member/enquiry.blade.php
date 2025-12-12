@@ -244,7 +244,6 @@ $dummy = [
     </div>
 </div>
 <!-- EDIT MODAL -->
-<!-- EDIT MODAL -->
 <div id="editModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
   <div class="bg-white rounded-xl shadow-xl modal-card max-w-lg w-full mx-4 p-6">
       <h3 class="text-lg font-semibold mb-4">Edit Enquiry</h3>
@@ -269,7 +268,6 @@ $dummy = [
       </div>
   </div>
 </div>
-<!-- DELETE MODAL -->
 <!-- DELETE MODAL -->
 <div id="deleteModal" class="fixed inset-0 bg-black/40 hidden items-center justify-center z-50">
   <div class="bg-white rounded-xl shadow-xl max-w-md w-full p-6 modal-card">
