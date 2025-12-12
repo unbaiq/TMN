@@ -77,7 +77,7 @@
         </a>
 
         <a href="{{ route('member.business.offer') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.business.offer') ? 'nav-active' : '' }}">
-          <i data-feather="send" class="w-5"></i><span class="hidden md:inline">Give Services</span>
+          <i data-feather="send" class="w-5"></i><span class="hidden md:inline">Offer</span>
         </a>
 
         <a href="{{ route('member.business.take') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.business.take') ? 'nav-active' : '' }}">
@@ -211,7 +211,7 @@
     </a>
 
     <a href="{{ route('member.business.offer') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
-      <i data-feather="send" class="w-5"></i> Give Services
+      <i data-feather="send" class="w-5"></i> Offer
     </a>
 
     <a href="{{ route('member.business.take') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">

@@ -139,7 +139,7 @@ td {
     </div>
     <!-- REFERRALS TABLE & CARDS -->
     <div class="bg-white shadow-lg rounded-2xl p-6">
-        <h3 class="text-lg font-semibold text-[#2C3E50]">Referral History</h3>
+        <h3 class="text-xl font-semibold mb-6 text-gray-700">Referral History</h3>
     <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-5">
     <!-- Search -->
     <div class="flex items-center gap-2 w-full md:w-1/2 relative">

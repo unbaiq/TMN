@@ -148,18 +148,16 @@
   <!-- MAIN CONTENT -->
  <main class="p-6 sm:p-10">
      <!-- PAGE TITLE -->
+      <div class="bg-white shadow-md rounded-xl p-4 mb-6 border border-gray-100">
      <h2 class="text-2xl font-semibold text-[#2C3E50] mb-6">Chapter Events</h2>
      
      <!-- SEARCH + FILTERS -->
      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
          
          <!-- Modern Search Bar -->
-         <div class="relative w-full md:w-1/2">
-             <i data-feather="search"
-             class="w-5 h-5 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
-             
-             <input type="text"
-             placeholder="Search events..."class="w-full pl-11 pr-4 py-2.5 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none">
+        <div class="flex items-center gap-2 w-full md:w-1/2 relative">
+        <i data-feather="search" class="w-5 h-5 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+        <input type="text" id="searchInput" placeholder="Search events..." class="w-full pl-11 pr-4 py-2 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none">
             </div>
             
             <!-- Filter Pills -->
@@ -191,6 +189,7 @@
 
 </div>
 
+</div>
 </div>
 
 <!-- EVENTS GRID -->
