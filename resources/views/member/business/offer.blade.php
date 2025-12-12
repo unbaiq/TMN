@@ -2,10 +2,12 @@
 
 @section('content')
 
-<div class="p-4 sm:p-6 lg:p-10 space-y-6">
+<main class="w-full p-2 h-full sm:p-8 ">
+      <div class="max-w-7xl mx-auto animate-fadeIn bg-white shadow-card rounded-xl p-6">
+        <div class="max-w-7xl mx-auto my-10 px-4 sm:px-6 lg:px-8">
 
   <!-- Title -->
-  <div class="space-y-1">
+  <div class="space-y-1 ">
     <h2 class="text-2xl sm:text-3xl font-semibold text-gray-800">Give Services</h2>
     <p class="text-gray-600 mt-1 max-w-2xl">
       These are the services you have given to other members. Use the filters to search, or tap a card for details.
@@ -13,7 +15,7 @@
   </div>
 
   <!-- Filters: collapsible on mobile -->
-  <div class="bg-white p-3 rounded-lg shadow-sm">
+  <div class=" bg-white shadow-md rounded-xl p-4 mb-6 border border-gray-100">
     <button id="filtersToggle" aria-expanded="true"
             class="w-full md:hidden flex items-center justify-between px-3 py-2 text-left bg-white rounded-md border border-slate-200">
       <span class="font-medium">Filters</span>
