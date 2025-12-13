@@ -221,6 +221,7 @@ $dummy = [
           </nav>
         </div>
     </div>
+    
 </div>
 </main>
 <!-- MODAL -->

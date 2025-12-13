@@ -101,7 +101,7 @@ tbody tr:hover {
                     </tr>
                 </thead>
 
-                <tbody id="membersTbody" class="divide-y divide-gray-200">
+                <tbody id="membersTbody" class="text-gray-700">
 
 @php
 $members = [

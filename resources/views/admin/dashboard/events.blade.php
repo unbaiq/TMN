@@ -2,7 +2,119 @@
 
 @section('content')
 
+<style>
+/* ============================================================
+   TMN PREMIUM THEME — APPLIED TO EXISTING EVENTS PAGE (OPTION B)
+===============================================================*/
+
+/* Inputs */
+input, select, textarea {
+    transition: all .25s ease;
+    border-radius: 10px !important;
+    border: 1px solid #dcdcdc;
+}
+input:focus, select:focus, textarea:focus {
+    border-color:#e11d48 !important;
+    box-shadow:0 0 0 3px rgba(225,29,72,.18) !important;
+}
+
+/* Search box */
+#ev-search {
+    border-radius: 12px !important;
+    background:white;
+    border:1px solid #e5e7eb;
+    box-shadow:0 2px 6px rgba(0,0,0,.05);
+}
+
+/* TMN Buttons */
+.tmn-btn-red {
+    background:#e11d48;
+    color:white;
+    border-radius:10px;
+    padding:8px 14px;
+    transition:.2s;
+}
+.tmn-btn-red:hover {
+    background:#be123c;
+}
+
+.tmn-btn-white {
+    background:white;
+    border:1px solid #d1d5db;
+    border-radius:10px;
+    padding:8px 14px;
+    transition:.2s;
+}
+.tmn-btn-white:hover {
+    background:#f9fafb;
+}
+
+/* TMN Card */
+.tmn-card {
+    background:white;
+    border-radius:16px;
+    box-shadow:0 6px 16px rgba(0,0,0,.06);
+    border:1px solid #f1f1f1;
+}
+
+/* TMN Table Theme */
+#ev-rows > div, 
+.md\:grid.grid-cols-12 {
+    transition:background .2s ease, transform .15s ease;
+}
+
+#ev-rows > div:hover {
+    background:#fafafa !important;
+    transform:translateY(-2px);
+}
+
+.bg-gray-50 {
+    background:#f8fafc !important;
+    font-size:11px !important;
+    letter-spacing:0.5px;
+    font-weight:600 !important;
+}
+
+/* Row hover for mobile */
+.ev-card-hover:hover {
+    background:#fafafa;
+}
+
+/* Status badge */
+.status-badge {
+    padding:2px 8px;
+    border-radius:6px;
+    font-size:12px;
+    display:inline-block;
+}
+.status-badge.draft { background:#f3f4f6; color:#374151; }
+.status-badge.published { background:#dcfce7; color:#166534; }
+.status-badge.cancelled { background:#fee2e2; color:#b91c1c; }
+
+/* Modal improvements */
+#ev-modal .bg-white {
+    border-radius:18px !important;
+    box-shadow:0 10px 30px rgba(0,0,0,.18) !important;
+    animation:modalIn .25s ease-out;
+}
+@keyframes modalIn {
+    from {opacity:0; transform:translateY(15px) scale(.96);}
+    to {opacity:1; transform:translateY(0) scale(1);}
+}
+
+/* Poster preview */
+#ev-posterPreview {
+    border-radius:10px;
+    border:1px solid #e5e7eb;
+    background:#f9fafb;
+}
+
+</style>
+
+
 <div class="max-w-7xl mx-auto px-4 py-8">
+
+  <!-- HEADER -->
   <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
     <div>
       <h1 class="text-2xl font-semibold text-gray-800">Events — Admin</h1>
@@ -10,15 +122,18 @@
     </div>
 
     <div class="flex items-center gap-2 w-full md:w-auto">
-      <input id="ev-search" type="search" placeholder="Search events..." class="px-3 py-2 border rounded-md text-sm w-full md:w-72" />
-      <button id="ev-createBtn" class="ml-2 px-3 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md text-sm flex items-center gap-2">
+      <input id="ev-search" type="search" placeholder="Search events..." class="px-3 py-2 w-full md:w-72" />
+
+      <button id="ev-createBtn" class="tmn-btn-red flex items-center gap-2 ml-2">
         <i data-feather="plus" class="w-4 h-4"></i> Create Event
       </button>
     </div>
   </div>
 
-  <div class="bg-white rounded-lg shadow-sm overflow-hidden">
-    {{-- Table header for desktop --}}
+  <!-- TABLE WRAPPER -->
+  <div class="tmn-card overflow-hidden">
+
+    <!-- Table Header -->
     <div class="hidden md:grid grid-cols-12 gap-4 px-4 py-3 text-xs text-gray-500 border-b bg-gray-50">
       <div class="col-span-3">Title</div>
       <div class="col-span-3">When</div>
@@ -28,18 +143,22 @@
       <div class="col-span-1 text-right">Actions</div>
     </div>
 
-    {{-- Rows container --}}
+    <!-- Dynamic Rows -->
     <div id="ev-rows" class="divide-y divide-gray-100"></div>
 
-    {{-- Pagination area (UI only) --}}
+    <!-- Pagination -->
     <div class="px-4 py-3 border-t bg-white flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-sm">
-      <div class="text-gray-600">Showing <span id="ev-showFrom">0</span>-<span id="ev-showTo">0</span> of <span id="ev-total">0</span></div>
+      <div class="text-gray-600">
+        Showing <span id="ev-showFrom">0</span>-<span id="ev-showTo">0</span> of <span id="ev-total">0</span>
+      </div>
+
       <div class="flex items-center gap-2 ml-auto">
-        <button id="ev-first" class="px-3 py-1 bg-white border rounded disabled:opacity-50">First</button>
-        <button id="ev-prev" class="px-3 py-1 bg-white border rounded disabled:opacity-50">Prev</button>
-        <button id="ev-next" class="px-3 py-1 bg-white border rounded disabled:opacity-50">Next</button>
+        <button id="ev-first" class="tmn-btn-white">First</button>
+        <button id="ev-prev" class="tmn-btn-white">Prev</button>
+        <button id="ev-next" class="tmn-btn-white">Next</button>
       </div>
     </div>
+
   </div>
 </div>
 
