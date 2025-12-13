@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+Route::get('/journey', function () {
+    return view('journey');
+})->name('journey');
 
 /*
 |--------------------------------------------------------------------------
