@@ -1,303 +1,188 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="p-6 sm:p-10 space-y-6">
+<div class="max-w-7xl mx-auto px-6 py-8 space-y-10 bg-gray-50">
 
-        <!-- grid: left settings form, right quick actions -->
-        <div class=" gap-6">
-
-          <!-- Left: main settings -->
-          <section class="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">Account settings</h2>
-
-            <!-- Tabs -->
-            <div class="mb-6">
-              <nav class="flex gap-2 border-b -mx-6 px-6">
-                <button data-tab="profile" class="tab-btn px-4 py-2 -mb-px text-sm font-medium text-red-600 border-b-2 border-red-600">Profile</button>
-                <button data-tab="security" class="tab-btn px-4 py-2 text-sm font-medium text-gray-600">Security</button>
-                <button data-tab="notifications" class="tab-btn px-4 py-2 text-sm font-medium text-gray-600">Notifications</button>
-              </nav>
-            </div>
-
-            <!-- Tab contents -->
-            <div id="tabProfile" class="tab-content">
-              <form id="profileForm" class="bg-white rounded-lg shadow-sm p-6 space-y-6">
-
-  <!-- grid: two columns on md+, single on small -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div>
-      <label for="fullName" class="block text-xs text-gray-600 mb-1">Full name</label>
-      <input id="fullName" name="fullName" type="text" value="Member Name"
-             class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-300" />
-    </div>
-
-    <div>
-      <label for="displayName" class="block text-xs text-gray-600 mb-1">Display name</label>
-      <input id="displayName" name="displayName" type="text" value="Member"
-             class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-300" />
-    </div>
-
-    <div>
-      <label for="email" class="block text-xs text-gray-600 mb-1">Email</label>
-      <input id="email" name="email" type="email" value="member@example.com" 
-             class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-300" />
-    </div>
-
-    <div>
-      <label for="phone" class="block text-xs text-gray-600 mb-1">Phone</label>
-      <input id="phone" name="phone" type="tel" value="+91 99999 99999"
-             class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-300" />
-    </div>
-
-    <!-- Profession field added -->
-    <div class="md:col-span-1">
-      <label for="profession" class="block text-xs text-gray-600 mb-1">Profession</label>
-      <input id="profession" name="profession" type="text" value="Entrepreneur"
-             placeholder="e.g., Designer, Consultant, Founder"
-             class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-300" />
-    </div>
-
-    <!-- optional: membership / extra column placeholder to keep grid neat -->
-    <div class="md:col-span-1 hidden md:block"></div>
-  </div>
-
-  <div>
-    <label for="bio" class="block text-xs text-gray-600 mb-1">Bio</label>
-    <textarea id="bio" name="bio" rows="5"
-              class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-300"
-    >Short bio about member</textarea>
-  </div>
-
-  <!-- action row: Reset (left) + Save (right) -->
-  <div class="flex items-center justify-between">
-    <div>
-      <button id="resetProfile" type="button"
-              class="px-4 py-2 bg-white border rounded-md text-sm hover:shadow-sm">
-        Reset
-      </button>
-    </div>
-
-    <div class="flex items-center gap-3">
-      <button id="previewProfileBtn" type="button"
-              class="px-4 py-2 bg-white border rounded-md text-sm hover:shadow-sm hidden">
-        Preview
-      </button>
-
-      <button id="saveProfileBtn" type="submit"
-              class="px-4 py-2 bg-red-500 text-white rounded-md text-sm shadow">
-        Save changes
-      </button>
-    </div>
-  </div>
-</form>
-            </div>
-
-            <div id="tabSecurity" class="tab-content hidden">
-              <form id="securityForm" class="space-y-4">
-                <div>
-                  <label class="text-xs text-gray-600">Change password</label>
-                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-2">
-                    <input id="currentPassword" type="password" placeholder="Current password" class="px-3 py-2 border rounded-md" />
-                    <input id="newPassword" type="password" placeholder="New password" class="px-3 py-2 border rounded-md" />
-                    <input id="confirmPassword" type="password" placeholder="Confirm new" class="px-3 py-2 border rounded-md" />
-                  </div>
-                </div>
-
-                <div class="flex items-center gap-2 justify-end">
-                  <button id="resetPass" type="button" class="px-3 py-2 bg-white border rounded-md text-sm">Reset</button>
-                  <button id="savePass" type="submit" class="px-4 py-2 bg-red-500 text-white rounded-md text-sm">Update password</button>
-                </div>
-
-                <hr class="my-3">
-
-                <div>
-                  <label class="text-xs text-gray-600">Two-factor authentication</label>
-                  <p class="text-sm text-gray-500 mt-1">Enable two-factor auth for extra account security.</p>
-                  <div class="mt-3 flex items-center gap-3">
-                    <input id="toggle2fa" type="checkbox" class="w-4 h-4" />
-                    <label for="toggle2fa" class="text-sm">Enable two-factor authentication</label>
-                  </div>
-                </div>
-              </form>
-            </div>
-
-            <div id="tabNotifications" class="tab-content hidden">
-              <form id="notificationsForm" class="space-y-4">
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label class="text-xs text-gray-600">Email notifications</label>
-                    <div class="mt-2 space-y-2">
-                      <label class="flex items-center gap-2"><input type="checkbox" checked /> New messages</label>
-                      <label class="flex items-center gap-2"><input type="checkbox" checked /> Service requests</label>
-                      <label class="flex items-center gap-2"><input type="checkbox" /> Updates & promotions</label>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label class="text-xs text-gray-600">Mobile push</label>
-                    <div class="mt-2 space-y-2">
-                      <label class="flex items-center gap-2"><input type="checkbox" checked /> Requests & confirmations</label>
-                      <label class="flex items-center gap-2"><input type="checkbox" /> Marketing</label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="flex items-center gap-2 justify-end">
-                  <button type="button" id="resetNotif" class="px-3 py-2 bg-white border rounded-md text-sm">Reset</button>
-                  <button id="saveNotif" type="submit" class="px-4 py-2 bg-red-500 text-white rounded-md text-sm">Save</button>
-                </div>
-              </form>
-            </div>
-
-          </section>
-
-          <!-- Right: quick actions & profile card -->
-          
+    {{-- HEADER --}}
+    <div class="bg-gradient-to-r from-red-700 via-red-600 to-red-500 text-white rounded-2xl shadow-2xl px-10 py-8 flex flex-col md:flex-row justify-between items-center">
+        <div>
+            <h1 class="text-3xl font-bold">Member Settings</h1>
+            <p class="text-red-100">Manage your personal and business details</p>
         </div>
-      </div>
-      </main>
-<script>
-  // ----------------------
-  // UI wiring (trimmed: removed quick-actions/delete modal)
-  // ----------------------
-  document.addEventListener('DOMContentLoaded', () => {
-    // feather icons
-    if (typeof feather !== 'undefined' && feather.replace) feather.replace();
+        <div>
+            <a href="{{ route('member.dashboard') }}"
+                class="bg-white text-red-600 font-semibold px-4 py-2 rounded-xl shadow hover:bg-red-50 transition-all">
+                ← Back to Dashboard
+            </a>
+        </div>
+    </div>
 
-    // mobile sidebar toggles
-    const openMobileBtn = document.getElementById('openMobileSidebar');
-    const mobileSidebar = document.getElementById('mobileSidebar');
-    const mobilePanel = document.getElementById('mobilePanel');
-    const mobileOverlay = document.getElementById('mobileSidebarOverlay');
-    const closeMobileBtn = document.getElementById('closeMobileSidebar');
+    {{-- SUCCESS MESSAGE --}}
+    @if(session('success'))
+        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg shadow-sm">
+            {{ session('success') }}
+        </div>
+    @endif
 
-    function openMobileSidebar() {
-      mobileSidebar.classList.remove('hidden');
-      setTimeout(() => mobilePanel.classList.add('mobile-open'), 10);
-      document.documentElement.style.overflow = 'hidden';
-    }
-    function closeMobileSidebar() {
-      mobilePanel.classList.remove('mobile-open');
-      document.documentElement.style.overflow = '';
-      setTimeout(() => mobileSidebar.classList.add('hidden'), 220);
-    }
-    if (openMobileBtn) openMobileBtn.addEventListener('click', openMobileSidebar);
-    if (closeMobileBtn) closeMobileBtn.addEventListener('click', closeMobileSidebar);
-    if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobileSidebar);
+    {{-- PROFILE OVERVIEW CARD --}}
+    <div class="bg-white rounded-2xl shadow-md border border-gray-100 p-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div class="flex items-center gap-4">
+                {{-- Avatar --}}
+                <div
+                    class="w-16 h-16 bg-red-100 text-red-700 flex items-center justify-center rounded-full text-2xl font-bold uppercase">
+                    {{ substr($user->name, 0, 1) }}
+                </div>
 
-    // profile dropdown
-    const profileBtn = document.getElementById('profileBtn');
-    const profileDropdown = document.getElementById('profileDropdown');
-    const dropdownArrow = document.getElementById('dropdownArrow');
-    if (profileBtn) {
-      profileBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        dropdownArrow.classList.toggle('rotate-180');
-        profileDropdown.classList.toggle('dropdown-hidden');
-        profileDropdown.classList.toggle('dropdown-visible');
-      });
-    }
-    document.addEventListener('click', (ev) => {
-      if (profileBtn && profileDropdown && !profileBtn.contains(ev.target) && !profileDropdown.contains(ev.target)) {
-        dropdownArrow.classList.remove('rotate-180');
-        profileDropdown.classList.add('dropdown-hidden');
-        profileDropdown.classList.remove('dropdown-visible');
-      }
-    });
+                <div>
+                    <h2 class="text-xl font-bold text-gray-800">{{ $user->name }}</h2>
+                    <p class="text-gray-500 text-sm">{{ $user->email }}</p>
+                    <p class="text-sm text-gray-600 mt-1">
+                        <span class="font-medium">Role:</span> {{ ucfirst($user->role ?? 'Member') }}
+                    </p>
+                    @if($user->businessInfo)
+                        <p class="text-sm text-gray-600">
+                            <span class="font-medium">Company:</span> {{ $user->businessInfo->company_name ?? '—' }}
+                        </p>
+                        <p class="text-sm text-gray-600">
+                            <span class="font-medium">Industry:</span> {{ $user->businessInfo->industry ?? '—' }}
+                        </p>
+                    @endif
+                </div>
+            </div>
 
-    // Tabs
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    const tabContents = document.querySelectorAll('.tab-content');
-    tabButtons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        tabButtons.forEach(b => b.classList.remove('text-red-600', 'border-red-600'));
-        tabButtons.forEach(b => b.classList.add('text-gray-600'));
-        tabContents.forEach(c => c.classList.add('hidden'));
-        // enable clicked
-        btn.classList.add('text-red-600');
-        btn.classList.remove('text-gray-600');
-        const target = btn.getAttribute('data-tab');
-        document.getElementById('tab' + target.charAt(0).toUpperCase() + target.slice(1)).classList.remove('hidden');
-      });
-    });
+            {{-- Quick Stats --}}
+            <div class="grid grid-cols-3 md:gap-6 text-center">
+                <div>
+                    <p class="text-2xl font-bold text-red-600">{{ $user->networkingData->referrals_given ?? 0 }}</p>
+                    <p class="text-sm text-gray-500">Referrals Given</p>
+                </div>
+                <div>
+                    <p class="text-2xl font-bold text-red-600">{{ $user->networkingData->referrals_received ?? 0 }}</p>
+                    <p class="text-sm text-gray-500">Referrals Received</p>
+                </div>
+                <div>
+                    <p class="text-2xl font-bold text-red-600">
+                        ₹{{ number_format($user->networkingData->closed_business_value ?? 0, 2) }}
+                    </p>
+                    <p class="text-sm text-gray-500">Closed Business</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    // Simple form handlers — replace with API calls
-    const profileForm = document.getElementById('profileForm');
-    const securityForm = document.getElementById('securityForm');
-    const notificationsForm = document.getElementById('notificationsForm');
+    {{-- SETTINGS FORM --}}
+    <form action="{{ route('member.settings.update') }}" method="POST"
+        class="space-y-10 bg-white shadow-lg rounded-2xl p-8 border border-gray-100">
+        @csrf
 
-    function toast(message, kind = 'success') {
-      const toast = document.createElement('div');
-      toast.className = `fixed bottom-6 right-6 px-4 py-2 rounded shadow-lg ${kind==='error'? 'bg-red-600 text-white':'bg-green-600 text-white'}`;
-      toast.textContent = message;
-      document.body.appendChild(toast);
-      setTimeout(() => { toast.remove(); }, 3000);
-    }
+        {{-- 🧍 BASIC INFORMATION --}}
+        <div>
+            <h2 class="text-lg font-semibold text-gray-700 border-b pb-2 mb-4">🧍 Basic Information</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                @foreach([
+                    ['name'=>'full_name','label'=>'Full Name','value'=>$user->basicInfo->full_name ?? ''],
+                    ['name'=>'gender','label'=>'Gender','value'=>$user->basicInfo->gender ?? ''],
+                    ['name'=>'date_of_birth','label'=>'Date of Birth','value'=>$user->basicInfo->date_of_birth ?? '','type'=>'date'],
+                    ['name'=>'contact_mobile','label'=>'Mobile','value'=>$user->basicInfo->contact_mobile ?? ''],
+                    ['name'=>'email','label'=>'Email','value'=>$user->basicInfo->email ?? ''],
+                    ['name'=>'linkedin','label'=>'LinkedIn','value'=>$user->basicInfo->linkedin ?? ''],
+                ] as $field)
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-600 mb-1">{{ $field['label'] }}</label>
+                        <input type="{{ $field['type'] ?? 'text' }}" name="{{ $field['name'] }}"
+                               value="{{ $field['value'] }}"
+                               class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500 transition placeholder-gray-400">
+                    </div>
+                @endforeach
+            </div>
+        </div>
 
-    if (profileForm) {
-      profileForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        // do validation and call API here
-        toast('Profile saved');
-      });
-    }
-    if (securityForm) {
-      securityForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const newPass = document.getElementById('newPassword').value;
-        const confirm = document.getElementById('confirmPassword').value;
-        if (newPass && newPass !== confirm) { toast('Passwords do not match', 'error'); return; }
-        toast('Password updated');
-        securityForm.reset();
-      });
-    }
-    if (notificationsForm) {
-      notificationsForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        toast('Notification preferences saved');
-      });
-    }
+        {{-- 🏢 BUSINESS INFORMATION --}}
+        <div>
+            <h2 class="text-lg font-semibold text-gray-700 border-b pb-2 mb-4">🏢 Business Information</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                @foreach([
+                    ['name'=>'company_name','label'=>'Company Name','value'=>$user->businessInfo->company_name ?? ''],
+                    ['name'=>'industry','label'=>'Industry','value'=>$user->businessInfo->industry ?? ''],
+                    ['name'=>'business_type','label'=>'Business Type','value'=>$user->businessInfo->business_type ?? ''],
+                    ['name'=>'website_url','label'=>'Website','value'=>$user->businessInfo->website_url ?? '']
+                ] as $field)
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-600 mb-1">{{ $field['label'] }}</label>
+                        <input type="text" name="{{ $field['name'] }}" value="{{ $field['value'] }}"
+                               class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500 transition placeholder-gray-400">
+                    </div>
+                @endforeach
+            </div>
 
-    // Reset buttons
-    const resetProfile = document.getElementById('resetProfile');
-    if (resetProfile) resetProfile.addEventListener('click', () => {
-      document.getElementById('fullName').value = 'Member Name';
-      document.getElementById('displayName').value = 'Member';
-      document.getElementById('email').value = 'member@example.com';
-      document.getElementById('phone').value = '+91 99999 99999';
-      document.getElementById('bio').value = 'Short bio about member';
-      toast('Profile reset');
-    });
+            <div class="mt-4">
+                <label class="block text-sm font-semibold text-gray-600 mb-1">Business Description</label>
+                <textarea name="business_description" rows="4"
+                          class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500 transition placeholder-gray-400">{{ $user->businessInfo->business_description ?? '' }}</textarea>
+            </div>
+        </div>
 
-    const resetPass = document.getElementById('resetPass');
-    if (resetPass) resetPass.addEventListener('click', () => {
-      document.getElementById('currentPassword').value = '';
-      document.getElementById('newPassword').value = '';
-      document.getElementById('confirmPassword').value = '';
-    });
+        {{-- 🔗 NETWORKING DATA --}}
+        <div>
+            <h2 class="text-lg font-semibold text-gray-700 border-b pb-2 mb-4">🔗 Networking Data</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                @foreach([
+                    ['name'=>'referrals_given','label'=>'Referrals Given','value'=>$user->networkingData->referrals_given ?? ''],
+                    ['name'=>'referrals_received','label'=>'Referrals Received','value'=>$user->networkingData->referrals_received ?? ''],
+                    ['name'=>'closed_business_value','label'=>'Closed Business Value','value'=>$user->networkingData->closed_business_value ?? '']
+                ] as $field)
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-600 mb-1">{{ $field['label'] }}</label>
+                        <input type="text" name="{{ $field['name'] }}" value="{{ $field['value'] }}"
+                               class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500 transition placeholder-gray-400">
+                    </div>
+                @endforeach
+            </div>
+        </div>
 
-    const resetNotif = document.getElementById('resetNotif');
-    if (resetNotif) resetNotif.addEventListener('click', () => {
-      // Simple: uncheck optional ones (example)
-      notificationsForm.querySelectorAll('input[type="checkbox"]').forEach(c => c.checked = false);
-      toast('Notifications reset');
-    });
+        {{-- 🧠 RELATIONSHIP INTELLIGENCE --}}
+        <div>
+            <h2 class="text-lg font-semibold text-gray-700 border-b pb-2 mb-4">🧠 Relationship Intelligence</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                @foreach([
+                    ['name'=>'connection_strength','label'=>'Connection Strength','value'=>$user->relationshipIntelligence->connection_strength ?? ''],
+                    ['name'=>'preferred_communication','label'=>'Preferred Communication','value'=>$user->relationshipIntelligence->preferred_communication ?? ''],
+                    ['name'=>'interests','label'=>'Interests','value'=>$user->relationshipIntelligence->interests ?? '']
+                ] as $field)
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-600 mb-1">{{ $field['label'] }}</label>
+                        <input type="text" name="{{ $field['name'] }}" value="{{ $field['value'] }}"
+                               class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500 transition placeholder-gray-400">
+                    </div>
+                @endforeach
+            </div>
+        </div>
 
-    // re-run feather icons if present
-    if (typeof feather !== 'undefined' && feather.replace) feather.replace();
+        {{-- 📎 SUPPORTING DATA --}}
+        <div>
+            <h2 class="text-lg font-semibold text-gray-700 border-b pb-2 mb-4">📎 Supporting Data</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                @foreach([
+                    ['name'=>'business_cards','label'=>'Business Cards','value'=>$user->supportingData->business_cards ?? ''],
+                    ['name'=>'awards','label'=>'Awards','value'=>$user->supportingData->awards ?? '']
+                ] as $field)
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-600 mb-1">{{ $field['label'] }}</label>
+                        <input type="text" name="{{ $field['name'] }}" value="{{ $field['value'] }}"
+                               class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-red-500 focus:border-red-500 transition placeholder-gray-400">
+                    </div>
+                @endforeach
+            </div>
+        </div>
 
-    // Close dropdowns/modals on Escape
-    document.addEventListener('keydown', (ev) => {
-      if (ev.key === 'Escape') {
-        // close mobile if open
-        if (!mobileSidebar.classList.contains('hidden')) closeMobileSidebar();
-        // close profile dropdown
-        if (profileDropdown && !profileDropdown.classList.contains('dropdown-hidden')) {
-          profileDropdown.classList.add('dropdown-hidden'); profileDropdown.classList.remove('dropdown-visible'); dropdownArrow.classList.remove('rotate-180');
-        }
-      }
-    });
-  });
-</script>
+        {{-- SAVE BUTTON --}}
+        <div class="flex justify-end">
+            <button
+                class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-xl shadow-md font-semibold text-sm tracking-wide transition-all">
+                💾 Save Changes
+            </button>
+        </div>
+    </form>
+</div>
 @endsection
-
