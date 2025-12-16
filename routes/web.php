@@ -22,10 +22,7 @@ use App\Http\Controllers\AdvisoryController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\UserController;
-<<<<<<< HEAD
 
-=======
->>>>>>> 20cf525 (tushar sharma)
 
 
 /*
@@ -306,16 +303,16 @@ Route::get('/advisory-committee', [UserController::class, 'advisoryCommittee'])
 Route::view('/article-one', 'user.article_one');
 Route::view('/article-two', 'user.article_two');
 Route::view('/article-three', 'user.article_three');
-<<<<<<< HEAD
+
 Route::get('/build-brand', [UserController::class, 'buildBrand'])->name('build.brand');
 Route::view('/chapter', 'user.chapter');
-=======
+
 Route::view('/articles', 'user.articles');
 Route::view('/articles-new', 'user.articles-new');
 Route::view('/build-brand', 'user.buildBrand');
 Route::get('/chapter', [UserController::class, 'chapters'])
     ->name('chapters.index');
->>>>>>> 20cf525 (tushar sharma)
+
 Route::view('/contact', 'user.contact');
 Route::view('/detail-locads', 'user.detail-locads');
 Route::view('/detail-traveltalk', 'user.detail-traveltalk');
@@ -337,14 +334,14 @@ Route::get('/insightindex', [UserController::class, 'insightIndex'])
     ->name('insights.index');
 // Other Pages
 Route::view('/journey', 'user.journey');
-<<<<<<< HEAD
+
 Route::get('/partners', [UserController::class, 'partners'])->name('partners.index');
 
 Route::view('/programs-meetup', 'user.programs-meetup');
-=======
+
 Route::view('/partners', 'user.partners');
 Route::get('/programs-meetup', [UserController::class, 'programsMeetup']);
->>>>>>> 20cf525 (tushar sharma)
+
 Route::view('/services-portion', 'user.services.portion');
 Route::get('/sponsors', [UserController::class, 'partners'])
     ->name('sponsors');
