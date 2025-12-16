@@ -65,17 +65,31 @@ class Article extends Model
      */
     protected static function boot()
     {
-        parent::boot();
+            parent::boot();
 
-        static::creating(function ($article) {
-            if (empty($article->slug)) {
-                $article->slug = Str::slug($article->title);
-            }
+    static::creating(function ($article) {
 
-            if (empty($article->read_time) && !empty($article->content)) {
-                $article->read_time = ceil(str_word_count(strip_tags($article->content)) / 200);
-            }
-        });
+        // Auto slug
+        if (empty($article->slug)) {
+            $article->slug = Str::slug($article->title);
+        }
+
+        // Auto read time
+        if (empty($article->read_time) && !empty($article->content)) {
+            $article->read_time = ceil(
+                str_word_count(strip_tags($article->content)) / 200
+            );
+        }
+
+        // ✅ AUTO publish_date when published
+        if (
+            $article->status === 'published' &&
+            empty($article->publish_date)
+        ) {
+            $article->publish_date = now();
+        }
+    });
+
     }
 
     /**

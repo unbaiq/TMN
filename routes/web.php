@@ -21,6 +21,8 @@ use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\AdvisoryController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\SponsorController;
+use App\Http\Controllers\UserController;
+
 
 
 /*
@@ -300,16 +302,12 @@ Route::view('/advisory-committee', 'user.advisory-committee');
 Route::view('/article-one', 'user.article_one');
 Route::view('/article-two', 'user.article_two');
 Route::view('/article-three', 'user.article_three');
-Route::view('/articles', 'user.articles');
-Route::view('/articles-new', 'user.articles-new');
-Route::view('/build-brand', 'user.buildBrand');
+Route::get('/build-brand', [UserController::class, 'buildBrand'])->name('build.brand');
 Route::view('/chapter', 'user.chapter');
 Route::view('/contact', 'user.contact');
 Route::view('/detail-locads', 'user.detail-locads');
-Route::view('/detail-stories', 'user.detail-stories');
 Route::view('/detail-traveltalk', 'user.detail-traveltalk');
 Route::view('/detailed-event', 'user.detailed-event');
-Route::view('/details-article', 'user.details-article');
 
 // Blade Pages
 Route::view('/easy-to-join', 'user.easy-to-joinsection');
@@ -327,13 +325,32 @@ Route::view('/insightindex', 'user.insightIndex');
 
 // Other Pages
 Route::view('/journey', 'user.journey');
-Route::view('/partners', 'user.partners');
+Route::get('/partners', [UserController::class, 'partners'])->name('partners.index');
+
 Route::view('/programs-meetup', 'user.programs-meetup');
 Route::view('/services-portion', 'user.services.portion');
-Route::view('/sponsors', 'user.sponsors');
-Route::view('/stories', 'user.stories');
-Route::view('/stories-new', 'user.stories-new');
-Route::view('/story', 'user.story');
+Route::get('/sponsors', [UserController::class, 'partners'])
+    ->name('sponsors');
+/*
+|--------------------------------------------------------------------------
+| WEBSITE STORIES (Dynamic from Admin)
+|--------------------------------------------------------------------------
+*/
+Route::get('/stories', [UserController::class, 'stories'])->name('stories.index');
+Route::get('/stories/{slug}', [UserController::class, 'storyDetail'])->name('stories.show');
+Route::get('/story', function () {
+    return redirect()->route('stories.index');
+});
+/* ================= ARTICLES ================= */
+
+Route::get('/articles', [UserController::class, 'articles'])->name('articles.index');
+Route::get('/articles/{slug}', [UserController::class, 'articleDetail'])->name('articles.show');
+
+/* legacy / static page handling */
+Route::get('/articles-new', function () {
+    return redirect()->route('articles.index');
+});
+
 
 // Optional: Default homepage
 Route::get('/', function () {
