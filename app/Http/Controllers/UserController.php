@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+<<<<<<< HEAD
 use App\Models\Story;
 use App\Models\Article;
 use App\Models\Consultation;
@@ -180,5 +181,141 @@ public function articleDetail(string $slug)
             ->get();
 
         return view('user.partners', compact('partners'));
+=======
+use Illuminate\Http\Request;
+use App\Models\Event;
+use App\Models\Advisory;
+use App\Models\Story;
+use App\Models\Meetup;
+use App\Models\Insight;
+use App\Models\Chapter;
+
+class UserController extends Controller
+{
+    /**
+     * HOME PAGE
+     * URL: /
+     * Shows latest 3 events + other homepage data
+     */
+    public function index()
+    {
+        $latestEvents = Event::where('is_public', true)
+            ->whereIn('status', ['upcoming', 'ongoing'])
+            ->whereDate('event_date', '>=', now())
+            ->orderBy('event_date')
+            ->take(3)
+            ->get();
+
+        $advisories = Advisory::where('is_active', true)
+            ->where('is_public', true)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        
+
+        $stories = Story::published()
+            ->orderBy('publish_date', 'desc')
+            ->take(6)
+            ->get();
+
+        $meetups = Meetup::where('is_active', true)
+            ->where('is_public', true)
+            ->where('status', 'upcoming')
+            ->whereDate('event_date', '>=', now())
+            ->orderBy('event_date')
+            ->take(3)
+            ->get();
+
+        return view('user.index', compact(
+            'latestEvents',
+            'advisories',
+            'stories',
+            'meetups'
+        ));
+    }
+
+    /**
+     * EVENTS LIST PAGE
+     * URL: /events
+     */
+    public function advisoryCommittee()
+{
+    $advisories = Advisory::where('is_active', true)
+        ->where('is_public', true)
+        ->orderBy('created_at', 'desc')
+        ->take(4)
+        ->get();
+
+    return view('user.advisory-committee', compact('advisories'));
+}
+    public function events()
+    {
+        $events = Event::where('is_public', true)
+            ->whereIn('status', ['upcoming', 'ongoing'])
+            ->orderBy('event_date')
+            ->paginate(12);
+
+        return view('user.events', compact('events'));
+    }
+
+    /**
+     * EVENT DETAIL PAGE
+     * URL: /events/{slug}
+     */
+    public function eventShow(Event $event)
+    {
+        abort_if(!$event->is_public, 404);
+
+        return view('user.detailed-event', compact('event'));
+    }
+
+    /**
+     * PROGRAMS & MEETUPS PAGE
+     */
+    public function programsMeetup()
+    {
+        $meetups = Meetup::where('is_active', true)
+            ->where('is_public', true)
+            ->where('status', 'upcoming')
+            ->whereDate('event_date', '>=', now())
+            ->orderBy('event_date')
+            ->paginate(12);
+
+        return view('user.programs-meetup', compact('meetups'));
+    }
+
+    /**
+     * INSIGHTS PAGE
+     */
+    public function insightIndex()
+    {
+        $insights = Insight::published()
+            ->orderBy('publish_date', 'desc')
+            ->paginate(12);
+
+        return view('user.insightIndex', compact('insights'));
+    }
+
+    /**
+     * CHAPTERS PAGE
+     */
+    public function chapters(Request $request)
+    {
+        $query = Chapter::where('is_active', true);
+
+        if ($request->filled('state')) {
+            $query->where('state', 'like', '%' . $request->state . '%');
+        }
+
+        if ($request->filled('city')) {
+            $query->where('city', 'like', '%' . $request->city . '%');
+        }
+
+        $chapters = $query
+            ->orderBy('created_at', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('user.chapter', compact('chapters'));
+>>>>>>> 20cf525 (tushar sharma)
     }
 }

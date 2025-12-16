@@ -214,87 +214,55 @@
        Experience your business in a different way.. Learn from experts that can change your way of thinking . Be a part of  Events , Be a proud TMNIAN.
       </p>
     </div>
-    <div class=" grid lg:grid-cols-3 md:grid-cols-2 gap-8  pt-10">
-<div class=" overflow-hidden relative ">
-<img src="images/upcoming-event.png" class="w-full h-full object-cover " alt="" >
-<div class="absolute w-[90%] bottom-[5%] p-4 rounded-[20px]  bg-white/90 left-[5%]  ">
-  <div class="relative ">
-    <div class="absolute flex flex-col w-[55px] h-[80px] flex flex-col items-center  justify-center  text-white  -top-14 rounded-[5px] right-4 bg-red-600">
-      <p class="text-[30px] font-bold leading-[26px]">25
-        </p>
-        <p  class=" font-normal leading-[26px]">
-          Aug
-        </p>
-    </div>
-<p class="text-[20px] font-semibold leading-[30px]">
-  Delhi TMN MEET
-</p>
-<p class="text-[#848484] font-normal">
-  Delhi 25 Aug
-</p>
-<p class="leading-[30px] font-normal">
-  Become a part of a local network with global reach. TMN MEET is an interaction channel where we Top Management professionals meet ...
-</p>
-<span class="text-primary font-bold leading-[30px]">
-  Read More
-</span>
-</div>
-</div>
-</div>
-<div class=" overflow-hidden relative ">
-  <img src="images/event2.png" class="w-full h-full object-cover " alt="" >
-  <div class="absolute w-[90%] bottom-[5%] p-4 rounded-[20px]  bg-white/90 left-[5%]  ">
-    <div class="relative ">
-      <div class="absolute flex flex-col w-[55px] h-[80px] flex flex-col items-center  justify-center  text-white  -top-14 rounded-[5px] right-4 bg-red-600">
-        <p class="text-[30px] font-bold leading-[26px]">01
-          </p>
-          <p  class=" font-normal leading-[26px]">
-            Sep
-          </p>
-      </div>
-  <p class="text-[20px] font-semibold leading-[30px]">
-    GGN TMN MEET
-  </p>
-  <p class="text-[#848484] font-normal">
-    Delhi 01 Sep
-  </p>
-  <p class="leading-[30px] font-normal">
-    Become a part of a local network with global reach. TMN MEET is an interaction channel where we Top Management professionals meet ...
-  </p>
-  <span class="text-primary font-bold leading-[30px]">
-    Read More
-  </span>
-  </div>
-  </div>
-  </div>
-  <div class=" overflow-hidden relative ">
-    <img src="images/event3.png" class="w-full h-full object-cover " alt="" >
-    <div class="absolute w-[90%] bottom-[5%] p-4 rounded-[20px]  bg-white/90 left-[5%]  ">
-      <div class="relative ">
-        <div class="absolute flex flex-col w-[55px] h-[80px] flex flex-col items-center  justify-center  text-white  -top-14 rounded-[5px] right-4 bg-red-600">
-          <p class="text-[30px] font-bold leading-[26px]">15
-            </p>
-            <p  class=" font-normal leading-[26px]">
-              Sep
-            </p>
-        </div>
-    <p class="text-[20px] font-semibold leading-[30px]">
-      Noida TMN MEET
-    </p>
-    <p class="text-[#848484] font-normal">
-      Delhi 25 Aug
-    </p>
-    <p class="leading-[30px] font-normal">
-      Become a part of a local network with global reach. TMN MEET is an interaction channel where we Top Management professionals meet ...
-    </p>
-    <span class="text-primary font-bold leading-[30px]">
-      Read More
-    </span>
-    </div>
-    </div>
+   <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 pt-10">
+
+@foreach($latestEvents as $event)
+<div class="overflow-hidden relative">
+
+<img
+    src="{{ $event->banner_image ? asset('storage/'.$event->banner_image) : asset('images/upcoming-event.png') }}"
+    class="w-full h-full object-cover"
+    alt="{{ $event->title }}"
+>
+
+<div class="absolute w-[90%] bottom-[5%] p-4 rounded-[20px] bg-white/90 left-[5%]">
+  <div class="relative">
+
+    <div class="absolute flex flex-col w-[55px] h-[80px] flex flex-col items-center justify-center text-white -top-14 rounded-[5px] right-4 bg-red-600">
+      <p class="text-[30px] font-bold leading-[26px]">
+        {{ \Carbon\Carbon::parse($event->event_date)->format('d') }}
+      </p>
+      <p class="font-normal leading-[26px]">
+        {{ \Carbon\Carbon::parse($event->event_date)->format('M') }}
+      </p>
     </div>
 
+    <p class="text-[20px] font-semibold leading-[30px]">
+      {{ $event->title }}
+    </p>
+
+    <p class="text-[#848484] font-normal">
+      {{ $event->city ?? 'Online' }}
+      {{ \Carbon\Carbon::parse($event->event_date)->format('d M') }}
+    </p>
+
+    <p class="leading-[30px] font-normal">
+      {{ \Illuminate\Support\Str::limit(strip_tags($event->description), 120) }}
+    </p>
+
+    <a href="{{ route('events.show', $event->slug) }}"
+       class="text-primary font-bold leading-[30px]">
+      Read More
+    </a>
+
   </div>
+</div>
+
+</div>
+@endforeach
+
+</div>
+
   </div>
 </div>
 
@@ -465,58 +433,52 @@
 }
 
         </style>
-        <div class="p-4 py-8 grid  md:grid-cols-2 lg:grid-cols-4  xl:grid-cols-5 gap-6 items-center justify-center" id="committee-containerr">
+          <div class="p-4 py-8 grid  md:grid-cols-2 lg:grid-cols-4  xl:grid-cols-5 gap-6 items-center justify-center" id="committee-containerr">
         
-          <script>
-            const committeImagedata = [
-              { img: "https://demo.nuovasoft.in/transcon2025/images/Dr%20Suhasini%20Sil%20.jpg", name: "Priya Handoo", exp: "25+ Years Experience" },
-              { img: "https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=2542", name: "Deepak Verma", exp: "12+ Years Experience" },
-                    { img: "https://demo.nuovasoft.in/transcon2025/images/Dr%20Suhasini%20Sil%20.jpg", name: "Priya Handoo", exp: "25+ Years Experience" },
-              { img: "https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=2542", name: "Deepak Verma", exp: "12+ Years Experience" },
-              { img: "https://wac-cdn.atlassian.com/dam/jcr:ba03a215-2f45-40f5-8540-b2015223c918/Max-R_Headshot%20(1).jpg?cdnVersion=2542", name: "Deepak Verma", exp: "12+ Years Experience" },
-            ];
-        
-            const htmlContentt = committeImagedata.map((data, index) => (
-       `      
+
+@foreach($advisories as $advisory)
 <div class="card border mx-auto">
+
   <section class="landscape-section">
-<img src="${data.img}" class="mx-auto w-full h-full object-cover object-top" >
+    <img
+      src="{{ $advisory->thumbnail_url }}"
+      class="mx-auto w-full h-full object-cover object-top"
+      alt="{{ $advisory->advisor_name }}"
+    >
   </section>
 
   <section class="content-section">
     <div class="weather-info">
-      <div class="left-side">
-      
-        
-      </div>
+      <div class="left-side"></div>
       <div class="right-side">
-        <div class="location">
-         
-        </div>
-     
+        <div class="location"></div>
       </div>
     </div>
+
     <div class="forecast">
       <div>
-        <p class="text-[22px] font-semibold text-[#000]">${data.name}</p>
-     
+        <p class="text-[22px] font-semibold text-[#000]">
+          {{ $advisory->advisor_name }}
+        </p>
       </div>
+
       <div class="separator"></div>
+
       <div>
-        <p class="text-[15px] font-medium">${data.exp}</p>
-      
+        <p class="text-[15px] font-medium">
+          {{ $advisory->advisor_designation ?? 'Senior Advisor' }}
+        </p>
       </div>
+
       <div class="separator"></div>
-     
     </div>
   </section>
+
+</div>
+@endforeach
+
 </div>
 
-`
-            ));
-
-            document.getElementById("committee-containerr").innerHTML = htmlContentt.join('');
-          </script>
           
         </div>
       </div>
@@ -541,41 +503,66 @@
 <div id="splide" class="splide">
     <div class="splide__track">
         <ul class="splide__list" id="behindImagess">
-                  <script>
-            const Behindata = [
-              { img: "images/locads.png", des: "Digital signage has transformed the way businesses communicate with their audiences.... ", subdes: "Avinash Handoo",compName:"Enigma Exhibition Pvt. Ltd." },
-          { img: "images/travel.png", des: " Discover the historical wonders within CITY through detailed explanations and digital media....", subdes: "Satish Chandra Srivastava" ,compName:"The Travel Talk" },
-            { img: "images/rcure.png", des: "Rcure is a pioneering healthcare initiative by Rcure Healthcare Pvt Ltd, focused on transforming...", subdes: "Rupinder Kaur" ,compName:"Revival Health Care Pvt. Ltd." },
-           
-            ];
-        
-            const BehinContent = Behindata.map((data, index) => (
-              `  <li class="splide__slide  h-[420px]">
-              <div key="${index}" class="h-[400px] border rounded-br-[40px] shadow-[0px_4px_20px_0px_rgba(129,129,129,0.25)] over flow-hiddenn  bg-[#fff]  rounded-br-[40px]  over flow-hiddenn  bg-[#fff] ">
-  <div class="w-full h-[200px]">
-    <img src="${data.img}" class="w-full h-full object-contain" alt="">
-  </div>
-<div class=" p-4 h-full text-center">
-  <p class="font-medium xl:leading-[25px] md:text-[17px] text-[17px] ">
-  ${data.des}
-   
+
+@foreach($stories as $story)
+<li class="splide__slide h-[420px]">
+
+  <div class="h-[400px] border rounded-br-[40px]
+              shadow-[0px_4px_20px_0px_rgba(129,129,129,0.25)]
+              bg-[#fff]">
+
+    <!-- Image -->
+    <div class="w-full h-[200px]">
+      <img
+        src="{{ $story->image_url }}"
+        class="w-full h-full object-contain"
+        alt="{{ $story->title }}"
+      >
+    </div>
+
+    <!-- Content -->
+    <div class="p-4 h-full text-center">
+
+      <!-- Description -->
+      <p class="font-medium xl:leading-[25px] md:text-[17px] text-[17px]">
+        {{ \Illuminate\Support\Str::limit($story->short_description ?? $story->description, 120) }}
+      </p>
+
+      <!-- Separator -->
+      <hr class="w-[30%] my-4 border-[#CF2031] border-2 mx-auto">
+
+      <!-- Author -->
+      <p class="font-semibold xl:leading-[30px] text-[16px]">
+        {{ $story->author_name }}
+      </p>
+
+      <!-- Company -->
+      <p class="font-normal xl:leading-[30px] text-[15px]">
+        {{ $story->author_company }}
+      </p>
+
+      <!-- Category & Industry -->
+     @if($story->category || $story->industry)
+  <p class="text-[16px] text-gray-800 mt-1">
+    {{ $story->category }}
   </p>
-  <hr class="w-[30%] my-4 border-[#CF2031] border-2 mx-auto >
-  <p class="font-semibold xl:leading-[30px] text-[16px]">
-  ${data.subdes}</p>
-    <p class="font-normal xl:leading-[30px] text-[15px]">
-  ${data.compName}</p>
-</div>
 
+  <p class="text-[16px] text-gray-800">
+    {{ $story->industry }}
+  </p>
+@endif
 
-</div>
-</li>`
-            ));
+     
 
-            document.getElementById("behindImagess").innerHTML = BehinContent.join('');
-          </script>
-            
-        </ul>
+    </div>
+
+  </div>
+
+</li>
+@endforeach
+
+</ul>
+
     </div>
 </div>
 

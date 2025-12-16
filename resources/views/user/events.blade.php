@@ -44,63 +44,57 @@ Support a great cause while enjoying an elegant evening of entertainment, networ
                 </p>
             </div>
             
-              <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10" id="articles">
-          <script>
-            const articlesData = [
-              { img: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F945485643%2F2567913917311%2F1%2Foriginal.20250127-134635?crop=focalpoint&fit=crop&w=512&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.550724637681&fp-y=0.0350318471338&s=d001b3f3b32ce9f60fb8089c076e46a1",
-                tag:" Sunday",
-                date:"Feb 09 , 9:30 PM",
-                head: "Live The Night ",
-                subdis: "Come join us at LUNET CLUB for an unforgettable Night filled with Bigroom music, dancing, Nostalgia, EDM community and good vibes......",
-                link:"detailed-event.php"
-                  
-              },
-              { img: "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F945485643%2F2567913917311%2F1%2Foriginal.20250127-134635?crop=focalpoint&fit=crop&w=512&auto=format%2Ccompress&q=75&sharp=10&fp-x=0.550724637681&fp-y=0.0350318471338&s=d001b3f3b32ce9f60fb8089c076e46a1",
-                tag:" Sunday",
-                date:"Feb 09 , 9:30 PM",
-                head: "Live The Night ",
-                subdis: "Come join us at LUNET CLUB for an unforgettable Night filled with Bigroom music, dancing, Nostalgia, EDM community and good vibes......",
-                link:"detailed-event.php"
-                  
-              },
-           
-             
-            ];
-        
-            const htmlContent = articlesData.map((data, index) => (
-              ` <div class="h-[380px] group border overflow-hidden rounded-xl shadow-xl w-[340px] relative cursor-pointer">
-                <img class="w-full h-full transition-all duration-700  transform group-hover:scale-110 " src="${data.img}">
-                <div class="absolute duration-700 ease-in  group-hover:h-[300px]  bg-white bottom-0 w-full h-[120px] p-6">
-                    <div class="flex items-center justify-between">
-                        <span class="px-4 py-2 bg-red-600/10 text-red-600 text-sm  rounded font-medium">
-                            ${data.tag}
-                        </span>
-                        <span class="font-medium">
-                           ${data.date}
-                        </span>
-                    </div>
-                    <h2 class="font-semibold py-4 text-[20px]">
-                           
-                 ${data.head} 
-                    </h2>
-                    <p class="text-sm">
-                  ${data.subdis}
-                    </p>
-                    <div class="mt-3">   
-                    <a href="${data.link}">
-                    <span class="bg-red-600 text-white px-4 py-2  text-[13px] ">Join Now</span>
-                    </a>
-                    </div>
+                          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10" id="articles">
 
-                </div>
-                
-            </div>`
-            ));
+@forelse($events as $event)
+<div class="h-[380px] group border overflow-hidden rounded-xl shadow-xl w-[340px] relative cursor-pointer">
 
-            document.getElementById("articles").innerHTML = htmlContent.join('');
-          </script>
-          
+    {{-- Banner --}}
+    <img
+        class="w-full h-full transition-all duration-700 transform group-hover:scale-110"
+        src="{{ $event->banner_image 
+                ? asset('storage/'.$event->banner_image) 
+                : asset('images/upcoming-event.png') }}"
+        alt="{{ $event->title }}"
+    >
+
+    {{-- Content --}}
+    <div class="absolute duration-700 ease-in group-hover:h-[300px] bg-white bottom-0 w-full h-[120px] p-6">
+
+        <div class="flex items-center justify-between">
+            <span class="px-4 py-2 bg-red-600/10 text-red-600 text-sm rounded font-medium">
+                {{ ucfirst($event->event_type ?? 'Event') }}
+            </span>
+
+            <span class="font-medium text-sm">
+                {{ \Carbon\Carbon::parse($event->event_date)->format('M d, h:i A') }}
+            </span>
         </div>
+
+        <h2 class="font-semibold py-4 text-[20px]">
+            {{ $event->title }}
+        </h2>
+
+        <p class="text-sm line-clamp-3">
+            {{ \Illuminate\Support\Str::limit(strip_tags($event->description), 120) }}
+        </p>
+
+        <div class="mt-3">
+            <a href="{{ route('events.show', $event->slug) }}">
+                <span class="bg-red-600 text-white px-4 py-2 text-[13px]">
+                    Join Now
+                </span>
+            </a>
+        </div>
+
+    </div>
+</div>
+@empty
+    <p class="text-gray-500">No upcoming events.</p>
+@endforelse
+
+</div>
+
             
             
             

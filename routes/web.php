@@ -22,7 +22,10 @@ use App\Http\Controllers\AdvisoryController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\UserController;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 20cf525 (tushar sharma)
 
 
 /*
@@ -298,12 +301,21 @@ Route::middleware(['auth', 'role:member'])
 
 // User 
 Route::view('/about', 'user.about');
-Route::view('/advisory-committee', 'user.advisory-committee');
+Route::get('/advisory-committee', [UserController::class, 'advisoryCommittee'])
+    ->name('advisory.committee');
 Route::view('/article-one', 'user.article_one');
 Route::view('/article-two', 'user.article_two');
 Route::view('/article-three', 'user.article_three');
+<<<<<<< HEAD
 Route::get('/build-brand', [UserController::class, 'buildBrand'])->name('build.brand');
 Route::view('/chapter', 'user.chapter');
+=======
+Route::view('/articles', 'user.articles');
+Route::view('/articles-new', 'user.articles-new');
+Route::view('/build-brand', 'user.buildBrand');
+Route::get('/chapter', [UserController::class, 'chapters'])
+    ->name('chapters.index');
+>>>>>>> 20cf525 (tushar sharma)
 Route::view('/contact', 'user.contact');
 Route::view('/detail-locads', 'user.detail-locads');
 Route::view('/detail-traveltalk', 'user.detail-traveltalk');
@@ -312,7 +324,7 @@ Route::view('/detailed-event', 'user.detailed-event');
 // Blade Pages
 Route::view('/easy-to-join', 'user.easy-to-joinsection');
 Route::view('/events', 'user.events');
-Route::view('/index', 'user.index');
+Route::get('/',[UserController::class,'index'])->name('user.index');
 Route::view('/index-updated', 'user.index-updated');
 Route::view('/indexold', 'user.indexold');
 Route::view('/indexold-without-loader', 'user.indexold-without-loader');
@@ -321,13 +333,18 @@ Route::view('/indexold-without-loader', 'user.indexold-without-loader');
 Route::view('/insight', 'user.insight');
 Route::view('/insight2', 'user.insight2');
 Route::view('/insight3', 'user.insight3');
-Route::view('/insightindex', 'user.insightIndex');
-
+Route::get('/insightindex', [UserController::class, 'insightIndex'])
+    ->name('insights.index');
 // Other Pages
 Route::view('/journey', 'user.journey');
+<<<<<<< HEAD
 Route::get('/partners', [UserController::class, 'partners'])->name('partners.index');
 
 Route::view('/programs-meetup', 'user.programs-meetup');
+=======
+Route::view('/partners', 'user.partners');
+Route::get('/programs-meetup', [UserController::class, 'programsMeetup']);
+>>>>>>> 20cf525 (tushar sharma)
 Route::view('/services-portion', 'user.services.portion');
 Route::get('/sponsors', [UserController::class, 'partners'])
     ->name('sponsors');
@@ -352,7 +369,8 @@ Route::get('/articles-new', function () {
 });
 
 
-// Optional: Default homepage
-Route::get('/', function () {
-    return view('user.index');
-});
+Route::get('/events', [UserController::class, 'events'])
+    ->name('events');
+
+Route::get('/events/{event:slug}', [UserController::class, 'eventShow'])
+    ->name('events.show');

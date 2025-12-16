@@ -27,157 +27,86 @@
       </div>
       </div>
     </section>
-    <section>
-        <div class="main-width py-10">
-            <h2 class="text-center text-[30px] font-medium pb-4">Search for Your State and City and join the chapter</h2>
-            <form>
-            <div class="grid md:grid-cols-2 gap-4">
-                <div>
-                <input type="text" class="border rounded outline-none px-4 py-3 w-full focus:shadow-[0_0_10px_#CF2031] focus:ring-0" placeholder="Enter State"/>
+    <section class="py-10">
+  <div class="main-width">
 
+    <h2 class="text-center text-[30px] font-medium pb-6">
+      Search for Your State and City and join the chapter
+    </h2>
 
+    {{-- SEARCH FORM --}}
+    <form method="GET" class="mb-6">
+      <div class="grid md:grid-cols-2 gap-4">
+        <input
+          type="text"
+          name="state"
+          value="{{ request('state') }}"
+          class="border rounded px-4 py-3 w-full"
+          placeholder="Enter State"
+        />
 
-                 </div>
-                <div class="flex gap-4">
-                <input type="text" class="border rounded outline-none px-4 py-3 w-full focus:shadow-[0_0_10px_#CF2031] focus:ring-0" placeholder="Enter City"/>
-<button class="bg-primary px-6 py-3 text-white rounded ">Go</button>
+        <div class="flex gap-4">
+          <input
+            type="text"
+            name="city"
+            value="{{ request('city') }}"
+            class="border rounded px-4 py-3 w-full"
+            placeholder="Enter City"
+          />
 
+          <button class="bg-primary px-6 py-3 text-white rounded">
+            Go
+          </button>
+        </div>
+      </div>
+    </form>
 
-                 </div>
-                
-                
-                
-            </div>
-            </form>
-            
-            <div class="mt-4">
-                   <table class="w-full border border-collapse">
-                    
-                    <thead>
-                        <tr class="text-left px-4"  >
-                            <th class="p-4 border">
-                                S.No.
-                            </th>
-                            <th class="p-4 border">
-                                State
-                            </th>
-                             <th class="p-4 border">
-                                City
-                            </th>
-                              <th class="p-4 border">
-                                Chapter Name
-                            </th>
-                                <th class="p-4 border">
-                                Action
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="row">
-                       
-                    </tbody>
-                    
-                </table>
-                <script>
-                    const statesData=[
-                        {
-                            id:1,
-                            State:"Uttar Pradesh",
-                            City:"Noida",
-                            ChapterName:"Noida01",
-                            action:"#"
-                        },
-                        {
-                            id:2,
-                            State:"Uttar Pradesh",
-                            City:"Greator Noida",
-                            ChapterName:"Greator Noida02",
-                            action:"#"
-                        },
-                             {
-                            id:3,
-                            State:"Uttar Pradesh",
-                            City:"Lucknow",
-                            ChapterName:"Lucknow01",
-                            action:"#"
-                        },
-                         {
-                            id:4,
-                            State:"Uttar Pradesh",
-                            City:"Varansi",
-                            ChapterName:"Varansi01",
-                            action:"#"
-                        },
-                         {
-                            id:5,
-                            State:"Delhi",
-                            City:"Delhi",
-                            ChapterName:"Dwarka ",
-                            action:"#"
-                        },
-                     
-                      {
-                            id:6,
-                            State:"Haryana",
-                            City:"Gurugram",
-                            ChapterName:"Gurugram01",
-                            action:"#"
-                        },
-                       {
-                            id:7,
-                            State:"Bihar",
-                            City:"Patna",
-                            ChapterName:"Patna01",
-                            action:"#"
-                        },
-                           {
-                            id:8,
-                            State:"Jammu and Kashmir",
-                            City:"Jammu",
-                            ChapterName:"Jammu01",
-                            action:"#"
-                        },
-                        ]
-                    
-                    
-                    const state=statesData.map((data,index)=>(
-                        `  
-                          <tr >
-                          <td class="p-4 border">
-                               ${data.id}
-                            </td>
-                              <td class="p-4 border">
-                               ${data.State}
-                            </td>
-                              <td class="p-4 border">
-                               ${data.City}
-                            </td>
-                               <td class="p-4 border">
-                               ${data.ChapterName}
-                            </td>
-                               <td class="p-4 border">
-                               <a href="${data.action}">
-                               <span class="px-6 py-2 bg-red-600 text-white rounded">Apply
-                               </span>
-                               </a>
-                            </td>
-                          </tr>
-                        `
-                        
-                        ))
-                    
-                    document.getElementById('row').innerHTML = state.join('');
-                    
-                    
-                </script>
-                
-             
-                
-                
-            </div>
-            
-        </div>        
-        
-        
-    </section>
-    
+    {{-- TABLE --}}
+    <div class="overflow-x-auto">
+      <table class="w-full border border-collapse">
+        <thead>
+          <tr class="text-left">
+            <th class="p-4 border">S.No.</th>
+            <th class="p-4 border">State</th>
+            <th class="p-4 border">City</th>
+            <th class="p-4 border">Chapter Name</th>
+            <th class="p-4 border">Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @forelse($chapters as $index => $chapter)
+            <tr>
+              <td class="p-4 border">
+                {{ $chapters->firstItem() + $index }}
+              </td>
+              <td class="p-4 border">{{ $chapter->state }}</td>
+              <td class="p-4 border">{{ $chapter->city }}</td>
+              <td class="p-4 border">{{ $chapter->name }}</td>
+              <td class="p-4 border">
+                <a href="#">
+                  <span class="px-6 py-2 bg-red-600 text-white rounded">
+                    Apply
+                  </span>
+                </a>
+              </td>
+            </tr>
+          @empty
+            <tr>
+              <td colspan="5" class="p-6 text-center text-gray-500">
+                No chapters found.
+              </td>
+            </tr>
+          @endforelse
+        </tbody>
+      </table>
+    </div>
+
+    {{-- PAGINATION --}}
+    <div class="mt-6">
+      {{ $chapters->links() }}
+    </div>
+
+  </div>
+</section>
     @include("user.components.footer")
