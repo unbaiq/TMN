@@ -88,12 +88,12 @@
         <table class="min-w-full text-sm text-left">
             <thead class="bg-gray-100 border-b">
                 <tr>
-                    <th class="px-6 py-3 font-semibold text-gray-700">#</th>
-                    <th class="px-6 py-3 font-semibold text-gray-700">Title</th>
-                    <th class="px-6 py-3 font-semibold text-gray-700">Description</th>
-                    <th class="px-6 py-3 font-semibold text-gray-700">Date</th>
-                    <th class="px-6 py-3 font-semibold text-gray-700 text-center">Status</th>
-                    <th class="px-6 py-3 font-semibold text-gray-700 text-center">Action</th>
+                    <th class="px-6 py-3 border font-semibold text-gray-700">#</th>
+                    <th class="px-6 py-3 border font-semibold text-gray-700">Title</th>
+                    <th class="px-6 py-3 border font-semibold text-gray-700">Description</th>
+                    <th class="px-6 py-3 border font-semibold text-gray-700">Date</th>
+                    <th class="px-6 py-3 border font-semibold text-gray-700 text-center">Status</th>
+                    <th class="px-6 py-3 border font-semibold text-gray-700 text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -102,11 +102,11 @@
                         $hasAttendance = $event->attendances->isNotEmpty();
                     @endphp
                     <tr class="border-b hover:bg-gray-50 transition">
-                        <td class="px-6 py-4 text-gray-600">{{ $index + 1 }}</td>
-                        <td class="px-6 py-4 font-semibold text-gray-800">{{ $event->title }}</td>
-                        <td class="px-6 py-4 text-gray-500">{{ \Illuminate\Support\Str::limit($event->description, 70) }}</td>
-                        <td class="px-6 py-4 text-gray-500">{{ $event->created_at->format('d M Y') }}</td>
-                        <td class="px-6 py-4 text-center">
+                        <td class="px-6 py-4 border text-gray-600">{{ $index + 1 }}</td>
+                        <td class="px-6 py-4 border font-semibold text-gray-800">{{ $event->title }}</td>
+                        <td class="px-6 py-4 border text-gray-500">{{ \Illuminate\Support\Str::limit($event->description, 70) }}</td>
+                        <td class="px-6 py-4 border text-gray-500">{{ $event->created_at->format('d M Y') }}</td>
+                        <td class="px-6 py-4 border text-center">
                             @if($hasAttendance)
                                 <span class="inline-flex items-center gap-1 bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-medium">
                                     <i data-feather="check" class="w-3 h-3"></i> Completed

@@ -11,28 +11,28 @@
         <div class="mb-4 text-green-600 font-medium">{{ session('success') }}</div>
     @endif
 
-    <table class="min-w-full border text-sm text-gray-700">
+    <table class="min-w-full bg-white shadow rounded-lg overflow-hidden">
         <thead>
             <tr class="bg-gray-100 text-left uppercase text-gray-600 text-xs">
-                <th class="px-4 py-3">Title</th>
-                <th class="px-4 py-3">Category</th>
-                <th class="px-4 py-3">Status</th>
-                <th class="px-4 py-3">Publish Date</th>
-                <th class="px-4 py-3 text-right">Actions</th>
+                <th class="px-4 py-3 border">Title</th>
+                <th class="px-4 py-3 border">Category</th>
+                <th class="px-4 py-3 border">Status</th>
+                <th class="px-4 py-3 border">Publish Date</th>
+                <th class="px-4 py-3 text-right border">Actions</th>
             </tr>
         </thead>
         <tbody>
             @forelse($articles as $article)
                 <tr class="border-b hover:bg-gray-50">
-                    <td class="px-4 py-3">{{ $article->title }}</td>
-                    <td class="px-4 py-3">{{ $article->category ?? '-' }}</td>
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-3 border">{{ $article->title }}</td>
+                    <td class="px-4 py-3 border">{{ $article->category ?? '-' }}</td>
+                    <td class="px-4 py-3 border">
                         <span class="px-2 py-1 rounded text-xs {{ $article->status == 'published' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700' }}">
                             {{ ucfirst($article->status) }}
                         </span>
                     </td>
-                    <td class="px-4 py-3">{{ $article->publish_date ? $article->publish_date->format('d M Y') : '-' }}</td>
-                    <td class="px-4 py-3 text-right space-x-2">
+                    <td class="px-4 py-3 border">{{ $article->publish_date ? $article->publish_date->format('d M Y') : '-' }}</td>
+                    <td class="px-4 py-3 border text-right space-x-2">
                         <a href="{{ route('admin.articles.edit', $article->id) }}" class="text-blue-600 hover:underline">Edit</a>
                         <form action="{{ route('admin.articles.destroy', $article->id) }}" method="POST" class="inline" onsubmit="return confirm('Delete this article?')">
                             @csrf @method('DELETE')

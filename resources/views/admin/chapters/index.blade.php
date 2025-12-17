@@ -31,15 +31,15 @@
 
     <!-- TABLE -->
     <div class="overflow-hidden border border-gray-200 rounded-xl">
-        <table class="min-w-full text-sm">
+        <table class="min-w-full text-sm border">
             <thead class="bg-gray-50 text-gray-600 uppercase text-xs font-semibold border-b">
                 <tr>
-                    <th class="py-3 px-4 text-left">Logo</th>
-                    <th class="py-3 px-4 text-left">Chapter Name</th>
-                    <th class="py-3 px-4 text-left">City</th>
-                    <th class="py-3 px-4 text-left">Members</th>
-                    <th class="py-3 px-4 text-left">Status</th>
-                    <th class="py-3 px-4 text-right">Actions</th>
+                    <th class="py-3 px-4 border text-left">Logo</th>
+                    <th class="py-3 px-4 border text-left">Chapter Name</th>
+                    <th class="py-3 px-4 border text-left">City</th>
+                    <th class="py-3 px-4 border text-left">Members</th>
+                    <th class="py-3 px-4 border text-left">Status</th>
+                    <th class="py-3 px-4 border text-right">Actions</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
@@ -51,7 +51,7 @@
                     @endphp
                     <tr class="hover:bg-gray-50 transition">
                         <!-- Logo -->
-                        <td class="py-3 px-4">
+                        <td class="py-3 px-4 border">
                             <div class="flex items-center">
                                 @if($chapter->logo)
                                     <img src="{{ asset('storage/' . $chapter->logo) }}" 
@@ -65,16 +65,16 @@
                         </td>
 
                         <!-- Name -->
-                        <td class="py-3 px-4 font-medium text-gray-800">
+                        <td class="py-3 px-4 border font-medium text-gray-800">
                             {{ $chapter->name }}
                             <div class="text-xs text-gray-500 mt-1">#{{ $chapter->chapter_code }}</div>
                         </td>
 
                         <!-- City -->
-                        <td class="py-3 px-4 text-gray-700">{{ $chapter->city ?? '—' }}</td>
+                        <td class="py-3 px-4 border text-gray-700">{{ $chapter->city ?? '—' }}</td>
 
                         <!-- Members -->
-                        <td class="py-3 px-4">
+                        <td class="py-3 px-4 border">
                             <div class="flex items-center gap-2">
                                 <span class="font-semibold {{ $isFull ? 'text-red-600' : 'text-green-700' }}">
                                     {{ $current }} / {{ $limit ?: '∞' }}
@@ -94,7 +94,7 @@
                         </td>
 
                         <!-- Status -->
-                        <td class="py-3 px-4">
+                        <td class="py-3 px-4 border">
                             @if($chapter->is_active)
                                 <span class="inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs bg-green-100 text-green-700 font-medium">
                                     <i data-feather="check-circle" class="w-3 h-3"></i> Active
@@ -107,7 +107,7 @@
                         </td>
 
                         <!-- Actions -->
-                        <td class="py-3 px-4 text-right flex flex-wrap justify-end gap-2">
+                        <td class="py-3 px-4 border text-right flex flex-wrap justify-end gap-2">
                             <a href="{{ route('admin.chapters.show', $chapter->id) }}" 
                                class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-3 py-1.5 rounded transition">
                                <i data-feather="eye" class="w-4 h-4"></i> View Details

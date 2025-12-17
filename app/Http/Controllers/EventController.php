@@ -123,7 +123,7 @@ class EventController extends Controller
             'agenda'           => 'nullable|string',
             'notes'            => 'nullable|string',
             'max_attendees'    => 'nullable|integer|min:0',
-            'status'           => 'required|in:upcoming,ongoing,completed,cancelled',
+            'status'           => 'nullable|in:upcoming,ongoing,completed,cancelled',
             'is_public'        => 'nullable|boolean',
             'is_featured'      => 'nullable|boolean',
             'banner_image'     => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
@@ -161,6 +161,6 @@ class EventController extends Controller
 
         return redirect()
             ->route('admin.events.index')
-            ->with('success', '🗑️ Event deleted successfully!');
+            ->with('success', '🗑 Event deleted successfully!');
     }
 }

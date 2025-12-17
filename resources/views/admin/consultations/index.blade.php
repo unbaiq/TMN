@@ -25,14 +25,14 @@
   {{-- ================= RESPONSIVE TABLE ================= --}}
   <div class="relative overflow-x-auto rounded-lg border">
 
-    <table class="min-w-[900px] w-full border-collapse text-sm text-gray-700">
+    <table class="min-w-full bg-white shadow rounded-lg overflow-hidden">
       <thead class="bg-gray-100 sticky top-0 z-10">
         <tr class="uppercase text-gray-600 text-xs">
-          <th class="px-4 py-3 text-left whitespace-nowrap">Title</th>
-          <th class="px-4 py-3 text-left whitespace-nowrap">Consultant</th>
-          <th class="px-4 py-3 text-left whitespace-nowrap">Date</th>
-          <th class="px-4 py-3 text-left whitespace-nowrap">Status</th>
-          <th class="px-4 py-3 text-right whitespace-nowrap">Actions</th>
+          <th class="px-4 py-3 border text-left whitespace-nowrap">Title</th>
+          <th class="px-4 py-3 border text-left whitespace-nowrap">Consultant</th>
+          <th class="px-4 py-3 border text-left whitespace-nowrap">Date</th>
+          <th class="px-4 py-3 border text-left whitespace-nowrap">Status</th>
+          <th class="px-4 py-3 border text-right whitespace-nowrap">Actions</th>
         </tr>
       </thead>
 
@@ -40,19 +40,19 @@
         @forelse($consultations as $consultation)
           <tr class="border-b hover:bg-gray-50">
 
-            <td class="px-4 py-3 whitespace-nowrap">
+            <td class="px-4 py-3 border whitespace-nowrap">
               {{ $consultation->title }}
             </td>
 
-            <td class="px-4 py-3 whitespace-nowrap">
+            <td class="px-4 py-3 border whitespace-nowrap">
               {{ $consultation->consultant_name ?? '-' }}
             </td>
 
-            <td class="px-4 py-3 whitespace-nowrap">
+            <td class="px-4 py-3 border whitespace-nowrap">
               {{ $consultation->formatted_date ?? '-' }}
             </td>
 
-            <td class="px-4 py-3 whitespace-nowrap">
+            <td class="px-4 py-3 border whitespace-nowrap">
               <span class="px-2 py-1 rounded text-xs font-medium
                 {{ $consultation->status === 'scheduled'
                     ? 'bg-blue-100 text-blue-700'

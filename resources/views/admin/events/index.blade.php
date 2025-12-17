@@ -27,24 +27,24 @@
     {{-- ==== TABLE ==== --}}
     <div class="overflow-x-auto rounded-xl border border-gray-200 shadow-inner">
         <table class="min-w-full text-sm text-left text-gray-700">
-            <thead class="bg-gray-100 text-gray-800 text-xs uppercase font-semibold border-b">
+            <thead class="bg-gray-100 border text-gray-800 text-xs uppercase font-semibold border-b">
                 <tr>
-                    <th class="px-4 py-3">Banner</th>
-                    <th class="px-4 py-3">Title & Type</th>
-                    <th class="px-4 py-3">Schedule</th>
-                    <th class="px-4 py-3">Venue / Online</th>
-                    <th class="px-4 py-3">Organizer</th>
-                    <th class="px-4 py-3">Chapter</th>
-                    <th class="px-4 py-3">Visibility</th>
-                    <th class="px-4 py-3">Status</th>
-                    <th class="px-4 py-3 text-right">Actions</th>
+                    <th class="px-4 py-3 border">Banner</th>
+                    <th class="px-4 py-3 border">Title & Type</th>
+                    <th class="px-4 py-3 border">Schedule</th>
+                    <th class="px-4 py-3 border">Venue / Online</th>
+                    <th class="px-4 py-3 border">Organizer</th>
+                    <th class="px-4 py-3 border">Chapter</th>
+                    <th class="px-4 py-3 border">Visibility</th>
+                    <th class="px-4 py-3 border">Status</th>
+                    <th class="px-4 py-3 text-right border">Actions</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
                 @forelse($events as $event)
                     <tr class="hover:bg-gray-50 transition">
                         {{-- BANNER --}}
-                        <td class="px-4 py-3">
+                        <td class="px-4 py-3 border">
                             @if($event->banner_image)
                                 <img src="{{ asset('storage/'.$event->banner_image) }}"
                                      class="w-16 h-10 rounded-md object-cover border border-gray-200">
@@ -54,7 +54,7 @@
                         </td>
 
                         {{-- TITLE + TYPE --}}
-                        <td class="px-4 py-3">
+                        <td class="px-4 py-3 border">
                             <div class="font-semibold text-gray-900">{{ $event->title }}</div>
                             <div class="text-xs text-gray-500 mt-0.5 capitalize flex items-center gap-1">
                                 <i data-feather="{{ $event->event_type == 'chapter' ? 'users' : 'globe' }}" class="w-3 h-3"></i>
@@ -63,13 +63,13 @@
                         </td>
 
                         {{-- DATE & TIME --}}
-                        <td class="px-4 py-3">
+                        <td class="px-4 py-3 border">
                             <div class="font-medium">{{ \Carbon\Carbon::parse($event->event_date)->format('d M Y') }}</div>
                             <div class="text-xs text-gray-500">{{ $event->start_time }} - {{ $event->end_time }}</div>
                         </td>
 
                         {{-- VENUE / ONLINE --}}
-                        <td class="px-4 py-3">
+                        <td class="px-4 py-3 border">
                             @if($event->is_online)
                                 <a href="{{ $event->meeting_link }}" target="_blank"
                                    class="text-blue-600 hover:underline text-xs flex items-center gap-1">
@@ -85,19 +85,19 @@
                         </td>
 
                         {{-- ORGANIZER --}}
-                        <td class="px-4 py-3">
+                        <td class="px-4 py-3 border">
                             <div class="text-sm font-medium text-gray-800">{{ $event->host_name ?? '-' }}</div>
                             <div class="text-xs text-gray-500">{{ $event->host_contact ?? '' }}</div>
                             <div class="text-xs text-gray-500 truncate">{{ $event->host_email ?? '' }}</div>
                         </td>
 
                         {{-- CHAPTER --}}
-                        <td class="px-4 py-3">
+                        <td class="px-4 py-3 border">
                             {{ $event->chapter?->name ?? '-' }}
                         </td>
 
                         {{-- VISIBILITY --}}
-                        <td class="px-4 py-3">
+                        <td class="px-4 py-3 border">
                             <div class="flex flex-col text-xs font-medium gap-1">
                                 <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full
                                     {{ $event->is_public ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600' }}">
@@ -113,7 +113,7 @@
                         </td>
 
                         {{-- STATUS --}}
-                        <td class="px-4 py-3">
+                        <td class="px-4 py-3 border">
                             @php
                                 $statusColors = [
                                     'upcoming' => 'bg-blue-100 text-blue-700',
@@ -128,7 +128,7 @@
                         </td>
 
                         {{-- ACTIONS --}}
-                        <td class="px-4 py-3 text-right">
+                        <td class="px-4 py-3 text-right border">
                             <div class="flex justify-end items-center gap-3">
                                 <a href="{{ route('admin.events.edit', $event) }}"
                                    class="text-blue-600 hover:text-blue-800 flex items-center gap-1 text-sm">

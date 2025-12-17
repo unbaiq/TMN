@@ -11,24 +11,24 @@
     <div class="mb-4 text-green-600 font-medium">{{ session('success') }}</div>
   @endif
 
-  <table class="min-w-full border text-sm text-gray-700">
+  <table class="min-w-full bg-white shadow rounded-lg overflow-hidden">
     <thead>
       <tr class="bg-gray-100 text-left uppercase text-gray-600 text-xs">
-        <th class="px-4 py-3">Name</th>
-        <th class="px-4 py-3">Company</th>
-        <th class="px-4 py-3">Type</th>
-        <th class="px-4 py-3">Level</th>
-        <th class="px-4 py-3 text-right">Actions</th>
+        <th class="px-4 py-3 border">Name</th>
+        <th class="px-4 py-3 border">Company</th>
+        <th class="px-4 py-3 border">Type</th>
+        <th class="px-4 py-3 border">Level</th>
+        <th class="px-4 py-3 text-right border">Actions</th>
       </tr>
     </thead>
     <tbody>
       @forelse($partners as $partner)
         <tr class="border-b hover:bg-gray-50">
-          <td class="px-4 py-3 font-medium">{{ $partner->name }}</td>
-          <td class="px-4 py-3">{{ $partner->company_name ?? '—' }}</td>
-          <td class="px-4 py-3 capitalize">{{ $partner->partner_type }}</td>
-          <td class="px-4 py-3 capitalize">{{ $partner->level }}</td>
-          <td class="px-4 py-3 text-right space-x-2">
+          <td class="px-4 py-3 border font-medium">{{ $partner->name }}</td>
+          <td class="px-4 py-3 border">{{ $partner->company_name ?? '—' }}</td>
+          <td class="px-4 py-3 border capitalize">{{ $partner->partner_type }}</td>
+          <td class="px-4 py-3 border capitalize">{{ $partner->level }}</td>
+          <td class="px-4 py-3 border text-right space-x-2">
             <a href="{{ route('admin.partners.show', $partner->id) }}" class="text-gray-700 hover:text-gray-900">View</a>
             <a href="{{ route('admin.partners.edit', $partner->id) }}" class="text-blue-600 hover:underline">Edit</a>
             <form action="{{ route('admin.partners.destroy', $partner->id) }}" method="POST" class="inline" onsubmit="return confirm('Delete this partner?')">
