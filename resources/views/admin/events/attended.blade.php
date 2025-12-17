@@ -69,7 +69,6 @@
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
         <div class="px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between bg-gray-50 border-b">
             <h2 class="text-lg font-semibold text-gray-800">Event List</h2>
-<<<<<<< HEAD
 <div class="mt-3 md:mt-0 flex items-center gap-2">
     <input
         type="text"
@@ -84,25 +83,17 @@
         Search
     </button>
 </div>
-=======
-
-            <div class="mt-3 md:mt-0 flex items-center gap-2">
-                <input type="text" placeholder="Search event..."
-                       class="w-full px-3 py-1.5 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none">
-                <button class="px-4 py-1.5 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition">Search</button>
-            </div>
->>>>>>> 141e42d7250e5d6581fb0649ffb1fd4ecdc380ae
         </div>
 
         <table class="min-w-full text-sm text-left">
             <thead class="bg-gray-100 border-b">
                 <tr>
-                    <th class="px-6 py-3 font-semibold text-gray-700">#</th>
-                    <th class="px-6 py-3 font-semibold text-gray-700">Title</th>
-                    <th class="px-6 py-3 font-semibold text-gray-700">Description</th>
-                    <th class="px-6 py-3 font-semibold text-gray-700">Date</th>
-                    <th class="px-6 py-3 font-semibold text-gray-700 text-center">Status</th>
-                    <th class="px-6 py-3 font-semibold text-gray-700 text-center">Action</th>
+                    <th class="px-6 py-3 border font-semibold text-gray-700">#</th>
+                    <th class="px-6 py-3 border font-semibold text-gray-700">Title</th>
+                    <th class="px-6 py-3 border font-semibold text-gray-700">Description</th>
+                    <th class="px-6 py-3 border font-semibold text-gray-700">Date</th>
+                    <th class="px-6 py-3 border font-semibold text-gray-700 text-center">Status</th>
+                    <th class="px-6 py-3 border font-semibold text-gray-700 text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -111,11 +102,11 @@
                         $hasAttendance = $event->attendances->isNotEmpty();
                     @endphp
                     <tr class="border-b hover:bg-gray-50 transition">
-                        <td class="px-6 py-4 text-gray-600">{{ $index + 1 }}</td>
-                        <td class="px-6 py-4 font-semibold text-gray-800">{{ $event->title }}</td>
-                        <td class="px-6 py-4 text-gray-500">{{ \Illuminate\Support\Str::limit($event->description, 70) }}</td>
-                        <td class="px-6 py-4 text-gray-500">{{ $event->created_at->format('d M Y') }}</td>
-                        <td class="px-6 py-4 text-center">
+                        <td class="px-6 py-4 border text-gray-600">{{ $index + 1 }}</td>
+                        <td class="px-6 py-4 border font-semibold text-gray-800">{{ $event->title }}</td>
+                        <td class="px-6 py-4 border text-gray-500">{{ \Illuminate\Support\Str::limit($event->description, 70) }}</td>
+                        <td class="px-6 py-4 border text-gray-500">{{ $event->created_at->format('d M Y') }}</td>
+                        <td class="px-6 py-4 border text-center">
                             @if($hasAttendance)
                                 <span class="inline-flex items-center gap-1 bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-medium">
                                     <i data-feather="check" class="w-3 h-3"></i> Completed
