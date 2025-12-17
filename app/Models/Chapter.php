@@ -17,6 +17,8 @@ class Chapter extends Model
         'name',
         'slug',
         'city',
+        'state',     // ✅ added
+        'country',   // ✅ added
         'pincode',
         'capacity_no',
         'is_active',
@@ -27,12 +29,13 @@ class Chapter extends Model
     /**
      * Accessor for full logo URL.
      */
-    public function getLogoUrlAttribute()
+    public function getLogoUrlAttribute(): string
     {
         if ($this->logo) {
             return asset('storage/' . $this->logo);
         }
-        return asset('images/default-chapter.png'); // fallback image
+
+        return asset('images/default-chapter.png');
     }
 
     /**
@@ -43,10 +46,11 @@ class Chapter extends Model
         return $this->hasMany(User::class, 'chapter_id');
     }
 
+    /**
+     * Business Give/Takes for the chapter.
+     */
     public function businessGiveTakes()
-{
-    return $this->hasMany(BusinessGiveTake::class);
-}
-
-    
+    {
+        return $this->hasMany(BusinessGiveTake::class);
+    }
 }

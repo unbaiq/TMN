@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('city')->nullable();
+             $table->string('state')->nullable()->after('city');
+            $table->string('country')->nullable()->after('state');
             $table->string('pincode', 20)->nullable();
             $table->integer('capacity_no')->default(0);
             $table->boolean('is_active')->default(true);

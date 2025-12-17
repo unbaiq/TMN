@@ -7,6 +7,7 @@ use App\Models\Chapter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -70,7 +71,7 @@ class EventController extends Controller
        
         // Auto-generate slug
         $validated['slug'] = Str::slug($validated['title']) . '-' . Str::random(5);
-        $validated['organizer_id'] = auth()->id() ?? 1; // fallback if not logged in
+       $validated['organizer_id'] = Auth::id(); // fallback if not logged in
 
         // Handle banner upload if exists
         if ($request->hasFile('banner_image')) {
