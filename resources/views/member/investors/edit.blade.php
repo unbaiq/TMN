@@ -21,14 +21,28 @@
                 <label class="text-sm text-gray-600">Email</label>
                 <input type="email" name="email" value="{{ $investor->email }}" class="w-full border border-gray-300 rounded-lg px-3 py-2">
             </div>
-            <div>
-                <label class="text-sm text-gray-600">Phone</label>
-                <input type="text" name="phone" value="{{ $investor->phone }}" class="w-full border border-gray-300 rounded-lg px-3 py-2">
-            </div>
-            <div>
-                <label class="text-sm text-gray-600">Investment Focus</label>
-                <input type="text" name="investment_focus" value="{{ $investor->investment_focus }}" class="w-full border border-gray-300 rounded-lg px-3 py-2">
-            </div>
+           <div>
+    <label class="text-sm text-gray-600">Phone</label>
+    <input type="text" name="phone" value="{{ $investor->phone }}"
+           class="w-full border border-gray-300 rounded-lg px-3 py-2">
+</div>
+
+{{-- ✅ City --}}
+<div>
+    <label class="text-sm text-gray-600">City</label>
+    <input type="text" name="city" value="{{ $investor->city }}"
+           placeholder="e.g. Delhi, Mumbai, Noida"
+           class="w-full border border-gray-300 rounded-lg px-3 py-2
+                  focus:ring-1 focus:ring-red-600 focus:border-red-600">
+</div>
+
+<div>
+    <label class="text-sm text-gray-600">Investment Focus</label>
+    <input type="text" name="investment_focus"
+           value="{{ $investor->investment_focus }}"
+           class="w-full border border-gray-300 rounded-lg px-3 py-2">
+</div>
+
             <div>
                 <label class="text-sm text-gray-600">Investment Capacity (₹)</label>
                 <input type="number" step="0.01" name="investment_capacity" value="{{ $investor->investment_capacity }}" class="w-full border border-gray-300 rounded-lg px-3 py-2">

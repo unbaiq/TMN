@@ -88,26 +88,33 @@ class MemberInvestorController extends Controller
 
         return view('member.investors.edit', compact('investor', 'chapters'));
     }
+public function update(Request $request, MemberInvestor $investor)
+{
+    $this->authorizeAccess($investor);
 
-    public function update(Request $request, MemberInvestor $investor)
-    {
-        $this->authorizeAccess($investor);
+    $validated = $request->validate([
+        'investor_name' => 'required|string|max:255',
+        'company_name' => 'nullable|string|max:255',
+        'email' => 'nullable|email|max:255',
+        'phone' => 'nullable|string|max:20',
 
-        $validated = $request->validate([
-            'investor_name' => 'required|string|max:255',
-            'company_name' => 'nullable|string|max:255',
-            'email' => 'nullable|email|max:255',
-            'phone' => 'nullable|string|max:20',
-            'investment_focus' => 'nullable|string|max:255',
-            'investment_capacity' => 'nullable|numeric',
-            'status' => 'nullable|string|in:potential,active,inactive',
-            'notes' => 'nullable|string',
-        ]);
+        // ✅ ADD CITY & RELATED FIELDS
+        'city' => 'nullable|string|max:255',
+        'state' => 'nullable|string|max:255',
+        'country' => 'nullable|string|max:255',
 
-        $investor->update($validated);
+        'investment_focus' => 'nullable|string|max:255',
+        'investment_capacity' => 'nullable|numeric',
+        'status' => 'nullable|string|in:potential,active,inactive',
+        'notes' => 'nullable|string',
+    ]);
 
-        return redirect()->route('member.investors.index')->with('success', 'Investor updated successfully!');
-    }
+    $investor->update($validated);
+
+    return redirect()
+        ->route('member.investors.index')
+        ->with('success', 'Investor updated successfully!');
+}
 
     public function destroy(MemberInvestor $investor)
     {
