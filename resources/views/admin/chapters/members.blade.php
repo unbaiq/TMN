@@ -1,31 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-/* Modern Button Style */
-button {
-    transition: all 0.25s ease;
-}
-button:hover {
-    transform: translateY(-2px);
-}
-
-/* INPUTS */
-input,
-select,
-textarea {
-    transition: all .2s ease-in-out;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-    border-color: #e11d48 !important;
-    box-shadow: 0 0 0 3px rgba(225,29,72,0.25);
-    outline: none;
-}
-</style>
-
 <div class="max-w-6xl mx-auto mt-10 bg-white shadow-xl rounded-2xl p-8">
     <!-- HEADER -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8">

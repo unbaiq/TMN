@@ -1,31 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-/* Modern Button Style */
-button {
-    transition: all 0.25s ease;
-}
-button:hover {
-    transform: translateY(-2px);
-}
-
-/* INPUTS */
-input,
-select,
-textarea {
-    transition: all .2s ease-in-out;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-    border-color: #e11d48 !important;
-    box-shadow: 0 0 0 3px rgba(225,29,72,0.25);
-    outline: none;
-}
-</style>
-
 <div class="max-w-4xl mx-auto mt-10 bg-white shadow-lg rounded-xl p-8">
   <h2 class="text-2xl font-semibold text-gray-800 mb-6">Edit Meetup</h2>
 
