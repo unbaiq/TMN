@@ -9,10 +9,13 @@
             <h2 class="text-3xl font-semibold">{{ $meeting->title ?? 'Meeting Details' }}</h2>
             <p class="text-white/80 text-sm mt-1 capitalize">{{ $meeting->meeting_type == '1to1' ? '1-to-1 Meetup' : 'Cluster Meeting' }}</p>
         </div>
-        <a href="{{ $meeting->meeting_type == '1to1' ? route('member.meetings.1-1meetup') : route('member.meetings.clustermeetings') }}"
-           class="inline-flex items-center gap-2 bg-white text-red-600 px-4 py-2.5 rounded-lg font-medium shadow hover:bg-gray-100">
-            <i data-feather="arrow-left" class="w-4 h-4"></i> Back
-        </a>
+       <a href="{{ $meeting->meeting_type === '1to1'
+    ? route('member.meetings.onetoone')
+    : route('member.meetings.cluster') }}"
+   class="inline-flex items-center gap-2 bg-white text-red-600 px-4 py-2.5 rounded-lg font-medium shadow hover:bg-gray-100">
+    <i data-feather="arrow-left" class="w-4 h-4"></i> Back
+</a>
+
     </div>
 
     <div class="mt-10 bg-white rounded-2xl shadow-xl p-8 border border-gray-100 space-y-6">

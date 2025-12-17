@@ -69,12 +69,20 @@
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
         <div class="px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between bg-gray-50 border-b">
             <h2 class="text-lg font-semibold text-gray-800">Event List</h2>
-
-            <div class="mt-3 md:mt-0 flex items-center gap-2">
-                <input type="text" placeholder="Search event..."
-                       class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-red-500 focus:outline-none">
-                <button class="px-4 py-1.5 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition">Search</button>
-            </div>
+<div class="mt-3 md:mt-0 flex items-center gap-2">
+    <input
+        type="text"
+        id="searchInput"                    {{-- added --}}
+        placeholder="Search event..."
+        class="border border-gray-300 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-red-500 focus:outline-none"
+    >
+    <button
+        type="button"
+        id="searchButton"                  {{-- added --}}
+        class="px-4 py-1.5 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition">
+        Search
+    </button>
+</div>
         </div>
 
         <table class="min-w-full text-sm text-left">
@@ -134,6 +142,42 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         if (window.feather) feather.replace();
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput  = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        const rows         = document.querySelectorAll('table tbody tr');
+
+        function filterTable() {
+            const term = searchInput.value.trim().toLowerCase();
+
+            rows.forEach(row => {
+                // text of the entire row (title, description, etc.)
+                const text = row.textContent.toLowerCase();
+
+                // show row if search is empty or text matches
+                if (!term || text.includes(term)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Click on "Search"
+        searchButton.addEventListener('click', filterTable);
+
+        // Live search + Enter support
+        searchInput.addEventListener('keyup', function (e) {
+            if (e.key === 'Enter') {
+                filterTable();
+            } else if (!searchInput.value) {
+                // reset when cleared
+                filterTable();
+            }
+        });
     });
 </script>
 @endsection
