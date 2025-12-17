@@ -42,7 +42,7 @@
             <div class="grid  grid-cols-1 gap-8 sm:gap-6 lg:grid-cols-[30%,1fr,1fr,1fr] md:grid-cols-2 items-start ">
                 <div class="mb-6 md:mb-0">
                     <a href="./" class="flex items-center">
-                       <img src="images/newlogo.png" class="w-1/2" alt="">
+                       <img src="{{ config('app.url') }}/tmn/public/images/newlogo.png" class="w-1/2" alt="">
                     </a>
                     <p class="text-[#CFD3D7] mt-6 w-[70%]">
                        Welcome to TMN and be a part of TMNIAN Family. TMN is a platform of CXO's where we all come together to form a network of like minded professionals to support / help each other to grow. A Platform where competition can be dealt with sheer competence and work as a mentor for others to follow. 
@@ -200,27 +200,39 @@
     </div>
     </div>
     <script>
-        function navcall() {
-  const currentPath = window.location.pathname; // Get the current URL path
-  const links = document.querySelectorAll('.link'); // Select all links with class "link"
+function navcall() {
+  const currentPath = window.location.pathname.replace(/\/$/, "") || "/";
+  const links = document.querySelectorAll(".link");
+
+  let matched = false; // track if any link matched
 
   links.forEach(link => {
-    const href = link.getAttribute('href'); // Get the href attribute of each link
-    if (currentPath.includes(href)) {
-      link.classList.add('active'); // Add 'active' class if the href matches current URL
-    } else {
-      link.classList.remove('active'); // Remove 'active' class if it doesn't match
+    const href = link.getAttribute("href");
+    if (!href || href === "#") return;
+
+    const linkPath = href.replace(/\/$/, "") || "/";
+
+    // reset
+    link.classList.remove("active");
+
+    // EXACT MATCH (non-home pages)
+    if (currentPath !== "/" && currentPath === linkPath) {
+      link.classList.add("active");
+      matched = true;
+
+      // highlight dropdown parent if exists
+      const parent = link.closest(".group");
+      if (parent) parent.classList.add("active");
     }
   });
+
+  // ✅ DEFAULT: if nothing matched, activate Home
+  if (!matched) {
+    const homeLink = document.querySelector('.link[href="/"]');
+    if (homeLink) homeLink.classList.add("active");
+  }
 }
 
-// Run navcall function when the page is loaded
-document.addEventListener('DOMContentLoaded', navcall);
-    </script>
-    <style>
-        .banner-grid{
-                background: linear-gradient(90deg, rgba(0, 0, 0, 0.70) 0%, rgba(0, 0, 0, 0.50) 100%);
-            }
-        
-    </style>
+document.addEventListener("DOMContentLoaded", navcall);
+</script>
 </footer>

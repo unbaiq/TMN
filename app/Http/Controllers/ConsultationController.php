@@ -2,25 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Consultation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ConsultationController extends Controller
 {
     /**
-     * Display a listing of consultations.
+     * Display feed items (CMS blocks).
      */
     public function index()
     {
-        $consultations = Consultation::latest()->paginate(10);
+        $consultations = Consultation::orderBy('display_order')
+            ->latest()
+            ->paginate(10);
+
         return view('admin.consultations.index', compact('consultations'));
     }
 
     /**
-     * Show the form for creating a new consultation.
+     * Show form to create a new feed item.
      */
     public function create()
     {
@@ -28,34 +29,47 @@ class ConsultationController extends Controller
     }
 
     /**
-     * Store a newly created consultation.
+     * Store a new feed item.
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
+            'key' => 'nullable|string|max:255|unique:consultations,key',
             'title' => 'required|string|max:255',
-            'type' => 'nullable|string|max:255',
-            'consultation_date' => 'nullable|date',
-            'start_time' => 'nullable',
-            'end_time' => 'nullable',
-            'mode' => 'required|in:online,offline,hybrid',
-            'meeting_link' => 'nullable|string|max:500',
-            'venue' => 'nullable|string|max:255',
-            'consultant_name' => 'nullable|string|max:255',
-            'client_name' => 'nullable|string|max:255',
-            'status' => 'required|in:scheduled,completed,cancelled,rescheduled',
+            'subtitle' => 'nullable|string|max:255',
+            'content' => 'nullable|string',
+
+            'cta_text' => 'nullable|string|max:255',
+            'cta_link' => 'nullable|string|max:500',
+
+            'display_order' => 'nullable|integer|min:0',
+            'is_featured' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean',
+            'is_public' => 'nullable|boolean',
         ]);
 
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->title);
+        // Auto-generate key if not provided
+        if (empty($validated['key'])) {
+            $validated['key'] = Str::slug($validated['title']);
+        }
 
-        Consultation::create($data);
+        // Boolean safety
+        $validated['is_featured'] = $request->boolean('is_featured');
+        $validated['is_active']   = $request->boolean('is_active', true);
+        $validated['is_public']   = $request->boolean('is_public', true);
 
-        return redirect()->route('admin.consultations.index')->with('success', 'Consultation created successfully.');
+        // Audit
+        $validated['created_by'] = auth()->id();
+
+        Consultation::create($validated);
+
+        return redirect()
+            ->route('admin.consultations.index')
+            ->with('success', 'Feed section created successfully.');
     }
 
     /**
-     * Show the form for editing the specified consultation.
+     * Show edit form.
      */
     public function edit(Consultation $consultation)
     {
@@ -63,38 +77,49 @@ class ConsultationController extends Controller
     }
 
     /**
-     * Update the specified consultation.
+     * Update feed item.
      */
     public function update(Request $request, Consultation $consultation)
     {
-        $request->validate([
+        $validated = $request->validate([
+            'key' => 'required|string|max:255|unique:consultations,key,' . $consultation->id,
             'title' => 'required|string|max:255',
-            'type' => 'nullable|string|max:255',
-            'consultation_date' => 'nullable|date',
-            'start_time' => 'nullable',
-            'end_time' => 'nullable',
-            'mode' => 'required|in:online,offline,hybrid',
-            'meeting_link' => 'nullable|string|max:500',
-            'venue' => 'nullable|string|max:255',
-            'consultant_name' => 'nullable|string|max:255',
-            'client_name' => 'nullable|string|max:255',
-            'status' => 'required|in:scheduled,completed,cancelled,rescheduled',
+            'subtitle' => 'nullable|string|max:255',
+            'content' => 'nullable|string',
+
+            'cta_text' => 'nullable|string|max:255',
+            'cta_link' => 'nullable|string|max:500',
+
+            'display_order' => 'nullable|integer|min:0',
+            'is_featured' => 'nullable|boolean',
+            'is_active' => 'nullable|boolean',
+            'is_public' => 'nullable|boolean',
         ]);
 
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->title);
+        // Boolean safety
+        $validated['is_featured'] = $request->boolean('is_featured');
+        $validated['is_active']   = $request->boolean('is_active', true);
+        $validated['is_public']   = $request->boolean('is_public', true);
 
-        $consultation->update($data);
+        // Audit
+        $validated['updated_by'] = auth()->id();
 
-        return redirect()->route('admin.consultations.index')->with('success', 'Consultation updated successfully.');
+        $consultation->update($validated);
+
+        return redirect()
+            ->route('admin.consultations.index')
+            ->with('success', 'Feed section updated successfully.');
     }
 
     /**
-     * Remove the specified consultation.
+     * Delete feed item.
      */
     public function destroy(Consultation $consultation)
     {
         $consultation->delete();
-        return redirect()->route('admin.consultations.index')->with('success', 'Consultation deleted successfully.');
+
+        return redirect()
+            ->route('admin.consultations.index')
+            ->with('success', 'Feed section deleted successfully.');
     }
 }

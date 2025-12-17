@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Advisory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -32,35 +31,58 @@ class AdvisoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'tagline' => 'nullable|string|max:255',
+            'short_description' => 'nullable|string',
+            'description' => 'nullable|string',
+
             'category' => 'nullable|string|max:255',
             'type' => 'nullable|string|max:255',
+
             'session_date' => 'nullable|date',
             'start_time' => 'nullable',
             'end_time' => 'nullable',
             'mode' => 'required|in:online,offline,hybrid',
-            'advisor_name' => 'nullable|string|max:255',
             'venue' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+
+            'advisor_name' => 'nullable|string|max:255',
+            'advisor_designation' => 'nullable|string|max:255',
+            'advisor_email' => 'nullable|email',
+            'advisor_phone' => 'nullable|string|max:50',
+            'organization' => 'nullable|string|max:255',
+
+            // ✅ EXPERIENCE
+            'advisor_experience_years' => 'nullable|integer|min:0|max:60',
+            'advisor_experience_summary' => 'nullable|string',
+
             'status' => 'required|in:draft,scheduled,ongoing,completed,cancelled',
+
             'banner' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
             'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->title);
+        $validated['slug'] = Str::slug($validated['title']);
+        $validated['created_by'] = auth()->id();
+        $validated['is_featured'] = $request->boolean('is_featured');
+        $validated['is_public'] = $request->boolean('is_public', true);
+        $validated['is_active'] = $request->boolean('is_active', true);
+        $validated['is_registration_open'] = $request->boolean('is_registration_open', true);
 
         if ($request->hasFile('banner')) {
-            $data['banner'] = $request->file('banner')->store('advisories/banners', 'public');
+            $validated['banner'] = $request->file('banner')->store('advisories/banners', 'public');
         }
 
         if ($request->hasFile('thumbnail')) {
-            $data['thumbnail'] = $request->file('thumbnail')->store('advisories/thumbnails', 'public');
+            $validated['thumbnail'] = $request->file('thumbnail')->store('advisories/thumbnails', 'public');
         }
 
-        Advisory::create($data);
+        Advisory::create($validated);
 
-        return redirect()->route('admin.advisories.index')->with('success', 'Advisory created successfully.');
+        return redirect()
+            ->route('admin.advisories.index')
+            ->with('success', 'Advisory created successfully.');
     }
 
     /**
@@ -76,41 +98,72 @@ class AdvisoryController extends Controller
      */
     public function update(Request $request, Advisory $advisory)
     {
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|string|max:255',
+            'tagline' => 'nullable|string|max:255',
+            'short_description' => 'nullable|string',
+            'description' => 'nullable|string',
+
             'category' => 'nullable|string|max:255',
             'type' => 'nullable|string|max:255',
+
             'session_date' => 'nullable|date',
             'start_time' => 'nullable',
             'end_time' => 'nullable',
             'mode' => 'required|in:online,offline,hybrid',
-            'advisor_name' => 'nullable|string|max:255',
             'venue' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+
+            'advisor_name' => 'nullable|string|max:255',
+            'advisor_designation' => 'nullable|string|max:255',
+            'advisor_email' => 'nullable|email',
+            'advisor_phone' => 'nullable|string|max:50',
+            'organization' => 'nullable|string|max:255',
+
+            // ✅ EXPERIENCE
+            'advisor_experience_years' => 'nullable|integer|min:0|max:60',
+            'advisor_experience_summary' => 'nullable|string',
+
             'status' => 'required|in:draft,scheduled,ongoing,completed,cancelled',
+
             'banner' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
             'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $data = $request->all();
-        $data['slug'] = Str::slug($request->title);
+        // ✅ Update slug ONLY if title changed
+        if ($advisory->title !== $validated['title']) {
+            $validated['slug'] = Str::slug($validated['title']);
+        }
+
+        $validated['updated_by'] = auth()->id();
+        $validated['is_featured'] = $request->boolean('is_featured');
+        $validated['is_public'] = $request->boolean('is_public', true);
+        $validated['is_active'] = $request->boolean('is_active', true);
+        $validated['is_registration_open'] = $request->boolean('is_registration_open', true);
 
         if ($request->hasFile('banner')) {
-            if ($advisory->banner) Storage::disk('public')->delete($advisory->banner);
-            $data['banner'] = $request->file('banner')->store('advisories/banners', 'public');
+            if ($advisory->banner) {
+                Storage::disk('public')->delete($advisory->banner);
+            }
+            $validated['banner'] = $request->file('banner')->store('advisories/banners', 'public');
         }
 
         if ($request->hasFile('thumbnail')) {
-            if ($advisory->thumbnail) Storage::disk('public')->delete($advisory->thumbnail);
-            $data['thumbnail'] = $request->file('thumbnail')->store('advisories/thumbnails', 'public');
+            if ($advisory->thumbnail) {
+                Storage::disk('public')->delete($advisory->thumbnail);
+            }
+            $validated['thumbnail'] = $request->file('thumbnail')->store('advisories/thumbnails', 'public');
         }
 
-        $advisory->update($data);
+        $advisory->update($validated);
 
-        return redirect()->route('admin.advisories.index')->with('success', 'Advisory updated successfully.');
+        return redirect()
+            ->route('admin.advisories.index')
+            ->with('success', 'Advisory updated successfully.');
     }
 
     /**
-     * Show full advisory details.
+     * Show advisory details.
      */
     public function show(Advisory $advisory)
     {
@@ -122,10 +175,18 @@ class AdvisoryController extends Controller
      */
     public function destroy(Advisory $advisory)
     {
-        if ($advisory->banner) Storage::disk('public')->delete($advisory->banner);
-        if ($advisory->thumbnail) Storage::disk('public')->delete($advisory->thumbnail);
+        if ($advisory->banner) {
+            Storage::disk('public')->delete($advisory->banner);
+        }
+
+        if ($advisory->thumbnail) {
+            Storage::disk('public')->delete($advisory->thumbnail);
+        }
+
         $advisory->delete();
 
-        return redirect()->route('admin.advisories.index')->with('success', 'Advisory deleted successfully.');
+        return redirect()
+            ->route('admin.advisories.index')
+            ->with('success', 'Advisory deleted successfully.');
     }
 }

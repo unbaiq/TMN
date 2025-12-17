@@ -40,6 +40,10 @@ return new class extends Migration {
             $table->string('advisor_phone')->nullable();
             $table->string('organization')->nullable();
 
+            // ✅ ADVISOR EXPERIENCE (NEW)
+            $table->integer('advisor_experience_years')->nullable()->comment('Total years of experience');
+            $table->text('advisor_experience_summary')->nullable()->comment('Short experience overview');
+
             // MATERIALS
             $table->string('banner')->nullable();
             $table->string('thumbnail')->nullable();

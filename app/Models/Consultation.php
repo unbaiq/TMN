@@ -10,175 +10,90 @@ class Consultation extends Model
 {
     use HasFactory;
 
+    /**
+     * Mass assignable attributes
+     */
     protected $fillable = [
+        // IDENTIFICATION
+        'key',
+
+        // CONTENT
         'title',
-        'slug',
-        'description',
-        'type',
-        'category',
-        'consultation_date',
-        'start_time',
-        'end_time',
-        'mode',
-        'meeting_link',
-        'venue',
-        'city',
-        'country',
-        'consultant_id',
-        'consultant_name',
-        'consultant_designation',
-        'consultant_email',
-        'consultant_phone',
-        'client_id',
-        'client_name',
-        'client_email',
-        'client_phone',
-        'organization',
-        'duration_minutes',
-        'fee_amount',
-        'currency',
-        'is_paid',
-        'key_takeaways',
-        'notes',
-        'rating',
-        'follow_up_required',
-        'follow_up_date',
-        'status',
+        'subtitle',
+        'content',
+
+        // CTA
+        'cta_text',
+        'cta_link',
+
+        // FEED CONTROL
+        'display_order',
         'is_featured',
-        'is_public',
         'is_active',
+        'is_public',
+
+        // ANALYTICS
         'views',
-        'registrations',
-        'feedback_count',
-        'average_rating',
-        'meta_title',
-        'meta_description',
-        'meta_keywords',
+        'clicks',
+
+        // AUDIT
         'created_by',
         'updated_by',
-        'approved_by',
-        'approved_at',
     ];
-
-    /**
-     * Auto generate slug on creation.
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($consultation) {
-            if (empty($consultation->slug)) {
-                $consultation->slug = Str::slug($consultation->title);
-            }
-        });
-    }
 
     /**
      * Attribute casting
      */
     protected $casts = [
-        'consultation_date' => 'date',
-        'start_time' => 'datetime:H:i',
-        'end_time' => 'datetime:H:i',
-        'follow_up_date' => 'date',
-        'approved_at' => 'datetime',
         'is_featured' => 'boolean',
-        'is_public' => 'boolean',
-        'is_active' => 'boolean',
-        'is_paid' => 'boolean',
-        'follow_up_required' => 'boolean',
-        'fee_amount' => 'decimal:2',
-        'average_rating' => 'float',
+        'is_active'   => 'boolean',
+        'is_public'   => 'boolean',
+        'views'       => 'integer',
+        'clicks'      => 'integer',
     ];
 
     /**
-     * Relationships
+     * Auto-generate key if not provided
      */
-    public function consultant()
+    protected static function booted()
     {
-        return $this->belongsTo(User::class, 'consultant_id');
+        static::creating(function ($consultation) {
+            if (empty($consultation->key) && $consultation->title) {
+                $consultation->key = Str::slug($consultation->title);
+            }
+        });
     }
 
-    public function client()
-    {
-        return $this->belongsTo(User::class, 'client_id');
-    }
+    /* =====================
+     |  RELATIONSHIPS
+     |=====================*/
 
-    public function createdBy()
+    public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function updatedBy()
+    public function updater()
     {
         return $this->belongsTo(User::class, 'updated_by');
     }
 
-    public function approvedBy()
-    {
-        return $this->belongsTo(User::class, 'approved_by');
-    }
+    /* =====================
+     |  SCOPES (FEED)
+     |=====================*/
 
     /**
-     * Accessor: Full meeting link
+     * Public & active feed items
      */
-    public function getMeetingLinkUrlAttribute()
+    public function scopePublicFeed($query)
     {
-        if (!$this->meeting_link) return null;
-
-        return str_starts_with($this->meeting_link, 'http')
-            ? $this->meeting_link
-            : 'https://' . $this->meeting_link;
+        return $query->where('is_active', true)
+                     ->where('is_public', true)
+                     ->orderBy('display_order');
     }
 
     /**
-     * Accessor: Combined readable session time
-     */
-    public function getSessionTimingAttribute()
-    {
-        if ($this->start_time && $this->end_time) {
-            return date('h:i A', strtotime($this->start_time)) . ' - ' . date('h:i A', strtotime($this->end_time));
-        }
-
-        return $this->start_time ? date('h:i A', strtotime($this->start_time)) : null;
-    }
-
-    /**
-     * Accessor: Rating stars
-     */
-    public function getStarRatingAttribute()
-    {
-        return str_repeat('⭐', $this->rating ?? 0);
-    }
-
-    /**
-     * Scope: Active consultations
-     */
-    public function scopeActive($query)
-    {
-        return $query->where('is_active', true);
-    }
-
-    /**
-     * Scope: Upcoming sessions
-     */
-    public function scopeUpcoming($query)
-    {
-        return $query->where('status', 'scheduled')
-                     ->whereDate('consultation_date', '>=', now()->toDateString());
-    }
-
-    /**
-     * Scope: Completed consultations
-     */
-    public function scopeCompleted($query)
-    {
-        return $query->where('status', 'completed');
-    }
-
-    /**
-     * Scope: Featured consultations
+     * Featured feed items
      */
     public function scopeFeatured($query)
     {
@@ -186,23 +101,27 @@ class Consultation extends Model
                      ->where('is_active', true);
     }
 
-    /**
-     * Accessor: Formatted date
-     */
-    public function getFormattedDateAttribute()
-    {
-        return $this->consultation_date ? $this->consultation_date->format('d M Y') : '-';
-    }
+    /* =====================
+     |  ACCESSORS
+     |=====================*/
 
     /**
-     * Helper: Full consultant name display
+     * Normalized CTA link
      */
-    public function getConsultantDisplayAttribute()
+    public function getCtaUrlAttribute()
     {
-        return $this->consultant_name
-            ? $this->consultant_name . ($this->consultant_designation ? ' (' . $this->consultant_designation . ')' : '')
-            : ($this->consultant?->name ?? 'N/A');
+        if (!$this->cta_link) {
+            return null;
+        }
+
+        return str_starts_with($this->cta_link, 'http')
+            ? $this->cta_link
+            : url($this->cta_link);
     }
+
+    /* =====================
+     |  HELPERS
+     |=====================*/
 
     /**
      * Increment view count
@@ -210,5 +129,13 @@ class Consultation extends Model
     public function incrementViews()
     {
         $this->increment('views');
+    }
+
+    /**
+     * Increment CTA clicks
+     */
+    public function incrementClicks()
+    {
+        $this->increment('clicks');
     }
 }

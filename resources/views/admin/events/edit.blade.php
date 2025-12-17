@@ -29,19 +29,24 @@
             <h3 class="text-xl font-bold text-gray-800 border-b border-gray-200 pb-3 mb-6 flex items-center gap-3">
                 <i data-feather="info" class="w-5 h-5 text-red-600"></i> Basic Details
             </h3>
+
             <div class="grid md:grid-cols-2 gap-6">
+                {{-- Event Type --}}
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Event Type</label>
-                    <select name="event_type" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm">
-                        <option value="general" {{ $event->event_type == 'general' ? 'selected' : '' }}>General</option>
-                        <option value="chapter" {{ $event->event_type == 'chapter' ? 'selected' : '' }}>Chapter</option>
+                    <select name="event_type" id="eventType"
+                        class="w-full border border-gray-300 rounded-xl px-4 py-2.5 bg-white focus:ring-2 focus:ring-red-500 shadow-sm">
+                        <option value="general" {{ $event->event_type === 'general' ? 'selected' : '' }}>General</option>
+                        <option value="chapter" {{ $event->event_type === 'chapter' ? 'selected' : '' }}>Chapter</option>
                     </select>
                 </div>
 
+                {{-- Chapter --}}
                 <div>
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Chapter</label>
-                    <select name="chapter_id" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm">
-                        <option value="">-- None --</option>
+                    <select name="chapter_id" id="chapterSelect"
+                        class="w-full border border-gray-300 rounded-xl px-4 py-2.5 shadow-sm">
+                        <option value="">-- Select Chapter --</option>
                         @foreach($chapters as $ch)
                             <option value="{{ $ch->id }}" {{ $event->chapter_id == $ch->id ? 'selected' : '' }}>
                                 {{ $ch->name }}
@@ -51,13 +56,13 @@
                 </div>
 
                 <div class="md:col-span-2">
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Title</label>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Event Title</label>
                     <input type="text" name="title" value="{{ old('title', $event->title) }}"
                         class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm" required>
                 </div>
 
                 <div class="md:col-span-2">
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Description</label>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Event Description</label>
                     <textarea name="description" rows="4"
                         class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm">{{ old('description', $event->description) }}</textarea>
                 </div>
@@ -69,122 +74,113 @@
             <h3 class="text-xl font-bold text-gray-800 border-b border-gray-200 pb-3 mb-6 flex items-center gap-3">
                 <i data-feather="user" class="w-5 h-5 text-red-600"></i> Organizer Information
             </h3>
+
             <div class="grid md:grid-cols-3 gap-6">
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Host Name</label>
-                    <input type="text" name="host_name" value="{{ old('host_name', $event->host_name) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm">
+                <input type="text" name="host_name" value="{{ old('host_name', $event->host_name) }}" placeholder="Host Name"
+                    class="w-full border border-gray-300 rounded-xl px-4 py-2.5 shadow-sm">
+                <input type="text" name="host_contact" value="{{ old('host_contact', $event->host_contact) }}" placeholder="Host Contact"
+                    class="w-full border border-gray-300 rounded-xl px-4 py-2.5 shadow-sm">
+                <input type="email" name="host_email" value="{{ old('host_email', $event->host_email) }}" placeholder="Host Email"
+                    class="w-full border border-gray-300 rounded-xl px-4 py-2.5 shadow-sm">
+            </div>
+        </div>
+
+        {{-- ==== VENUE & SCHEDULE ==== --}}
+        <div class="grid lg:grid-cols-2 gap-6">
+
+            {{-- Venue --}}
+            <div>
+                <h3 class="text-xl font-bold text-gray-800 border-b pb-3 mb-6 flex items-center gap-3">
+                    <i data-feather="map-pin" class="w-5 h-5 text-red-600"></i> Venue & Location
+                </h3>
+
+                <div class="space-y-4">
+                    <input type="text" name="venue_name" value="{{ $event->venue_name }}" placeholder="Venue Name" class="input">
+                    <input type="text" name="address_line1" value="{{ $event->address_line1 }}" placeholder="Address Line 1" class="input">
+                    <input type="text" name="address_line2" value="{{ $event->address_line2 }}" placeholder="Address Line 2" class="input">
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" name="city" value="{{ $event->city }}" placeholder="City" class="input">
+                        <input type="text" name="state" value="{{ $event->state }}" placeholder="State" class="input">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" name="country" value="{{ $event->country }}" placeholder="Country" class="input">
+                        <input type="text" name="pincode" value="{{ $event->pincode }}" placeholder="Pincode" class="input">
+                    </div>
                 </div>
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Host Contact</label>
-                    <input type="text" name="host_contact" value="{{ old('host_contact', $event->host_contact) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm">
+            </div>
+
+            {{-- Schedule & Online --}}
+            <div>
+                <h3 class="text-xl font-bold text-gray-800 border-b pb-3 mb-6 flex items-center gap-3">
+                    <i data-feather="clock" class="w-5 h-5 text-red-600"></i> Schedule
+                </h3>
+
+                <div class="grid md:grid-cols-3 gap-4">
+                    <input type="date" name="event_date" value="{{ $event->event_date }}" class="input">
+                    <input type="time" name="start_time" value="{{ $event->start_time }}" class="input">
+                    <input type="time" name="end_time" value="{{ $event->end_time }}" class="input">
                 </div>
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Host Email</label>
-                    <input type="email" name="host_email" value="{{ old('host_email', $event->host_email) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm">
+
+                {{-- Online --}}
+                <div class="mt-8">
+                    <div class="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-xl">
+                        <input type="checkbox" name="is_online" value="1" {{ $event->is_online ? 'checked' : '' }}>
+                        <span class="text-red-700 font-medium">Online Event</span>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4 mt-4">
+                        <input type="url" name="meeting_link" value="{{ $event->meeting_link }}" placeholder="Meeting Link" class="input">
+                        <input type="text" name="meeting_password" value="{{ $event->meeting_password }}" placeholder="Meeting Password" class="input">
+                    </div>
                 </div>
             </div>
         </div>
 
-        {{-- ==== VENUE ==== --}}
-        <div>
-            <h3 class="text-xl font-bold text-gray-800 border-b border-gray-200 pb-3 mb-6 flex items-center gap-3">
-                <i data-feather="map-pin" class="w-5 h-5 text-red-600"></i> Venue & Location
-            </h3>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div><label class="block text-sm font-semibold text-gray-700 mb-1">Venue Name</label><input type="text" name="venue_name" value="{{ old('venue_name', $event->venue_name) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm"></div>
-                <div><label class="block text-sm font-semibold text-gray-700 mb-1">Address Line 1</label><input type="text" name="address_line1" value="{{ old('address_line1', $event->address_line1) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm"></div>
-                <div><label class="block text-sm font-semibold text-gray-700 mb-1">Address Line 2</label><input type="text" name="address_line2" value="{{ old('address_line2', $event->address_line2) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm"></div>
-                <div><label class="block text-sm font-semibold text-gray-700 mb-1">City</label><input type="text" name="city" value="{{ old('city', $event->city) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm"></div>
-                <div><label class="block text-sm font-semibold text-gray-700 mb-1">State</label><input type="text" name="state" value="{{ old('state', $event->state) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm"></div>
-                <div><label class="block text-sm font-semibold text-gray-700 mb-1">Country</label><input type="text" name="country" value="{{ old('country', $event->country) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm"></div>
-                <div><label class="block text-sm font-semibold text-gray-700 mb-1">Pincode</label><input type="text" name="pincode" value="{{ old('pincode', $event->pincode) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm"></div>
+        {{-- ==== STATUS & VISIBILITY ==== --}}
+        <div class="grid md:grid-cols-2 gap-6">
+            <select name="status" class="input">
+                <option value="upcoming" {{ $event->status === 'upcoming' ? 'selected' : '' }}>Upcoming</option>
+                <option value="published" {{ $event->status === 'published' ? 'selected' : '' }}>Published</option>
+                <option value="cancelled" {{ $event->status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
+            </select>
+
+            <div class="flex gap-6">
+                <label class="flex items-center gap-2"><input type="checkbox" name="is_public" value="1" {{ $event->is_public ? 'checked' : '' }}> Public</label>
+                <label class="flex items-center gap-2"><input type="checkbox" name="is_featured" value="1" {{ $event->is_featured ? 'checked' : '' }}> Featured</label>
             </div>
         </div>
 
-        {{-- ==== SCHEDULE ==== --}}
+        {{-- ==== BANNER ==== --}}
         <div>
-            <h3 class="text-xl font-bold text-gray-800 border-b border-gray-200 pb-3 mb-6 flex items-center gap-3">
-                <i data-feather="clock" class="w-5 h-5 text-red-600"></i> Schedule
-            </h3>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div><label class="block text-sm font-semibold text-gray-700 mb-1">Event Date</label><input type="date" name="event_date" value="{{ old('event_date', $event->event_date) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm"></div>
-                <div><label class="block text-sm font-semibold text-gray-700 mb-1">Start Time</label><input type="time" name="start_time" value="{{ old('start_time', $event->start_time) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm"></div>
-                <div><label class="block text-sm font-semibold text-gray-700 mb-1">End Time</label><input type="time" name="end_time" value="{{ old('end_time', $event->end_time) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm"></div>
-            </div>
-        </div>
-
-        {{-- ==== ONLINE MEETING ==== --}}
-        <div>
-            <h3 class="text-xl font-bold text-gray-800 border-b border-gray-200 pb-3 mb-6 flex items-center gap-3">
-                <i data-feather="video" class="w-5 h-5 text-red-600"></i> Online Meeting (Optional)
-            </h3>
-            <div class="space-y-4">
-                <div class="flex items-center gap-3 p-3 bg-red-50 border border-red-200 rounded-xl">
-                    <input type="checkbox" id="is_online" name="is_online" value="1" {{ $event->is_online ? 'checked' : '' }} class="h-5 w-5 text-red-600 border-gray-300 rounded focus:ring-red-500">
-                    <label for="is_online" class="text-red-700 text-sm font-medium">Mark as Online Event</label>
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Meeting Link</label>
-                    <input type="url" name="meeting_link" value="{{ old('meeting_link', $event->meeting_link) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm">
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Meeting Password</label>
-                    <input type="text" name="meeting_password" value="{{ old('meeting_password', $event->meeting_password) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm">
-                </div>
-            </div>
-        </div>
-
-        {{-- ==== VISIBILITY & STATUS ==== --}}
-        <div>
-            <h3 class="text-xl font-bold text-gray-800 border-b border-gray-200 pb-3 mb-6 flex items-center gap-3">
-                <i data-feather="eye" class="w-5 h-5 text-red-600"></i> Visibility & Status
-            </h3>
-            <div class="grid md:grid-cols-3 gap-6">
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Status</label>
-                    <select name="status" class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm">
-                        <option value="upcoming" {{ $event->status == 'upcoming' ? 'selected' : '' }}>Upcoming</option>
-                        <option value="ongoing" {{ $event->status == 'ongoing' ? 'selected' : '' }}>Ongoing</option>
-                        <option value="completed" {{ $event->status == 'completed' ? 'selected' : '' }}>Completed</option>
-                        <option value="cancelled" {{ $event->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
-                    </select>
-                </div>
-                <div class="flex items-center gap-2 mt-6">
-                    <input type="checkbox" name="is_public" value="1" {{ $event->is_public ? 'checked' : '' }} class="h-5 w-5 text-red-600 border-gray-300 rounded focus:ring-red-500">
-                    <label class="text-gray-700 font-medium text-sm">Public Event</label>
-                </div>
-                <div class="flex items-center gap-2 mt-6">
-                    <input type="checkbox" name="is_featured" value="1" {{ $event->is_featured ? 'checked' : '' }} class="h-5 w-5 text-red-600 border-gray-300 rounded focus:ring-red-500">
-                    <label class="text-gray-700 font-medium text-sm">Featured</label>
-                </div>
-            </div>
-        </div>
-
-        {{-- ==== EVENT BANNER ==== --}}
-        <div>
-            <h3 class="text-xl font-bold text-gray-800 border-b border-gray-200 pb-3 mb-6 flex items-center gap-3">
-                <i data-feather="image" class="w-5 h-5 text-red-600"></i> Event Banner
-            </h3>
             @if($event->banner_image)
-                <div class="mb-4">
-                    <img src="{{ asset('storage/' . $event->banner_image) }}" alt="Banner" class="rounded-xl w-full max-h-64 object-cover border border-gray-200 shadow-sm">
-                    <p class="text-sm text-gray-500 mt-2">Current banner image</p>
-                </div>
+                <img src="{{ asset('storage/'.$event->banner_image) }}" class="rounded-xl mb-3">
             @endif
-            <input type="file" name="banner_image" accept="image/*"
-                   class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-600 hover:file:bg-red-100">
+            <input type="file" name="banner_image" class="input">
         </div>
 
         {{-- ==== SUBMIT ==== --}}
-        <div class="flex justify-end pt-8 border-t border-gray-200">
-            <button type="submit"
-                class="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white px-10 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition flex items-center gap-2">
-                <i data-feather="save" class="w-5 h-5"></i>
-                Update Event
+        <div class="flex justify-end pt-6 border-t">
+            <button class="bg-red-600 hover:bg-red-700 text-white px-10 py-3 rounded-xl font-semibold flex items-center gap-2">
+                <i data-feather="save"></i> Update Event
             </button>
         </div>
+
     </form>
 </div>
 
-<script>feather.replace();</script>
+<script>
+    feather.replace();
+
+    const eventType = document.getElementById('eventType');
+    const chapterSelect = document.getElementById('chapterSelect');
+
+    function toggleChapter() {
+        chapterSelect.disabled = eventType.value !== 'chapter';
+    }
+    eventType.addEventListener('change', toggleChapter);
+    toggleChapter();
+</script>
+
 @endsection

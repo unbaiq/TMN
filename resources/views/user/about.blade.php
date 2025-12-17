@@ -1,7 +1,7 @@
   @include("user.components.meta")
 @include("user.components.header")
     <section
-      class="bg-[url(images/about-us-banner.png)] bg-cover lg:bg-right bg-center bg-no-repeat"
+      class="bg-[url({{ config('app.url') }}/tmn/public/images/about-us-banner.png)] bg-cover lg:bg-right bg-center bg-no-repeat"
     >
          <div class="w-full py-10 h-full banner-grid"> 
       <div class="main-width h-full py-4 flex items-center lg:justify-start">
@@ -105,7 +105,7 @@
         </div>
             </div>
             <div>
-                <img src="images/abt1.png"  class="w-full object-cover h-[200px] lg:h-full">
+                <img src="{{ config('app.url') }}/tmn/public/images/abt1.png"  class="w-full object-cover h-[200px] lg:h-full">
             </div>
         </div>
     </section>
@@ -208,7 +208,7 @@ Top panel under one roof
         </div>
             </div>
             <div>
-                <img src="images/abt3.png"  class="w-full object-cover h-[200px] lg:h-full">
+                <img src="{{ config('app.url') }}/tmn/public/images/abt3.png"  class="w-full object-cover h-[200px] lg:h-full">
             </div>
         </div>
     </section>

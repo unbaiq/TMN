@@ -28,7 +28,7 @@
   </section>
   
   <section class="page">
-  @include("user.components.header")?>
+  @include("user.components.header")
     <section
       class="bg-[url(images/banner.png)] bg-cover py-10 lg:bg-right bg-center bg-no-repeat"
     >
@@ -116,11 +116,14 @@
               </div>
             </div>
           </div>
-          <button
-            class="btn bg-primary text-white py-4 lg:text-[18px] text-[16px] lg:px-16 px-10 mt-4 rounded-[5px]"
-          >
-            Join Now
-          </button>
+          <a href="/journey">
+  <button
+    class="btn bg-primary text-white py-4 lg:text-[18px] text-[16px] lg:px-16 px-10 mt-4 rounded-[5px]"
+  >
+    Join Now
+  </button>
+</a>
+
         </div>
       </div>
       <div></div>
@@ -484,7 +487,7 @@
       </div>
       </div>
     </section>
-   @include("user.easy-to-joinSection")
+   @include("user.easy-to-joinsection")
     <section class="bg-[#F8F8F8] py-10">
       <div class=" main-width flex items-center flex-col lg:mt-[280px]">
         <div class="mx-auto flex items-center justify-center">

@@ -227,6 +227,34 @@ class UserController extends Controller
 
         return view('user.chapter', compact('chapters'));
     }
+    public function buildBrand()
+    {
+        $banner = Consultation::where('key', 'build_brand_banner')
+            ->publicFeed()
+            ->first();
+    
+        $intro = Consultation::where('key', 'build_brand_intro')
+            ->publicFeed()
+            ->first();
+    
+        $cta = Consultation::where('key', 'build_brand_cta')
+            ->publicFeed()
+            ->first();
+    
+        $testimonials = Consultation::where('key', 'testimonial')
+            ->where('is_active', true)
+            ->where('is_public', true)
+            ->orderByDesc('is_featured')
+            ->take(6)
+            ->get();
+    
+        return view('user.build-brand', compact(
+            'banner',
+            'intro',
+            'cta',
+            'testimonials'
+        ));
+    }
 
     /* ================= PARTNERS ================= */
 

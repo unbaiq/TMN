@@ -2,7 +2,7 @@
       <div class="main-width flex items-center justify-between pr-4 lg:pr-0">
         <div class="px-4 py-2">
             <a href="./">
-          <img src="images/newlogo.png" class="xl:w-[180px] w-[120px]" /></a>
+          <img src="{{ config('app.url') }}/tmn/public/images/newlogo.png" class="xl:w-[180px] w-[120px]" /></a>
         </div>
         <div class="flex">
           <div class="py-6 lg:block hidden">
@@ -91,7 +91,7 @@
                   <div class=" ml-4">
                       <a href="./">
                           <div class="">
-                              <img src="images/logo.svg" class="w-1/3 object-cover" alt="Logo" />
+                              <img src="{{ config('app.url') }}/tmn/public/images/logo.svg" class="w-1/3 object-cover" alt="Logo" />
                           </div>
                       </a>
                   </div>
@@ -131,15 +131,7 @@ Careers</a>
                   </ul>
 
                   <div class="w-[88%] mx-auto mt-8 flex items-start flex-col gap-8">
-                      <!--<div class="flex items-center gap-4">-->
-                      <!--    <p>-->
-                      <!--        <i class="fa-solid fa-location-dot text-[25px]"></i>-->
-                      <!--    </p>-->
-                          <!--<p class="flex flex-col items-start">-->
-                          <!--    <span class="font-semibold">Address</span><span> Cellogen Therapeutics Pvt. Ltd.New Delhi,-->
-                          <!--        India </span>-->
-                          <!--</p>-->
-                      <!--</div>-->
+                
 
                       <div class="flex items-center gap-4">
                           <p><i class="fa-solid fa-phone text-[25px]"></i></p>

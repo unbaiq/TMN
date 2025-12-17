@@ -309,7 +309,6 @@ Route::view('/chapter', 'user.chapter');
 
 Route::view('/articles', 'user.articles');
 Route::view('/articles-new', 'user.articles-new');
-Route::view('/build-brand', 'user.buildBrand');
 Route::get('/chapter', [UserController::class, 'chapters'])
     ->name('chapters.index');
 
@@ -339,7 +338,6 @@ Route::get('/partners', [UserController::class, 'partners'])->name('partners.ind
 
 Route::view('/programs-meetup', 'user.programs-meetup');
 
-Route::view('/partners', 'user.partners');
 Route::get('/programs-meetup', [UserController::class, 'programsMeetup']);
 
 Route::view('/services-portion', 'user.services.portion');
@@ -364,6 +362,8 @@ Route::get('/articles/{slug}', [UserController::class, 'articleDetail'])->name('
 Route::get('/articles-new', function () {
     return redirect()->route('articles.index');
 });
+Route::get('/build-brand', [UserController::class, 'buildBrand'])
+    ->name('build-brand.index');
 
 
 Route::get('/events', [UserController::class, 'events'])

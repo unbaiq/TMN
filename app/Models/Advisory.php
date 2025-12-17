@@ -27,32 +27,50 @@ class Advisory extends Model
         'country',
         'meeting_link',
         'timezone',
+
+        // ADVISOR DETAILS
         'advisor_id',
         'advisor_name',
         'advisor_designation',
         'advisor_email',
         'advisor_phone',
         'organization',
+
+        // ✅ ADVISOR EXPERIENCE (ADDED)
+        'advisor_experience_years',
+        'advisor_experience_summary',
+
+        // MEDIA
         'banner',
         'thumbnail',
         'resources',
         'presentation',
         'brochure',
+
+        // PARTICIPATION
         'max_participants',
         'registered_count',
         'is_registration_open',
         'registration_link',
+
+        // METRICS
         'views',
         'registrations',
         'feedback_count',
         'average_rating',
+
+        // STATUS
         'status',
         'is_featured',
         'is_public',
         'is_active',
+
+        // SEO
         'meta_title',
         'meta_description',
         'meta_keywords',
+
+        // AUDIT
         'created_by',
         'updated_by',
         'approved_by',
@@ -81,11 +99,14 @@ class Advisory extends Model
         'start_time' => 'datetime:H:i',
         'end_time' => 'datetime:H:i',
         'approved_at' => 'datetime',
+
         'is_featured' => 'boolean',
         'is_public' => 'boolean',
         'is_active' => 'boolean',
         'is_registration_open' => 'boolean',
+
         'average_rating' => 'float',
+        'advisor_experience_years' => 'integer', // ✅
     ];
 
     /**
@@ -147,33 +168,47 @@ class Advisory extends Model
     }
 
     /**
-     * Accessor for meeting link (normalized)
+     * Normalized meeting link
      */
     public function getMeetingLinkUrlAttribute()
     {
         if (!$this->meeting_link) return null;
+
         return str_starts_with($this->meeting_link, 'http')
             ? $this->meeting_link
             : 'https://' . $this->meeting_link;
     }
 
     /**
-     * Formatted Date Accessor
+     * Date & Time helpers
      */
     public function getFormattedDateAttribute()
     {
         return $this->session_date ? $this->session_date->format('d M Y') : '-';
     }
 
-    /**
-     * Formatted Time Range Accessor
-     */
     public function getTimeRangeAttribute()
     {
         if ($this->start_time && $this->end_time) {
-            return date('h:i A', strtotime($this->start_time)) . ' - ' . date('h:i A', strtotime($this->end_time));
+            return date('h:i A', strtotime($this->start_time))
+                . ' - '
+                . date('h:i A', strtotime($this->end_time));
         }
-        return $this->start_time ? date('h:i A', strtotime($this->start_time)) : null;
+
+        return $this->start_time
+            ? date('h:i A', strtotime($this->start_time))
+            : null;
+    }
+
+    /**
+     * ✅ Advisor Experience Label (UI ready)
+     * Example: "15+ Years Experience"
+     */
+    public function getAdvisorExperienceLabelAttribute()
+    {
+        return $this->advisor_experience_years
+            ? $this->advisor_experience_years . '+ Years Experience'
+            : null;
     }
 
     /**
@@ -201,7 +236,7 @@ class Advisory extends Model
     }
 
     /**
-     * Helper: Advisor Display Name
+     * Advisor Display Name
      */
     public function getAdvisorDisplayAttribute()
     {

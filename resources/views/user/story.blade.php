@@ -2,7 +2,7 @@
 @include('user.components.header')
 
 {{-- ===================== HERO / BANNER ===================== --}}
-<section class="bg-[url(images/banner.png)] bg-cover bg-center py-14">
+<section class="bg-[url({{ config('app.url') }}/tmn/public/images/banner.png)] bg-cover bg-center py-14">
     <div class="main-width">
         <div class="max-w-3xl">
             <p class="text-white text-[18px] mb-2">
