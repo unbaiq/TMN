@@ -150,7 +150,8 @@ class UserController extends Controller
         ));
     }
 
-    /* ================= EVENTS ================= */
+    /* ================= EVENTS Committee ================= */
+    
 
     public function events()
     {
