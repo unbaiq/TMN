@@ -1,6 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+/* Modern Button Style */
+button {
+    transition: all 0.25s ease;
+}
+button:hover {
+    transform: translateY(-2px);
+}
+
+/* INPUTS */
+input,
+select,
+textarea {
+    transition: all .2s ease-in-out;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #e11d48 !important;
+    box-shadow: 0 0 0 3px rgba(225,29,72,0.25);
+    outline: none;
+}
+</style>
 <div class="max-w-7xl mx-auto px-6 py-10 space-y-10">
 
     {{-- ==== HEADER ==== --}}
@@ -52,7 +76,7 @@
                 <div class="md:col-span-2">
                     <label class="block text-sm font-semibold text-gray-700 mb-1">Event Title</label>
                     <input type="text" name="title"
-                        class="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-gray-800 placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-red-500 shadow-sm"
+                        class="w-full px-4 py-2.5 text-gray-800 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none"
                         placeholder="e.g., Annual General Meeting" required>
                 </div>
 

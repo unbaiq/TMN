@@ -1,6 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+/* Modern Button Style */
+button {
+    transition: all 0.25s ease;
+}
+button:hover {
+    transform: translateY(-2px);
+}
+
+/* INPUTS */
+input,
+select,
+textarea {
+    transition: all .2s ease-in-out;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #e11d48 !important;
+    box-shadow: 0 0 0 3px rgba(225,29,72,0.25);
+    outline: none;
+}
+</style>
+
 <div class="max-w-4xl mx-auto mt-10 bg-white shadow-lg rounded-xl p-8">
     <h2 class="text-2xl font-semibold text-gray-800 mb-6">Edit Article</h2>
 
@@ -21,49 +46,49 @@
         {{-- Title --}}
         <div>
             <label class="block text-gray-700 font-medium">Title <span class="text-red-500">*</span></label>
-            <input type="text" name="title" value="{{ old('title', $article->title) }}" class="w-full border rounded px-3 py-2" required>
+            <input type="text" name="title" value="{{ old('title', $article->title) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2" required>
         </div>
 
         {{-- Short Description --}}
         <div>
             <label class="block text-gray-700 font-medium">Short Description</label>
-            <textarea name="short_description" rows="2" class="w-full border rounded px-3 py-2">{{ old('short_description', $article->short_description) }}</textarea>
+            <textarea name="short_description" rows="2" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">{{ old('short_description', $article->short_description) }}</textarea>
         </div>
 
         {{-- Content --}}
         <div>
             <label class="block text-gray-700 font-medium">Content</label>
-            <textarea name="content" rows="6" class="w-full border rounded px-3 py-2">{{ old('content', $article->content) }}</textarea>
+            <textarea name="content" rows="6" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">{{ old('content', $article->content) }}</textarea>
         </div>
 
         {{-- Category --}}
         <div>
             <label class="block text-gray-700 font-medium">Category</label>
-            <input type="text" name="category" value="{{ old('category', $article->category) }}" class="w-full border rounded px-3 py-2">
+            <input type="text" name="category" value="{{ old('category', $article->category) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
         </div>
 
         {{-- Tags --}}
         <div>
             <label class="block text-gray-700 font-medium">Tags</label>
-            <input type="text" name="tags" value="{{ old('tags', $article->tags) }}" class="w-full border rounded px-3 py-2" placeholder="e.g. leadership, growth, marketing">
+            <input type="text" name="tags" value="{{ old('tags', $article->tags) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2" placeholder="e.g. leadership, growth, marketing">
         </div>
 
         {{-- Video URL --}}
         <div>
             <label class="block text-gray-700 font-medium">Video URL</label>
-            <input type="text" name="video_url" value="{{ old('video_url', $article->video_url) }}" class="w-full border rounded px-3 py-2" placeholder="https://youtube.com/...">
+            <input type="text" name="video_url" value="{{ old('video_url', $article->video_url) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2" placeholder="https://youtube.com/...">
         </div>
 
         {{-- Publish Date --}}
         <div>
             <label class="block text-gray-700 font-medium">Publish Date</label>
-            <input type="date" name="publish_date" value="{{ old('publish_date', $article->publish_date) }}" class="w-full border rounded px-3 py-2">
+            <input type="date" name="publish_date" value="{{ old('publish_date', $article->publish_date) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
         </div>
 
         {{-- Status --}}
         <div>
             <label class="block text-gray-700 font-medium">Status</label>
-            <select name="status" class="w-full border rounded px-3 py-2">
+            <select name="status" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
                 <option value="draft" {{ $article->status == 'draft' ? 'selected' : '' }}>Draft</option>
                 <option value="review" {{ $article->status == 'review' ? 'selected' : '' }}>Review</option>
                 <option value="published" {{ $article->status == 'published' ? 'selected' : '' }}>Published</option>
@@ -79,7 +104,7 @@
                     <img src="{{ asset('storage/'.$article->thumbnail) }}" alt="Thumbnail" class="w-32 h-32 object-cover rounded-lg border">
                 </div>
             @endif
-            <input type="file" name="thumbnail" accept="image/*" class="w-full border rounded px-3 py-2">
+            <input type="file" name="thumbnail" accept="image/*" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
         </div>
 
         {{-- Banner --}}
@@ -90,7 +115,7 @@
                     <img src="{{ asset('storage/'.$article->banner) }}" alt="Banner" class="w-full h-40 object-cover rounded-lg border">
                 </div>
             @endif
-            <input type="file" name="banner" accept="image/*" class="w-full border rounded px-3 py-2">
+            <input type="file" name="banner" accept="image/*" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
         </div>
 
         {{-- Feature and Active Toggles --}}

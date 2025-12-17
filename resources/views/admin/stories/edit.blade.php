@@ -1,6 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+/* Modern Button Style */
+button {
+    transition: all 0.25s ease;
+}
+button:hover {
+    transform: translateY(-2px);
+}
+
+/* INPUTS */
+input,
+select,
+textarea {
+    transition: all .2s ease-in-out;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #e11d48 !important;
+    box-shadow: 0 0 0 3px rgba(225,29,72,0.25);
+    outline: none;
+}
+</style>
+
 <div class="max-w-4xl mx-auto mt-10 bg-white shadow-lg rounded-xl p-8">
     <h2 class="text-2xl font-semibold text-gray-800 mb-6">Edit Story</h2>
 
@@ -20,47 +45,47 @@
 
         <div>
             <label class="block text-gray-700 font-medium">Title <span class="text-red-500">*</span></label>
-            <input type="text" name="title" value="{{ old('title', $story->title) }}" class="w-full border rounded px-3 py-2" required>
+            <input type="text" name="title" value="{{ old('title', $story->title) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2" required>
         </div>
 
         <div>
             <label class="block text-gray-700 font-medium">Short Description</label>
-            <textarea name="short_description" rows="2" class="w-full border rounded px-3 py-2">{{ old('short_description', $story->short_description) }}</textarea>
+            <textarea name="short_description" rows="2" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">{{ old('short_description', $story->short_description) }}</textarea>
         </div>
 
         <div>
             <label class="block text-gray-700 font-medium">Description</label>
-            <textarea name="description" rows="6" class="w-full border rounded px-3 py-2">{{ old('description', $story->description) }}</textarea>
+            <textarea name="description" rows="6" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">{{ old('description', $story->description) }}</textarea>
         </div>
 
         <div>
             <label class="block text-gray-700 font-medium">Category</label>
-            <input type="text" name="category" value="{{ old('category', $story->category) }}" class="w-full border rounded px-3 py-2">
+            <input type="text" name="category" value="{{ old('category', $story->category) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
         </div>
 
         <div>
             <label class="block text-gray-700 font-medium">Industry</label>
-            <input type="text" name="industry" value="{{ old('industry', $story->industry) }}" class="w-full border rounded px-3 py-2">
+            <input type="text" name="industry" value="{{ old('industry', $story->industry) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
         </div>
 
         <div>
             <label class="block text-gray-700 font-medium">Tags</label>
-            <input type="text" name="tags" value="{{ old('tags', $story->tags) }}" class="w-full border rounded px-3 py-2" placeholder="e.g. leadership, success, growth">
+            <input type="text" name="tags" value="{{ old('tags', $story->tags) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2" placeholder="e.g. leadership, success, growth">
         </div>
 
         <div>
             <label class="block text-gray-700 font-medium">Video URL</label>
-            <input type="text" name="video_url" value="{{ old('video_url', $story->video_url) }}" class="w-full border rounded px-3 py-2" placeholder="https://youtube.com/...">
+            <input type="text" name="video_url" value="{{ old('video_url', $story->video_url) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2" placeholder="https://youtube.com/...">
         </div>
 
         <div>
             <label class="block text-gray-700 font-medium">Publish Date</label>
-            <input type="date" name="publish_date" value="{{ old('publish_date', $story->publish_date) }}" class="w-full border rounded px-3 py-2">
+            <input type="date" name="publish_date" value="{{ old('publish_date', $story->publish_date) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
         </div>
 
         <div>
             <label class="block text-gray-700 font-medium">Status</label>
-            <select name="status" class="w-full border rounded px-3 py-2">
+            <select name="status" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
                 <option value="draft" {{ $story->status == 'draft' ? 'selected' : '' }}>Draft</option>
                 <option value="review" {{ $story->status == 'review' ? 'selected' : '' }}>Review</option>
                 <option value="published" {{ $story->status == 'published' ? 'selected' : '' }}>Published</option>
@@ -75,7 +100,7 @@
                     <img src="{{ asset('storage/'.$story->image) }}" alt="Story Image" class="w-32 h-32 object-cover rounded-lg border">
                 </div>
             @endif
-            <input type="file" name="image" accept="image/*" class="w-full border rounded px-3 py-2">
+            <input type="file" name="image" accept="image/*" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
         </div>
 
         <div>
@@ -85,7 +110,7 @@
                     <img src="{{ asset('storage/'.$story->banner) }}" alt="Story Banner" class="w-full h-40 object-cover rounded-lg border">
                 </div>
             @endif
-            <input type="file" name="banner" accept="image/*" class="w-full border rounded px-3 py-2">
+            <input type="file" name="banner" accept="image/*" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
         </div>
 
         <div class="flex items-center">

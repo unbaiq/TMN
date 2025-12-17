@@ -1,6 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+/* Modern Button Style */
+button {
+    transition: all 0.25s ease;
+}
+button:hover {
+    transform: translateY(-2px);
+}
+
+/* INPUTS */
+input,
+select,
+textarea {
+    transition: all .2s ease-in-out;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #e11d48 !important;
+    box-shadow: 0 0 0 3px rgba(225,29,72,0.25);
+    outline: none;
+}
+</style>
+
 <div class="max-w-6xl mx-auto mt-10 bg-white shadow-xl rounded-2xl p-8">
     <!-- HEADER -->
     <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
@@ -13,7 +38,7 @@
                 Manage and assign members for <span class="font-semibold text-[#CF2031]">{{ $chapter->name }}</span>
             </p>
         </div>
-        <div class="mt-4 md:mt-0 text-sm text-gray-600 bg-gray-50 border rounded-lg px-4 py-2">
+        <div class="mt-4 md:mt-0 text-sm text-gray-600 bg-gray-50 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none-lg px-4 py-2">
             <span class="font-medium text-gray-800">Capacity:</span> {{ $chapter->capacity_no ?? '∞' }} &nbsp; | &nbsp;
             <span class="font-medium text-gray-800">Assigned:</span> 
             {{ $members->where('chapter_id', $chapter->id)->count() }}
@@ -40,7 +65,7 @@
         </div>
 
         <!-- MEMBER LIST -->
-        <div id="memberList" class="grid sm:grid-cols-2 gap-3 max-h-[420px] overflow-y-auto border rounded-lg p-4 bg-gray-50">
+        <div id="memberList" class="grid sm:grid-cols-2 gap-3 max-h-[420px] overflow-y-auto bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none-lg p-4 bg-gray-50">
             @foreach($members as $member)
                 <label class="member-item flex items-center gap-3 bg-white p-3 rounded-lg shadow-sm hover:shadow-md transition cursor-pointer border border-transparent hover:border-[#CF2031]/20">
                     <input type="checkbox" name="member_ids[]" value="{{ $member->id }}"
@@ -55,7 +80,7 @@
         </div>
 
         @if($members->isEmpty())
-            <div class="text-center text-gray-500 py-10 border rounded-lg bg-gray-50 mt-4">
+            <div class="text-center text-gray-500 py-10 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none-lg bg-gray-50 mt-4">
                 <i data-feather="user-x" class="w-10 h-10 mx-auto mb-2 text-gray-400"></i>
                 <p>No available members to assign.</p>
             </div>
