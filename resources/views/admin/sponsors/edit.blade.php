@@ -1,6 +1,31 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+/* Modern Button Style */
+button {
+    transition: all 0.25s ease;
+}
+button:hover {
+    transform: translateY(-2px);
+}
+
+/* INPUTS */
+input,
+select,
+textarea {
+    transition: all .2s ease-in-out;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #e11d48 !important;
+    box-shadow: 0 0 0 3px rgba(225,29,72,0.25);
+    outline: none;
+}
+</style>
+
 <div class="max-w-4xl mx-auto mt-10 bg-white shadow-lg rounded-xl p-8">
   <h2 class="text-2xl font-semibold text-gray-800 mb-6">Edit Sponsor</h2>
 
@@ -21,20 +46,20 @@
     {{-- Name --}}
     <div>
       <label class="block text-gray-700 font-medium">Name <span class="text-red-500">*</span></label>
-      <input type="text" name="name" value="{{ old('name', $sponsor->name) }}" class="w-full border rounded px-3 py-2" required>
+      <input type="text" name="name" value="{{ old('name', $sponsor->name) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2" required>
     </div>
 
     {{-- Company Name --}}
     <div>
       <label class="block text-gray-700 font-medium">Company Name</label>
-      <input type="text" name="company_name" value="{{ old('company_name', $sponsor->company_name) }}" class="w-full border rounded px-3 py-2">
+      <input type="text" name="company_name" value="{{ old('company_name', $sponsor->company_name) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
     </div>
 
     {{-- Sponsor Type & Level --}}
     <div class="grid grid-cols-2 gap-4">
       <div>
         <label class="block text-gray-700 font-medium">Sponsor Type</label>
-        <select name="sponsor_type" class="w-full border rounded px-3 py-2">
+        <select name="sponsor_type" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
           @foreach(['event', 'chapter', 'network', 'brand'] as $type)
             <option value="{{ $type }}" {{ $sponsor->sponsor_type == $type ? 'selected' : '' }}>{{ ucfirst($type) }}</option>
           @endforeach
@@ -43,7 +68,7 @@
 
       <div>
         <label class="block text-gray-700 font-medium">Sponsorship Level</label>
-        <select name="sponsorship_level" class="w-full border rounded px-3 py-2">
+        <select name="sponsorship_level" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
           @foreach(['platinum', 'gold', 'silver', 'bronze'] as $level)
             <option value="{{ $level }}" {{ $sponsor->sponsorship_level == $level ? 'selected' : '' }}>{{ ucfirst($level) }}</option>
           @endforeach
@@ -54,7 +79,7 @@
     {{-- About --}}
     <div>
       <label class="block text-gray-700 font-medium">About</label>
-      <textarea name="about" rows="4" class="w-full border rounded px-3 py-2">{{ old('about', $sponsor->about) }}</textarea>
+      <textarea name="about" rows="4" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">{{ old('about', $sponsor->about) }}</textarea>
     </div>
 
     {{-- Logo --}}
@@ -65,7 +90,7 @@
           <img src="{{ asset('storage/'.$sponsor->logo) }}" class="w-32 h-32 object-cover rounded-lg border">
         </div>
       @endif
-      <input type="file" name="logo" class="w-full border rounded px-3 py-2">
+      <input type="file" name="logo" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
     </div>
 
     {{-- Banner --}}
@@ -76,13 +101,13 @@
           <img src="{{ asset('storage/'.$sponsor->banner) }}" class="w-full h-48 object-cover rounded-lg border">
         </div>
       @endif
-      <input type="file" name="banner" class="w-full border rounded px-3 py-2">
+      <input type="file" name="banner" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
     </div>
 
     {{-- Status --}}
     <div>
       <label class="block text-gray-700 font-medium">Status</label>
-      <select name="status" class="w-full border rounded px-3 py-2">
+      <select name="status" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
         @foreach(['pending', 'approved', 'rejected', 'expired'] as $status)
           <option value="{{ $status }}" {{ $sponsor->status == $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
         @endforeach

@@ -69,6 +69,30 @@
     $user = auth()->user();
     $role = $user->role ?? null;
   @endphp
+@php
+  $adminModule = null;
+
+  if ($role === 'admin') {
+    $adminModule = match (true) {
+        request()->routeIs('admin.dashboard') => 'Dashboard',
+        request()->routeIs('admin.enquiries.*') => 'Enquiries',
+        request()->routeIs('admin.members.*') => 'Members',
+        request()->routeIs('admin.chapters.*') => 'Chapters',
+        request()->routeIs('admin.events.attended'),
+        request()->routeIs('admin.events.attendance*') => 'Event Attendance',
+        request()->routeIs('admin.events.*') => 'Events',
+        request()->routeIs('admin.insights.*') => 'Insights',
+        request()->routeIs('admin.stories.*') => 'Stories',
+        request()->routeIs('admin.meetups.*') => 'Meetups',
+        request()->routeIs('admin.articles.*') => 'Articles',
+        request()->routeIs('admin.consultations.*') => 'Consultations',
+        request()->routeIs('admin.advisories.*') => 'Advisory',
+        request()->routeIs('admin.partners.*') => 'Partners',
+        request()->routeIs('admin.sponsors.*') => 'Sponsors',
+        default => 'Admin Panel',
+    };
+  }
+@endphp
 
   <div class="min-h-screen flex">
 
@@ -297,11 +321,6 @@
                   </a>
 
                 </div>
-
-
-
-             
-
         @else
           {{-- not logged in / role unknown --}}
           <a href="{{ url('/') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item">
@@ -491,9 +510,12 @@
           </button>
 
           @if($role === 'admin')
-            <h1 class="text-lg sm:text-xl font-semibold text-red-600 flex items-center gap-2"><i data-feather="shield"
-                class="w-4"></i><span class="hidden sm:inline">Admin Panel</span><span
-                class="inline sm:hidden">Admin</span></h1>
+  <h1 class="text-lg sm:text-xl font-semibold text-red-600 flex items-center gap-2">
+    <i data-feather="shield" class="w-4"></i>
+    <span class="hidden sm:inline">{{ $adminModule }}</span>
+    <span class="inline sm:hidden">{{ $adminModule }}</span>
+  </h1>
+
           @elseif($role === 'member')
             <h1 class="text-lg sm:text-xl font-semibold text-red-600 flex items-center gap-2"><i data-feather="user"
                 class="w-4"></i><span class="hidden sm:inline">Member Panel</span><span

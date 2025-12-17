@@ -62,11 +62,33 @@
         .animate-spin {
             animation: spin 1s linear infinite;
         }
+/* Modern Button Style */
+button {
+    transition: all 0.25s ease;
+}
+button:hover {
+    transform: translateY(-2px);
+}
+
+/* INPUTS */
+input,
+select,
+textarea {
+    transition: all .2s ease-in-out;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #e11d48 !important;
+    box-shadow: 0 0 0 3px rgba(225,29,72,0.25);
+    outline: none;
+}
+
     </style>
 
     <main class="w-full p-2 sm:p-2">
         <div class="max-w-7xl mx-auto bg-white shadow-md rounded-xl p-6">
-
             <div class="flex flex-col md:flex-row justify-between items-center mb-6">
                 <h3 class="text-2xl font-semibold text-gray-700">Enquiry Management</h3>
                 <button id="addBtn" class="bg-[#CF2031] text-white px-5 py-2 rounded-lg hover:bg-[#b81a28] transition">
@@ -76,16 +98,16 @@
 
             <!-- Filters -->
             <div class="flex flex-col lg:flex-row items-center justify-between gap-4 mb-6">
-                <input type="text" id="searchInput" placeholder="Search by name, email or profession..."
-                    class="w-full lg:w-1/2 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-red-400 outline-none">
-                <select id="statusFilter"
-                    class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-400 outline-none">
-                    <option value="">All Status</option>
-                    <option value="new">New</option>
-                    <option value="closed">Closed</option>
-                </select>
-            </div>
-
+            <div class="relative w-full lg:w-1/2">
+        <i data-feather="search" class="w-5 h-5 text-gray-500 absolute left-3 top-1/2 -translate-y-1/2"></i>
+        <input type="text" id="searchInput" placeholder="Search by name, email or profession..." class="w-full pl-11 pr-4 py-2 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none">
+    </div>
+    <select id="statusFilter" class="w-full lg:w-auto px-4 py-2 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none">
+        <option value="">All Status</option>
+        <option value="new">New</option>
+        <option value="closed">Closed</option>
+    </select>
+</div>
             <!-- Table -->
             <div class="overflow-x-auto">
                 <table class="min-w-full border border-gray-200 text-sm">
@@ -146,11 +168,11 @@
             <form id="crudForm" class="space-y-3">
                 @csrf
                 <input type="hidden" id="enquiryId">
-                <input type="text" id="name" placeholder="Name" class="w-full border rounded p-2" required>
-                <input type="email" id="email" placeholder="Email" class="w-full border rounded p-2">
-                <input type="text" id="contact_number" placeholder="Phone" class="w-full border rounded p-2">
-                <input type="text" id="profession" placeholder="Profession" class="w-full border rounded p-2">
-                <select id="status" class="w-full border rounded p-2">
+                <input type="text" id="name" placeholder="Name" class="w-full p-2 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none" required>
+                <input type="email" id="email" placeholder="Email" class="w-full p-2 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none">
+                <input type="text" id="contact_number" placeholder="Phone" class="w-full p-2 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none">
+                <input type="text" id="profession" placeholder="Profession" class="w-full p-2 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none">
+                <select id="status" class="w-full p-2 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none" required>
                     <option value="new">New</option>
                     <option value="closed">Closed</option>
                 </select>

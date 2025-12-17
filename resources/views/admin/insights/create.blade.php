@@ -1,6 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+/* Modern Button Style */
+button {
+    transition: all 0.25s ease;
+}
+button:hover {
+    transform: translateY(-2px);
+}
+
+/* INPUTS */
+input,
+select,
+textarea {
+    transition: all .2s ease-in-out;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #e11d48 !important;
+    box-shadow: 0 0 0 3px rgba(225,29,72,0.25);
+    outline: none;
+}
+</style>
 <div class="max-w-4xl mx-auto mt-10 bg-white shadow-lg rounded-xl p-8">
     <h2 class="text-2xl font-semibold text-gray-800 mb-6">Create Insight</h2>
 
@@ -19,37 +43,37 @@
 
         <div>
             <label class="block text-gray-700 font-medium">Title <span class="text-red-500">*</span></label>
-            <input type="text" name="title" value="{{ old('title') }}" class="w-full border rounded px-3 py-2" required>
+            <input type="text" name="title" value="{{ old('title') }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2" required>
         </div>
 
         <div>
             <label class="block text-gray-700 font-medium">Short Description</label>
-            <textarea name="short_description" rows="2" class="w-full border rounded px-3 py-2">{{ old('short_description') }}</textarea>
+            <textarea name="short_description" rows="2" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">{{ old('short_description') }}</textarea>
         </div>
 
         <div>
             <label class="block text-gray-700 font-medium">Description</label>
-            <textarea name="description" rows="6" class="w-full border rounded px-3 py-2">{{ old('description') }}</textarea>
+            <textarea name="description" rows="6" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">{{ old('description') }}</textarea>
         </div>
 
         <div>
             <label class="block text-gray-700 font-medium">Category</label>
-            <input type="text" name="category" value="{{ old('category') }}" class="w-full border rounded px-3 py-2">
+            <input type="text" name="category" value="{{ old('category') }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
         </div>
 
         <div>
             <label class="block text-gray-700 font-medium">Author Name</label>
-            <input type="text" name="author_name" value="{{ old('author_name') }}" class="w-full border rounded px-3 py-2">
+            <input type="text" name="author_name" value="{{ old('author_name') }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
         </div>
 
         <div>
             <label class="block text-gray-700 font-medium">Publish Date</label>
-            <input type="date" name="publish_date" value="{{ old('publish_date') }}" class="w-full border rounded px-3 py-2">
+            <input type="date" name="publish_date" value="{{ old('publish_date') }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
         </div>
 
         <div>
             <label class="block text-gray-700 font-medium">Status</label>
-            <select name="status" class="w-full border rounded px-3 py-2">
+            <select name="status" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
                 <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Draft</option>
                 <option value="published" {{ old('status') == 'published' ? 'selected' : '' }}>Published</option>
                 <option value="archived" {{ old('status') == 'archived' ? 'selected' : '' }}>Archived</option>
@@ -58,7 +82,7 @@
 
         <div>
             <label class="block text-gray-700 font-medium">Image</label>
-            <input type="file" name="image" accept="image/*" class="w-full border rounded px-3 py-2">
+            <input type="file" name="image" accept="image/*" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
         </div>
 
         <label class="inline-flex items-center">

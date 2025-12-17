@@ -1,6 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+/* Modern Button Style */
+button {
+    transition: all 0.25s ease;
+}
+button:hover {
+    transform: translateY(-2px);
+}
+
+/* INPUTS */
+input,
+select,
+textarea {
+    transition: all .2s ease-in-out;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #e11d48 !important;
+    box-shadow: 0 0 0 3px rgba(225,29,72,0.25);
+    outline: none;
+}
+</style>
 <div class="max-w-7xl mx-auto px-6 py-10 space-y-12">
 
     {{-- ===== HEADER ===== --}}
@@ -69,6 +93,7 @@
     <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
         <div class="px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between bg-gray-50 border-b">
             <h2 class="text-lg font-semibold text-gray-800">Event List</h2>
+<<<<<<< HEAD
 <div class="mt-3 md:mt-0 flex items-center gap-2">
     <input
         type="text"
@@ -83,6 +108,14 @@
         Search
     </button>
 </div>
+=======
+
+            <div class="mt-3 md:mt-0 flex items-center gap-2">
+                <input type="text" placeholder="Search event..."
+                       class="w-full px-3 py-1.5 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none">
+                <button class="px-4 py-1.5 bg-red-600 text-white rounded-lg text-sm font-medium hover:bg-red-700 transition">Search</button>
+            </div>
+>>>>>>> 141e42d7250e5d6581fb0649ffb1fd4ecdc380ae
         </div>
 
         <table class="min-w-full text-sm text-left">
