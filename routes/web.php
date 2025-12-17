@@ -371,3 +371,4 @@ Route::get('/events', [UserController::class, 'events'])
 
 Route::get('/events/{event:slug}', [UserController::class, 'eventShow'])
     ->name('events.show');
+    

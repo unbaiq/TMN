@@ -47,10 +47,11 @@
             </p>
         </div>
         <div class="relative z-10 mt-6 md:mt-0">
-            <button
-                class="bg-white text-red-700 hover:bg-red-50 hover:text-red-800 font-medium text-sm px-6 py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2">
-                <i data-feather='download' class="w-4 h-4"></i> Export Report
-            </button>
+            <button id="exportBtn"
+    class="bg-white text-red-700 hover:bg-red-50 hover:text-red-800 font-medium text-sm px-6 py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2">
+    <i data-feather='download'></i> Export Report
+</button>
+
         </div>
         <div class="absolute right-0 top-0 w-72 h-72 bg-white/10 rounded-full blur-3xl opacity-25"></div>
     </div>
@@ -166,6 +167,33 @@
             setTimeout(() => modal.classList.add('hidden'), 200);
         }
     </script>
+<script>
+document.getElementById('exportBtn').addEventListener('click', () => {
+    let rows = [];
+    rows.push(['Chapter', 'Event', 'Status', 'Date', 'City']);
+
+    document.querySelectorAll('tbody tr').forEach(tr => {
+        const cols = tr.querySelectorAll('td');
+        if (cols.length < 6) return;
+
+        rows.push([
+            cols[1].innerText.trim(),
+            cols[2].innerText.trim(),
+            cols[3].innerText.trim(),
+            cols[4].innerText.trim(),
+            cols[5].innerText.trim(),
+        ]);
+    });
+
+    let csv = rows.map(r => r.join(',')).join('\n');
+    let blob = new Blob([csv], { type: 'text/csv' });
+
+    let a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'attended-events.csv';
+    a.click();
+});
+</script>
 
     <style>
         .modal-card {

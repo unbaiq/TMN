@@ -89,4 +89,5 @@
         if (window.feather) feather.replace();
     });
 </script>
+
 @endsection
