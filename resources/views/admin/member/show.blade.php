@@ -60,7 +60,7 @@
                     <p><strong>Gender:</strong> {{ $member->basicInfo->gender ?? '—' }}</p>
                     <p><strong>Date of Birth:</strong> {{ $member->basicInfo->date_of_birth ?? '—' }}</p>
                     <p><strong>Membership ID:</strong> {{ $member->basicInfo->membership_id ?? '—' }}</p>
-                    <p><strong>Date Joined:</strong> {{ $member->basicInfo->date_joined ? \Carbon\Carbon::parse($member->basicInfo->date_joined)->format('d M Y') : '—' }}</p>
+                    <p><strong>Date Joined:</strong> {{ $member->adminData?->date_joined ?? '-' }}</p>
                 </div>
             </div>
 
