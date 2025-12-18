@@ -41,7 +41,7 @@
               class="w-full transition-all duration-[1.4s] ease-in  group-hover:scale-90 object-cover " alt="">
             <div
               class="w-[85px] h-[85px]  absolute bottom-0 transition-all duration-[1.4s] ease-in transform hover:scale-110 hover:rotate-[360deg] top-[40%] cursor-pointer flex items-center justify-center">
-              <img src="images/favicon.png" class="w-full h-full object-contain" />
+              <img src="{{ $assetBase }}/images/favicon.png" class="w-full h-full object-contain" />
             </div>
             <div class="absolute  w-[120px] lg:w-[150px] h-[120px] lg:h-[150px] p-1 left-0 top-0">
               <div class="w-full h-full group cursor-pointer">
