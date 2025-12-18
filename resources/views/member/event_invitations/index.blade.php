@@ -28,7 +28,7 @@
             <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-1">Select Event <span class="text-red-500">*</span></label>
                 <select name="event_id"
-                    class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-1 focus:ring-red-600 focus:border-red-600 focus:outline-none transition placeholder-gray-400"
+                    class="w-full px-4 py-2.5 bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none"
                     required>
                     <option value="">-- Choose an Event --</option>
                     @foreach($events as $event)
