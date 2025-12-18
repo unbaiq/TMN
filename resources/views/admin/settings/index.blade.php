@@ -13,7 +13,7 @@
 
 
 <div class="bg-gray-100 p-6 flex justify-center">
-
+  
   <div class="w-full max-w-md mt-10">
     
     <div class="panel p-6">
