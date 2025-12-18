@@ -7,10 +7,10 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>{{ config('app.name', 'TMN') }} — Dashboard</title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ config('app.url') }}/tmn/public/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ config('app.url') }}/tmn/public/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ config('app.url') }}/tmn/public/favicon-16x16.png">
+<link rel="manifest" href="{{ config('app.url') }}/tmn/public/site.webmanifest">
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -124,7 +124,7 @@ textarea:focus {
       aria-label="Main sidebar">
       <div class="flex items-center gap-3 px-6 py-5 border-b">
         <a href="{{ $role === 'admin' ? route('admin.dashboard') : route('member.dashboard') }}">
-          <img src="{{ asset('images/logo1.png') }}" alt="TMN Logo" class="h-10">
+          <img src="{{ asset('tmn/public/images/logo1.png') }}" alt="TMN Logo" class="h-10">
         </a>
       </div>
 
