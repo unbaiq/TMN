@@ -1,8 +1,13 @@
-   <header class="bg-white">
+@php
+            $assetBase = app()->environment('local')
+                  ? ''
+                  : config('app.url') . '/tmn/public';
+      @endphp
+  <header class="bg-white">
       <div class="main-width flex items-center justify-between pr-4 lg:pr-0">
         <div class="px-4 py-2">
             <a href="./">
-          <img src="{{ config('app.url') }}/images/newlogo.png" class="xl:w-[180px] w-[120px]" /></a>
+          <img src="{{$assetBase}}/images/newlogo.png" class="xl:w-[180px] w-[120px]" /></a>
         </div>
         <div class="flex">
           <div class="py-6 lg:block hidden">
@@ -91,7 +96,7 @@
                   <div class=" ml-4">
                       <a href="./">
                           <div class="">
-                              <img src="{{ config('app.url') }}/tmn/public/images/logo.svg" class="w-1/3 object-cover" alt="Logo" />
+                              <img src="{{$assetBase}}/tmn/public/images/logo.svg" class="w-1/3 object-cover" alt="Logo" />
                           </div>
                       </a>
                   </div>
@@ -126,7 +131,7 @@ Careers</a>
                           <a href="#">News</a>
                       </li>
                       <li class="bg-white mt-10 text-center text-[#313039] text-[18px] font-medium">
-                          <a href="contact.php" class="text-[#313039]">Contact Us</a>
+                          <a href="/contact" class="text-[#313039]">Contact Us</a>
                       </li>
                   </ul>
 
