@@ -335,6 +335,12 @@ Route::get('/insightindex', [UserController::class, 'insightIndex'])
 Route::view('/journey', 'user.journey');
 
 Route::get('/partners', [UserController::class, 'partners'])->name('partners.index');
+<<<<<<< Updated upstream
+=======
+
+Route::view('/programs-meetup', 'user.programs-meetup');
+
+>>>>>>> Stashed changes
 Route::get('/programs-meetup', [UserController::class, 'programsMeetup']);
 
 Route::view('/services-portion', 'user.services.portion');
