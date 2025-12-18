@@ -30,25 +30,12 @@
                 </tr>
             </thead>
 
-<<<<<<< Updated upstream
-    <table class="min-w-full bg-white shadow rounded-lg overflow-hidden">
-      <thead class="bg-gray-100 sticky top-0 z-10">
-        <tr class="uppercase text-gray-600 text-xs">
-          <th class="px-4 py-3 border text-left whitespace-nowrap">Title</th>
-          <th class="px-4 py-3 border text-left whitespace-nowrap">Consultant</th>
-          <th class="px-4 py-3 border text-left whitespace-nowrap">Date</th>
-          <th class="px-4 py-3 border text-left whitespace-nowrap">Status</th>
-          <th class="px-4 py-3 border text-right whitespace-nowrap">Actions</th>
-        </tr>
-      </thead>
-=======
             <tbody class="divide-y">
                 @forelse($consultations as $section)
                     <tr class="hover:bg-gray-50">
                         <td class="px-6 py-4 text-gray-700 font-medium">
                             {{ $section->display_order }}
                         </td>
->>>>>>> Stashed changes
 
                         <td class="px-6 py-4">
                             <div class="font-medium text-gray-900">
@@ -61,28 +48,6 @@
                             @endif
                         </td>
 
-<<<<<<< Updated upstream
-            <td class="px-4 py-3 border whitespace-nowrap">
-              {{ $consultation->title }}
-            </td>
-
-            <td class="px-4 py-3 border whitespace-nowrap">
-              {{ $consultation->consultant_name ?? '-' }}
-            </td>
-
-            <td class="px-4 py-3 border whitespace-nowrap">
-              {{ $consultation->formatted_date ?? '-' }}
-            </td>
-
-            <td class="px-4 py-3 border whitespace-nowrap">
-              <span class="px-2 py-1 rounded text-xs font-medium
-                {{ $consultation->status === 'scheduled'
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'bg-gray-100 text-gray-700' }}">
-                {{ ucfirst($consultation->status) }}
-              </span>
-            </td>
-=======
                         <td class="px-6 py-4 text-gray-600 text-xs">
                             {{ $section->key }}
                         </td>
@@ -116,7 +81,6 @@
                                class="text-sm text-blue-600 hover:underline">
                                 Edit
                             </a>
->>>>>>> Stashed changes
 
                             <form action="{{ route('admin.consultations.destroy', $section) }}"
                                   method="POST"

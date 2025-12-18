@@ -46,22 +46,20 @@
       {{-- ================= SPONSORS GRID ================= --}}
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 items-center mt-10">
 
-        @forelse($partners as $partner)
+       @forelse($sponsors as $sponsor)
+
           <div
             class="rounded cursor-pointer hover:shadow h-[100px]
                    flex items-center justify-center
                    transition-all duration-300 ease-in
                    hover:bg-[#fff] transform hover:scale-105">
 
-            @if($partner->website)
-              <a href="{{ $partner->website }}" target="_blank" class="w-full h-full flex items-center justify-center">
-            @endif
+           @if($sponsor->website)
+  <a href="{{ $sponsor->website }}" target="_blank">
+@endif
 
-              <img
-                src="{{ $partner->logo_url }}"
-                class="object-contain w-[60%] mx-auto"
-                alt="{{ $partner->company_name ?? $partner->name }}">
-
+<img src="{{ $sponsor->logo_url }}"
+     alt="{{ $sponsor->company_name ?? $sponsor->name }}">
             @if($partner->website)
               </a>
             @endif

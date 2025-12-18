@@ -3,61 +3,6 @@
 @section('content')
 <div class="max-w-5xl mx-auto mt-10 bg-white shadow-xl rounded-2xl p-8 space-y-8">
 
-<<<<<<< Updated upstream
-  <form action="{{ route('admin.consultations.update', $consultation->id) }}" method="POST" class="space-y-5">
-    @csrf
-    @method('PUT')
-
-    <div>
-      <label class="block text-gray-700 font-medium">Title <span class="text-red-500">*</span></label>
-      <input type="text" name="title" value="{{ old('title', $consultation->title) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2" required>
-    </div>
-
-    <div>
-      <label class="block text-gray-700 font-medium">Type</label>
-      <input name="type" value="{{ old('type', $consultation->type) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-    </div>
-
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label class="block text-gray-700 font-medium">Consultation Date</label>
-        <input type="date" name="consultation_date" value="{{ old('consultation_date', $consultation->consultation_date) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-      </div>
-      <div>
-        <label class="block text-gray-700 font-medium">Mode</label>
-        <select name="mode" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-          <option value="online" {{ $consultation->mode == 'online' ? 'selected' : '' }}>Online</option>
-          <option value="offline" {{ $consultation->mode == 'offline' ? 'selected' : '' }}>Offline</option>
-          <option value="hybrid" {{ $consultation->mode == 'hybrid' ? 'selected' : '' }}>Hybrid</option>
-        </select>
-      </div>
-    </div>
-
-    <div>
-      <label class="block text-gray-700 font-medium">Meeting Link / Venue</label>
-      <input name="meeting_link" value="{{ old('meeting_link', $consultation->meeting_link) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-    </div>
-
-    <div>
-      <label class="block text-gray-700 font-medium">Consultant Name</label>
-      <input name="consultant_name" value="{{ old('consultant_name', $consultation->consultant_name) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-    </div>
-
-    <div>
-      <label class="block text-gray-700 font-medium">Client Name</label>
-      <input name="client_name" value="{{ old('client_name', $consultation->client_name) }}" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-    </div>
-
-    <div>
-      <label class="block text-gray-700 font-medium">Status</label>
-      <select name="status" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-        <option value="scheduled" {{ $consultation->status == 'scheduled' ? 'selected' : '' }}>Scheduled</option>
-        <option value="completed" {{ $consultation->status == 'completed' ? 'selected' : '' }}>Completed</option>
-        <option value="cancelled" {{ $consultation->status == 'cancelled' ? 'selected' : '' }}>Cancelled</option>
-        <option value="rescheduled" {{ $consultation->status == 'rescheduled' ? 'selected' : '' }}>Rescheduled</option>
-      </select>
-    </div>
-=======
     {{-- HEADER --}}
     <div class="flex items-center justify-between border-b pb-4">
         <h2 class="text-2xl font-bold text-gray-800">Edit Feed Section</h2>
@@ -122,7 +67,6 @@
                       rows="5"
                       class="w-full border border-gray-300 rounded-xl px-4 py-3">{{ old('content', $consultation->content) }}</textarea>
         </div>
->>>>>>> Stashed changes
 
         {{-- CTA --}}
         <div class="grid md:grid-cols-2 gap-6">

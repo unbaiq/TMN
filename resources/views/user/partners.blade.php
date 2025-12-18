@@ -59,11 +59,12 @@
                  hover:bg-[#fff] transform hover:scale-105">
 
           <img
-            src="{{ $partner->logo
-                ? asset('storage/' . $partner->logo)
-                : asset('{{ config('app.url') }}/tmn/public/images/default-partner.png') }}"
-            class="object-contain w-[60%] mx-auto"
-            alt="{{ $partner->company_name ?? $partner->name }}">
+  src="{{ $partner->logo
+      ? asset('storage/' . $partner->logo)
+      : asset('images/default-partner.png') }}"
+  class="object-contain w-[60%] mx-auto"
+  alt="{{ $partner->company_name ?? $partner->name }}">
+
         </div>
       @empty
         <p class="col-span-full text-center text-gray-500">

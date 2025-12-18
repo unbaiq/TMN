@@ -335,14 +335,10 @@ Route::get('/insightindex', [UserController::class, 'insightIndex'])
 Route::view('/journey', 'user.journey');
 
 Route::get('/partners', [UserController::class, 'partners'])->name('partners.index');
-
-Route::view('/programs-meetup', 'user.programs-meetup');
-
 Route::get('/programs-meetup', [UserController::class, 'programsMeetup']);
 
 Route::view('/services-portion', 'user.services.portion');
-Route::get('/sponsors', [UserController::class, 'sponsors'])
-    ->name('sponsors');
+Route::get('/sponsors', [UserController::class, 'sponsors'])->name('sponsors');
 /*
 |--------------------------------------------------------------------------
 | WEBSITE STORIES (Dynamic from Admin)

@@ -268,14 +268,15 @@ class UserController extends Controller
 
         return view('user.partners', compact('partners'));
     }
-    public function sponsers()
-    {
-        $partners = Sponsor::active()
-            ->approved()
-            ->orderByDesc('is_featured')
-            ->orderByDesc('created_at')
-            ->get();
+    public function sponsors()
+{
+    $sponsors = Sponsor::active()
+        ->approved()
+        ->orderByDesc('is_featured')
+        ->orderByDesc('created_at')
+        ->get();
 
-        return view('user.sponsers', compact('sponsers'));
-    }
+    return view('user.sponsors', compact('sponsors'));
+}
+
 }
