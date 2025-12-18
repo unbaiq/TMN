@@ -1,26 +1,26 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-8xl mx-auto px-4 py-6 space-y-6">
+<div class="max-w-7xl mx-auto px-4 py-6 space-y-6">
 
     {{-- HEADER --}}
     <div class="bg-gradient-to-r from-red-700 via-red-600 to-red-500
                 text-white rounded-2xl px-8 py-6 flex justify-between items-center shadow-lg">
         <div>
-            <h2 class="text-3xl font-semibold">Branding & Media Activities</h2>
+            <h2 class="text-3xl font-semibold">CSR Activities</h2>
             <p class="text-sm text-white/80 mt-1">
-                Articles, Stories, Videos, Podcasts, PR & Media activities recorded by you.
+                Corporate Social Responsibility activities recorded by members
             </p>
         </div>
 
-        <a href="{{ route('member.brandings.create') }}"
+        <a href="{{ route('member.csrs.create') }}"
            class="bg-white text-red-600 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-100 transition">
             <i data-feather="plus" class="inline w-4 h-4 mr-1"></i>
-            Add Branding
+            Add CSR
         </a>
     </div>
 
-    {{-- SUCCESS --}}
+    {{-- SUCCESS MESSAGE --}}
     @if(session('success'))
         <div class="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg flex justify-between items-center">
             <span>{{ session('success') }}</span>
@@ -37,31 +37,20 @@
             <input type="text"
                    name="search"
                    value="{{ request('search') }}"
-                   placeholder="Search title, publication or media…"
+                   placeholder="Search CSR title, description or member…"
                    class="pl-10 border border-gray-300 rounded-lg px-3 py-2 text-sm
                           focus:ring-1 focus:ring-red-600 focus:border-red-600">
             <i data-feather="search"
                class="absolute left-3 top-2.5 w-4 h-4 text-gray-400"></i>
         </div>
 
-        {{-- BRANDING TYPE --}}
-        <select name="branding_type"
+        {{-- CSR TYPE --}}
+        <select name="csr_type"
                 class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-red-600">
-            <option value="">All Branding Types</option>
-            @foreach([
-                'article' => 'Article',
-                'story' => 'Story',
-                'video_shoot' => 'Video Shoot',
-                'podcast' => 'Podcast',
-                'pr_activity' => 'PR Activity',
-                'media_release' => 'Media Release',
-                'magazine_feature' => 'Magazine Feature',
-                'award_mention' => 'Award Mention',
-                'social_campaign' => 'Social Campaign',
-                'other' => 'Other'
-            ] as $key => $label)
-                <option value="{{ $key }}" {{ request('branding_type') === $key ? 'selected' : '' }}>
-                    {{ $label }}
+            <option value="">All CSR Types</option>
+            @foreach(['education','health','environment','community','donation','other'] as $type)
+                <option value="{{ $type }}" {{ request('csr_type') === $type ? 'selected' : '' }}>
+                    {{ ucfirst($type) }}
                 </option>
             @endforeach
         </select>
@@ -70,15 +59,9 @@
         <select name="status"
                 class="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-red-600">
             <option value="">All Status</option>
-            @foreach([
-                'draft' => 'Draft',
-                'submitted' => 'Submitted',
-                'under_review' => 'Under Review',
-                'approved' => 'Approved',
-                'rejected' => 'Rejected'
-            ] as $key => $label)
-                <option value="{{ $key }}" {{ request('status') === $key ? 'selected' : '' }}>
-                    {{ $label }}
+            @foreach(['pending','approved','rejected'] as $status)
+                <option value="{{ $status }}" {{ request('status') === $status ? 'selected' : '' }}>
+                    {{ ucfirst($status) }}
                 </option>
             @endforeach
         </select>
@@ -91,11 +74,11 @@
     {{-- TABLE --}}
     <div class="bg-white border border-gray-200 shadow rounded-2xl overflow-hidden">
 
-        @if($brandings->count())
+        @if($csrs->count())
         <table class="w-full text-sm">
             <thead class="bg-gray-50 text-gray-600 border-b">
                 <tr>
-                    <th class="px-4 py-3 text-left">Branding</th>
+                    <th class="px-4 py-3 text-left">CSR</th>
                     <th class="px-4 py-3 text-left">Type</th>
                     <th class="px-4 py-3 text-left">Date</th>
                     <th class="px-4 py-3 text-left">Impact</th>
@@ -105,58 +88,58 @@
             </thead>
 
             <tbody class="divide-y divide-gray-100">
-                @foreach($brandings as $branding)
-                <tr>
+                @foreach($csrs as $csr)
+                <tr class="hover:bg-gray-50">
 
-                    {{-- BRANDING --}}
+                    {{-- CSR TITLE --}}
                     <td class="px-4 py-3">
-                        <div class="flex items-center gap-3">
-                            <img src="{{ $branding->thumbnail_url }}"
-                                 class="w-10 h-10 rounded border object-cover"
-                                 alt="">
-                            <div>
-                                <div class="font-medium">{{ $branding->title }}</div>
-                                <div class="text-xs text-gray-500">
-                                    {{ $branding->publication_name ?? $branding->media_platform ?? '—' }}
-                                </div>
-                            </div>
+                        <div class="font-medium">{{ $csr->csr_title }}</div>
+                        <div class="text-xs text-gray-500">
+                            {{ $csr->member->name ?? '—' }}
                         </div>
                     </td>
 
                     {{-- TYPE --}}
                     <td class="px-4 py-3 capitalize">
-                        {{ str_replace('_',' ',$branding->branding_type) }}
+                        {{ $csr->csr_type }}
                     </td>
 
                     {{-- DATE --}}
                     <td class="px-4 py-3">
-                        {{ $branding->formatted_date }}
+                        {{ optional($csr->csr_date)->format('d M Y') ?? '—' }}
                     </td>
 
                     {{-- IMPACT --}}
                     <td class="px-4 py-3 text-gray-600">
-                        {{ $branding->impact_summary }}
+                        {{ $csr->impact_summary ?: '—' }}
                     </td>
 
                     {{-- STATUS --}}
                     <td class="px-4 py-3 text-center">
-                        <span class="px-2 py-1 rounded-full text-xs {{ $branding->status_color }}">
-                            {{ ucfirst(str_replace('_',' ',$branding->status)) }}
+                        @php
+                            $colors = [
+                                'pending' => 'bg-yellow-50 text-yellow-700',
+                                'approved' => 'bg-green-50 text-green-700',
+                                'rejected' => 'bg-red-50 text-red-700'
+                            ];
+                        @endphp
+                        <span class="px-2 py-1 rounded-full text-xs {{ $colors[$csr->status] ?? 'bg-gray-100 text-gray-700' }}">
+                            {{ ucfirst($csr->status) }}
                         </span>
                     </td>
 
                     {{-- ACTIONS --}}
                     <td class="px-4 py-3 text-right space-x-3">
-                        <a href="{{ route('member.brandings.show', $branding) }}"
+                        <a href="{{ route('member.csrs.show', $csr) }}"
                            class="text-blue-600 hover:underline">View</a>
 
-                        <a href="{{ route('member.brandings.edit', $branding) }}"
+                        <a href="{{ route('member.csrs.edit', $csr) }}"
                            class="text-green-600 hover:underline">Edit</a>
 
-                        <form action="{{ route('member.brandings.destroy', $branding) }}"
+                        <form action="{{ route('member.csrs.destroy', $csr) }}"
                               method="POST" class="inline">
                             @csrf @method('DELETE')
-                            <button onclick="return confirm('Delete this branding record?')"
+                            <button onclick="return confirm('Delete this CSR record?')"
                                     class="text-red-600 hover:underline">
                                 Delete
                             </button>
@@ -169,12 +152,12 @@
         </table>
 
         <div class="p-4 border-t bg-gray-50">
-            {{ $brandings->links() }}
+            {{ $csrs->links() }}
         </div>
 
         @else
             <div class="p-10 text-center text-gray-500">
-                No branding records found.
+                No CSR records found.
             </div>
         @endif
     </div>

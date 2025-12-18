@@ -589,10 +589,7 @@
               </div>
             </div>
 
-            <a href="#"
-              class="mt-4 flex items-center gap-2 text-red-600 font-medium px-4 py-2 rounded-lg hover:bg-red-50 transition w-full nav-item">
-              <i data-feather="user" class="w-4"></i> Profile
-            </a>
+          
 
             @if(auth()->check())
               <form method="POST" action="{{ route('logout') }}">
