@@ -26,11 +26,7 @@ class UserController extends Controller
     public function index()
     {
         /* ================= EVENTS ================= */
-        $latestEvents = Event::where('is_public', true)
-            ->whereIn('status', ['upcoming', 'ongoing'])
-            ->whereDate('event_date', '>=', now())
-            ->orderBy('event_date')
-            ->take(3)
+        $latestEvents = Event::take(3)
             ->get();
 
         /* ================= ADVISORIES ================= */
@@ -42,7 +38,6 @@ class UserController extends Controller
 
         /* ================= STORIES ================= */
         $stories = Story::published()
-            ->latest('publish_date')
             ->take(6)
             ->get();
 
