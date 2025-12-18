@@ -73,11 +73,11 @@ class EventController extends Controller
         $validated['slug'] = Str::slug($validated['title']) . '-' . Str::random(5);
        $validated['organizer_id'] = Auth::id(); // fallback if not logged in
 
-        // Handle banner upload if exists
-        if ($request->hasFile('banner_image')) {
-            $path = $request->file('banner_image')->store('events', 'public');
-            $validated['banner_image'] = $path;
-        }
+       // Handle banner upload if exists
+if ($request->hasFile('banner_image')) {
+    $path = $request->file('banner_image')->store('events', 'public');
+    $validated['banner_image'] = $path; // events/filename.jpg
+}
 
         Event::create($validated);
 
@@ -130,13 +130,12 @@ class EventController extends Controller
             'banner_image'     => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
 
-        // Banner replace if new uploaded
         if ($request->hasFile('banner_image')) {
-            // Delete old file
+
             if ($event->banner_image && Storage::disk('public')->exists($event->banner_image)) {
                 Storage::disk('public')->delete($event->banner_image);
             }
-
+        
             $path = $request->file('banner_image')->store('events', 'public');
             $validated['banner_image'] = $path;
         }
