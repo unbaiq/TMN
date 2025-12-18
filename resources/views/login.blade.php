@@ -177,7 +177,7 @@ input {
 
 
 </style>
- <div class="bg-[url('/images/bg-img.png')] flex items-center justify-center bg-cover bg-right min-h-screen lg:h-[750px] 2xl:h-screen">
+ <div class="bg-[url('{{ config('app.url') }}/tmn/public/images/bg-img.png')] flex items-center justify-center bg-cover bg-right min-h-screen lg:h-[750px] 2xl:h-screen">
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
 		<form action="#">
