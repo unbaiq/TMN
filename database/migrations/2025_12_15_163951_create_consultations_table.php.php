@@ -1,55 +1,78 @@
-
 <?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration {
-
+return new class extends Migration
+{
     public function up(): void
     {
         Schema::create('consultations', function (Blueprint $table) {
             $table->id();
 
-            // IDENTIFICATION
-            $table->string('key')->unique()
-                  ->comment('Unique identifier e.g. tmn_welcome, why_tmn');
+            /*
+            |--------------------------------------------------------------------------
+            | IDENTIFICATION
+            |--------------------------------------------------------------------------
+            | Using `key` is allowed, but we explicitly index it for performance
+            */
+            $table->string('key', 255)
+                  ->unique()
+                  ->index()
+                  ->comment('Unique identifier e.g. build_brand_banner, why_tmn');
 
-            // CONTENT
+            /*
+            |--------------------------------------------------------------------------
+            | CONTENT
+            |--------------------------------------------------------------------------
+            */
             $table->string('title')->nullable();
             $table->string('subtitle')->nullable();
             $table->longText('content')->nullable();
 
-            // CTA
+            /*
+            |--------------------------------------------------------------------------
+            | CALL TO ACTION
+            |--------------------------------------------------------------------------
+            */
             $table->string('cta_text')->nullable();
             $table->string('cta_link')->nullable();
 
-            // FEED CONTROL
-            $table->integer('display_order')->default(0)
-                  ->comment('Controls feed order');
+            /*
+            |--------------------------------------------------------------------------
+            | FEED CONTROL
+            |--------------------------------------------------------------------------
+            */
+            $table->integer('display_order')->default(0);
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_active')->default(true);
             $table->boolean('is_public')->default(true);
 
-            // ANALYTICS
-            $table->integer('views')->default(0);
-            $table->integer('clicks')->default(0);
+            /*
+            |--------------------------------------------------------------------------
+            | ANALYTICS
+            |--------------------------------------------------------------------------
+            */
+            $table->unsignedInteger('views')->default(0);
+            $table->unsignedInteger('clicks')->default(0);
 
-            // AUDIT
-            $table->unsignedBigInteger('created_by')->nullable();
-            $table->unsignedBigInteger('updated_by')->nullable();
+            /*
+            |--------------------------------------------------------------------------
+            | AUDIT
+            |--------------------------------------------------------------------------
+            */
+            $table->foreignId('created_by')
+                  ->nullable()
+                  ->constrained('users')
+                  ->nullOnDelete();
+
+            $table->foreignId('updated_by')
+                  ->nullable()
+                  ->constrained('users')
+                  ->nullOnDelete();
 
             $table->timestamps();
-
-            // FOREIGN KEYS
-            $table->foreign('created_by')
-                  ->references('id')->on('users')
-                  ->nullOnDelete();
-
-            $table->foreign('updated_by')
-                  ->references('id')->on('users')
-                  ->nullOnDelete();
         });
     }
 

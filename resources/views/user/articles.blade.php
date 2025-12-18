@@ -3,8 +3,14 @@
 @include("user.components.meta")
 @include("user.components.header")
 
+    @php
+        $assetBase = app()->environment('local')
+            ? ''
+            : config('app.url') . '/tmn/public';
+    @endphp
+
 {{-- ================= BANNER ================= --}}
-<section class="bg-[url({{ config('app.url') }}/tmn/public/images/committee-banner.png)] bg-cover bg-center bg-no-repeat">
+<section class="bg-[url({{ config('app.url') }}/images/committee-banner.png)] bg-cover bg-center bg-no-repeat">
     <div class="w-full py-10 banner-grid">
         <div class="main-width flex items-center">
             <div class="max-w-2xl">

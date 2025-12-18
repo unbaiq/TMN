@@ -42,7 +42,7 @@
             <div class="grid  grid-cols-1 gap-8 sm:gap-6 lg:grid-cols-[30%,1fr,1fr,1fr] md:grid-cols-2 items-start ">
                 <div class="mb-6 md:mb-0">
                     <a href="./" class="flex items-center">
-                       <img src="{{ config('app.url') }}/tmn/public/images/newlogo.png" class="w-1/2" alt="">
+                       <img src="{{ config('app.url') }}/images/newlogo.png" class="w-1/2" alt="">
                     </a>
                     <p class="text-[#CFD3D7] mt-6 w-[70%]">
                        Welcome to TMN and be a part of TMNIAN Family. TMN is a platform of CXO's where we all come together to form a network of like minded professionals to support / help each other to grow. A Platform where competition can be dealt with sheer competence and work as a mentor for others to follow. 

@@ -1,4 +1,11 @@
 @include("user.components.meta")
+
+    @php
+        $assetBase = app()->environment('local')
+            ? ''
+            : config('app.url') . '/tmn/public';
+    @endphp
+
   <section>
           <style>
       @font-face { font-family: JuneBug; src: url('font/neuropolitical rg.otf'); } 
@@ -30,7 +37,7 @@
   <section class="page">
   @include("user.components.header")
     <section
-      class="bg-[url({{ config('app.url') }}/tmn/public/images/banner.png)] bg-cover py-10 lg:bg-right bg-center bg-no-repeat"
+      class="bg-[url({{ config('app.url') }}/images/banner.png)] bg-cover py-10 lg:bg-right bg-center bg-no-repeat"
     >
       <div class="main-width h-full py-4 flex items-center lg:justify-center">
         <div class="grid md:grid-cols-2 gap-6 items-center">
@@ -48,7 +55,7 @@
       
           </div>
           <div class="">
-            <img src="{{ config('app.url') }}/tmn/public/images/banner-i.png" class="mx-auto" alt="" />
+            <img src="{{ config('app.url') }}/images/banner-i.png" class="mx-auto" alt="" />
           </div>
         </div>
       </div>

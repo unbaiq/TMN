@@ -1,7 +1,13 @@
 @include("user.components.meta")
 @include("user.components.header")
 
-<section class="bg-[url({{ config('app.url') }}/tmn/public/images/committee-banner.png)] bg-cover lg:bg-right bg-center bg-no-repeat">
+    @php
+        $assetBase = app()->environment('local')
+            ? ''
+            : config('app.url') . '/tmn/public';
+    @endphp
+
+<section class="bg-[url({{ config('app.url') }}/images/committee-banner.png)] bg-cover lg:bg-right bg-center bg-no-repeat">
   <div class="w-full py-10 h-full banner-grid">
     <div class="main-width h-full py-4 flex items-center lg:justify-start">
       <div class="w-full md:grid md:grid-cols-[58%,1fr] gap-6 items-center">
@@ -58,12 +64,8 @@
                  flex items-center justify-center transition-all duration-300
                  hover:bg-[#fff] transform hover:scale-105">
 
-          <img
-            src="{{ $partner->logo
-                ? asset('storage/' . $partner->logo)
-                : asset('{{ config('app.url') }}/tmn/public/images/default-partner.png') }}"
-            class="object-contain w-[60%] mx-auto"
-            alt="{{ $partner->company_name ?? $partner->name }}">
+          <img src="{{ asset('storage/partners/' . $partner->logo) }}" alt="{{ $partner->name }}">
+
         </div>
       @empty
         <p class="col-span-full text-center text-gray-500">

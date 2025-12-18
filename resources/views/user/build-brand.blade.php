@@ -3,10 +3,17 @@
 @include('user.components.meta')
 @include('user.components.header')
 
+    @php
+        $assetBase = app()->environment('local')
+            ? ''
+            : config('app.url') . '/tmn/public';
+    @endphp
+
 {{-- ================= BANNER ================= --}}
 <section
     class="bg-cover bg-center bg-no-repeat"
-    style="background-image:url('{{ asset('{{ config('app.url') }}/tmn/public/images/committee-banner.png') }}')">
+    style="background-image:url('{{ asset('{{ asset('images/insight-banner.png') }}
+')">
 
     <div class="w-full py-10 banner-grid">
         <div class="main-width py-4 flex items-center">

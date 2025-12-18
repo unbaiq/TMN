@@ -2,7 +2,7 @@
       <div class="main-width flex items-center justify-between pr-4 lg:pr-0">
         <div class="px-4 py-2">
             <a href="./">
-          <img src="{{ config('app.url') }}/tmn/public/images/newlogo.png" class="xl:w-[180px] w-[120px]" /></a>
+          <img src="{{ config('app.url') }}/images/newlogo.png" class="xl:w-[180px] w-[120px]" /></a>
         </div>
         <div class="flex">
           <div class="py-6 lg:block hidden">

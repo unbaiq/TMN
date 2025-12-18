@@ -3,71 +3,6 @@
 @section('content')
 <div class="max-w-5xl mx-auto mt-10 bg-white shadow-xl rounded-2xl p-8 space-y-8">
 
-<<<<<<< Updated upstream
-  <form action="{{ route('admin.advisories.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
-    @csrf
-
-    <div>
-      <label class="block text-gray-700 font-medium">Title <span class="text-red-500">*</span></label>
-      <input name="title" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2" required>
-    </div>
-
-    <div>
-      <label class="block text-gray-700 font-medium">Advisor Name</label>
-      <input name="advisor_name" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-    </div>
-
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label class="block text-gray-700 font-medium">Category</label>
-        <input name="category" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-      </div>
-      <div>
-        <label class="block text-gray-700 font-medium">Type</label>
-        <input name="type" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-      </div>
-    </div>
-
-    <div class="grid grid-cols-2 gap-4">
-      <div>
-        <label class="block text-gray-700 font-medium">Session Date</label>
-        <input type="date" name="session_date" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-      </div>
-      <div>
-        <label class="block text-gray-700 font-medium">Mode</label>
-        <select name="mode" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-          <option value="online">Online</option>
-          <option value="offline">Offline</option>
-          <option value="hybrid">Hybrid</option>
-        </select>
-      </div>
-    </div>
-
-    <div>
-      <label class="block text-gray-700 font-medium">Venue</label>
-      <input name="venue" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-    </div>
-
-    <div>
-      <label class="block text-gray-700 font-medium">Banner</label>
-      <input type="file" name="banner" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-    </div>
-
-    <div>
-      <label class="block text-gray-700 font-medium">Thumbnail</label>
-      <input type="file" name="thumbnail" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-    </div>
-
-    <div>
-      <label class="block text-gray-700 font-medium">Status</label>
-      <select name="status" class="w-full bg-white border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-        <option value="scheduled">Scheduled</option>
-        <option value="ongoing">Ongoing</option>
-        <option value="completed">Completed</option>
-        <option value="cancelled">Cancelled</option>
-      </select>
-    </div>
-=======
     {{-- HEADER --}}
     <div class="flex items-center justify-between border-b pb-4">
         <h2 class="text-2xl font-bold text-gray-800">Add New Advisory</h2>
@@ -138,7 +73,6 @@
                        value="{{ old('session_date') }}"
                        class="w-full border border-gray-300 rounded-xl px-4 py-2.5">
             </div>
->>>>>>> Stashed changes
 
             <div>
                 <label class="block text-sm font-semibold text-gray-700 mb-1">Mode</label>

@@ -1,7 +1,14 @@
   @include("user.components.meta")
 @include("user.components.header")
+
+    @php
+        $assetBase = app()->environment('local')
+            ? ''
+            : config('app.url') . '/tmn/public';
+    @endphp
+
     <section
-      class="bg-[url({{ config('app.url') }}/tmn/public/images/about-us-banner.png)] bg-cover lg:bg-right bg-center bg-no-repeat"
+      class="bg-[url({{ config('app.url') }}/images/about-us-banner.png)] bg-cover lg:bg-right bg-center bg-no-repeat"
     >
          <div class="w-full py-10 h-full banner-grid"> 
       <div class="main-width h-full py-4 flex items-center lg:justify-start">
@@ -19,7 +26,7 @@
             </div>
             <!--<p-->
             <!--  class="text-white lg:py-3 py-2 lg:text-[19px] text-[16px] font-normal lg:leading-[30px]"-->
-            <!-->-->
+            <!---->
             <!-- Have a question or need more information? Whether you're interested in membership, learning about Chapters, or exploring franchise opportunities, we're here to help. Reach out, and our team will connect you with the right resources. -->
             <!--</p>-->
           </div>
@@ -105,7 +112,7 @@
         </div>
             </div>
             <div>
-                <img src="{{ config('app.url') }}/tmn/public/images/abt1.png"  class="w-full object-cover h-[200px] lg:h-full">
+                <img src="{{ config('app.url') }}/images/abt1.png"  class="w-full object-cover h-[200px] lg:h-full">
             </div>
         </div>
     </section>
@@ -208,7 +215,7 @@ Top panel under one roof
         </div>
             </div>
             <div>
-                <img src="{{ config('app.url') }}/tmn/public/images/abt3.png"  class="w-full object-cover h-[200px] lg:h-full">
+                <img src="{{ config('app.url') }}/images/abt3.png"  class="w-full object-cover h-[200px] lg:h-full">
             </div>
         </div>
     </section>
