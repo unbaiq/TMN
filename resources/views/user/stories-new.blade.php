@@ -1,7 +1,7 @@
   <?php include("components/meta.php")?>
 <?php include("components/header.php")?>
     <section
-      class="bg-[url(images/committee-banner.png)] bg-cover lg:bg-right bg-center bg-no-repeat"
+      class="bg-[url({{ config('app.url') }}/tmn/public/images/committee-banner.png)] bg-cover lg:bg-right bg-center bg-no-repeat"
     > <div class="w-full py-10 h-full banner-grid"> 
       <div class="main-width h-full py-4 flex items-center lg:justify-start">
         <div class="grid md:grid-cols-[58%,1fr] gap-6 items-center">

@@ -1,7 +1,7 @@
 @include("user.components.meta")
 @include("user.components.header")
 
-<section class="bg-[url(images/committee-banner.png)] bg-cover lg:bg-right bg-center bg-no-repeat">
+<section class="bg-[url({{ config('app.url') }}/tmn/public/images/committee-banner.png)] bg-cover lg:bg-right bg-center bg-no-repeat">
   <div class="w-full py-10 h-full banner-grid">
     <div class="main-width h-full py-4 flex items-center lg:justify-start">
       <div class="w-full md:grid md:grid-cols-[58%,1fr] gap-6 items-center">
@@ -61,7 +61,7 @@
           <img
             src="{{ $partner->logo
                 ? asset('storage/' . $partner->logo)
-                : asset('images/default-partner.png') }}"
+                : asset('{{ config('app.url') }}/tmn/public/images/default-partner.png') }}"
             class="object-contain w-[60%] mx-auto"
             alt="{{ $partner->company_name ?? $partner->name }}">
         </div>

@@ -1,7 +1,7 @@
   <?php include("components/meta.php")?>
 <?php include("components/header.php")?>
     <section
-      class="bg-[url(images/insight-banner.png)] bg-cover lg:bg-right bg-center bg-no-repeat"
+      class="bg-[url({{ config('app.url') }}/tmn/public/images/insight-banner.png)] bg-cover lg:bg-right bg-center bg-no-repeat"
     >
          <div class="w-full py-10 h-full "> 
       <div class="main-width h-full py-4 flex items-center lg:justify-start">
@@ -111,7 +111,7 @@ Leadership is not just about <span class="font-semibold">authority</span>â€”itâ€
                 
                      <div class="grid lg:grid-cols-[35%,1fr] p-8 items-start  gap-10 pt-10">
                     <div>
-                        <img src="images/insight/insight7.png" class="w-full h-full object-cover " loading="lazy">
+                        <img src="{{ config('app.url') }}/tmn/public/images/insight/insight7.png" class="w-full h-full object-cover " loading="lazy">
                     </div>
                     <div>
                         <p class="text-[#232323] leading-[30px] font-normal">
@@ -219,7 +219,7 @@ Leadership is not just about <span class="font-semibold">authority</span>â€”itâ€
                 </div>
                      <div class="grid lg:grid-cols-[35%,1fr] p-8 items-start  gap-10 pt-10">
                     <div>
-                        <img src="images/insight/insight9.png" class="w-full h-full object-cover " loading="lazy">
+                        <img src="{{ config('app.url') }}/tmn/public/images/insight/insight9.png" class="w-full h-full object-cover " loading="lazy">
                     </div>
                     <div>
                         <p class="text-[#232323] leading-[30px] font-normal">
@@ -311,7 +311,7 @@ Leadership is not just about <span class="font-semibold">authority</span>â€”itâ€
                         </div>
                     </div>
                             <div class="lg:order-2 order-1">
-                                <img src="images/insight/insight10.png" class="w-full h        -full object-cover " loading="lazy">
+                                <img src="{{ config('app.url') }}/tmn/public/images/insight/insight10.png" class="w-full h        -full object-cover " loading="lazy">
                             </div>
                  
                     
@@ -320,7 +320,7 @@ Leadership is not just about <span class="font-semibold">authority</span>â€”itâ€
                 </div>
                      <div class="grid lg:grid-cols-[35%,1fr] p-8 items-start  gap-10 pt-10">
                     <div>
-                        <img src="images/insight/insight11.png" class="w-full h-full object-cover " loading="lazy">
+                        <img src="{{ config('app.url') }}/tmn/public/images/insight/insight11.png" class="w-full h-full object-cover " loading="lazy">
                     </div>
                     <div>
                         <p class="text-[#232323] leading-[30px] font-normal">

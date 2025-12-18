@@ -341,7 +341,7 @@ Route::view('/programs-meetup', 'user.programs-meetup');
 Route::get('/programs-meetup', [UserController::class, 'programsMeetup']);
 
 Route::view('/services-portion', 'user.services.portion');
-Route::get('/sponsors', [UserController::class, 'partners'])
+Route::get('/sponsors', [UserController::class, 'sponsors'])
     ->name('sponsors');
 /*
 |--------------------------------------------------------------------------

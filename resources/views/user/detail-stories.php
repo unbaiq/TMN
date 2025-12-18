@@ -1,7 +1,7 @@
 <?php include("components/meta.php")?>
 <?php include("components/header.php")?>
     <section
-      class="bg-[url(images/banner.png)] bg-cover py-10 lg:bg-right bg-center bg-no-repeat"
+      class="bg-[url({{ config('app.url') }}/tmn/public/images/banner.png)] bg-cover py-10 lg:bg-right bg-center bg-no-repeat"
     >
       <div class="main-width h-full py-4 flex items-center lg:justify-center">
         <div class="grid md:grid-cols-[68%,1fr] gap-6 items-center">
@@ -30,7 +30,7 @@
          <div class="main-width bg-[#F8F8F8] lg:py-6 py-4 px-4 shadow-[0px_2px_2px_0px_rgba(164,147,147,0.25)]   mb-6">
         <div class="flex  lg:flex-row flex-col lg:items-center items-start ">
             <div class="p-4">
-                <img src="images/recure.png" class="w-[250px] mx-auto" />
+                <img src="{{ config('app.url') }}/tmn/public/images/recure.png" class="w-[250px] mx-auto" />
             </div>
             <div class="h-[100px] lg:block hidden w-[4px] bg-[rgba(143,143,143,0.50)]"></div> 
             <div class="px-4">

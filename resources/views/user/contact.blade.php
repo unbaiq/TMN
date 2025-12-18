@@ -2,7 +2,7 @@
 @include("user.components.header")
 
     <section
-      class="bg-[url(images/contact-us-banner.png)] bg-cover  lg:bg-right bg-center bg-no-repeat"
+      class="bg-[url({{ config('app.url') }}/tmn/public/images/contact-us-banner.png)] bg-cover  lg:bg-right bg-center bg-no-repeat"
     >
        
         <div class="w-full py-10 h-full banner-grid"> 
