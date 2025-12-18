@@ -3,7 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Login</title>
+  <title>TMN Login</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ config('app.url') }}/tmn/public/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ config('app.url') }}/tmn/public/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ config('app.url') }}/tmn/public/favicon-16x16.png">
+<link rel="manifest" href="{{ config('app.url') }}/tmn/public/site.webmanifest">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -104,7 +108,7 @@ body {
 <div class="w-full max-w-md bg-white/75 backdrop-blur-2xl shadow-2xl border border-white/30 rounded-3xl p-8 sm:p-10">
 
   <div class="flex justify-center mb-6">
-    <img src="{{ asset('images/logo1.png') }}" class="w-32 sm:w-40 drop-shadow-lg" />
+    <img src="{{ asset('{{ config('app.url') }}/tmn/public/images/logo1.png') }}" class="w-32 sm:w-40 drop-shadow-lg" />
   </div>
 
   <h2 class="text-3xl font-bold text-center text-gray-900 mb-2 tracking-wide">
