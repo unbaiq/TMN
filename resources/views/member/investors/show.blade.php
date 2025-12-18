@@ -8,7 +8,7 @@
         <div><strong>Investor Name:</strong> {{ $investor->investor_name }}</div>
         <div><strong>Company:</strong> {{ $investor->company_name ?? '—' }}</div>
         <div><strong>Email:</strong> {{ $investor->email ?? '—' }}</div>
-        <div><strong>Phone:</strong> {{ $investor->phone ?? '—' }}</div>
+        <div><strong>Phone No:</strong> {{ $investor->phone ?? '—' }}</div>
         <div><strong>Investment Focus:</strong> {{ $investor->investment_focus ?? '—' }}</div>
         <div><strong>Capacity:</strong> ₹{{ number_format($investor->investment_capacity,2) ?? '—' }}</div>
         <div><strong>Status:</strong> <span class="font-semibold capitalize">{{ $investor->status }}</span></div>

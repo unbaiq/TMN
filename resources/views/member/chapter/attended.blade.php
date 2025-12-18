@@ -55,6 +55,21 @@
         </div>
         <div class="absolute right-0 top-0 w-72 h-72 bg-white/10 rounded-full blur-3xl opacity-25"></div>
     </div>
+{{-- ==== SEARCH BAR ==== --}}
+<div class="bg-white border border-gray-100 shadow-sm rounded-xl px-4 py-3 flex items-center gap-3">
+    <div class="relative w-full max-w-md">
+        <span class="absolute inset-y-0 left-3 flex items-center text-gray-400">
+            <i data-feather="search" class="w-4 h-4"></i>
+        </span>
+        <input
+            type="text"
+            id="tableSearch"
+            placeholder="Search by chapter, event, city or status..."
+            class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm
+                   focus:ring-1 focus:ring-red-600 focus:border-red-600"
+        >
+    </div>
+</div>
 
 
         {{-- ==== TABLE CONTAINER ==== --}}
@@ -192,6 +207,17 @@ document.getElementById('exportBtn').addEventListener('click', () => {
     a.href = URL.createObjectURL(blob);
     a.download = 'attended-events.csv';
     a.click();
+});
+</script>
+<script>
+document.getElementById('tableSearch').addEventListener('keyup', function () {
+    const query = this.value.toLowerCase();
+    const rows = document.querySelectorAll('tbody tr');
+
+    rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(query) ? '' : 'none';
+    });
 });
 </script>
 

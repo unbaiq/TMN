@@ -64,7 +64,16 @@
                  flex items-center justify-center transition-all duration-300
                  hover:bg-[#fff] transform hover:scale-105">
 
+<<<<<<< HEAD
           <img src="{{ asset('storage/partners/' . $partner->logo) }}" alt="{{ $partner->name }}">
+=======
+          <img
+  src="{{ $partner->logo
+      ? asset('storage/' . $partner->logo)
+      : asset('images/default-partner.png') }}"
+  class="object-contain w-[60%] mx-auto"
+  alt="{{ $partner->company_name ?? $partner->name }}">
+>>>>>>> 1caa59e245dfda52e8d16d77c81c7da63fcaef0b
 
         </div>
       @empty

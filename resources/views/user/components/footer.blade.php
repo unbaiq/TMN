@@ -56,18 +56,22 @@
                         <li class="mb-4">
                             <a href="./" class="hover:underline">Home</a>
                         </li>
-                        <li class="mb-4">
-                            <a href="about.php " class="hover:underline">About Us</a>
-                        </li>
-                        <li class="mb-4">
-                            <a href="carrers.php" class="hover:underline">Careers</a>
-                        </li>
-                        <li class="mb-4">
-                            <a href="certificate.php" class="hover:underline">Certificate</a>
-                        </li>
-                        <li class="mb-4">
-                            <a href="contact.php" class="hover:underline">Contact Us</a>
-                        </li>
+                       <li class="mb-4">
+    <a href="/about" class="hover:underline">About Us</a>
+</li>
+
+<li class="mb-4">
+    <a href="/careers" class="hover:underline">Careers</a>
+</li>
+
+<li class="mb-4">
+    <a href="/certificate" class="hover:underline">Certificate</a>
+</li>
+
+<li class="mb-4">
+    <a href="/contact" class="hover:underline">Contact Us</a>
+</li>
+
                     </ul>
                 </div>
                  <div>

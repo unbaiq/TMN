@@ -1,172 +1,171 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-8xl mx-auto px-4 py-4 space-y-6">
+<div class="max-w-6xl mx-auto px-4 py-6 space-y-6">
 
     {{-- HEADER --}}
-    <div class="bg-gradient-to-r from-red-700 via-red-600 to-red-500 text-white rounded-2xl px-8 py-6 shadow-lg">
-        <h2 class="text-2xl font-semibold">Add Branding & Media Activity</h2>
+    <div class="bg-gradient-to-r from-red-700 via-red-600 to-red-500
+                text-white rounded-2xl px-8 py-6 shadow-lg">
+        <h2 class="text-2xl font-semibold">Add Branding Activity</h2>
         <p class="text-sm text-white/80 mt-1">
-            Log Articles, Stories, Video Shoots, Podcasts, PR and more for TMN visibility.
+            Record articles, stories, PR, media or branding activities.
         </p>
     </div>
 
     {{-- FORM --}}
-    <form action="{{ route('member.brandings.store') }}" method="POST" enctype="multipart/form-data"
+    <form method="POST"
+          action="{{ route('member.brandings.store') }}"
+          enctype="multipart/form-data"
           class="bg-white border border-gray-200 shadow rounded-2xl p-8 space-y-6">
         @csrf
 
-        {{-- Branding Type --}}
+        {{-- BASIC INFO --}}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
             <div>
-                <label class="text-sm font-medium text-gray-700">Branding Type *</label>
-                <select id="branding_type" name="branding_type"
-                        class="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1 focus:ring-1 focus:ring-red-600" required>
-                    @foreach($brandingTypes as $key => $label)
-                        <option value="{{ $key }}" {{ old('branding_type') == $key ? 'selected' : '' }}>
-                            {{ $label }}
+                <label class="block text-sm font-medium text-gray-700">Branding Type *</label>
+                <select name="branding_type" required
+                        class="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-red-600">
+                    @foreach([
+                        'article','story','video_shoot','podcast','pr_activity',
+                        'media_release','magazine_feature','award_mention',
+                        'social_campaign','other'
+                    ] as $type)
+                        <option value="{{ $type }}">
+                            {{ ucfirst(str_replace('_',' ',$type)) }}
                         </option>
                     @endforeach
                 </select>
             </div>
 
             <div>
-                <label class="text-sm font-medium text-gray-700">Activity Date</label>
-                <input type="date" name="activity_date" value="{{ old('activity_date') }}"
-                       class="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1 focus:ring-1 focus:ring-red-600">
+                <label class="block text-sm font-medium text-gray-700">Title *</label>
+                <input type="text" name="title" required
+                       class="w-full border rounded-lg px-3 py-2 mt-1 focus:ring-red-600">
             </div>
         </div>
 
-        {{-- Common Fields --}}
-        <div id="common_fields" class="space-y-6">
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Headline</label>
+            <input type="text" name="headline"
+                   class="w-full border rounded-lg px-3 py-2 mt-1">
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700">Description</label>
+            <textarea name="description" rows="4"
+                      class="w-full border rounded-lg px-3 py-2 mt-1"></textarea>
+        </div>
+
+        {{-- ACTIVITY DETAILS --}}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-                <label class="text-sm font-medium text-gray-700">Title *</label>
-                <input type="text" name="title" value="{{ old('title') }}" required
-                       class="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1 focus:ring-1 focus:ring-red-600">
+                <label class="block text-sm font-medium text-gray-700">Activity Date</label>
+                <input type="date" name="activity_date"
+                       class="w-full border rounded-lg px-3 py-2 mt-1">
             </div>
 
             <div>
-                <label class="text-sm font-medium text-gray-700">Headline / Tagline</label>
-                <input type="text" name="headline" value="{{ old('headline') }}"
-                       class="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1">
+                <label class="block text-sm font-medium text-gray-700">Location</label>
+                <input type="text" name="location"
+                       class="w-full border rounded-lg px-3 py-2 mt-1">
             </div>
 
             <div>
-                <label class="text-sm font-medium text-gray-700">Description</label>
-                <textarea name="description" rows="4"
-                          class="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1 focus:ring-1 focus:ring-red-600">{{ old('description') }}</textarea>
+                <label class="block text-sm font-medium text-gray-700">Duration</label>
+                <input type="text" name="duration" placeholder="e.g. 30 mins"
+                       class="w-full border rounded-lg px-3 py-2 mt-1">
             </div>
         </div>
 
-        {{-- Article / PR Fields --}}
-        <div id="article_fields" class="space-y-6 hidden">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="text-sm font-medium text-gray-700">Publication Name</label>
-                    <input type="text" name="publication_name" value="{{ old('publication_name') }}"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1">
-                </div>
-                <div>
-                    <label class="text-sm font-medium text-gray-700">Journalist Name</label>
-                    <input type="text" name="journalist_name" value="{{ old('journalist_name') }}"
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1">
-                </div>
+        {{-- MEDIA INFO --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Media Platform</label>
+                <input type="text" name="media_platform"
+                       class="w-full border rounded-lg px-3 py-2 mt-1">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Media Link</label>
+                <input type="url" name="media_link"
+                       class="w-full border rounded-lg px-3 py-2 mt-1">
             </div>
         </div>
 
-        {{-- Video / Podcast Fields --}}
-        <div id="media_fields" class="space-y-6 hidden">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                    <label class="text-sm font-medium text-gray-700">Media Platform</label>
-                    <input type="text" name="media_platform" value="{{ old('media_platform') }}"
-                           placeholder="YouTube, Spotify, Instagram..."
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1">
-                </div>
-                <div>
-                    <label class="text-sm font-medium text-gray-700">Media Link</label>
-                    <input type="url" name="media_link" value="{{ old('media_link') }}"
-                           placeholder="https://..."
-                           class="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1">
-                </div>
+        {{-- METRICS --}}
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Reach</label>
+                <input type="number" name="reach_count"
+                       class="w-full border rounded-lg px-3 py-2 mt-1">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Engagement</label>
+                <input type="number" name="engagement_count"
+                       class="w-full border rounded-lg px-3 py-2 mt-1">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Views</label>
+                <input type="number" name="views_count"
+                       class="w-full border rounded-lg px-3 py-2 mt-1">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Estimated Value (₹)</label>
+                <input type="number" step="0.01" name="estimated_value"
+                       class="w-full border rounded-lg px-3 py-2 mt-1">
             </div>
         </div>
 
-        {{-- Performance Metrics --}}
-        <div id="metrics_fields" class="grid grid-cols-1 md:grid-cols-3 gap-6 hidden">
+        {{-- FILES --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-                <label class="text-sm font-medium text-gray-700">Reach Count</label>
-                <input type="number" name="reach_count" value="{{ old('reach_count') }}"
-                       class="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1">
-            </div>
-            <div>
-                <label class="text-sm font-medium text-gray-700">Engagement Count</label>
-                <input type="number" name="engagement_count" value="{{ old('engagement_count') }}"
-                       class="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1">
-            </div>
-            <div>
-                <label class="text-sm font-medium text-gray-700">Estimated PR Value (₹)</label>
-                <input type="number" step="0.01" name="estimated_value" value="{{ old('estimated_value') }}"
-                       class="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1">
-            </div>
-        </div>
-
-        {{-- Files --}}
-        <div id="file_fields" class="grid grid-cols-1 md:grid-cols-2 gap-6 hidden">
-            <div>
-                <label class="text-sm font-medium text-gray-700">Proof Document (Image/PDF)</label>
-                <input type="file" name="proof_document"
-                       class="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1">
-            </div>
-            <div>
-                <label class="text-sm font-medium text-gray-700">Thumbnail Image</label>
+                <label class="block text-sm font-medium text-gray-700">Thumbnail Image</label>
                 <input type="file" name="thumbnail_image"
-                       class="w-full border border-gray-300 rounded-lg px-3 py-2 mt-1">
+                       class="w-full border rounded-lg px-3 py-2 mt-1">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Proof Document</label>
+                <input type="file" name="proof_document"
+                       class="w-full border rounded-lg px-3 py-2 mt-1">
             </div>
         </div>
 
-        <div class="flex justify-end">
+        {{-- STATUS --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Status</label>
+                <select name="status"
+                        class="w-full border rounded-lg px-3 py-2 mt-1">
+                    <option value="draft">Draft</option>
+                    <option value="submitted">Submitted</option>
+                </select>
+            </div>
+
+            <div class="flex items-center gap-3 mt-6">
+                <input type="checkbox" name="featured_by_tmn" value="1"
+                       class="rounded border-gray-300">
+                <span class="text-sm text-gray-700">Featured by TMN</span>
+            </div>
+        </div>
+
+        {{-- ACTIONS --}}
+        <div class="flex justify-end gap-4 pt-4">
+            <a href="{{ route('member.brandings.index') }}"
+               class="px-5 py-2 rounded-lg border text-gray-700 hover:bg-gray-50">
+                Cancel
+            </a>
+
             <button type="submit"
                     class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-medium">
-                Save Branding Activity
+                Save Branding
             </button>
         </div>
+
     </form>
 </div>
-
-{{-- Script for Dynamic Field Display --}}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const typeSelect = document.getElementById('branding_type');
-    const articleFields = document.getElementById('article_fields');
-    const mediaFields = document.getElementById('media_fields');
-    const metricsFields = document.getElementById('metrics_fields');
-    const fileFields = document.getElementById('file_fields');
-
-    function updateVisibility() {
-        const type = typeSelect.value;
-
-        // Hide all first
-        articleFields.classList.add('hidden');
-        mediaFields.classList.add('hidden');
-        metricsFields.classList.add('hidden');
-        fileFields.classList.add('hidden');
-
-        // Show relevant sections
-        if (['article', 'story', 'pr', 'media_release'].includes(type)) {
-            articleFields.classList.remove('hidden');
-            fileFields.classList.remove('hidden');
-        }
-
-        if (['video_shoot', 'podcast'].includes(type)) {
-            mediaFields.classList.remove('hidden');
-            metricsFields.classList.remove('hidden');
-            fileFields.classList.remove('hidden');
-        }
-    }
-
-    typeSelect.addEventListener('change', updateVisibility);
-    updateVisibility(); // Initial run
-});
-</script>
 @endsection
