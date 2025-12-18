@@ -67,24 +67,49 @@
 
     <!-- CHAPTER DETAILS -->
     <div class="bg-gray-50 rounded-xl p-6 mb-8 border border-gray-200">
-        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
-            <i data-feather="info" class="w-5 h-5 text-[#CF2031]"></i>
-            Chapter Overview
-        </h3>
+    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+        <i data-feather="info" class="w-5 h-5 text-[#CF2031]"></i>
+        Chapter Overview
+    </h3>
 
-        <div class="grid md:grid-cols-2 gap-6 text-sm text-gray-700">
-            <div>
-                <p><strong>Chapter Code:</strong> {{ $chapter->chapter_code }}</p>
-                <p><strong>City:</strong> {{ $chapter->city ?? '—' }}</p>
-                <p><strong>Pincode:</strong> {{ $chapter->pincode ?? '—' }}</p>
-                <p><strong>Status:</strong> 
-                    @if($chapter->is_active)
-                        <span class="text-green-600 font-semibold">Active</span>
-                    @else
-                        <span class="text-gray-500 font-semibold">Inactive</span>
-                    @endif
-                </p>
-            </div>
+    <div class="grid md:grid-cols-2 gap-6 text-sm text-gray-700">
+        <div>
+            <p><strong>Chapter Code:</strong> {{ $chapter->chapter_code }}</p>
+            <p><strong>City:</strong> {{ $chapter->city ?? '—' }}</p>
+
+            {{-- ✅ State --}}
+            <p><strong>State:</strong> {{ $chapter->state ?? '—' }}</p>
+
+            {{-- ✅ Country --}}
+            <p><strong>Country:</strong> {{ $chapter->country ?? '—' }}</p>
+
+            <p><strong>Pincode:</strong> {{ $chapter->pincode ?? '—' }}</p>
+
+            <p><strong>Status:</strong>
+                @if($chapter->is_active)
+                    <span class="text-green-600 font-semibold">Active</span>
+                @else
+                    <span class="text-gray-500 font-semibold">Inactive</span>
+                @endif
+            </p>
+        </div>
+
+        <div>
+            <p><strong>Capacity:</strong> {{ $chapter->capacity_no ?? 'Unlimited' }}</p>
+            <p><strong>Created On:</strong> {{ $chapter->created_at->format('d M Y') }}</p>
+            <p><strong>Total Members:</strong> {{ $chapter->members->count() }}</p>
+            <p><strong>Filled:</strong>
+                {{ round(($chapter->members->count() / max(1, $chapter->capacity_no)) * 100, 1) }}%
+            </p>
+        </div>
+    </div>
+
+    <p class="mt-4 text-gray-600 text-sm">
+        <strong>Description:</strong><br>
+        {{ $chapter->description ?? 'No description available.' }}
+    </p>
+</div>
+
             <div>
                 <p><strong>Capacity:</strong> {{ $chapter->capacity_no ?? 'Unlimited' }}</p>
                 <p><strong>Created On:</strong> {{ $chapter->created_at->format('d M Y') }}</p>

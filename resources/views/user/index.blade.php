@@ -505,57 +505,57 @@
     
 <div id="splide" class="splide">
     <div class="splide__track">
-        <ul class="splide__list" id="behindImagess">
+<ul class="splide__list" id="behindImagess">
 
 @foreach($stories as $story)
 <li class="splide__slide h-[420px]">
 
   <div class="h-[400px] border rounded-br-[40px]
               shadow-[0px_4px_20px_0px_rgba(129,129,129,0.25)]
-              bg-[#fff]">
+              bg-white">
 
-    <!-- Image -->
-    <div class="w-full h-[200px]">
+    {{-- Image --}}
+    <div class="w-full h-[200px] overflow-hidden">
       <img
         src="{{ $story->image_url }}"
         class="w-full h-full object-contain"
         alt="{{ $story->title }}"
+        loading="lazy"
       >
     </div>
 
-    <!-- Content -->
+    {{-- Content --}}
     <div class="p-4 h-full text-center">
 
-      <!-- Description -->
-      <p class="font-medium xl:leading-[25px] md:text-[17px] text-[17px]">
-        {{ \Illuminate\Support\Str::limit($story->short_description ?? $story->description, 120) }}
+      {{-- Description --}}
+      <p class="font-medium leading-[25px] text-[17px]">
+        {{ \Illuminate\Support\Str::limit(
+            $story->short_description ?: $story->description,
+            120
+        ) }}
       </p>
 
-      <!-- Separator -->
+      {{-- Separator --}}
       <hr class="w-[30%] my-4 border-[#CF2031] border-2 mx-auto">
 
-      <!-- Author -->
-      <p class="font-semibold xl:leading-[30px] text-[16px]">
+      {{-- Author --}}
+      <p class="font-semibold leading-[30px] text-[16px]">
         {{ $story->author_name }}
       </p>
 
-      <!-- Company -->
-      <p class="font-normal xl:leading-[30px] text-[15px]">
-        {{ $story->author_company }}
-      </p>
+      {{-- Company --}}
+      @if($story->author_company)
+        <p class="text-[15px] text-gray-700">
+          {{ $story->author_company }}
+        </p>
+      @endif
 
-      <!-- Category & Industry -->
-     @if($story->category || $story->industry)
-  <p class="text-[16px] text-gray-800 mt-1">
-    {{ $story->category }}
-  </p>
-
-  <p class="text-[16px] text-gray-800">
-    {{ $story->industry }}
-  </p>
-@endif
-
-     
+      {{-- Category & Industry --}}
+      @if($story->category || $story->industry)
+        <p class="text-[14px] text-gray-600 mt-2">
+          {{ collect([$story->category, $story->industry])->filter()->implode(' • ') }}
+        </p>
+      @endif
 
     </div>
 
