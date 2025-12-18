@@ -356,10 +356,7 @@ Route::get('/stories/{slug}', [UserController::class, 'storyDetail'])->name('sto
 Route::get('/articles', [UserController::class, 'articles'])->name('articles.index');
 Route::get('/articles/{slug}', [UserController::class, 'articleDetail'])->name('articles.show');
 
-/* legacy / static page handling */
-Route::get('/articles-new', function () {
-    return redirect()->route('articles.index');
-});
+
 Route::get('/build-brand', [UserController::class, 'buildBrand'])
     ->name('build-brand.index');
 
@@ -369,3 +366,19 @@ Route::get('/events', [UserController::class, 'events'])
 
 Route::get('/events/{event:slug}', [UserController::class, 'eventShow'])
     ->name('events.show');
+
+    Route::get('/create-storage-link', function () {
+        $target = storage_path('app/public');
+        $link = public_path('storage');
+        if (!file_exists($link)) {
+            if (!is_link($link)) {
+                if (!file_exists($target)) {
+                    mkdir($target, 0777, true);
+                }
+                symlink($target, $link);
+            }
+        }
+        return 'The [public/storage] directory has been linked.';
+    });
+    
+    
