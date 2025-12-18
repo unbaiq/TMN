@@ -1,9 +1,16 @@
+@php
+    use Illuminate\Support\Str;
+
+    $assetBase = app()->environment('local')
+        ? ''
+        : config('app.url') . '/tmn/public';
+@endphp
 @include("user.components.meta")
 @include("user.components.header")
 
 {{-- ================= BANNER ================= --}}
 <section
-  class="bg-[url({{ config('app.url') }}/tmn/public/images/committee-banner.png)] bg-cover lg:bg-right bg-center bg-no-repeat"
+  class="bg-[url({{ $assetBase }}/images/committee-banner.png)] bg-cover lg:bg-right bg-center bg-no-repeat"
 >
   <div class="w-full py-10 h-full banner-grid">
     <div class="main-width h-full py-4 flex items-center lg:justify-start">

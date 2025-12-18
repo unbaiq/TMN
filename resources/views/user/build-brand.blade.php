@@ -1,27 +1,19 @@
-@php use Illuminate\Support\Str; @endphp
+@php
+    use Illuminate\Support\Str;
+
+    $assetBase = app()->environment('local')
+        ? ''
+        : config('app.url') . '/tmn/public';
+@endphp
 
 @include('user.components.meta')
 @include('user.components.header')
 
-    @php
-        $assetBase = app()->environment('local')
-            ? ''
-            : config('app.url') . '/tmn/public';
-    @endphp
-
 {{-- ================= BANNER ================= --}}
 <section
-<<<<<<< HEAD
+    style="background-image: url('{{ $assetBase }}/images/insight-banner.png')"
     class="bg-cover bg-center bg-no-repeat"
-    style="background-image:url('{{ asset('{{ asset('images/insight-banner.png') }}
-')">
-=======
-  style="background-image: url('{{ asset('images/committee-banner.png') }}')"
-  class="bg-cover lg:bg-right bg-center bg-no-repeat"
 >
-
->>>>>>> 1caa59e245dfda52e8d16d77c81c7da63fcaef0b
-
     <div class="w-full py-10 banner-grid">
         <div class="main-width py-4 flex items-center">
             <div class="grid md:grid-cols-[58%,1fr] gap-6 items-center">
@@ -76,7 +68,7 @@
         </div>
 
         {{-- ================= TESTIMONIAL SLIDER ================= --}}
-        <div class="testimonial-container overflow-y-hidden w-full sm:w-[90%] lg:w-[70%] h-[380px] lg:h-[440px] mx-auto">
+        <div class="testimonial-container overflow-hidden w-full sm:w-[90%] lg:w-[70%] h-[380px] lg:h-[440px] mx-auto">
             <div class="testimonial-slider" id="slider">
 
                 @forelse($testimonials as $testimonial)
@@ -85,7 +77,7 @@
                         <div class="flex justify-center">
                             <div class="w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] rounded-full overflow-hidden">
                                 <img
-                                    src="{{ asset('images/default-user.png') }}"
+                                    src="{{ $assetBase }}/images/default-user.png"
                                     class="h-full w-full object-cover"
                                     alt="{{ $testimonial->title }}">
                             </div>
@@ -103,9 +95,7 @@
 
                     </div>
                 @empty
-                    <div class="testimonial">
-                        <p>No testimonials available.</p>
-                    </div>
+                    <p>No testimonials available.</p>
                 @endforelse
 
             </div>

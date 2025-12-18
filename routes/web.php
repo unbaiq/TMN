@@ -112,7 +112,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('advisories', AdvisoryController::class);
     Route::resource('partners', PartnerController::class);
     Route::resource('sponsors', SponsorController::class);
-    
+
 });
 
 
@@ -138,10 +138,10 @@ Route::middleware(['auth', 'role:member'])
         Route::get('/dashboard', [MemberDashboardController::class, 'index'])
             ->name('dashboard');
 
-            // ✅ Add settings route
-      // ⚙️ Settings
-      Route::get('/settings', [MemberSettingsController::class, 'index'])->name('settings');
-      Route::post('/settings/update', [MemberSettingsController::class, 'update'])->name('settings.update');
+        // ✅ Add settings route
+        // ⚙️ Settings
+        Route::get('/settings', [MemberSettingsController::class, 'index'])->name('settings');
+        Route::post('/settings/update', [MemberSettingsController::class, 'update'])->name('settings.update');
         // ✅ Member dashboard & other pages already here...
     
         Route::prefix('chapter')->name('chapter.')->group(function () {
@@ -320,7 +320,7 @@ Route::view('/detailed-event', 'user.detailed-event');
 // Blade Pages
 Route::view('/easy-to-join', 'user.easy-to-joinsection');
 Route::view('/events', 'user.events');
-Route::get('/',[UserController::class,'index'])->name('user.index');
+Route::get('/', [UserController::class, 'index'])->name('user.index');
 Route::view('/index-updated', 'user.index-updated');
 Route::view('/indexold', 'user.indexold');
 Route::view('/indexold-without-loader', 'user.indexold-without-loader');
@@ -350,9 +350,7 @@ Route::get('/sponsors', [UserController::class, 'sponsors'])->name('sponsors');
 */
 Route::get('/stories', [UserController::class, 'stories'])->name('stories.index');
 Route::get('/stories/{slug}', [UserController::class, 'storyDetail'])->name('stories.show');
-Route::get('/story', function () {
-    return redirect()->route('stories.index');
-});
+
 /* ================= ARTICLES ================= */
 
 Route::get('/articles', [UserController::class, 'articles'])->name('articles.index');
@@ -371,4 +369,3 @@ Route::get('/events', [UserController::class, 'events'])
 
 Route::get('/events/{event:slug}', [UserController::class, 'eventShow'])
     ->name('events.show');
-    
