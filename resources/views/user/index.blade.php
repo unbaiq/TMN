@@ -154,50 +154,60 @@
   </section>
   <section class="bg-[#F8F8F8] py-10">
     <div class="main-width">
-      <div class="flex items-center flex-col">
-        <div class="mx-auto flex items-center justify-center">
 
-          <path
-            d="M98.1952 0C95.1975 0 93.7264 2.31328 92.6493 4.00487C91.6228 5.62657 91.077 6.33742 90.1589 6.33742C89.2372 6.33742 88.6926 5.62898 87.6673 4.00246C86.595 2.31328 85.1275 0 82.1239 0C79.1238 0 77.6564 2.31328 76.578 4.00969C75.5539 5.62898 75.0093 6.33742 74.0925 6.33742C73.1695 6.33742 72.6238 5.62417 71.5972 3.99644C70.5261 2.30967 69.0599 0.00120417 66.061 0.00120417C63.061 0.00120417 61.5923 2.31448 60.5152 4.01089C59.4911 5.63019 58.9465 6.33863 58.0296 6.33863C57.1079 6.33863 56.5633 5.62778 55.5416 4.00607C54.4705 2.31449 53.0042 0.00120417 50.0006 0.00120417C46.9994 0.00120417 45.5307 2.3169 44.4572 4.00607C43.4294 5.62778 42.8836 6.33863 41.9632 6.33863C41.0451 6.33863 40.4993 5.63019 39.4728 4.01089C38.4017 2.3193 36.9354 0.00120417 33.9281 0.00120417C30.9245 0.00120417 29.4582 2.31449 28.3859 4.00607C27.3594 5.62778 26.8136 6.33863 25.8967 6.33863C24.9798 6.33863 24.434 5.63019 23.4087 4.01089C22.3388 2.3193 20.8737 0.00120417 17.8641 0.00120417C14.858 0.00120417 13.3917 2.31931 12.3194 4.0133C11.2941 5.63019 10.7495 6.33863 9.83385 6.33863C8.91457 6.33863 8.36998 5.62778 7.34467 4.00607C6.27477 2.3169 4.8109 0.00120417 1.80725 0.00120417C0.810853 0.00120417 0 0.810852 0 1.80845C0 2.80365 0.810853 3.61571 1.80725 3.61571C2.72654 3.61571 3.27112 4.32415 4.29403 5.94344C5.36392 7.63503 6.8302 9.95313 9.83506 9.95313C12.8435 9.95313 14.3074 7.63262 15.3761 5.94103C16.4002 4.32415 16.946 3.61571 17.8653 3.61571C18.787 3.61571 19.3316 4.32415 20.3581 5.94826C21.428 7.63985 22.8943 9.95313 25.8967 9.95313C28.904 9.95313 30.3678 7.63262 31.4377 5.94103C32.4618 4.32415 33.0076 3.61571 33.9269 3.61571C34.845 3.61571 35.392 4.32415 36.4221 5.94826C37.4944 7.63744 38.9619 9.95313 41.9619 9.95313C44.9728 9.95313 46.4379 7.63262 47.5078 5.94103C48.5331 4.32415 49.0777 3.61571 49.9982 3.61571C50.9175 3.61571 51.4609 4.32415 52.4838 5.94103C53.5561 7.63262 55.0211 9.95313 58.0284 9.95313C61.0248 9.95313 62.4959 7.63744 63.5718 5.94103C64.5923 4.32415 65.1369 3.61571 66.0586 3.61571C66.9779 3.61571 67.5225 4.32415 68.5442 5.94344C69.6165 7.63503 71.084 9.95313 74.09 9.95313C77.0925 9.95313 78.5612 7.63262 79.6347 5.93863C80.6552 4.32415 81.1974 3.61571 82.1215 3.61571C83.0432 3.61571 83.589 4.32415 84.6143 5.94586C85.6854 7.63744 87.1516 9.95313 90.1565 9.95313C93.1553 9.95313 94.6252 7.63744 95.7036 5.94103C96.7253 4.32415 97.2698 3.61571 98.1927 3.61571C99.1891 3.61571 100 2.80365 100 1.80845C100 0.809648 99.1903 0 98.1952 0Z"
-            fill="#CF2031" />
-          </svg>
+        {{-- Heading --}}
+        <div class="flex items-center flex-col mb-8">
+            <div class="mx-auto flex items-center justify-center">
+                <svg width="100" height="10" viewBox="0 0 100 10" fill="none"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M98.1952 0C95.1975 0 93.7264 2.31328 92.6493 4.00487C91.6228 5.62657 91.077 6.33742 90.1589 6.33742..."
+                        fill="#CF2031" />
+                </svg>
+            </div>
+
+            <h2 class="heading2 text-center mt-2">
+                <span class="text-primary">TMN</span>ians
+            </h2>
         </div>
-        <h2 class="heading2 text-center">
-          <span class="text-primary">TMN</span>ians
-        </h2>
 
-      </div>
-      <div class="p-4 flex items-start flex-wrap gap-10 justify-center " id="committee-container">
-        <script>
-          const committeImage = [
-            { img: "{{$assetBase}}/images/image.png", name: "Avinash Handoo", exp: "25+ Years Experience" },
-            { img: "{{$assetBase}}/images/image-1.png", name: "Deepak Verma", exp: "12+ Years Experience" },
-            { img: "{{$assetBase}}/images/image-2.png", name: "Krishna Mohan Sharma", exp: "17+ Years Experience" },
-            { img: "{{$assetBase}}/images/image-3.png", name: "Priya Jain", exp: "21+ Years Experience" },
-          ];
+        {{-- Members --}}
+        <div class="p-4 flex items-start flex-wrap gap-10 justify-center">
+            @forelse($activeMembers as $member)
+                <div
+                    class="w-[280px] py-4 border bg-white transition-all ease-in duration-300 transform hover:scale-105 cursor-pointer shadow-md rounded-tl-[20px] rounded-br-[40px]">
 
-          const htmlContent = committeImage.map((data, index) => (
-            `<div class="w-[280px] py-4 border bg-white transition-all ease-in duration-1000 transform hover:scale-105 cursor-pointer  shadow-md rounded-tl-[20px] rounded-br-[40px]" key="${index}">
-                <div class="w-[180px]   flex items-center justify-center mx-auto relative h-[180px]  bg-white">
-                  <div class="w-[90%]">
-                    <img src="${data.img}" class="w-full rounded-full object-cover" alt="">
-                  </div>
-                
+                    <div class="w-[180px] h-[180px] flex items-center justify-center mx-auto">
+                        <div class="w-[90%]">
+                            <img
+                                src="{{ $member->profile_image
+                                    ? asset('storage/'.$member->profile_image)
+                                    : asset('images/user.png') }}"
+                                class="w-full h-full rounded-full object-cover"
+                                alt="{{ $member->name }}">
+                        </div>
+                    </div>
+
+                    <div class="text-center py-4">
+                        <h4 class="text-[#232323] text-[20px] font-semibold leading-[24px]">
+                            {{ $member->name }}
+                        </h4>
+
+                        <h6 class="text-[#232323] text-[15px] font-normal leading-[24px]">
+                            {{ $member->designation ?? 'TMN Member' }}
+                        </h6>
+                    </div>
                 </div>
-                <div class="text-center py-4">
-                  <h4 class="text-[#232323] text-[20px] font-semibold leading-[24px]">${data.name}</h4>
-                  <h6 class="text-[#232323] text-[15px] font-normal leading-[24px]">${data.exp}</h6>
-                </div>
-              </div>`
-          ));
+            @empty
+                <p class="text-gray-500 text-center">
+                    No active members available.
+                </p>
+            @endforelse
+        </div>
 
-          document.getElementById("committee-container").innerHTML = htmlContent.join('');
-        </script>
+    </div>
+</section>
 
-      </div>
-    </div>
-    </div>
-  </section>
   <section class="py-10">
     <div class="main-width">
       <div class="flex items-center flex-col">
