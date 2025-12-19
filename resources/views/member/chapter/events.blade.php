@@ -94,25 +94,22 @@
 
                         <div class="flex items-center gap-2 shrink-0">
 
-                            {{-- EVENT TYPE BADGE --}}
-                            @if($event->event_type === 'general')
-                                <span
-                                    class="text-[10px] px-2 py-1 rounded-full font-semibold bg-blue-100 text-blue-700 border border-blue-300">
-                                    GENERAL
-                                </span>
-                            @else
-                                <span
-                                    class="text-[10px] px-2 py-1 rounded-full font-semibold bg-purple-100 text-purple-700 border border-purple-300">
-                                    CHAPTER
-                                </span>
-                            @endif
+                            {{-- EVENT TYPE --}}
+                            <span class="text-[10px] px-2 py-1 rounded-full font-semibold
+                        {{ $event->event_type === 'general'
+                ? 'bg-blue-100 text-blue-700 border border-blue-300'
+                : 'bg-purple-100 text-purple-700 border border-purple-300' }}">
+                                {{ strtoupper($event->event_type) }}
+                            </span>
 
-                            {{-- STATUS BADGE --}}
+                            {{-- STATUS --}}
                             <span class="text-xs px-2 py-1 rounded-full font-medium {{ $badgeColor }}">
                                 {{ ucfirst($status) }}
                             </span>
+
                         </div>
                     </div>
+
 
                     <div class="text-sm text-gray-600 space-y-1">
                         <p class="flex items-center gap-2"><i data-feather="map-pin" class="w-4"></i>
