@@ -179,9 +179,8 @@
 
                 <div class="w-[180px] h-[180px] flex items-center justify-center mx-auto">
                   <div class="w-[90%]">
-                    <img src="{{ $member->photo
-          ? asset('storage/' . $member->photo)
-          : asset('images/user.png') }}"
+                    <img src="{{asset('storage/' . $member->photo)}}
+          "
                       class="w-full h-full rounded-full object-cover" alt="{{ $member->name }}">
                   </div>
                 </div>
