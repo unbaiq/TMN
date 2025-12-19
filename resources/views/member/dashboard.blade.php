@@ -11,11 +11,12 @@
                 <p class="mt-2 text-sm md:text-base text-red-100">
                     Welcome, <span class="font-semibold">{{ $member->name }}</span>
                     @if($member->chapter)
-                        • {{ $member->chapter->name }}
-                        @if($member->chapter->city)
-                            ({{ $member->chapter->city }})
-                        @endif
-                    @endif
+    • Chapter: {{ $member->chapter->name }}
+    @if($member->chapter->city)
+        ({{ $member->chapter->city }})
+    @endif
+@endif
+
                 </p>
             </div>
             <div class="mt-4 md:mt-0 text-sm md:text-right relative z-10">
