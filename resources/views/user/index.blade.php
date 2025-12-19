@@ -179,10 +179,12 @@
 
                 <div class="w-[180px] h-[180px] flex items-center justify-center mx-auto">
                   <div class="w-[90%]">
-                    <img src="{{ $member->basic_info && $member->basic_info->photo
-          ? asset('storage/' . $member->basic_info->photo)
-          : asset('tmn/public/images/user.png') }}" class="w-full h-full rounded-full object-cover"
-                      alt="{{ $member->basic_info->full_name ?? $member->name }}">
+                  <img
+    src="{{  asset('storage/' . $member->basic_info->photo)
+         }}"
+    class="w-full h-full rounded-full object-cover"
+    alt="{{ optional($member->basic_info)->full_name ?? $member->name }}">
+
 
                   </div>
                 </div>
