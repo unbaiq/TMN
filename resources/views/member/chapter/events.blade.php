@@ -96,11 +96,12 @@
 
                             {{-- EVENT TYPE --}}
                             <span class="text-[10px] px-2 py-1 rounded-full font-semibold
-                        {{ $event->event_type === 'general'
-                ? 'bg-blue-100 text-blue-700 border border-blue-300'
-                : 'bg-purple-100 text-purple-700 border border-purple-300' }}">
-                                {{ strtoupper($event->event_type) }}
-                            </span>
+    {{ $event->event_type === 'general'
+        ? 'bg-blue-100 text-blue-700 border border-blue-300'
+        : 'bg-purple-100 text-purple-700 border border-purple-300' }}">
+    {{ $event->event_type === 'general' ? 'GENERAL EVENT' : 'CHAPTER EVENT' }}
+</span>
+
 
                             {{-- STATUS --}}
                             <span class="text-xs px-2 py-1 rounded-full font-medium {{ $badgeColor }}">
