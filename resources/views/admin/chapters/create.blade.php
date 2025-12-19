@@ -3,6 +3,18 @@
 @section('content')
 <div class="max-w-8xl mx-auto mt-10 bg-white shadow-lg rounded-xl p-8">
     <h2 class="text-2xl font-semibold text-gray-800 mb-6">Create Chapter</h2>
+    @if ($errors->any())
+    <div class="mb-6 rounded-xl border border-red-200 bg-red-50 p-4">
+        <h4 class="text-red-700 font-semibold mb-2">
+            ❌ Please fix the following errors:
+        </h4>
+        <ul class="list-disc list-inside text-red-600 text-sm">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
     <form action="{{ route('admin.chapters.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
         @csrf

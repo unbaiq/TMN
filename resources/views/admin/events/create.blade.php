@@ -3,7 +3,6 @@
 @section('content')
     <div class="max-w-7xl mx-auto px-6 py-10 space-y-10">
 
-<<<<<<< Updated upstream
     {{-- ==== HEADER ==== --}}
     <div class="bg-white border border-gray-200 rounded-2xl shadow-xl px-8 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
         <div>
@@ -63,7 +62,7 @@
                         class="w-full border border-gray-300 rounded-xl px-4 py-2.5 text-gray-800 placeholder-gray-400 focus:ring-2 focus:ring-red-500 focus:border-red-500 shadow-sm"
                         placeholder="Write a short description..."></textarea>
                 </div>
-=======
+
         {{-- ==== HEADER ==== --}}
         <div
             class="bg-white border border-gray-200 rounded-2xl shadow-xl px-8 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
@@ -74,7 +73,7 @@
                 </h2>
                 <p class="text-gray-500 mt-1">Plan, manage, and publish upcoming chapter or general events with ERP-grade
                     clarity.</p>
->>>>>>> Stashed changes
+
             </div>
             <a href="{{ route('admin.events.index') }}"
                 class="inline-flex items-center bg-gray-100 hover:bg-gray-200 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-medium shadow-sm transition">

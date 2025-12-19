@@ -42,8 +42,13 @@ class ChapterController extends Controller
             'capacity_no' => 'nullable|integer|min:0|max:100000',
             'description' => 'nullable|string|max:1000',
             'is_active'   => 'nullable',
-            'logo'        => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
+        
+        if ($request->hasFile('logo')) {
+            $request->validate([
+                'logo' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
+            ]);
+        }
 
         // Slug fallback
         $validated['slug'] = $validated['slug']
