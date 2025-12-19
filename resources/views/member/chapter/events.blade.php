@@ -53,86 +53,86 @@
         {{-- ==== EVENT GRID ==== --}}
         <div id="eventsGrid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 mt-4">
             @forelse ($events as $event)
-                    @php
-                        $status = $event->status ?? ($event->isPast ? 'completed' : 'upcoming');
-                        $badgeColor = match ($status) {
-                            'completed' => 'bg-gray-100 text-gray-700 border border-gray-300',
-                            'active' => 'bg-green-100 text-green-700 border border-green-300',
-                            'upcoming' => 'bg-yellow-100 text-yellow-700 border border-yellow-300',
-                            default => 'bg-gray-100 text-gray-600 border border-gray-200',
-                        };
+                @php
+                    $status = $event->status ?? ($event->isPast ? 'completed' : 'upcoming');
+                    $badgeColor = match ($status) {
+                        'completed' => 'bg-gray-100 text-gray-700 border border-gray-300',
+                        'active' => 'bg-green-100 text-green-700 border border-green-300',
+                        'upcoming' => 'bg-yellow-100 text-yellow-700 border border-yellow-300',
+                        default => 'bg-gray-100 text-gray-600 border border-gray-200',
+                    };
 
-                        $eventData = [
-                            'title' => $event->title,
-                            'status' => $status,
-                            'formatted_date' => $event->formatted_date,
-                            'start_time' => $event->start_time,
-                            'end_time' => $event->end_time,
-                            'venue_name' => $event->venue_name,
-                            'full_address' => $event->full_address,
-                            'chapter' => $event->chapter->name ?? null,
-                            'host_name' => $event->host_name,
-                            'host_contact' => $event->host_contact,
-                            'host_email' => $event->host_email,
-                            'event_type' => $event->event_type,
-                            'description' => $event->description,
-                            'agenda' => $event->agenda,
-                            'notes' => $event->notes,
-                            'is_online' => $event->is_online,
-                            'meeting_link' => $event->meeting_link,
-                            'meeting_password' => $event->meeting_password,
-                            'banner_image' => $event->banner_image,
-                        ];
-                    @endphp
+                    $eventData = [
+                        'title' => $event->title,
+                        'status' => $status,
+                        'formatted_date' => $event->formatted_date,
+                        'start_time' => $event->start_time,
+                        'end_time' => $event->end_time,
+                        'venue_name' => $event->venue_name,
+                        'full_address' => $event->full_address,
+                        'chapter' => $event->chapter->name ?? null,
+                        'host_name' => $event->host_name,
+                        'host_contact' => $event->host_contact,
+                        'host_email' => $event->host_email,
+                        'event_type' => $event->event_type,
+                        'description' => $event->description,
+                        'agenda' => $event->agenda,
+                        'notes' => $event->notes,
+                        'is_online' => $event->is_online,
+                        'meeting_link' => $event->meeting_link,
+                        'meeting_password' => $event->meeting_password,
+                        'banner_image' => $event->banner_image,
+                    ];
+                @endphp
 
-                    <div class="event-card bg-white border border-gray-200 p-6 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 hover:border-red-400"
-                        data-status="{{ strtolower($status) }}">
-                        <div class="flex items-center justify-between mb-3 gap-2">
-                            <h3 class="text-lg font-semibold text-gray-800 truncate">
-                                {{ $event->title }}
-                            </h3>
+                <div class="event-card bg-white border border-gray-200 p-6 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 hover:border-red-400"
+                    data-status="{{ strtolower($status) }}">
+                    <div class="flex items-center justify-between mb-3 gap-2">
+                        <h3 class="text-lg font-semibold text-gray-800 truncate">
+                            {{ $event->title }}
+                        </h3>
 
-                            <div class="flex items-center gap-2 shrink-0">
+                        <div class="flex items-center gap-2 shrink-0">
 
-                                {{-- EVENT TYPE --}}
-                                <span class="text-[10px] px-2 py-1 rounded-full font-semibold
-                {{ $event->event_type === 'general'
-                    ? 'bg-blue-100 text-blue-700 border border-blue-300'
-                    : 'bg-purple-100 text-purple-700 border border-purple-300' }}">
-                                    {{ $event->event_type === 'general' ? 'GENERAL EVENT' : 'CHAPTER EVENT' }}
-                                </span>
-
-
-                                {{-- STATUS --}}
-                                <span class="text-xs px-2 py-1 rounded-full font-medium {{ $badgeColor }}">
-                                    {{ ucfirst($status) }}
-                                </span>
-
-                            </div>
-                        </div>
+                            {{-- EVENT TYPE --}}
+                            <span class="text-[10px] px-2 py-1 rounded-full font-semibold
+    {{ $event->event_type === 'general'
+        ? 'bg-blue-100 text-blue-700 border border-blue-300'
+        : 'bg-purple-100 text-purple-700 border border-purple-300' }}">
+    {{ $event->event_type === 'general' ? 'GENERAL EVENT' : 'CHAPTER EVENT' }}
+</span>
 
 
-                        <div class="text-sm text-gray-600 space-y-1">
-                            <p class="flex items-center gap-2"><i data-feather="map-pin" class="w-4"></i>
-                                {{ $event->venue_name ?? '—' }}</p>
-                            <p class="flex items-center gap-2"><i data-feather="calendar" class="w-4"></i>
-                                {{ $event->formatted_date }}</p>
-                            @if($event->start_time && $event->end_time)
-                                <p class="flex items-center gap-2"><i data-feather="clock" class="w-4"></i>
-                                    {{ \Carbon\Carbon::parse($event->start_time)->format('g:i A') }} –
-                                    {{ \Carbon\Carbon::parse($event->end_time)->format('g:i A') }}
-                                </p>
-                            @endif
-                        </div>
+                            {{-- STATUS --}}
+                            <span class="text-xs px-2 py-1 rounded-full font-medium {{ $badgeColor }}">
+                                {{ ucfirst($status) }}
+                            </span>
 
-                        <div class="mt-5">
-                            <button
-                                class="view-btn w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-2.5 rounded-lg flex items-center justify-center gap-2 transition shadow-md"
-                                data-event='{{ json_encode($eventData, JSON_HEX_APOS | JSON_HEX_QUOT) }}'>
-                                <i data-feather="eye"></i> View Details
-                            </button>
                         </div>
                     </div>
+
+
+                    <div class="text-sm text-gray-600 space-y-1">
+                        <p class="flex items-center gap-2"><i data-feather="map-pin" class="w-4"></i>
+                            {{ $event->venue_name ?? '—' }}</p>
+                        <p class="flex items-center gap-2"><i data-feather="calendar" class="w-4"></i>
+                            {{ $event->formatted_date }}</p>
+                        @if($event->start_time && $event->end_time)
+                            <p class="flex items-center gap-2"><i data-feather="clock" class="w-4"></i>
+                                {{ \Carbon\Carbon::parse($event->start_time)->format('g:i A') }} –
+                                {{ \Carbon\Carbon::parse($event->end_time)->format('g:i A') }}
+                            </p>
+                        @endif
+                    </div>
+
+                    <div class="mt-5">
+                        <button
+                            class="view-btn w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-2.5 rounded-lg flex items-center justify-center gap-2 transition shadow-md"
+                            data-event='{{ json_encode($eventData, JSON_HEX_APOS | JSON_HEX_QUOT) }}'>
+                            <i data-feather="eye"></i> View Details
+                        </button>
+                    </div>
+                </div>
             @empty
                 <div class="col-span-full text-center py-16 text-gray-500">
                     <i data-feather="calendar" class="w-10 h-10 mx-auto mb-3 text-gray-400"></i>
@@ -152,7 +152,7 @@
                 <i data-feather="x" class="w-5 h-5"></i>
             </button>
 
-            <img id="modalBannerImg" src="" class="w-full h-56 object-cover hidden" alt="Event Banner">
+            <!-- <img id="modalBannerImg" src="" class="w-full h-56 object-cover hidden" alt="Event Banner"> -->
 
             <div class="p-6 space-y-5">
                 <div>
@@ -254,24 +254,10 @@
                 document.getElementById("modalDescription").innerText = event.description ?? '—';
 
                 const banner = document.getElementById("modalBannerImg");
-
-                // Reset first (important when opening multiple modals)
-                banner.src = "";
-                banner.classList.add("hidden");
-
                 if (event.banner_image) {
-
-                    // If backend already sends full URL, use directly
                     banner.src = event.banner_image;
-
-                    // Hide image if file is missing / broken
-                    banner.onerror = function () {
-                        banner.classList.add("hidden");
-                    };
-
                     banner.classList.remove("hidden");
-                }
-                else banner.classList.add("hidden");
+                } else banner.classList.add("hidden");
 
                 const linkWrap = document.getElementById("modalLinkWrapper");
                 const passWrap = document.getElementById("modalPassWrapper");
