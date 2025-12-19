@@ -4,6 +4,7 @@
   $assetBase = app()->environment('local')
     ? ''
     : config('app.url') . '/tmn/public';
+
 @endphp
 
 <section>
@@ -155,58 +156,55 @@
   <section class="bg-[#F8F8F8] py-10">
     <div class="main-width">
 
-        {{-- Heading --}}
-        <div class="flex items-center flex-col mb-8">
-            <div class="mx-auto flex items-center justify-center">
-                <svg width="100" height="10" viewBox="0 0 100 10" fill="none"
-                     xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M98.1952 0C95.1975 0 93.7264 2.31328 92.6493 4.00487C91.6228 5.62657 91.077 6.33742 90.1589 6.33742..."
-                        fill="#CF2031" />
-                </svg>
-            </div>
-
-            <h2 class="heading2 text-center mt-2">
-                <span class="text-primary">TMN</span>ians
-            </h2>
+      {{-- Heading --}}
+      <div class="flex items-center flex-col mb-8">
+        <div class="mx-auto flex items-center justify-center">
+          <svg width="100" height="10" viewBox="0 0 100 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M98.1952 0C95.1975 0 93.7264 2.31328 92.6493 4.00487C91.6228 5.62657 91.077 6.33742 90.1589 6.33742..."
+              fill="#CF2031" />
+          </svg>
         </div>
 
-        {{-- Members --}}
-        <div class="p-4 flex items-start flex-wrap gap-10 justify-center">
-            @forelse($activeMembers as $member)
-                <div
-                    class="w-[280px] py-4 border bg-white transition-all ease-in duration-300 transform hover:scale-105 cursor-pointer shadow-md rounded-tl-[20px] rounded-br-[40px]">
+        <h2 class="heading2 text-center mt-2">
+          <span class="text-primary">TMN</span>ians
+        </h2>
+      </div>
 
-                    <div class="w-[180px] h-[180px] flex items-center justify-center mx-auto">
-                        <div class="w-[90%]">
-                            <img
-                                src="{{ $member->profile_image
-                                    ? asset('storage/'.$member->profile_image)
-                                    : asset('images/user.png') }}"
-                                class="w-full h-full rounded-full object-cover"
-                                alt="{{ $member->name }}">
-                        </div>
-                    </div>
+      {{-- Members --}}
+      <div class="p-4 flex items-start flex-wrap gap-10 justify-center">
+        @forelse($activeMembers as $member)
+              <div
+                class="w-[280px] py-4 border bg-white transition-all ease-in duration-300 transform hover:scale-105 cursor-pointer shadow-md rounded-tl-[20px] rounded-br-[40px]">
 
-                    <div class="text-center py-4">
-                        <h4 class="text-[#232323] text-[20px] font-semibold leading-[24px]">
-                            {{ $member->name }}
-                        </h4>
-
-                        <h6 class="text-[#232323] text-[15px] font-normal leading-[24px]">
-                            {{ $member->designation ?? 'TMN Member' }}
-                        </h6>
-                    </div>
+                <div class="w-[180px] h-[180px] flex items-center justify-center mx-auto">
+                  <div class="w-[90%]">
+                    <img src="{{ $member->profile_image
+          ? asset('tmn/public/storage/' . $member->profile_image)
+          : asset('tmn/public/images/user.png') }}"
+                      class="w-full h-full rounded-full object-cover" alt="{{ $member->name }}">
+                  </div>
                 </div>
-            @empty
-                <p class="text-gray-500 text-center">
-                    No active members available.
-                </p>
-            @endforelse
-        </div>
+
+                <div class="text-center py-4">
+                  <h4 class="text-[#232323] text-[20px] font-semibold leading-[24px]">
+                    {{ $member->name }}
+                  </h4>
+
+                  <h6 class="text-[#232323] text-[15px] font-normal leading-[24px]">
+                    {{ $member->designation ?? 'TMN Member' }}
+                  </h6>
+                </div>
+              </div>
+        @empty
+          <p class="text-gray-500 text-center">
+            No active members available.
+          </p>
+        @endforelse
+      </div>
 
     </div>
-</section>
+  </section>
 
   <section class="py-10">
     <div class="main-width">
@@ -260,7 +258,7 @@
             <div class="overflow-hidden relative">
 
               <img
-                src="{{ $event->banner_image ? asset('storage/' . $event->banner_image) : asset('images/upcoming-event.png') }}"
+                src="{{ $event->banner_image ? asset('tmn/public/storage/' . $event->banner_image) : asset('tmn/public/images/upcoming-event.png') }}"
                 class="w-full h-full object-cover" alt="{{ $event->title }}">
 
               <div class="absolute w-[90%] bottom-[5%] p-4 rounded-[20px] bg-white/90 left-[5%]">
@@ -543,13 +541,14 @@
                         <li class="splide__slide h-[420px]">
 
                           <div class="h-[400px] border rounded-br-[40px]
-                          shadow-[0px_4px_20px_0px_rgba(129,129,129,0.25)]
-                          bg-white">
+                                      shadow-[0px_4px_20px_0px_rgba(129,129,129,0.25)]
+                                      bg-white">
 
                             {{-- Image --}}
                             <div class="w-full h-[200px] overflow-hidden">
-                              <img src="{{ $story->image_url }}" class="w-full h-full object-contain" alt="{{ $story->title }}"
-                                loading="lazy">
+                              <img src="{{ asset($story->image_url) }}" class="w-full h-full object-contain"
+                                alt="{{ $story->title }}">
+                              loading="lazy">
                             </div>
 
                             {{-- Content --}}

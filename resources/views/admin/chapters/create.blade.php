@@ -1,75 +1,77 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-4xl mx-auto mt-10 bg-white shadow-lg rounded-xl p-8">
+<div class="max-w-8xl mx-auto mt-10 bg-white shadow-lg rounded-xl p-8">
     <h2 class="text-2xl font-semibold text-gray-800 mb-6">Create Chapter</h2>
 
     <form action="{{ route('admin.chapters.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
         @csrf
 
-        {{-- Name --}}
-        <div>
-            <label class="block text-gray-700 font-medium">Name</label>
-            <input name="name" required
-                   class="w-full bg-white border border-gray-300 rounded-xl shadow-sm
-                          focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
+        {{-- Name & City --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-gray-700 font-medium">Name</label>
+                <input name="name" required
+                       class="w-full border border-gray-300 rounded-xl px-3 py-2
+                              focus:ring-2 focus:ring-red-400 outline-none">
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-medium">City</label>
+                <input name="city"
+                       class="w-full border border-gray-300 rounded-xl px-3 py-2
+                              focus:ring-2 focus:ring-red-400 outline-none">
+            </div>
         </div>
 
-        {{-- City --}}
-        <div>
-            <label class="block text-gray-700 font-medium">City</label>
-            <input name="city"
-                   class="w-full bg-white border border-gray-300 rounded-xl shadow-sm
-                          focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
+        {{-- State & Country --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-gray-700 font-medium">State</label>
+                <input name="state" placeholder="e.g. Haryana"
+                       class="w-full border border-gray-300 rounded-xl px-3 py-2
+                              focus:ring-2 focus:ring-red-400 outline-none">
+            </div>
+
+            <div>
+                <label class="block text-gray-700 font-medium">Country</label>
+                <input name="country" value="India"
+                       class="w-full border border-gray-300 rounded-xl px-3 py-2
+                              focus:ring-2 focus:ring-red-400 outline-none">
+            </div>
         </div>
 
-        {{-- ✅ State --}}
-        <div>
-            <label class="block text-gray-700 font-medium">State</label>
-            <input name="state"
-                   placeholder="e.g. Haryana"
-                   class="w-full bg-white border border-gray-300 rounded-xl shadow-sm
-                          focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-        </div>
+        {{-- Pincode & Capacity --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-gray-700 font-medium">Pincode</label>
+                <input name="pincode"
+                       class="w-full border border-gray-300 rounded-xl px-3 py-2
+                              focus:ring-2 focus:ring-red-400 outline-none">
+            </div>
 
-        {{-- ✅ Country --}}
-        <div>
-            <label class="block text-gray-700 font-medium">Country</label>
-            <input name="country" value="India"
-                   class="w-full bg-white border border-gray-300 rounded-xl shadow-sm
-                          focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-        </div>
-
-        {{-- Pincode --}}
-        <div>
-            <label class="block text-gray-700 font-medium">Pincode</label>
-            <input name="pincode"
-                   class="w-full bg-white border border-gray-300 rounded-xl shadow-sm
-                          focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
-        </div>
-
-        {{-- Capacity --}}
-        <div>
-            <label class="block text-gray-700 font-medium">Capacity</label>
-            <input name="capacity_no" type="number" min="0" value="0"
-                   class="w-full bg-white border border-gray-300 rounded-xl shadow-sm
-                          focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
+            <div>
+                <label class="block text-gray-700 font-medium">Capacity</label>
+                <input name="capacity_no" type="number" min="0" value="0"
+                       class="w-full border border-gray-300 rounded-xl px-3 py-2
+                              focus:ring-2 focus:ring-red-400 outline-none">
+            </div>
         </div>
 
         {{-- Logo --}}
         <div>
             <label class="block text-gray-700 font-medium">Logo</label>
             <input type="file" name="logo" accept="image/*"
-                   class="w-full bg-white border border-gray-300 rounded-xl shadow-sm
-                          focus:ring-2 focus:ring-red-400 outline-none px-3 py-2">
+                   class="w-full border border-gray-300 rounded-xl px-3 py-2
+                          focus:ring-2 focus:ring-red-400 outline-none">
         </div>
 
         {{-- Description --}}
         <div>
             <label class="block text-gray-700 font-medium">Description</label>
             <textarea name="description" rows="3"
-                      class="w-full bg-white border border-gray-300 rounded-xl shadow-sm
-                             focus:ring-2 focus:ring-red-400 outline-none px-3 py-2"></textarea>
+                      class="w-full border border-gray-300 rounded-xl px-3 py-2
+                             focus:ring-2 focus:ring-red-400 outline-none"></textarea>
         </div>
 
         {{-- Active --}}
@@ -79,7 +81,7 @@
         </label>
 
         {{-- Actions --}}
-        <div class="pt-4 flex justify-end space-x-3">
+        <div class="pt-4 flex justify-end gap-3">
             <a href="{{ route('admin.chapters.index') }}"
                class="px-4 py-2 rounded bg-gray-100 hover:bg-gray-200 text-gray-700">
                 Cancel

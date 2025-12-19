@@ -139,9 +139,9 @@ class User extends Authenticatable implements CanResetPassword
         return $this->role === 'partner';
     }
 
- 
 
 
 
- 
+
+
 }
