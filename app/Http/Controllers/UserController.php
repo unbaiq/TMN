@@ -52,7 +52,7 @@ class UserController extends Controller
 
         /* ================= ACTIVE MEMBERS ================= */
         /* ================= ACTIVE TMNIANS ================= */
-        $activeMembers = User::with('basicInfo')
+       return  $activeMembers = User::with('basicInfo')
             ->whereHas('adminData', function ($q) {
                 $q->where('status', 'active');
             })
