@@ -12,8 +12,19 @@ class ChapterEventController extends Controller
     {
         $user = Auth::user();
 
-        // Fetch all events from user's chapter
-        $events = Event::where('chapter_id', $user->chapter_id)
+        $events = Event::where(function ($query) use ($user) {
+
+                // Chapter-specific events
+                $query->where(function ($q) use ($user) {
+                    $q->where('event_type', 'chapter')
+                      ->where('chapter_id', $user->chapter_id);
+                })
+
+                // OR General events (visible to all members)
+                ->orWhere('event_type', 'general');
+
+            })
+            ->where('status', 'upcoming') // optional but recommended
             ->orderByDesc('event_date')
             ->get();
 
