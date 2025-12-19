@@ -180,9 +180,12 @@
                 <div class="w-[180px] h-[180px] flex items-center justify-center mx-auto">
                   <div class="w-[90%]">
                   <img
-    src="{{  asset('storage/' . $member->basic_info->photo)}}"
+    src="{{ optional($member->basic_info)->photo
+            ? asset('storage/' . $member->basic_info->photo)
+            : asset('images/user.png') }}"
     class="w-full h-full rounded-full object-cover"
     alt="{{ optional($member->basic_info)->full_name ?? $member->name }}">
+
 
 <!-- ok -->
                   </div>
