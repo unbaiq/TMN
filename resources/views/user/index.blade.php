@@ -179,9 +179,11 @@
 
                 <div class="w-[180px] h-[180px] flex items-center justify-center mx-auto">
                   <div class="w-[90%]">
-                    <img src="{{asset('storage/' . $member->photo)}}
-          "
-                      class="w-full h-full rounded-full object-cover" alt="{{ $member->name }}">
+                    <img src="{{ $member->basic_info && $member->basic_info->photo
+          ? asset('storage/' . $member->basic_info->photo)
+          : asset('tmn/public/images/user.png') }}" class="w-full h-full rounded-full object-cover"
+                      alt="{{ $member->basic_info->full_name ?? $member->name }}">
+
                   </div>
                 </div>
 
@@ -191,8 +193,9 @@
                   </h4>
 
                   <h6 class="text-[#232323] text-[15px] font-normal leading-[24px]">
-                    {{ $member->designation ?? 'TMN Member' }}
+                    {{ $member->basic_info->bni_chapter_role ?? 'TMN Member' }}
                   </h6>
+
                 </div>
               </div>
         @empty
@@ -540,8 +543,8 @@
                         <li class="splide__slide h-[420px]">
 
                           <div class="h-[400px] border rounded-br-[40px]
-                                      shadow-[0px_4px_20px_0px_rgba(129,129,129,0.25)]
-                                      bg-white">
+                                                  shadow-[0px_4px_20px_0px_rgba(129,129,129,0.25)]
+                                                  bg-white">
 
                             {{-- Image --}}
                             <div class="w-full h-[200px] overflow-hidden">
