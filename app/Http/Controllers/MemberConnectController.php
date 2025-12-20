@@ -21,11 +21,7 @@ class MemberConnectController extends Controller
         if ($type === 'my') {
             $query->where('user_id', auth()->id());
         }
-        // ✅ ALL CONNECTS (global BNI directory)
-        else {
-            $query->where('is_active', true)
-                  ->whereIn('visibility', ['members', 'public']);
-        }
+      
     
         // 🔍 SEARCH (works for both)
         if ($request->filled('search')) {
