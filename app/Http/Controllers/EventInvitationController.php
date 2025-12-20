@@ -7,6 +7,8 @@ use App\Models\EventInvitation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use App\Mail\MembershipInviteMail;
 use App\Mail\EventInvitationMail; // ✅ Import the Mailable
 
 class EventInvitationController extends Controller
@@ -57,4 +59,6 @@ class EventInvitationController extends Controller
 
         return back()->with('success', 'Invitation status updated!');
     }
+
+ 
 }

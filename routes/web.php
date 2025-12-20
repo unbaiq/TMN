@@ -22,6 +22,7 @@ use App\Http\Controllers\AdvisoryController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AdminInviteController;
 
 
 
@@ -64,6 +65,12 @@ Route::prefix('admin')->group(function () {
     // ✅ NEW: send membership link
     Route::post('/enquiries/{enquiry}/send-link', [MembershipController::class, 'sendMembershipLink'])->name('admin.enquiries.sendLink');
 });
+
+// send link
+Route::post(
+    '/admin/invitations/{invitation}/send-link',
+    [AdminInviteController::class, 'sendMembershipLink']
+)->name('admin.invitations.send-link');
 
 // Frontend Journey form
 Route::post('/enquiry/submit', [EnquiryController::class, 'storeJourney'])->name('enquiry.submit');
@@ -112,6 +119,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::resource('advisories', AdvisoryController::class);
     Route::resource('partners', PartnerController::class);
     Route::resource('sponsors', SponsorController::class);
+    Route::resource('invitations', AdminInviteController::class);
 
 });
 
