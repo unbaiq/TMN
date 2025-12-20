@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chapter;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use App\Models\MemberBasicInfo;
 
 class ChapterController extends Controller
 {
@@ -141,13 +143,14 @@ class ChapterController extends Controller
      */
     public function members(Chapter $chapter)
     {
-        $members = \App\Models\User::where('role', 'member')
-            ->where(function ($q) use ($chapter) {
-                $q->whereNull('chapter_id')
-                  ->orWhere('chapter_id', $chapter->id);
-            })
-            ->orderBy('name')
-            ->get();
+         $members = User::with('chapter:id,name') // 👈 load chapter name
+        ->where('role', 'member')
+        ->where(function ($q) use ($chapter) {
+            $q->whereNull('chapter_id')
+              ->orWhere('chapter_id', $chapter->id);
+        })
+        ->orderBy('name')
+        ->get();
 
         return view('admin.chapters.members', compact('chapter', 'members'));
     }
@@ -161,6 +164,7 @@ class ChapterController extends Controller
             'member_ids'   => 'array',
             'member_ids.*' => 'exists:users,id',
         ]);
+        
 
         // Members already assigned to other chapters
         $blockedIds = \App\Models\User::whereNotNull('chapter_id')

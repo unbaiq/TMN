@@ -14,7 +14,7 @@
                     <th class="py-3 px-4 border text-left">Name</th>
                     <th class="py-3 px-4 border text-left">Email</th>
                     <th class="py-3 px-4 border text-left">Phone</th>
-                    <th class="py-3 px-4 border text-left">Profession</th>
+                    <th class="py-3 px-4 border text-left">Chapter</th>
                     <th class="py-3 px-4 border text-left">Company</th>
                     <th class="py-3 px-4 border text-left">Status</th>
                     <th class="py-3 px-4 border text-right">Action</th>
@@ -32,7 +32,7 @@
                         {{ $m->basicInfo->contact_mobile ?? '—' }}
                     </td>
                     <td class="py-3 px-4 border text-gray-600">
-                        {{ $m->basicInfo->profession ?? '—' }}
+                    {{ $m->chapter->name ?? 'Not Assigned' }}
                     </td>
                     <td class="py-3 px-4 border text-gray-600">
                         {{ $m->businessInfo->company_name ?? '—' }}
