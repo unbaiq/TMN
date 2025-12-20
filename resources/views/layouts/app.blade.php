@@ -144,7 +144,7 @@
 
           <a href="{{ route('member.chapter.events') }}"
             class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.chapter.events') ? 'nav-active' : '' }}">
-            <i data-feather="calendar" class="w-5"></i><span class="hidden md:inline">Chapter Events</span>
+            <i data-feather="calendar" class="w-5"></i><span class="hidden md:inline">Events</span>
           </a>
 
           <a href="{{ route('member.chapter.attended') }}"
