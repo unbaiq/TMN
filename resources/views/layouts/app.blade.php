@@ -157,6 +157,13 @@
             <i data-feather="user-plus" class="w-5"></i>
             <span class="hidden md:inline">Invitations</span>
           </a>
+          <a href="{{ route('member.connects.index') }}"
+   class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
+          {{ request()->routeIs('member.connects.*') ? 'nav-active' : '' }}">
+    <i data-feather="globe" class="w-5"></i>
+    <span class="hidden md:inline">Connects</span>
+</a>
+
 
           <a href="{{ route('member.business.index') }}"
             class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.business.*') ? 'nav-active' : '' }}">
@@ -201,7 +208,7 @@
           <a href="{{ route('member.investors.index') }}"
             class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.investors.*') ? 'nav-active' : '' }}">
             <i data-feather="dollar-sign" class="w-5"></i>
-            <span class="hidden md:inline">Investors</span>
+            <span class="hidden md:inline">My Investment</span>
           </a>
 
 
@@ -257,7 +264,7 @@
           </a>
 
           <a href="{{ route('admin.invitations.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item 
-            {{ request()->routeIs('admin.invitations.*') ? 'nav-active' : '' }}">
+              {{ request()->routeIs('admin.invitations.*') ? 'nav-active' : '' }}">
             <i data-feather="send" class="w-5"></i>
             <span class="hidden md:inline">Invitations</span>
           </a>
@@ -268,8 +275,8 @@
             <p class="px-4 text-xs font-semibold text-gray-400 uppercase">Program</p>
 
             <a href="{{ route('admin.insights.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item 
-                                                                        {{ request()->routeIs('admin.insights.*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }} 
-                                                                        transition-colors">
+                                                                          {{ request()->routeIs('admin.insights.*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }} 
+                                                                          transition-colors">
               <i data-feather="book-open" class="w-5 h-5"></i>
               <span class="md:inline">Insights</span>
             </a>
@@ -281,14 +288,14 @@
             <p class="px-4 text-xs font-semibold text-gray-400 uppercase">Story</p>
 
             <a href="{{ route('admin.stories.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
-                                                                {{ request()->routeIs('admin.stories.*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }}
-                                                                transition-colors">
+                                                                  {{ request()->routeIs('admin.stories.*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }}
+                                                                  transition-colors">
               <i data-feather="book" class="w-5 h-5"></i>
               <span class="md:inline">Stories</span>
             </a>
             <a href="{{ route('admin.meetups.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
-                                                {{ request()->routeIs('admin.meetups.*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }}
-                                                transition-colors">
+                                                  {{ request()->routeIs('admin.meetups.*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }}
+                                                  transition-colors">
               <i data-feather="users" class="w-5 h-5"></i>
               <span class="md:inline">Meetups</span>
             </a>
@@ -301,8 +308,8 @@
             <p class="px-4 text-xs font-semibold text-gray-400 uppercase">Articles</p>
 
             <a href="{{ route('admin.articles.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
-                                                        {{ request()->routeIs('admin.articles.*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }}
-                                                        transition-colors">
+                                                          {{ request()->routeIs('admin.articles.*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }}
+                                                          transition-colors">
               <i data-feather="file-text" class="w-5 h-5"></i>
               <span class="md:inline">Articles</span>
             </a>
@@ -314,8 +321,8 @@
             <p class="px-4 text-xs font-semibold text-gray-400 uppercase">Build Your Brand</p>
 
             <a href="{{ route('admin.consultations.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
-                                        {{ request()->routeIs('admin.consultations.*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }}
-                                        transition-colors">
+                                          {{ request()->routeIs('admin.consultations.*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }}
+                                          transition-colors">
               <i data-feather="briefcase" class="w-5 h-5"></i>
               <span class="md:inline">Consultations</span>
             </a>
@@ -327,8 +334,8 @@
             <p class="px-4 text-xs font-semibold text-gray-400 uppercase">Advisory</p>
 
             <a href="{{ route('admin.advisories.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
-                                {{ request()->routeIs('admin.advisories.*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }}
-                                transition-colors">
+                                  {{ request()->routeIs('admin.advisories.*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }}
+                                  transition-colors">
               <i data-feather="headphones" class="w-5 h-5"></i>
               <span class="md:inline">Advisory Connect</span>
             </a>
@@ -340,15 +347,15 @@
             <p class="px-4 text-xs font-semibold text-gray-400 uppercase">Association</p>
 
             <a href="{{ route('admin.partners.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
-                        {{ request()->routeIs('admin.partners.*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }}
-                        transition-colors">
+                          {{ request()->routeIs('admin.partners.*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }}
+                          transition-colors">
               <i data-feather="users" class="w-5 h-5"></i>
               <span class="md:inline">Partners</span>
             </a>
 
             <a href="{{ route('admin.sponsors.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
-                {{ request()->routeIs('admin.sponsors.*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }}
-                transition-colors">
+                  {{ request()->routeIs('admin.sponsors.*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }}
+                  transition-colors">
               <i data-feather="dollar-sign" class="w-5 h-5"></i>
               <span class="md:inline">Sponsors</span>
             </a>

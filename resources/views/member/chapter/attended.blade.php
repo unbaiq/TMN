@@ -41,7 +41,7 @@
         {{-- ==== HEADER ==== --}}
         <div class="bg-gradient-to-r from-red-700 via-red-600 to-red-500 rounded-2xl shadow-2xl px-10 py-8 flex flex-col md:flex-row md:items-center md:justify-between text-white relative overflow-hidden border border-red-600/30">
         <div class="relative z-10">
-            <h2 class="text-3xl font-bold tracking-tight">🎟️ Attended Chapter Events</h2>
+            <h2 class="text-3xl font-bold tracking-tight">🎟️ Attendance</h2>
             <p class="text-red-100 mt-2 text-sm md:text-base">
                 View all TMN chapter events you have successfully attended.
             </p>
