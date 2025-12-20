@@ -313,4 +313,19 @@ class UserController extends Controller
 
         return view('user.sponsors', compact('sponsors'));
     }
+
+    // Event
+    public function show(Event $event)
+    {
+       $relatedEvents = Event::where('id', '!=', $event->id)
+            ->where('status', 'upcoming')
+            ->orderBy('event_date', 'asc')
+            ->take(4)
+            ->get();
+    
+        return view('user.detailed-event', [
+            'event' => $event,
+            'relatedEvents' => $relatedEvents,
+        ]);
+    }
 }

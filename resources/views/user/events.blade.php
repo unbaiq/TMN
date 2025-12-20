@@ -8,10 +8,8 @@
 @endphp
 
 {{-- ================= BANNER ================= --}}
-<section
-    style="background-image: url('{{ $assetBase }}/images/committee-banner.png')"
-    class="bg-cover bg-center lg:bg-right bg-no-repeat"
->
+<section style="background-image: url('{{ $assetBase }}/images/committee-banner.png')"
+    class="bg-cover bg-center lg:bg-right bg-no-repeat">
     <div class="w-full py-10 h-full banner-grid">
         <div class="main-width h-full py-4 flex items-center lg:justify-start">
             <div class="grid md:grid-cols-[58%,1fr] gap-6 items-center">
@@ -63,51 +61,45 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10" id="articles">
 
             @forelse($events as $event)
-                <div
-                    class="h-[380px] group border overflow-hidden rounded-xl shadow-xl w-[340px] relative cursor-pointer">
+                    <div class="h-[380px] group border overflow-hidden rounded-xl shadow-xl w-[340px] relative cursor-pointer">
 
-                    {{-- Banner --}}
-                    <img
-                        class="w-full h-full transition-all duration-700 transform group-hover:scale-110"
-                        src="{{ $event->banner_image
-                                ? asset('storage/'.$event->banner_image)
-                                : $assetBase.'/images/upcoming-event.png' }}"
-                        alt="{{ $event->title }}">
+                        {{-- Banner --}}
+                        <img class="w-full h-full transition-all duration-700 transform group-hover:scale-110" src="{{ $event->banner_image
+                ? asset('storage/' . $event->banner_image)
+                : $assetBase . '/images/upcoming-event.png' }}" alt="{{ $event->title }}">
 
-                    {{-- Content --}}
-                    <div
-                        class="absolute duration-700 ease-in group-hover:h-[300px] bg-white bottom-0 w-full h-[120px] p-6">
+                        {{-- Content --}}
+                        <div class="absolute duration-700 ease-in group-hover:h-[300px] bg-white bottom-0 w-full h-[120px] p-6">
 
-                        <div class="flex items-center justify-between">
-                            <span
-                                class="px-4 py-2 bg-red-600/10 text-red-600 text-sm rounded font-medium">
-                                {{ ucfirst($event->event_type ?? 'Event') }}
-                            </span>
-
-                            <span class="font-medium text-sm">
-                                {{ \Carbon\Carbon::parse($event->event_date)->format('M d, h:i A') }}
-                            </span>
-                        </div>
-
-                        <h2 class="font-semibold py-4 text-[20px]">
-                            {{ $event->title }}
-                        </h2>
-
-                        <p class="text-sm line-clamp-3">
-                            {{ \Illuminate\Support\Str::limit(strip_tags($event->description), 120) }}
-                        </p>
-
-                        <div class="mt-3">
-                            <a href="{{ route('events.show', $event->slug) }}">
-                                <span
-                                    class="bg-red-600 text-white px-4 py-2 text-[13px] inline-block">
-                                    Join Now
+                            <div class="flex items-center justify-between">
+                                <span class="px-4 py-2 bg-red-600/10 text-red-600 text-sm rounded font-medium">
+                                    {{ ucfirst($event->event_type ?? 'Event') }}
                                 </span>
-                            </a>
-                        </div>
 
+                                <span class="font-medium text-sm">
+                                    {{ \Carbon\Carbon::parse($event->event_date)->format('M d, h:i A') }}
+                                </span>
+                            </div>
+
+                            <h2 class="font-semibold py-4 text-[20px]">
+                                {{ $event->title }}
+                            </h2>
+
+                            <p class="text-sm line-clamp-3">
+                                {{ \Illuminate\Support\Str::limit(strip_tags($event->description), 120) }}
+                            </p>
+
+
+                            <div class="mt-3">
+                                <a href="{{ route('events.show', $event->slug) }}">
+                                    <span class="px-6 py-2 bg-red-600 text-white rounded">
+                                        Join Event
+                                    </span>
+                                </a>
+                            </div>
+
+                        </div>
                     </div>
-                </div>
             @empty
                 <p class="text-gray-500">No upcoming events.</p>
             @endforelse

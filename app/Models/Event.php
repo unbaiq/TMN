@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class Event extends Model
 {
@@ -43,7 +44,21 @@ class Event extends Model
         'banner_image',
     ];
 
-    // Automatically generate slug from title if not provided
+    /**
+     * ✅ CASTS (🔥 MOST IMPORTANT FIX)
+     */
+    protected $casts = [
+        'event_date' => 'date',
+        'start_time' => 'datetime:H:i',
+        'end_time'   => 'datetime:H:i',
+        'is_online'  => 'boolean',
+        'is_public'  => 'boolean',
+        'is_featured'=> 'boolean',
+    ];
+
+    /**
+     * Automatically generate slug
+     */
     protected static function boot()
     {
         parent::boot();
@@ -55,23 +70,20 @@ class Event extends Model
         });
     }
 
-    /* ---------------------------
-     |  Relationships
-     --------------------------- */
+    /* =========================
+     |  RELATIONSHIPS
+     ========================= */
 
-    // An event may belong to a chapter (for chapter events)
     public function chapter()
     {
         return $this->belongsTo(Chapter::class);
     }
 
-    // Organizer (User) who created/hosts the event
     public function organizer()
     {
         return $this->belongsTo(User::class, 'organizer_id');
     }
 
-    // Example: Attendees relation (if you later make an event_attendees table)
     public function attendees()
     {
         return $this->belongsToMany(User::class, 'event_attendees')
@@ -79,19 +91,47 @@ class Event extends Model
             ->withPivot('status', 'check_in_time');
     }
 
-    /* ---------------------------
-     |  Accessors / Mutators
-     --------------------------- */
+    public function attendances()
+    {
+        return $this->hasMany(EventAttendance::class, 'event_id');
+    }
 
-    // Format event date
+    public function invitations()
+    {
+        return $this->hasMany(EventInvitation::class);
+    }
+
+    /* =========================
+     |  ACCESSORS
+     ========================= */
+
+    /**
+     * ✅ Safe formatted date
+     */
     public function getFormattedDateAttribute()
     {
         return $this->event_date
-            ? date('l, d M Y', strtotime($this->event_date))
+            ? $this->event_date->format('l, d M Y')
             : null;
     }
 
-    // Full address
+    /**
+     * ✅ Safe formatted time range
+     */
+    public function getFormattedTimeAttribute()
+    {
+        if (!$this->start_time || !$this->end_time) {
+            return null;
+        }
+
+        return Carbon::parse($this->start_time)->format('h:i A')
+            . ' - ' .
+            Carbon::parse($this->end_time)->format('h:i A');
+    }
+
+    /**
+     * Full address
+     */
     public function getFullAddressAttribute()
     {
         return collect([
@@ -105,20 +145,25 @@ class Event extends Model
         ])->filter()->join(', ');
     }
 
-    // Whether event is past
+    /**
+     * Is event past
+     */
     public function getIsPastAttribute()
     {
-        return $this->event_date && $this->event_date < now()->toDateString();
+        return $this->event_date
+            ? $this->event_date->isPast()
+            : false;
     }
 
-    /* ---------------------------
-     |  Scopes
-     --------------------------- */
+    /* =========================
+     |  SCOPES
+     ========================= */
 
     public function scopeUpcoming($query)
     {
-        return $query->where('status', 'upcoming')
-            ->where('event_date', '>=', now()->toDateString());
+        return $query
+            ->where('status', 'upcoming')
+            ->whereDate('event_date', '>=', now());
     }
 
     public function scopeFeatured($query)
@@ -135,14 +180,4 @@ class Event extends Model
     {
         return $query->where('event_type', 'general');
     }
-    public function attendances()
-{
-    return $this->hasMany(\App\Models\EventAttendance::class, 'event_id');
-}
-
-public function invitations()
-{
-    return $this->hasMany(EventInvitation::class);
-}
-
 }

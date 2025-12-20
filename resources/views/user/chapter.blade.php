@@ -78,7 +78,7 @@
               <td class="p-4 border">{{ $chapter->city }}</td>
               <td class="p-4 border">{{ $chapter->name }}</td>
               <td class="p-4 border">
-                <a href="#">
+                <a href="/journey">
                   <span class="px-6 py-2 bg-red-600 text-white rounded">
                     Apply
                   </span>

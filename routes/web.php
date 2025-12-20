@@ -319,11 +319,8 @@ Route::view('/detailed-event', 'user.detailed-event');
 
 // Blade Pages
 Route::view('/easy-to-join', 'user.easy-to-joinsection');
-Route::view('/events', 'user.events');
 Route::get('/', [UserController::class, 'index'])->name('user.index');
-Route::view('/index-updated', 'user.index-updated');
-Route::view('/indexold', 'user.indexold');
-Route::view('/indexold-without-loader', 'user.indexold-without-loader');
+
 
 // Insights
 Route::view('/insight', 'user.insight');
@@ -363,6 +360,8 @@ Route::get('/build-brand', [UserController::class, 'buildBrand'])
 
 Route::get('/events', [UserController::class, 'events'])
     ->name('events');
+    Route::get('/events/{event:slug}', [EventController::class, 'show'])
+    ->name('events.show');
 
 Route::get('/events/{event:slug}', [UserController::class, 'eventShow'])
     ->name('events.show');
