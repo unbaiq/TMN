@@ -1,52 +1,52 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-6 py-10 space-y-10">
+<div class="max-w-full mx-auto px-6 py-6 space-y-6 text-[13px] bg-gray-50">
 
-    {{-- ==== HEADER ==== --}}
-    <div class="bg-white border border-gray-200 rounded-2xl shadow-xl px-8 py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+    {{-- ================= PAGE HEADER ================= --}}
+    <div class="bg-white border border-gray-200 rounded-md px-6 py-4 flex items-center justify-between">
         <div>
-            <h2 class="text-3xl font-bold text-gray-900 flex items-center gap-3">
-                <i data-feather="edit-3" class="w-7 h-7 text-red-600"></i>
+            <h1 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                <i data-feather="edit-3" class="w-4 h-4 text-red-600"></i>
                 Edit Event
-            </h2>
-            <p class="text-gray-500 mt-1">Update details, schedule, venue, or visibility of this event.</p>
+            </h1>
+            <p class="text-xs text-gray-500 mt-1">
+                Update event details, schedule, venue, or visibility
+            </p>
         </div>
+
         <a href="{{ route('admin.events.index') }}"
-           class="inline-flex items-center bg-gray-100 hover:bg-gray-200 text-gray-700 px-5 py-2.5 rounded-xl text-sm font-medium shadow-sm transition">
-           <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i> Back to Event List
+           class="text-xs font-medium text-gray-600 hover:text-red-600 flex items-center gap-1">
+            <i data-feather="arrow-left" class="w-4 h-4"></i>
+            Back to Events
         </a>
     </div>
 
-    {{-- ==== FORM ==== --}}
+    {{-- ================= FORM ================= --}}
     <form action="{{ route('admin.events.update', $event->id) }}" method="POST" enctype="multipart/form-data"
-          class="bg-white border border-gray-100 rounded-2xl shadow-2xl p-10 space-y-10">
+          class="bg-white border border-gray-200 rounded-md">
         @csrf
         @method('PUT')
 
-        {{-- ==== BASIC DETAILS ==== --}}
-        <div>
-            <h3 class="text-xl font-bold text-gray-800 border-b border-gray-200 pb-3 mb-6 flex items-center gap-3">
-                <i data-feather="info" class="w-5 h-5 text-red-600"></i> Basic Details
+        {{-- ================= BASIC DETAILS ================= --}}
+        <div class="px-6 py-5 border-b">
+            <h3 class="text-sm font-semibold text-gray-800 mb-4 uppercase tracking-wide">
+                Basic Details
             </h3>
 
-            <div class="grid md:grid-cols-2 gap-6">
-                {{-- Event Type --}}
+            <div class="grid md:grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Event Type</label>
-                    <select name="event_type" id="eventType"
-                        class="w-full border border-gray-300 rounded-xl px-4 py-2.5 bg-white focus:ring-2 focus:ring-red-500 shadow-sm">
+                    <label class="label">Event Type</label>
+                    <select name="event_type" id="eventType" class="erp-input">
                         <option value="general" {{ $event->event_type === 'general' ? 'selected' : '' }}>General</option>
                         <option value="chapter" {{ $event->event_type === 'chapter' ? 'selected' : '' }}>Chapter</option>
                     </select>
                 </div>
 
-                {{-- Chapter --}}
                 <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Chapter</label>
-                    <select name="chapter_id" id="chapterSelect"
-                        class="w-full border border-gray-300 rounded-xl px-4 py-2.5 shadow-sm">
-                        <option value="">-- Select Chapter --</option>
+                    <label class="label">Chapter</label>
+                    <select name="chapter_id" id="chapterSelect" class="erp-input">
+                        <option value="">Select Chapter</option>
                         @foreach($chapters as $ch)
                             <option value="{{ $ch->id }}" {{ $event->chapter_id == $ch->id ? 'selected' : '' }}>
                                 {{ $ch->name }}
@@ -56,119 +56,144 @@
                 </div>
 
                 <div class="md:col-span-2">
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Event Title</label>
-                    <input type="text" name="title" value="{{ old('title', $event->title) }}"
-                        class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm" required>
+                    <label class="label">Event Title</label>
+                    <input type="text" name="title" value="{{ old('title', $event->title) }}" class="erp-input" required>
                 </div>
 
                 <div class="md:col-span-2">
-                    <label class="block text-sm font-semibold text-gray-700 mb-1">Event Description</label>
-                    <textarea name="description" rows="4"
-                        class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm">{{ old('description', $event->description) }}</textarea>
+                    <label class="label">Description</label>
+                    <textarea name="description" rows="3" class="erp-input">{{ old('description', $event->description) }}</textarea>
                 </div>
             </div>
         </div>
 
-        {{-- ==== ORGANIZER ==== --}}
-        <div>
-            <h3 class="text-xl font-bold text-gray-800 border-b border-gray-200 pb-3 mb-6 flex items-center gap-3">
-                <i data-feather="user" class="w-5 h-5 text-red-600"></i> Organizer Information
+        {{-- ================= ORGANIZER ================= --}}
+        <div class="px-6 py-5 border-b bg-gray-50">
+            <h3 class="text-sm font-semibold text-gray-800 mb-4 uppercase tracking-wide">
+                Organizer Information
             </h3>
 
-            <div class="grid md:grid-cols-3 gap-6">
-                <input type="text" name="host_name" value="{{ old('host_name', $event->host_name) }}" placeholder="Host Name"
-                    class="w-full border border-gray-300 rounded-xl px-4 py-2.5 shadow-sm">
-                <input type="text" name="host_contact" value="{{ old('host_contact', $event->host_contact) }}" placeholder="Host Contact"
-                    class="w-full border border-gray-300 rounded-xl px-4 py-2.5 shadow-sm">
-                <input type="email" name="host_email" value="{{ old('host_email', $event->host_email) }}" placeholder="Host Email"
-                    class="w-full border border-gray-300 rounded-xl px-4 py-2.5 shadow-sm">
+            <div class="grid md:grid-cols-3 gap-4">
+                <input type="text" name="host_name" value="{{ $event->host_name }}" placeholder="Host Name" class="erp-input">
+                <input type="text" name="host_contact" value="{{ $event->host_contact }}" placeholder="Contact Number" class="erp-input">
+                <input type="email" name="host_email" value="{{ $event->host_email }}" placeholder="Email Address" class="erp-input">
             </div>
         </div>
 
-        {{-- ==== VENUE & SCHEDULE ==== --}}
-        <div class="grid lg:grid-cols-2 gap-6">
+        {{-- ================= VENUE & SCHEDULE ================= --}}
+        <div class="grid lg:grid-cols-2 gap-6 px-6 py-5 border-b">
 
             {{-- Venue --}}
             <div>
-                <h3 class="text-xl font-bold text-gray-800 border-b pb-3 mb-6 flex items-center gap-3">
-                    <i data-feather="map-pin" class="w-5 h-5 text-red-600"></i> Venue & Location
+                <h3 class="text-sm font-semibold text-gray-800 mb-4 uppercase tracking-wide">
+                    Venue
                 </h3>
 
-                <div class="space-y-4">
-                    <input type="text" name="venue_name" value="{{ $event->venue_name }}" placeholder="Venue Name" class="input">
-                    <input type="text" name="address_line1" value="{{ $event->address_line1 }}" placeholder="Address Line 1" class="input">
-                    <input type="text" name="address_line2" value="{{ $event->address_line2 }}" placeholder="Address Line 2" class="input">
+                <div class="space-y-3">
+                    <input type="text" name="venue_name" value="{{ $event->venue_name }}" placeholder="Venue Name" class="erp-input">
+                    <input type="text" name="address_line1" value="{{ $event->address_line1 }}" placeholder="Address Line 1" class="erp-input">
+                    <input type="text" name="address_line2" value="{{ $event->address_line2 }}" placeholder="Address Line 2" class="erp-input">
 
-                    <div class="grid grid-cols-2 gap-4">
-                        <input type="text" name="city" value="{{ $event->city }}" placeholder="City" class="input">
-                        <input type="text" name="state" value="{{ $event->state }}" placeholder="State" class="input">
+                    <div class="grid grid-cols-2 gap-3">
+                        <input type="text" name="city" value="{{ $event->city }}" placeholder="City" class="erp-input">
+                        <input type="text" name="state" value="{{ $event->state }}" placeholder="State" class="erp-input">
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4">
-                        <input type="text" name="country" value="{{ $event->country }}" placeholder="Country" class="input">
-                        <input type="text" name="pincode" value="{{ $event->pincode }}" placeholder="Pincode" class="input">
+                    <div class="grid grid-cols-2 gap-3">
+                        <input type="text" name="country" value="{{ $event->country }}" placeholder="Country" class="erp-input">
+                        <input type="text" name="pincode" value="{{ $event->pincode }}" placeholder="Pincode" class="erp-input">
                     </div>
                 </div>
             </div>
 
-            {{-- Schedule & Online --}}
+            {{-- Schedule --}}
             <div>
-                <h3 class="text-xl font-bold text-gray-800 border-b pb-3 mb-6 flex items-center gap-3">
-                    <i data-feather="clock" class="w-5 h-5 text-red-600"></i> Schedule
+                <h3 class="text-sm font-semibold text-gray-800 mb-4 uppercase tracking-wide">
+                    Schedule
                 </h3>
 
-                <div class="grid md:grid-cols-3 gap-4">
-                    <input type="date" name="event_date" value="{{ $event->event_date }}" class="input">
-                    <input type="time" name="start_time" value="{{ $event->start_time }}" class="input">
-                    <input type="time" name="end_time" value="{{ $event->end_time }}" class="input">
+                <div class="grid grid-cols-3 gap-3">
+                    <input type="date" name="event_date" value="{{ $event->event_date }}" class="erp-input">
+                    <input type="time" name="start_time" value="{{ $event->start_time }}" class="erp-input">
+                    <input type="time" name="end_time" value="{{ $event->end_time }}" class="erp-input">
                 </div>
 
-                {{-- Online --}}
-                <div class="mt-8">
-                    <div class="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-xl">
+                <div class="mt-4 p-3 border border-red-200 bg-red-50 rounded">
+                    <label class="flex items-center gap-2 text-xs font-medium text-red-700">
                         <input type="checkbox" name="is_online" value="1" {{ $event->is_online ? 'checked' : '' }}>
-                        <span class="text-red-700 font-medium">Online Event</span>
-                    </div>
+                        Online Event
+                    </label>
+                </div>
 
-                    <div class="grid md:grid-cols-2 gap-4 mt-4">
-                        <input type="url" name="meeting_link" value="{{ $event->meeting_link }}" placeholder="Meeting Link" class="input">
-                        <input type="text" name="meeting_password" value="{{ $event->meeting_password }}" placeholder="Meeting Password" class="input">
-                    </div>
+                <div class="grid grid-cols-2 gap-3 mt-3">
+                    <input type="url" name="meeting_link" value="{{ $event->meeting_link }}" placeholder="Meeting Link" class="erp-input">
+                    <input type="text" name="meeting_password" value="{{ $event->meeting_password }}" placeholder="Meeting Password" class="erp-input">
                 </div>
             </div>
         </div>
 
-        {{-- ==== STATUS & VISIBILITY ==== --}}
-        <div class="grid md:grid-cols-2 gap-6">
-            <select name="status" class="input">
+        {{-- ================= STATUS ================= --}}
+        <div class="px-6 py-5 border-b bg-gray-50 grid md:grid-cols-2 gap-4">
+            <select name="status" class="erp-input">
                 <option value="upcoming" {{ $event->status === 'upcoming' ? 'selected' : '' }}>Upcoming</option>
                 <option value="published" {{ $event->status === 'published' ? 'selected' : '' }}>Published</option>
                 <option value="cancelled" {{ $event->status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
             </select>
 
-            <div class="flex gap-6">
-                <label class="flex items-center gap-2"><input type="checkbox" name="is_public" value="1" {{ $event->is_public ? 'checked' : '' }}> Public</label>
-                <label class="flex items-center gap-2"><input type="checkbox" name="is_featured" value="1" {{ $event->is_featured ? 'checked' : '' }}> Featured</label>
+            <div class="flex gap-6 items-center text-xs text-gray-700">
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" name="is_public" value="1" {{ $event->is_public ? 'checked' : '' }}>
+                    Public
+                </label>
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" name="is_featured" value="1" {{ $event->is_featured ? 'checked' : '' }}>
+                    Featured
+                </label>
             </div>
         </div>
 
-        {{-- ==== BANNER ==== --}}
-        <div>
+        {{-- ================= BANNER ================= --}}
+        <div class="px-6 py-5">
             @if($event->banner_image)
-                <img src="{{ asset('storage/'.$event->banner_image) }}" class="rounded-xl mb-3">
+                <img src="{{ asset('storage/'.$event->banner_image) }}" class="h-40 rounded mb-3 border">
             @endif
-            <input type="file" name="banner_image" class="input">
+            <input type="file" name="banner_image" class="erp-input">
         </div>
 
-        {{-- ==== SUBMIT ==== --}}
-        <div class="flex justify-end pt-6 border-t">
-            <button class="bg-red-600 hover:bg-red-700 text-white px-10 py-3 rounded-xl font-semibold flex items-center gap-2">
-                <i data-feather="save"></i> Update Event
+        {{-- ================= ACTIONS ================= --}}
+        <div class="px-6 py-4 border-t bg-gray-50 flex justify-end">
+            <button class="bg-red-600 hover:bg-red-700 text-white px-8 py-2 rounded text-xs font-semibold flex items-center gap-2">
+                <i data-feather="save" class="w-4 h-4"></i>
+                Update Event
             </button>
         </div>
 
     </form>
 </div>
+
+{{-- ================= STYLES ================= --}}
+<style>
+    .erp-input {
+        width: 100%;
+        border: 1px solid #d1d5db;
+        border-radius: 4px;
+        padding: 6px 8px;
+        font-size: 13px;
+        background: #fff;
+    }
+    .erp-input:focus {
+        outline: none;
+        border-color: #dc2626;
+        box-shadow: 0 0 0 1px rgba(220,38,38,.15);
+    }
+    .label {
+        display: block;
+        font-size: 12px;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 4px;
+    }
+</style>
 
 <script>
     feather.replace();
@@ -182,5 +207,4 @@
     eventType.addEventListener('change', toggleChapter);
     toggleChapter();
 </script>
-
 @endsection

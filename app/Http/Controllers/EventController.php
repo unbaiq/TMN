@@ -100,11 +100,16 @@ if ($request->hasFile('banner_image')) {
      *  =========================== */
     public function update(Request $request, Event $event)
     {
+       
         $validated = $request->validate([
             'event_type'       => 'required|in:general,chapter',
-            'chapter_id'       => 'nullable|exists:chapters,id',
+        
+            // Chapter required ONLY for chapter events
+            'chapter_id'       => 'nullable|required_if:event_type,chapter|exists:chapters,id',
+        
             'title'            => 'required|string|max:255',
             'description'      => 'nullable|string',
+        
             'venue_name'       => 'nullable|string|max:255',
             'address_line1'    => 'nullable|string|max:255',
             'address_line2'    => 'nullable|string|max:255',
@@ -112,24 +117,35 @@ if ($request->hasFile('banner_image')) {
             'state'            => 'nullable|string|max:255',
             'country'          => 'nullable|string|max:255',
             'pincode'          => 'nullable|string|max:10',
-            'event_date'       => 'required|date',
-            'start_time'       => 'required',
-            'end_time'         => 'required',
+        
+            // Date & time OPTIONAL (ERP-friendly)
+            'event_date'       => 'nullable|date',
+            'start_time'       => 'nullable|date_format:H:i',
+            'end_time'         => 'nullable|date_format:H:i',
+        
             'host_name'        => 'nullable|string|max:255',
             'host_contact'     => 'nullable|string|max:50',
             'host_email'       => 'nullable|email|max:255',
+        
             'is_online'        => 'nullable|boolean',
             'meeting_link'     => 'nullable|url|max:500',
             'meeting_password' => 'nullable|string|max:100',
+        
             'agenda'           => 'nullable|string',
             'notes'            => 'nullable|string',
+        
             'max_attendees'    => 'nullable|integer|min:0',
-            'status'           => 'nullable|in:upcoming,ongoing,completed,cancelled',
-            'is_public'        => 'nullable|boolean',
-            'is_featured'      => 'nullable|boolean',
+        
+            'status'           => 'required|in:upcoming,ongoing,completed,cancelled',
+        
+            // Checkbox-safe
+            'is_public'        => 'nullable|in:0,1',
+            'is_featured'      => 'nullable|in:0,1',
+        
             'banner_image'     => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
-
+        
+       
         if ($request->hasFile('banner_image')) {
 
             if ($event->banner_image && Storage::disk('public')->exists($event->banner_image)) {

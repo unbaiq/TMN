@@ -2,61 +2,64 @@
 @section('title', 'Event Invitations')
 
 @section('content')
-<div class="max-w-8xl mx-auto px-6 py-8 space-y-8">
+<div class="max-w-full mx-auto px-6 py-6 space-y-6 text-[13px] bg-gray-50">
 
-    {{-- ===== Header Card ===== --}}
-    <div class="bg-white border border-gray-200 rounded-2xl shadow-sm px-8 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    {{-- ================= PAGE HEADER ================= --}}
+    <div class="bg-white border border-gray-200 rounded-md px-6 py-4 flex items-center justify-between">
         <div>
-            <h2 class="text-2xl font-semibold text-gray-900 flex items-center gap-3">
-                <span class="p-2 bg-red-100 rounded-lg">
-                    <i data-feather="send" class="w-5 h-5 text-red-600"></i>
-                </span>
+            <h1 class="text-lg font-semibold text-gray-900">
                 Event Invitations
-            </h2>
-            <p class="text-sm text-gray-500 mt-1">
-                Manage and track all event invitation activities
+            </h1>
+            <p class="text-xs text-gray-500">
+                BNI invitation tracking & membership follow-ups
             </p>
         </div>
 
         <a href="{{ route('admin.invitations.create') }}"
-           class="inline-flex items-center gap-2 bg-red-600 hover:bg-red-700 text-white px-5 py-2.5 rounded-xl text-sm font-medium shadow transition">
-            <i data-feather="plus" class="w-4 h-4"></i>
-            Create Invitation
+           class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-xs font-semibold tracking-wide">
+            + CREATE INVITATION
         </a>
     </div>
 
-    {{-- ===== Stats ===== --}}
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+    {{-- ================= KPI STRIP ================= --}}
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
         @foreach ($invitationStats as $label => $count)
-            <div class="bg-white border border-gray-200 rounded-xl p-5 text-center shadow-sm hover:shadow transition">
-                <p class="text-xs text-gray-500 uppercase tracking-wide">
+            <div class="bg-white border border-gray-200 rounded-md px-5 py-4">
+                <p class="text-[11px] text-gray-500 uppercase tracking-wide">
                     {{ str_replace('_', ' ', $label) }}
                 </p>
-                <p class="mt-2 text-3xl font-bold text-red-600">
+                <p class="text-2xl font-semibold text-gray-900 mt-1">
                     {{ $count }}
                 </p>
             </div>
         @endforeach
     </div>
 
-    {{-- ===== Table ===== --}}
-    <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-x-auto">
-        <table class="min-w-full text-sm">
-            <thead class="bg-gray-50 text-gray-600 text-xs uppercase tracking-wider">
+    {{-- ================= TABLE ================= --}}
+    <div class="bg-white border border-gray-300 rounded-md overflow-hidden">
+
+        {{-- Table Title --}}
+        <div class="px-6 py-3 border-b bg-gray-100 text-xs font-semibold text-gray-700 uppercase tracking-wide">
+            Invitation Records
+        </div>
+
+        <table class="min-w-full border-collapse">
+            <thead class="bg-gray-50 text-gray-600 text-xs">
                 <tr>
-                    <th class="px-6 py-4 text-left">Guest</th>
-                    <th class="px-6 py-4 text-left">Event</th>
-                    <th class="px-6 py-4 text-left">Inviter</th>
-                    <th class="px-6 py-4 text-center">Status</th>
-                    <th class="px-6 py-4 text-right">Actions</th>
+                    <th class="px-5 py-3 border-b text-left">Guest</th>
+                    <th class="px-5 py-3 border-b text-left">Contact</th>
+                    <th class="px-5 py-3 border-b text-left">Event</th>
+                    <th class="px-5 py-3 border-b text-left">Inviter</th>
+                    <th class="px-5 py-3 border-b text-center">Status</th>
+                    <th class="px-5 py-3 border-b text-right">Action</th>
                 </tr>
             </thead>
 
-            <tbody class="divide-y">
+            <tbody>
                 @forelse ($invitations as $invite)
-                    <tr class="hover:bg-gray-50 transition">
-                        <td class="px-6 py-4">
-                            <div class="font-medium text-gray-900">
+                    <tr class="hover:bg-red-50/40 transition">
+                        <td class="px-5 py-3 border-b">
+                            <div class="font-semibold text-gray-900">
                                 {{ $invite->guest_name }}
                             </div>
                             <div class="text-xs text-gray-500">
@@ -64,49 +67,48 @@
                             </div>
                         </td>
 
-                        <td class="px-6 py-4 text-gray-700">
+                        <td class="px-5 py-3 border-b text-gray-700">
+                            {{ $invite->guest_phone ?? '—' }}
+                        </td>
+
+                        <td class="px-5 py-3 border-b text-gray-700">
                             {{ $invite->event->title ?? '—' }}
                         </td>
 
-                        <td class="px-6 py-4 text-gray-700">
+                        <td class="px-5 py-3 border-b text-gray-700">
                             {{ $invite->inviter->name ?? '—' }}
                         </td>
 
-                        <td class="px-6 py-4 text-center">
-                            <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium
-                                {{ $invite->status === 'accepted' ? 'bg-green-100 text-green-700' :
-                                   ($invite->status === 'declined' ? 'bg-gray-200 text-gray-700' :
-                                   'bg-red-100 text-red-700') }}">
-                                {{ ucfirst($invite->status) }}
-                            </span>
-                        </td>
-
-                        <td class="px-6 py-4 text-right space-x-2">
-                            @if(empty($invite->membership_token))
-                                <button onclick="sendInviteLink({{ $invite->id }})"
-                                    class="inline-flex items-center gap-1 px-3 py-1.5 text-xs rounded-lg
-                                           bg-red-600 hover:bg-red-700 text-white shadow transition">
-                                    <i data-feather="mail" class="w-3 h-3"></i>
-                                    Send Link
-                                </button>
+                        <td class="px-5 py-3 border-b text-center">
+                        @if(empty($invite->membership_token))
+                        <span class="px-4 py-1.5 text-xs rounded bg-yellow-100 text-green-700 font-semibold">
+                                   Pending
+                                </span>
                             @else
-                                <span class="inline-flex items-center px-3 py-1.5 text-xs rounded-lg
-                                             bg-green-100 text-green-700 font-medium">
-                                    Closed
+                                <span class="px-4 py-1.5 text-xs rounded bg-green-100 text-green-700 font-semibold">
+                                    CLOSED
                                 </span>
                             @endif
+                        </td>
+
+                        <td class="px-5 py-3 border-b text-right space-x-2">
+                          
+                                <button onclick="sendInviteLink({{ $invite->id }})"
+                                    class="px-4 py-1.5 text-xs rounded bg-red-600 hover:bg-red-700 text-white font-semibold">
+                                    SEND
+                                </button>
+                          
 
                             <a href="{{ route('admin.invitations.edit', $invite) }}"
-                               class="text-xs text-red-600 hover:underline font-medium">
-                                Edit
+                               class="text-xs text-gray-600 hover:text-red-600 font-semibold">
+                                EDIT
                             </a>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="5" class="px-6 py-10 text-center text-gray-500">
-                            <i data-feather="inbox" class="mx-auto mb-3 w-8 h-8 text-gray-400"></i>
-                            No invitations found
+                        <td colspan="6" class="px-6 py-12 text-center text-gray-500">
+                            No invitation records available
                         </td>
                     </tr>
                 @endforelse
@@ -114,16 +116,16 @@
         </table>
     </div>
 
-    {{-- Pagination --}}
-    <div class="pt-4">
+    {{-- ================= PAGINATION ================= --}}
+    <div class="pt-2">
         {{ $invitations->links() }}
     </div>
 </div>
 
-{{-- ===== AJAX ===== --}}
+{{-- ================= AJAX ================= --}}
 <script>
     function sendInviteLink(id) {
-        if (!confirm('Send membership invitation link?')) return;
+        if (!confirm('Send BNI membership invitation link?')) return;
 
         fetch(`/admin/invitations/${id}/send-link`, {
             method: 'POST',
@@ -137,7 +139,7 @@
             alert(data.message);
             if (data.success) location.reload();
         })
-        .catch(() => alert('Something went wrong'));
+        .catch(() => alert('Request failed'));
     }
 </script>
 @endsection
