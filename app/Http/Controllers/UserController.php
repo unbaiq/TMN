@@ -26,7 +26,7 @@ class UserController extends Controller
     public function index()
     {
         /* ================= EVENTS ================= */
-        $latestEvents = Event::take(3)
+       $latestEvents = Event::take(3)
             ->get();
 
         /* ================= ADVISORIES ================= */
@@ -50,9 +50,9 @@ class UserController extends Controller
             ->take(3)
             ->get();
 
-        /* ================= ACTIVE MEMBERS ================= */
+    
         /* ================= ACTIVE TMNIANS ================= */
-         $activeMembers = User::with('basicInfo')
+        $activeMembers = User::with('basicInfo')
             ->whereHas('adminData', function ($q) {
                 $q->where('status', 'active');
             })

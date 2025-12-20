@@ -174,34 +174,30 @@
       {{-- Members --}}
       <div class="p-4 flex items-start flex-wrap gap-10 justify-center">
         @forelse($activeMembers as $member)
-              <div
-                class="w-[280px] py-4 border bg-white transition-all ease-in duration-300 transform hover:scale-105 cursor-pointer shadow-md rounded-tl-[20px] rounded-br-[40px]">
+          <div
+            class="w-[280px] py-4 border bg-white transition-all ease-in duration-300 transform hover:scale-105 cursor-pointer shadow-md rounded-tl-[20px] rounded-br-[40px]">
 
-                <div class="w-[180px] h-[180px] flex items-center justify-center mx-auto">
-                  <div class="w-[90%]">
-                  <img
-    src="{{ optional($member->basic_info)->photo
-            ? asset('storage/' . $member->basic_info->photo)
-            : asset('images/user.png') }}"
-    class="w-full h-full rounded-full object-cover"
-    alt="{{ optional($member->basic_info)->full_name ?? $member->name }}">
+            <div class="w-[180px] h-[180px] flex items-center justify-center mx-auto">
+              <div class="w-[90%]">
+                <img src="{{asset('storage/' .$member->basicInfo->photo)}}"
+                  class="w-full h-full rounded-full object-cover" alt="">
 
 
-<!-- ok -->
-                  </div>
-                </div>
-
-                <div class="text-center py-4">
-                  <h4 class="text-[#232323] text-[20px] font-semibold leading-[24px]">
-                    {{ $member->name }}
-                  </h4>
-
-                  <h6 class="text-[#232323] text-[15px] font-normal leading-[24px]">
-                    {{ $member->basic_info->bni_chapter_role ?? 'TMN Member' }}
-                  </h6>
-
-                </div>
+                <!-- ok -->
               </div>
+            </div>
+
+            <div class="text-center py-4">
+              <h4 class="text-[#232323] text-[20px] font-semibold leading-[24px]">
+                {{ $member->name }}
+              </h4>
+
+              <h6 class="text-[#232323] text-[15px] font-normal leading-[24px]">
+                {{ $member->basicInfo->bni_chapter_role ?? 'TMN Member' }}
+              </h6>
+
+            </div>
+          </div>
         @empty
           <p class="text-gray-500 text-center">
             No active members available.
@@ -264,7 +260,7 @@
             <div class="overflow-hidden relative">
 
               <img
-                src="{{ $event->banner_image ? asset('tmn/public/storage/' . $event->banner_image) : asset('tmn/public/images/upcoming-event.png') }}"
+                src="{{ $event->banner_image ? asset('storage/' . $event->banner_image) : asset('tmn/public/images/upcoming-event.png') }}"
                 class="w-full h-full object-cover" alt="{{ $event->title }}">
 
               <div class="absolute w-[90%] bottom-[5%] p-4 rounded-[20px] bg-white/90 left-[5%]">
@@ -547,8 +543,8 @@
                         <li class="splide__slide h-[420px]">
 
                           <div class="h-[400px] border rounded-br-[40px]
-                                                  shadow-[0px_4px_20px_0px_rgba(129,129,129,0.25)]
-                                                  bg-white">
+                                                              shadow-[0px_4px_20px_0px_rgba(129,129,129,0.25)]
+                                                              bg-white">
 
                             {{-- Image --}}
                             <div class="w-full h-[200px] overflow-hidden">

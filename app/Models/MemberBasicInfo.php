@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MemberBasicInfo extends Model
 {
     use HasFactory;
-
+     
     protected $fillable = [
         'user_id', 'full_name', 'gender', 'date_of_birth', 'photo',
         'contact_mobile', 'contact_whatsapp', 'contact_office', 'email',
