@@ -149,7 +149,7 @@
 
           <a href="{{ route('member.chapter.attended') }}"
             class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('member.chapter.eventattended') ? 'nav-active' : '' }}">
-            <i data-feather="check-circle" class="w-5"></i><span class="hidden md:inline">Attended</span>
+            <i data-feather="check-circle" class="w-5"></i><span class="hidden md:inline">Attendance</span>
           </a>
 
           <a href="{{ route('member.invitations.index') }}"
