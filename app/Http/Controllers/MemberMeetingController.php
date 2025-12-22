@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Auth;
 
 class MemberMeetingController extends Controller
 {
-    // 🧑‍🤝‍🧑 1-to-1 meetings list
+    /* =========================================================
+     | 1-TO-1 MEETINGS LIST
+     ========================================================= */
     public function oneToOne()
     {
         $user = Auth::user();
@@ -22,11 +24,13 @@ class MemberMeetingController extends Controller
 
         return view('member.meetings.index', [
             'meetings' => $meetings,
-            'type' => '1to1',
+            'type'     => '1to1',
         ]);
     }
 
-    // 👥 Cluster meetings list
+    /* =========================================================
+     | CLUSTER MEETINGS LIST
+     ========================================================= */
     public function cluster()
     {
         $user = Auth::user();
@@ -39,27 +43,38 @@ class MemberMeetingController extends Controller
 
         return view('member.meetings.index', [
             'meetings' => $meetings,
-            'type' => 'cluster',
+            'type'     => 'cluster',
         ]);
     }
 
-    // 📝 Create form
-    public function create(Request $request)
+    /* =========================================================
+     | CREATE MEETING FORM
+     | IMPORTANT: TYPE COMES FROM URL {type}
+     ========================================================= */
+    public function create(string $type)
     {
+        // 🔒 Allow only valid types
+        if (!in_array($type, ['1to1', 'cluster'])) {
+            abort(404);
+        }
+
         $user = Auth::user();
 
-        // ✅ Only show members from same chapter (excluding self)
+        // Members from same chapter (excluding self)
         $members = User::where('chapter_id', $user->chapter_id)
             ->where('id', '!=', $user->id)
             ->orderBy('name')
             ->get();
 
-        $type = $request->get('type', '1to1');
-
-        return view('member.meetings.create', compact('members', 'type'));
+        return view('member.meetings.create', [
+            'type'    => $type,
+            'members' => $members,
+        ]);
     }
 
-    // 💾 Store meeting
+    /* =========================================================
+     | STORE MEETING
+     ========================================================= */
     public function store(Request $request)
     {
         $user = Auth::user();
@@ -68,26 +83,44 @@ class MemberMeetingController extends Controller
             'meeting_type' => 'required|in:1to1,cluster',
             'meeting_date' => 'required|date',
             'meeting_time' => 'nullable',
-            'venue' => 'nullable|string|max:255',
-            'title' => 'nullable|string|max:255',
-            'agenda' => 'nullable|string',
+            'venue'        => 'nullable|string|max:255',
+            'title'        => 'nullable|string|max:255',
+            'agenda'       => 'nullable|string',
             'participants' => 'required|array|min:1',
         ]);
 
-        // ✅ Validate that selected participants are from the same chapter
-        $invalidCount = User::whereIn('id', $validated['participants'])
+        // 🔒 Ensure participants belong to same chapter
+        $invalid = User::whereIn('id', $validated['participants'])
             ->where('chapter_id', '!=', $user->chapter_id)
-            ->count();
+            ->exists();
 
-        if ($invalidCount > 0) {
-            return back()->withErrors(['participants' => 'You can only add members from your chapter.'])->withInput();
+        if ($invalid) {
+            return back()
+                ->withErrors(['participants' => 'You can only select members from your chapter.'])
+                ->withInput();
         }
 
-        $validated['created_by'] = $user->id;
-        $validated['chapter_id'] = $user->chapter_id;
+        // 🔒 1-to-1 must have exactly ONE participant
+        if ($validated['meeting_type'] === '1to1' && count($validated['participants']) !== 1) {
+            return back()
+                ->withErrors(['participants' => '1-to-1 meeting must have exactly one participant.'])
+                ->withInput();
+        }
 
-        $meeting = MemberMeeting::create($validated);
-        $meeting->participants()->attach($validated['participants']);
+        // ✅ Create meeting (DO NOT pass participants here)
+        $meeting = MemberMeeting::create([
+            'created_by'   => $user->id,
+            'chapter_id'   => $user->chapter_id,
+            'meeting_type' => $validated['meeting_type'],
+            'meeting_date' => $validated['meeting_date'],
+            'meeting_time' => $validated['meeting_time'] ?? null,
+            'venue'        => $validated['venue'] ?? null,
+            'title'        => $validated['title'] ?? null,
+            'agenda'       => $validated['agenda'] ?? null,
+        ]);
+
+        // ✅ Attach participants (pivot table)
+        $meeting->participants()->sync($validated['participants']);
 
         return redirect()->route(
             $validated['meeting_type'] === '1to1'
@@ -96,10 +129,18 @@ class MemberMeetingController extends Controller
         )->with('success', 'Meeting added successfully.');
     }
 
-    // 👁 Show meeting details
+    /* =========================================================
+     | SHOW MEETING DETAILS
+     ========================================================= */
     public function show(MemberMeeting $meeting)
     {
+        // 🔒 Only same chapter users can view
+        if ($meeting->chapter_id !== Auth::user()->chapter_id) {
+            abort(403);
+        }
+
         $meeting->load('participants', 'creator', 'chapter');
+
         return view('member.meetings.show', compact('meeting'));
     }
 }

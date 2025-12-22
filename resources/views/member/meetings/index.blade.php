@@ -13,7 +13,8 @@
                 {{ $type == '1to1' ? 'Your personal 1-1 networking sessions' : 'Your chapter-based cluster networking sessions' }}
             </p>
         </div>
-        <a href="{{ route('member.meetings.create', ['type' => $type]) }}"
+       <a href="{{ route('member.meetings.create', $type) }}"
+
            class="mt-4 md:mt-0 inline-flex items-center gap-2 bg-white text-red-600 px-5 py-2.5 rounded-lg font-medium shadow hover:bg-gray-100 transition">
             <i data-feather="plus-circle" class="w-4 h-4"></i> Add Meeting
         </a>
