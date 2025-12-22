@@ -263,9 +263,10 @@
             <span class="hidden md:inline">Event Attendance</span>
           </a>
 
-          <a href="{{ route('admin.invitations.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item 
+          <a href="{{ route('admin.invitations.index') }}"
+           class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item 
               {{ request()->routeIs('admin.invitations.*') ? 'nav-active' : '' }}">
-            <i data-feather="send" class="w-5"></i>
+            <i data-feather="send" class="w-5 h-5"></i>
             <span class="hidden md:inline">Invitations</span>
           </a>
 
