@@ -9,6 +9,8 @@ use App\Models\MemberCsr;
 use App\Models\MemberInvestor;
 use App\Models\MemberMeeting;
 use App\Models\MemberRecognition;
+use App\Models\MemberConnect;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
 
@@ -19,6 +21,8 @@ class MemberDashboardController extends Controller
         $member = Auth::user();
         $memberId = $member->id;
         $chapterId = $member->chapter_id;
+        $totalConnects = MemberConnect::where('user_id', $memberId)->count();
+
 
         /* ============================================================
          | FINANCIAL YEAR RANGE
@@ -167,6 +171,7 @@ class MemberDashboardController extends Controller
             'totalThankYouAmount',
             'oneToOneCount',
             'clusterMeetingCount',
+             'totalConnects',
             'visitorsInvited',
             'visitorsConverted',
             'eventsAttended',

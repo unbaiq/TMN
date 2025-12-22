@@ -5,21 +5,38 @@
 <div class="max-w-8xl mx-auto px-6 py-6 space-y-6">
 
     {{-- HEADER --}}
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        <div>
-            <h2 class="text-2xl font-bold text-gray-900">
-                🌐 Member Connects
-            </h2>
-            <p class="text-sm text-gray-600">
-                Manage your business connects and explore member connects
-            </p>
-        </div>
+    <div class="bg-gradient-to-r from-red-700 via-red-600 to-red-500
+            rounded-2xl shadow-xl px-8 py-6
+            flex flex-col md:flex-row md:items-center md:justify-between gap-4">
 
-        <a href="{{ route('member.connects.create') }}"
-           class="bg-red-700 hover:bg-red-800 text-white px-5 py-2.5 rounded-lg shadow text-sm font-medium">
-            + Add Connect
-        </a>
+    {{-- LEFT CONTENT --}}
+    <div class="text-white">
+        <h2 class="text-2xl md:text-3xl font-semibold flex items-center gap-2">
+            🌐 Member Connects
+        </h2>
+        <p class="text-white/80 text-sm mt-1">
+            Manage your business connects and explore member connects
+        </p>
     </div>
+
+    {{-- RIGHT ACTION --}}
+    <a href="{{ route('member.connects.create') }}"
+       class="inline-flex items-center gap-2
+              bg-white text-red-700
+              px-5 py-2.5 rounded-xl
+              font-medium shadow
+              hover:bg-gray-100 transition">
+        <i data-feather="plus-circle" class="w-4 h-4"></i>
+        Add Connect
+    </a>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        if (window.feather) feather.replace();
+    });
+</script>
+
 
     {{-- TABS --}}
     <div class="flex gap-6 border-b border-red-200">

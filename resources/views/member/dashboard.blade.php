@@ -81,10 +81,13 @@
             <p class="mt-1 text-xs text-gray-400">Meetings</p>
         </div>
         <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-            <p class="text-xs uppercase text-gray-500 font-semibold">Total Connect</p>
-            <p class="mt-3 text-3xl font-bold text-gray-900">{{ $clusterMeetingCount ?? 0 }}</p>
-            <p class="mt-1 text-xs text-gray-400">Meetings</p>
-        </div>
+    <p class="text-xs uppercase text-gray-500 font-semibold">Total Connects</p>
+    <p class="mt-3 text-3xl font-bold text-gray-900">
+        {{ $totalConnects }}
+    </p>
+    <p class="mt-1 text-xs text-gray-400">Business Connects</p>
+</div>
+
     </div>
 
     {{-- ================= METRICS ================= --}}
