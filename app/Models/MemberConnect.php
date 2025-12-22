@@ -35,10 +35,7 @@ class MemberConnect extends Model
         'location',
         'chapter_name',
 
-        // Visibility & trust
-        'visibility',
-        'is_verified',
-        'is_active',
+       
 
         // Engagement
         'recommendation_count',
@@ -55,12 +52,6 @@ class MemberConnect extends Model
     /**
      * Default attribute values
      */
-    protected $attributes = [
-        'visibility'            => 'members',
-        'is_verified'           => false,
-        'is_active'             => true,
-        'recommendation_count'  => 0,
-    ];
 
     /**
      * Relationship: Owner member
@@ -86,11 +77,5 @@ class MemberConnect extends Model
         return $query->where('is_verified', true);
     }
 
-    /**
-     * Scope: Visibility filter
-     */
-    public function scopeVisibleToMembers($query)
-    {
-        return $query->whereIn('visibility', ['members', 'public']);
-    }
+    
 }

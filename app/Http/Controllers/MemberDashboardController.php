@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\BusinessGiveTake;
 use App\Models\EventAttendance;
 use App\Models\EventInvitation;
@@ -19,20 +18,17 @@ class MemberDashboardController extends Controller
     {
         $member = Auth::user();
         $memberId = $member->id;
-        $chapterId = $member->chapter_id ?? null;
+        $chapterId = $member->chapter_id;
 
-        // Current financial/year range (you can adjust as needed)
+        /* ============================================================
+         | FINANCIAL YEAR RANGE
+         ============================================================ */
         $startOfYear = now()->startOfYear();
         $endOfYear   = now()->endOfYear();
 
-        /*
-        |--------------------------------------------------------------------------
-        | BUSINESS (Expected vs Actual)
-        |--------------------------------------------------------------------------
-        | Actual = closed business
-        | Expected = open/pending/in-progress pipeline
-        */
-
+        /* ============================================================
+         | BUSINESS (Expected vs Actual)
+         ============================================================ */
         $baseBusinessQuery = BusinessGiveTake::where(function ($q) use ($memberId) {
                 $q->where('giver_id', $memberId)
                   ->orWhere('taker_id', $memberId);
@@ -47,7 +43,6 @@ class MemberDashboardController extends Controller
             ->whereIn('status', ['open', 'pending', 'in_progress'])
             ->sum('business_value');
 
-        // Total business given and taken
         $totalBusinessGiven = BusinessGiveTake::givenBy($memberId)
             ->whereBetween('created_at', [$startOfYear, $endOfYear])
             ->sum('business_value');
@@ -56,12 +51,9 @@ class MemberDashboardController extends Controller
             ->whereBetween('created_at', [$startOfYear, $endOfYear])
             ->sum('business_value');
 
-        /*
-        |--------------------------------------------------------------------------
-        | Monthly Chart Data (Expected vs Actual)
-        |--------------------------------------------------------------------------
-        */
-
+        /* ============================================================
+         | MONTHLY BUSINESS CHART
+         ============================================================ */
         $monthlyBusiness = (clone $baseBusinessQuery)
             ->selectRaw('DATE_FORMAT(created_at, "%Y-%m") as ym')
             ->selectRaw('SUM(CASE WHEN status = "closed" THEN business_value ELSE 0 END) as actual_value')
@@ -75,48 +67,57 @@ class MemberDashboardController extends Controller
         $chartExpected = [];
 
         foreach ($monthlyBusiness as $row) {
-            $monthLabel = Carbon::createFromFormat('Y-m', $row->ym)->format('M Y');
-            $chartLabels[] = $monthLabel;
-            $chartActual[] = (float) $row->actual_value;
+            $chartLabels[]   = Carbon::createFromFormat('Y-m', $row->ym)->format('M Y');
+            $chartActual[]   = (float) $row->actual_value;
             $chartExpected[] = (float) $row->expected_value;
         }
 
-        /*
-        |--------------------------------------------------------------------------
-        | Referral / Activity Metrics (BNI Style)
-        |--------------------------------------------------------------------------
-        */
-
-        // Referrals given (by member)
+        /* ============================================================
+         | REFERRALS / ACTIVITY
+         ============================================================ */
         $totalReferralsGiven = BusinessGiveTake::where('giver_id', $memberId)
             ->where('referral_type', 'referral')
             ->count();
 
-        // Referrals received
         $totalReferralsReceived = BusinessGiveTake::where('taker_id', $memberId)
             ->where('referral_type', 'referral')
             ->count();
 
-        // Thank you slips (amount)
         $totalThankYouAmount = BusinessGiveTake::where('giver_id', $memberId)
             ->where('referral_type', 'thank_you')
             ->sum('thank_you_amount');
 
-        // 1-to-1 meetings
-        $oneToOneCount = BusinessGiveTake::where(function ($q) use ($memberId) {
-                $q->where('giver_id', $memberId)
-                  ->orWhere('taker_id', $memberId);
+        /* ============================================================
+         | ✅ REAL MEETING COUNTS (FIXED)
+         ============================================================ */
+
+        // 1-to-1 meetings (created OR participated)
+        $oneToOneCount = MemberMeeting::where('meeting_type', '1to1')
+            ->where(function ($q) use ($memberId) {
+                $q->where('created_by', $memberId)
+                  ->orWhereHas('participants', function ($p) use ($memberId) {
+                      $p->where('user_id', $memberId);
+                  });
             })
-            ->where('referral_type', '1to1')
             ->count();
 
-        /*
-        |--------------------------------------------------------------------------
-        | Event / Invitation / Attendance
-        |--------------------------------------------------------------------------
-        */
+        // Cluster meetings (chapter based)
+        $clusterMeetingCount = MemberMeeting::where('meeting_type', 'cluster')
+            ->where('chapter_id', $chapterId)
+            ->count();
 
+        // Meetings actually attended
+        $meetingsAttended = MemberMeeting::whereHas('participants', function ($q) use ($memberId) {
+                $q->where('user_id', $memberId)
+                  ->where('attended', true);
+            })
+            ->count();
+
+        /* ============================================================
+         | EVENTS / ATTENDANCE
+         ============================================================ */
         $visitorsInvited = EventInvitation::where('inviter_id', $memberId)->count();
+
         $visitorsConverted = EventInvitation::where('inviter_id', $memberId)
             ->whereNotNull('converted_user_id')
             ->count();
@@ -125,12 +126,9 @@ class MemberDashboardController extends Controller
             ->where('status', 'present')
             ->count();
 
-        /*
-        |--------------------------------------------------------------------------
-        | CSR, Investors, Meetings, Recognition
-        |--------------------------------------------------------------------------
-        */
-
+        /* ============================================================
+         | CSR / INVESTORS / RECOGNITION
+         ============================================================ */
         $csrImpact = MemberCsr::where('member_id', $memberId)
             ->selectRaw('
                 COALESCE(SUM(amount_spent),0) as total_amount,
@@ -141,12 +139,6 @@ class MemberDashboardController extends Controller
 
         $investorCount = MemberInvestor::where('member_id', $memberId)->count();
 
-        $meetingsAttended = MemberMeeting::whereHas('participants', function ($q) use ($memberId) {
-                $q->where('user_id', $memberId)
-                  ->where('attended', true);
-            })
-            ->count();
-
         $recognitionStats = MemberRecognition::where('member_id', $memberId)
             ->selectRaw('
                 COUNT(*) as total_recognitions,
@@ -155,39 +147,37 @@ class MemberDashboardController extends Controller
             ')
             ->first();
 
-        /*
-        |--------------------------------------------------------------------------
-        | Distribution of activity types (for pie/donut chart)
-        |--------------------------------------------------------------------------
-        */
-
+        /* ============================================================
+         | ACTIVITY DISTRIBUTION
+         ============================================================ */
         $activityDistribution = BusinessGiveTake::where('giver_id', $memberId)
             ->selectRaw('referral_type, COUNT(*) as total')
             ->groupBy('referral_type')
             ->pluck('total', 'referral_type')
             ->toArray();
 
-        return view('member.dashboard', [
-            'member' => $member,
-            'actualBusiness' => $actualBusiness,
-            'expectedBusiness' => $expectedBusiness,
-            'totalBusinessGiven' => $totalBusinessGiven,
-            'totalBusinessTaken' => $totalBusinessTaken,
-            'totalReferralsGiven' => $totalReferralsGiven,
-            'totalReferralsReceived' => $totalReferralsReceived,
-            'totalThankYouAmount' => $totalThankYouAmount,
-            'oneToOneCount' => $oneToOneCount,
-            'visitorsInvited' => $visitorsInvited,
-            'visitorsConverted' => $visitorsConverted,
-            'eventsAttended' => $eventsAttended,
-            'csrImpact' => $csrImpact,
-            'investorCount' => $investorCount,
-            'meetingsAttended' => $meetingsAttended,
-            'recognitionStats' => $recognitionStats,
-            'chartLabels' => $chartLabels,
-            'chartActual' => $chartActual,
-            'chartExpected' => $chartExpected,
-            'activityDistribution' => $activityDistribution,
-        ]);
+        return view('member.dashboard', compact(
+            'member',
+            'actualBusiness',
+            'expectedBusiness',
+            'totalBusinessGiven',
+            'totalBusinessTaken',
+            'totalReferralsGiven',
+            'totalReferralsReceived',
+            'totalThankYouAmount',
+            'oneToOneCount',
+            'clusterMeetingCount',
+            'visitorsInvited',
+            'visitorsConverted',
+            'eventsAttended',
+            'csrImpact',
+            'investorCount',
+            'meetingsAttended',
+            'recognitionStats',
+            'chartLabels',
+            'chartActual',
+            'chartExpected',
+            'activityDistribution'
+        ));
     }
 }

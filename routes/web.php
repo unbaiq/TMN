@@ -188,22 +188,18 @@ Route::middleware(['auth', 'role:member'])
         */
        Route::prefix('meetings')->name('meetings.')->group(function () {
 
-    Route::get('/onetoone', [MemberMeetingController::class, 'oneToOne'])
-        ->name('onetoone');
+    Route::get('/onetoone', [MemberMeetingController::class, 'oneToOne'])->name('onetoone');
 
-    Route::get('/cluster', [MemberMeetingController::class, 'cluster'])
-        ->name('cluster');
+    Route::get('/cluster', [MemberMeetingController::class, 'cluster'])->name('cluster');
 
-    // ✅ THIS IS THE FIX
+    // ✅ ONLY CREATE ROUTE
     Route::get('/create/{type}', [MemberMeetingController::class, 'create'])
-        ->whereIn('type', ['1to1', 'cluster'])
+        ->where('type', '1to1|cluster')
         ->name('create');
 
-    Route::post('/', [MemberMeetingController::class, 'store'])
-        ->name('store');
+    Route::post('/', [MemberMeetingController::class, 'store'])->name('store');
 
-    Route::get('/{meeting}', [MemberMeetingController::class, 'show'])
-        ->name('show');
+    Route::get('/{meeting}', [MemberMeetingController::class, 'show'])->name('show');
 });
 
         /*

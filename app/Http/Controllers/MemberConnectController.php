@@ -9,24 +9,24 @@ use Illuminate\Support\Facades\Auth;
 class MemberConnectController extends Controller
 {
     /**
-     * Display all visible connects (BNI-style global directory)
+     * Display all connects
+     * type = all | my
      */
     public function index(Request $request)
     {
-        $type = $request->get('type', 'all'); // all | my
-    
+        $type = $request->get('type', 'all');
+
         $query = MemberConnect::with('member');
-    
-        // ✅ MY CONNECTS (only logged-in user, no visibility restriction)
+
+        // Show only my connects
         if ($type === 'my') {
-            $query->where('user_id', auth()->id());
+            $query->where('user_id', Auth::id());
         }
-      
-    
-        // 🔍 SEARCH (works for both)
+
+        // Search
         if ($request->filled('search')) {
             $search = $request->search;
-    
+
             $query->where(function ($q) use ($search) {
                 $q->where('person_name', 'like', "%{$search}%")
                   ->orWhere('company_name', 'like', "%{$search}%")
@@ -34,15 +34,14 @@ class MemberConnectController extends Controller
                   ->orWhere('profession', 'like', "%{$search}%");
             });
         }
-    
+
         $connects = $query
             ->latest()
             ->paginate(10)
             ->withQueryString();
-    
+
         return view('member.member-connects.index', compact('connects', 'type'));
     }
-
 
     /**
      * Show create form
@@ -53,45 +52,35 @@ class MemberConnectController extends Controller
     }
 
     /**
-     * Store new member connect
+     * Store new connect
      */
     public function store(Request $request)
     {
         $data = $request->validate([
-            // Personal
-            'person_name'       => 'required|string|max:255',
-            'designation'       => 'nullable|string|max:255',
-
-            // Business
-            'company_name'      => 'required|string|max:255',
-            'industry'          => 'required|string|max:255',
-            'profession'        => 'required|string|max:255',
-            'services'          => 'nullable|string',
-            'website'           => 'nullable|url',
-
-            // Contact
-            'contact_phone'     => 'nullable|string|max:20',
-            'contact_email'     => 'nullable|email|max:255',
-            'whatsapp_number'   => 'nullable|string|max:20',
-
-            // Location & chapter
-            'location'          => 'nullable|string|max:255',
-            'chapter_name'      => 'nullable|string|max:255',
-
-            // Visibility
-            'visibility'        => 'required|in:public,members',
+            'person_name'     => 'required|string|max:255',
+            'designation'     => 'nullable|string|max:255',
+            'company_name'    => 'required|string|max:255',
+            'industry'        => 'required|string|max:255',
+            'profession'      => 'required|string|max:255',
+            'services'        => 'nullable|string',
+            'website'         => 'nullable|string',
+            'contact_phone'   => 'nullable|string|max:20',
+            'contact_email'   => 'nullable|email|max:255',
+            'whatsapp_number' => 'nullable|string|max:20',
+            'location'        => 'nullable|string|max:255',
+            'chapter_name'    => 'nullable|string|max:255',
         ]);
 
         $data['user_id'] = Auth::id();
-
-        // Newly created connects are unverified by default
         $data['is_verified'] = false;
+        $data['is_active'] = true;
+        $data['recommendation_count'] = 0;
 
         MemberConnect::create($data);
 
         return redirect()
             ->route('member.connects.index')
-            ->with('success', 'Business connect added successfully. Pending verification.');
+            ->with('success', 'Business connect added successfully.');
     }
 
     /**
@@ -105,46 +94,36 @@ class MemberConnectController extends Controller
     }
 
     /**
-     * Update existing connect
+     * Update connect
      */
     public function update(Request $request, MemberConnect $memberConnect)
     {
         $this->authorizeOwner($memberConnect);
 
         $data = $request->validate([
-            // Personal
-            'person_name'       => 'required|string|max:255',
-            'designation'       => 'nullable|string|max:255',
-
-            // Business
-            'company_name'      => 'required|string|max:255',
-            'industry'          => 'required|string|max:255',
-            'profession'        => 'required|string|max:255',
-            'services'          => 'nullable|string',
-            'website'           => 'nullable|url',
-
-            // Contact
-            'contact_phone'     => 'nullable|string|max:20',
-            'contact_email'     => 'nullable|email|max:255',
-            'whatsapp_number'   => 'nullable|string|max:20',
-
-            // Location & chapter
-            'location'          => 'nullable|string|max:255',
-            'chapter_name'      => 'nullable|string|max:255',
-
-            // Visibility
-            'visibility'        => 'required|in:public,members',
-            'is_active'         => 'nullable|boolean',
+            'person_name'     => 'required|string|max:255',
+            'designation'     => 'nullable|string|max:255',
+            'company_name'    => 'required|string|max:255',
+            'industry'        => 'required|string|max:255',
+            'profession'      => 'required|string|max:255',
+            'services'        => 'nullable|string',
+            'website'         => 'nullable|string',
+            'contact_phone'   => 'nullable|string|max:20',
+            'contact_email'   => 'nullable|email|max:255',
+            'whatsapp_number' => 'nullable|string|max:20',
+            'location'        => 'nullable|string|max:255',
+            'chapter_name'    => 'nullable|string|max:255',
+            'is_active'       => 'nullable|boolean',
         ]);
 
-        // Editing resets verification (BNI-style safety)
+        // Reset verification on edit
         $data['is_verified'] = false;
 
         $memberConnect->update($data);
 
         return redirect()
             ->route('member.connects.index')
-            ->with('success', 'Business connect updated. Re-verification required.');
+            ->with('success', 'Business connect updated successfully.');
     }
 
     /**
