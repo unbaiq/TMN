@@ -346,26 +346,31 @@ Route::middleware(['auth', 'role:member'])
                 ->name('reject');
         });
 
-        Route::prefix('connects')->name('connects.')->group(function () {
+       Route::prefix('connects')->name('connects.')->group(function () {
 
-            Route::get('/', [\App\Http\Controllers\MemberConnectController::class, 'index'])
-                ->name('index');
+    Route::get('/', [\App\Http\Controllers\MemberConnectController::class, 'index'])
+        ->name('index');
 
-            Route::get('/create', [\App\Http\Controllers\MemberConnectController::class, 'create'])
-                ->name('create');
+    Route::get('/create', [\App\Http\Controllers\MemberConnectController::class, 'create'])
+        ->name('create');
 
-            Route::post('/', [\App\Http\Controllers\MemberConnectController::class, 'store'])
-                ->name('store');
+    Route::post('/', [\App\Http\Controllers\MemberConnectController::class, 'store'])
+        ->name('store');
 
-            Route::get('/{memberConnect}/edit', [\App\Http\Controllers\MemberConnectController::class, 'edit'])
-                ->name('edit');
+    // ✅ ADD THIS
+    Route::get('/{memberConnect}', [\App\Http\Controllers\MemberConnectController::class, 'show'])
+        ->name('show');
 
-            Route::put('/{memberConnect}', [\App\Http\Controllers\MemberConnectController::class, 'update'])
-                ->name('update');
+    Route::get('/{memberConnect}/edit', [\App\Http\Controllers\MemberConnectController::class, 'edit'])
+        ->name('edit');
 
-            Route::delete('/{memberConnect}', [\App\Http\Controllers\MemberConnectController::class, 'destroy'])
-                ->name('destroy');
-        });
+    Route::put('/{memberConnect}', [\App\Http\Controllers\MemberConnectController::class, 'update'])
+        ->name('update');
+
+    Route::delete('/{memberConnect}', [\App\Http\Controllers\MemberConnectController::class, 'destroy'])
+        ->name('destroy');
+});
+
     });
 
 

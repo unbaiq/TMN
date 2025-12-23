@@ -4,7 +4,7 @@
 <div class="max-w-8xl mx-auto px-4 py-4 space-y-6">
 
     {{-- ==== HEADER ==== --}}
-    <div class="bg-gradient-to-r from-red-600 via-red-500 to-orange-400 rounded-2xl shadow-lg px-8 py-8 flex flex-col md:flex-row md:items-center md:justify-between text-white">
+    <div class="bg-gradient-to-r from-red-700 via-red-600 to-red-500 rounded-2xl shadow-lg px-8 py-8 flex flex-col md:flex-row md:items-center md:justify-between text-white">
         <div>
             <h2 class="text-2xl font-semibold">Give &amp; Take of Business</h2>
             <p class="text-white/80 text-sm mt-1">

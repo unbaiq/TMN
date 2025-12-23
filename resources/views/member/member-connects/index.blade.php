@@ -117,31 +117,39 @@
                     </td>
 
                     {{-- ACTION --}}
-                    <td class="p-4 space-x-3">
-                        @if($type === 'my' && $connect->user_id === auth()->id())
+                   <td class="p-4 space-x-3 text-center">
 
-                            <a href="{{ route('member.connects.edit', $connect) }}"
-                               class="text-red-700 hover:text-red-900 font-medium">
-                                Edit
-                            </a>
+    {{-- VIEW (VISIBLE TO ALL) --}}
+    <a href="{{ route('member.connects.show', $connect) }}"
+       class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium">
+        <i data-feather="eye" class="w-4 h-4"></i>
+        View
+    </a>
 
-                            <form method="POST"
-                                  action="{{ route('member.connects.destroy', $connect) }}"
-                                  class="inline">
-                                @csrf
-                                @method('DELETE')
-                                <button onclick="return confirm('Delete this connect?')"
-                                        class="text-gray-600 hover:text-red-700 font-medium">
-                                    Delete
-                                </button>
-                            </form>
+    {{-- EDIT + DELETE (ONLY OWNER IN "MY CONNECTS") --}}
+    @if($type === 'my' && $connect->user_id === auth()->id())
 
-                        @else
-                            <span class="text-gray-400 italic text-xs">
-                                View only
-                            </span>
-                        @endif
-                    </td>
+        <a href="{{ route('member.connects.edit', $connect) }}"
+           class="inline-flex items-center gap-1 text-red-700 hover:text-red-900 font-medium ml-3">
+            <i data-feather="edit" class="w-4 h-4"></i>
+            Edit
+        </a>
+
+        <form method="POST"
+              action="{{ route('member.connects.destroy', $connect) }}"
+              class="inline">
+            @csrf
+            @method('DELETE')
+            <button onclick="return confirm('Delete this connect?')"
+                    class="inline-flex items-center gap-1 text-gray-600 hover:text-red-700 font-medium ml-3">
+                <i data-feather="trash-2" class="w-4 h-4"></i>
+                Delete
+            </button>
+        </form>
+
+    @endif
+</td>
+
 
                 </tr>
             @empty

@@ -137,7 +137,10 @@ class MemberConnectController extends Controller
 
         return back()->with('success', 'Business connect deleted successfully.');
     }
-
+public function show(MemberConnect $memberConnect)
+{
+    return view('member.member-connects.show', compact('memberConnect'));
+}
     /**
      * Ownership check
      */
