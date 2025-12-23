@@ -186,21 +186,21 @@ Route::middleware(['auth', 'role:member'])
         | MEMBER MEETINGS (1-to-1 & Cluster)
         |--------------------------------------------------------------------------
         */
-       Route::prefix('meetings')->name('meetings.')->group(function () {
+        Route::prefix('meetings')->name('meetings.')->group(function () {
 
-    Route::get('/onetoone', [MemberMeetingController::class, 'oneToOne'])->name('onetoone');
+            // 🧑‍🤝‍🧑 1-to-1 Meetups
+            Route::get('/onetoone', [MemberMeetingController::class, 'oneToOne'])->name('onetoone');
 
-    Route::get('/cluster', [MemberMeetingController::class, 'cluster'])->name('cluster');
+            // 👥 Cluster Meetings
+            Route::get('/cluster', [MemberMeetingController::class, 'cluster'])->name('cluster');
 
-    // ✅ ONLY CREATE ROUTE
-    Route::get('/create/{type}', [MemberMeetingController::class, 'create'])
-        ->where('type', '1to1|cluster')
-        ->name('create');
+            // ➕ Create New Meeting
+            Route::get('/create', [MemberMeetingController::class, 'create'])->name('create');
+            Route::post('/', [MemberMeetingController::class, 'store'])->name('store');
 
-    Route::post('/', [MemberMeetingController::class, 'store'])->name('store');
-
-    Route::get('/{meeting}', [MemberMeetingController::class, 'show'])->name('show');
-});
+            // 👁 View Meeting Details
+            Route::get('/{meeting}', [MemberMeetingController::class, 'show'])->name('show');
+        });
 
         /*
                 |--------------------------------------------------------------------------

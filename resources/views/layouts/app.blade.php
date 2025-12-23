@@ -360,6 +360,7 @@
               <i data-feather="dollar-sign" class="w-5 h-5"></i>
               <span class="md:inline">Sponsors</span>
             </a>
+            
 
           </div>
         @else
