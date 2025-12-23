@@ -105,6 +105,50 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     Route::post('/events/{event}/attendance', [EventAttendanceController::class, 'update'])
         ->name('events.attendance.update');
+
+        // awards,reg,crs
+
+
+        /*
+                |--------------------------------------------------------------------------
+                | MEMBER RECOGNITIONS (BNI-style appreciation system)
+                |--------------------------------------------------------------------------
+                */
+                Route::prefix('recognitions')->name('recognitions.')->group(function () {
+                    Route::get('/', [\App\Http\Controllers\MemberRecognitionController::class, 'index'])->name('index');      // List all recognitions
+                    Route::get('/create', [\App\Http\Controllers\MemberRecognitionController::class, 'create'])->name('create'); // Add new recognition
+                    Route::post('/', [\App\Http\Controllers\MemberRecognitionController::class, 'store'])->name('store');       // Save new recognition
+                    Route::get('/{recognition}', [\App\Http\Controllers\MemberRecognitionController::class, 'show'])->name('show'); // View recognition details
+                    Route::get('/{recognition}/edit', [\App\Http\Controllers\MemberRecognitionController::class, 'edit'])->name('edit'); // Edit recognition
+                    Route::put('/{recognition}', [\App\Http\Controllers\MemberRecognitionController::class, 'update'])->name('update'); // Update recognition
+                    Route::delete('/{recognition}', [\App\Http\Controllers\MemberRecognitionController::class, 'destroy'])->name('destroy'); // Delete recognition
+                });
+        
+                /*
+        |--------------------------------------------------------------------------
+        | MEMBER AWARDS (BNI-Style)
+        |--------------------------------------------------------------------------
+        */
+                Route::prefix('awards')->name('awards.')->group(function () {
+                    Route::get('/', [\App\Http\Controllers\MemberAwardController::class, 'index'])->name('index');
+                    Route::get('/create', [\App\Http\Controllers\MemberAwardController::class, 'create'])->name('create');
+                    Route::post('/', [\App\Http\Controllers\MemberAwardController::class, 'store'])->name('store');
+                    Route::get('/{award}', [\App\Http\Controllers\MemberAwardController::class, 'show'])->name('show');
+                    Route::get('/{award}/edit', [\App\Http\Controllers\MemberAwardController::class, 'edit'])->name('edit');
+                    Route::put('/{award}', [\App\Http\Controllers\MemberAwardController::class, 'update'])->name('update');
+                    Route::delete('/{award}', [\App\Http\Controllers\MemberAwardController::class, 'destroy'])->name('destroy');
+                });
+
+                Route::prefix('csrs')->name('csrs.')->group(function () {
+                    Route::get('/', [\App\Http\Controllers\MemberCsrController::class, 'index'])->name('index');
+                    Route::get('/create', [\App\Http\Controllers\MemberCsrController::class, 'create'])->name('create');
+                    Route::post('/', [\App\Http\Controllers\MemberCsrController::class, 'store'])->name('store');
+                    Route::get('/{csr}', [\App\Http\Controllers\MemberCsrController::class, 'show'])->name('show');
+                    Route::get('/{csr}/edit', [\App\Http\Controllers\MemberCsrController::class, 'edit'])->name('edit');
+                    Route::put('/{csr}', [\App\Http\Controllers\MemberCsrController::class, 'update'])->name('update');
+                    Route::delete('/{csr}', [\App\Http\Controllers\MemberCsrController::class, 'destroy'])->name('destroy');
+                });       
+
 });
 
 
