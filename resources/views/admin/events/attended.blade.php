@@ -10,12 +10,27 @@
             <p class="text-gray-500 mt-1 text-sm">Monitor all chapter events and attendance records in one place.</p>
         </div>
 
-        <div class="flex items-center gap-3 mt-4 md:mt-0">
-            <a href="{{ route('admin.events.create') }}"
-               class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-red-600 to-orange-500 text-white rounded-lg font-medium shadow hover:shadow-md hover:scale-105 transition-all">
-                <i data-feather="plus-circle" class="w-4"></i> New Event
-            </a>
-        </div>
+       @if(auth()->check() && auth()->user()->role === 'admin')
+    <div class="flex items-center gap-3 mt-4 md:mt-0">
+        <a href="{{ route('admin.events.create') }}"
+           class="inline-flex items-center gap-2 px-5 py-2.5
+                  bg-gradient-to-r from-red-600 to-orange-500
+                  text-white rounded-lg font-medium shadow
+                  hover:shadow-md hover:scale-105 transition-all">
+            <i data-feather="plus-circle" class="w-4"></i>
+            New Event
+        </a>
+    </div>
+@else
+    <div class="flex items-center gap-3 mt-4 md:mt-0 opacity-50 cursor-not-allowed">
+        <span class="inline-flex items-center gap-2 px-5 py-2.5
+                     bg-gray-300 text-gray-600 rounded-lg">
+            <i data-feather="lock" class="w-4"></i>
+            New Event
+        </span>
+    </div>
+@endif
+
     </div>
 
     {{-- ===== KPI / STATS CARDS ===== --}}

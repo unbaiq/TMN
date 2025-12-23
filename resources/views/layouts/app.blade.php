@@ -251,36 +251,43 @@
           </a>
 
           <a href="{{ route('admin.events.index') }}"
-            class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('admin.events.*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }} transition-colors">
-            <i data-feather="calendar" class="w-5 h-5"></i>
-            <span class="hidden md:inline">Events</span>
-          </a>
+   class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item text-gray-700
+   {{ request()->routeIs('admin.events.*') && !request()->routeIs('admin.events.attended*') ? 'nav-active' : '' }}">
+   
+   <i data-feather="calendar" class="w-5 h-5"></i>
+   <span>Events</span>
+</a>
 
-          <a href="{{ route('admin.events.attended') }}"
-            class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('admin.events.attended') || request()->routeIs('admin.events.attendance*') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }} transition-colors">
-            <i data-feather="check-circle" class="w-5 h-5"></i>
-            <span class="hidden md:inline">Event Attendance</span>
-          </a>
 
-          <a href="{{ route('admin.invitations.index') }}" class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item 
+<a href="{{ route('admin.events.attended') }}"
+   class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item text-gray-700
+   {{ request()->routeIs('admin.events.attended') || request()->routeIs('admin.events.attendance*') ? 'nav-active' : '' }}">
+   
+   <i data-feather="check-circle" class="w-5 h-5"></i>
+   <span>Event Attendance</span>
+</a>
+
+
+
+          <a href="{{ route('admin.invitations.index') }}" class="flex items-center gap-4 px-4 py-3 text-gray-700 rounded-lg nav-item 
                 {{ request()->routeIs('admin.invitations.*') ? 'nav-active' : '' }}">
             <i data-feather="send" class="w-5 h-5"></i>
             <span class="hidden md:inline">Invitations</span>
           </a>
 
           <a href="{{ route('admin.recognitions.index') }}"
-            class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('admin.recognitions.*') ? 'nav-active' : '' }}">
+            class="flex items-center gap-4 px-4 py-3 rounded-lg text-gray-700 nav-item {{ request()->routeIs('admin.recognitions.*') ? 'nav-active' : '' }}">
             <i data-feather="award" class="w-5"></i>
             <span class="hidden md:inline">Recognitions</span>
           </a>
 
           <a href="{{ route('admin.awards.index') }}"
-            class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('admin.awards.*') ? 'nav-active' : '' }}">
+            class="flex items-center gap-4 px-4 py-3 rounded-lg text-gray-700 nav-item {{ request()->routeIs('admin.awards.*') ? 'nav-active' : '' }}">
             <i data-feather="star" class="w-5"></i>
             <span class="hidden md:inline">Awards</span>
           </a>
           <a href="{{ route('admin.csrs.index') }}"
-            class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('admin.csrs.*') ? 'nav-active' : '' }}">
+            class="flex items-center gap-4 px-4 py-3 rounded-lg text-gray-700 nav-item {{ request()->routeIs('admin.csrs.*') ? 'nav-active' : '' }}">
             <i data-feather="heart" class="w-5"></i>
             <span class="hidden md:inline">CSR</span>
           </a>
@@ -691,15 +698,8 @@
     });
 
     // Keep nav-active in sync (simple)
-    document.addEventListener("DOMContentLoaded", () => {
-      const currentPath = window.location.pathname.toLowerCase();
-      document.querySelectorAll('.nav-item').forEach(a => {
-        const href = (a.getAttribute('href') || '').toLowerCase();
-        if (href && currentPath.startsWith(new URL(href, window.location.origin).pathname)) {
-          a.classList.add('nav-active');
-        }
-      });
-    });
+   
+    
   </script>
 
 </body>
