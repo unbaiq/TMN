@@ -239,7 +239,9 @@ Route::middleware(['auth', 'role:member'])
             Route::get('/cluster', [MemberMeetingController::class, 'cluster'])->name('cluster');
 
             // ➕ Create New Meeting
-            Route::get('/create', [MemberMeetingController::class, 'create'])->name('create');
+           Route::get('/create/{type}', [MemberMeetingController::class, 'create'])
+    ->name('create');
+
             Route::post('/', [MemberMeetingController::class, 'store'])->name('store');
 
             // 👁 View Meeting Details
