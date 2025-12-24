@@ -179,4 +179,10 @@ if ($request->hasFile('banner_image')) {
             ->route('admin.events.index')
             ->with('success', '🗑 Event deleted successfully!');
     }
+    public function show($slug)
+    {
+        $event = Event::where('slug', $slug)->firstOrFail();
+
+        return view('user.detailed-event', compact('event'));
+    }
 }

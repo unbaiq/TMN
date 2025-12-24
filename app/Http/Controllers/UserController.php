@@ -104,7 +104,7 @@ class UserController extends Controller
 
         $story->increment('views');
 
-        return view('user.story', compact('story'));
+        return view('user.detail-stories', compact('story'));
     }
 
     /* =========================================================
@@ -159,12 +159,12 @@ class UserController extends Controller
             ->latest('publish_date')
             ->take(4)
             ->get();
+return view('user.details-article', compact(
+    'article',
+    'latestArticles',
+    'previousArticles'
+));
 
-        return view('user.article-detail', compact(
-            'article',
-            'latestArticles',
-            'previousArticles'
-        ));
     }
 
     /* =========================================================

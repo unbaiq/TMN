@@ -126,4 +126,19 @@ class StoryController extends Controller
 
         return redirect()->route('admin.stories.index')->with('success', 'Story deleted successfully.');
     }
+   public function storyDetail($slug)
+{
+    // Current story (DO NOT use published() here)
+    $story = Story::where('slug', $slug)->firstOrFail();
+    $story->incrementViews();
+
+    // 🔥 USE SAME LOGIC AS LISTING PAGE
+    $relatedStories = Story::where('id', '!=', $story->id)
+        ->orderBy('publish_date', 'desc')
+        ->take(3)
+        ->get();
+
+    return view('user.detail-stories', compact('story', 'relatedStories'));
+}
+
 }

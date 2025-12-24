@@ -395,7 +395,8 @@ Route::get('/chapter', [UserController::class, 'chapters'])
 Route::view('/contact', 'user.contact');
 Route::view('/detail-locads', 'user.detail-locads');
 Route::view('/detail-traveltalk', 'user.detail-traveltalk');
-Route::view('/detailed-event', 'user.detailed-event');
+Route::get('/events/{slug}', [EventController::class, 'show'])
+    ->name('events.show');
 
 // Blade Pages
 Route::view('/easy-to-join', 'user.easy-to-joinsection');

@@ -172,38 +172,38 @@
       </div>
 
       {{-- Members --}}
-      <div class="p-4 flex items-start flex-wrap gap-10 justify-center">
-        @forelse($activeMembers as $member)
-          <div
-            class="w-[280px] py-4 border bg-white transition-all ease-in duration-300 transform hover:scale-105 cursor-pointer shadow-md rounded-tl-[20px] rounded-br-[40px]">
+      <div class="p-4 flex flex-wrap gap-10 justify-center">
+  @forelse($activeMembers as $member)
+    <div
+      class="w-[280px] py-6 border bg-white transition-all duration-300 transform hover:scale-105 cursor-pointer shadow-md rounded-tl-[20px] rounded-br-[40px]">
 
-            <div class="w-[180px] h-[180px] flex items-center justify-center mx-auto">
-              <div class="w-[90%]">
-                <img src="{{asset('storage/' .$member->basicInfo->photo)}}"
-                  class="w-full h-full rounded-full object-cover" alt="">
-
-
-                <!-- ok -->
-              </div>
-            </div>
-
-            <div class="text-center py-4">
-              <h4 class="text-[#232323] text-[20px] font-semibold leading-[24px]">
-                {{ $member->name }}
-              </h4>
-
-              <h6 class="text-[#232323] text-[15px] font-normal leading-[24px]">
-                {{ $member->basicInfo->bni_chapter_role ?? 'TMN Member' }}
-              </h6>
-
-            </div>
-          </div>
-        @empty
-          <p class="text-gray-500 text-center">
-            No active members available.
-          </p>
-        @endforelse
+      <!-- Image -->
+      <div class="w-[180px] h-[180px] mx-auto">
+        <img
+          src="{{ asset('storage/' . $member->basicInfo->photo) }}"
+          alt="{{ $member->name }}"
+          class="w-full h-full rounded-full object-cover border border-gray-200"
+        />
       </div>
+
+      <!-- Text -->
+      <div class="text-center pt-6">
+        <h4 class="text-[#232323] text-[20px] font-semibold leading-[24px]">
+          {{ $member->name }}
+        </h4>
+
+        <h6 class="text-[#232323] text-[15px] font-normal leading-[24px]">
+          {{ $member->basicInfo->bni_chapter_role ?? 'TMN Member' }}
+        </h6>
+      </div>
+    </div>
+  @empty
+    <p class="text-gray-500 text-center">
+      No active members available.
+    </p>
+  @endforelse
+</div>
+
 
     </div>
   </section>
