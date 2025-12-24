@@ -34,44 +34,49 @@
    EVENT DETAILS + FORM
 ========================= --}}
 <section class="py-12">
-    <div class="main-width grid lg:grid-cols-2 gap-10">
+    <div class="main-width grid lg:grid-cols-2 gap-10 ">
 
         {{-- LEFT : EVENT INFO --}}
-        <div class="bg-white rounded-2xl shadow p-8">
+      <div class="bg-white rounded-2xl shadow p-10">
 
     {{-- DATE --}}
-    <span class="inline-flex items-center gap-2 bg-red-600/10 text-red-600 px-4 py-2 rounded text-sm font-medium">
-        <i data-feather="calendar" class="w-4 h-4"></i>
+    <span class="inline-flex items-center gap-2
+                 bg-red-600/10 text-red-600
+                 px-5 py-2.5 rounded
+                 text-base font-semibold">
+        <i data-feather="calendar" class="w-5 h-5"></i>
         {{ optional($event->event_date)->format('l, d F Y') ?? 'Date not announced' }}
     </span>
 
     {{-- TITLE --}}
-    <h2 class="text-3xl font-bold mt-4 text-[#232323]">
+    <h2 class="text-4xl md:text-5xl font-bold mt-6 text-red-600 leading-tight">
         {{ $event->title }}
     </h2>
 
     {{-- LOCATION --}}
-    <div class="flex items-start gap-2 mt-2 text-gray-500">
-        <i data-feather="map-pin" class="w-4 h-4 mt-1"></i>
+    <div class="flex items-start gap-3 mt-4 text-gray-600 text-lg">
+        <i data-feather="map-pin" class="w-5 h-5 mt-1"></i>
         <p>
-            {{ $event->city }}{{ $event->state ? ', '.$event->state : '' }}{{ $event->country ? ', '.$event->country : '' }}
+            {{ $event->city }}
+            {{ $event->state ? ', '.$event->state : '' }}
+            {{ $event->country ? ', '.$event->country : '' }}
         </p>
     </div>
 
     {{-- DESCRIPTION --}}
-    <div class="mt-6 text-gray-700 leading-7">
+    <div class="mt-8 text-gray-800 text-lg leading-8">
         {!! nl2br(e($event->description)) !!}
     </div>
 
     {{-- AGENDA --}}
     @if($event->agenda)
-        <div class="mt-8">
-            <h3 class="text-xl font-semibold mb-3 text-[#232323] flex items-center gap-2">
-                <i data-feather="list" class="w-5 h-5"></i>
+        <div class="mt-10">
+            <h3 class="text-2xl font-semibold mb-4 text-[#232323] flex items-center gap-3">
+                <i data-feather="list" class="w-6 h-6"></i>
                 Event Agenda
             </h3>
 
-            <ul class="list-decimal pl-6 space-y-2 text-gray-700">
+            <ul class="list-decimal pl-7 space-y-3 text-lg text-gray-700">
                 @foreach(json_decode($event->agenda, true) as $agenda)
                     <li>{{ $agenda }}</li>
                 @endforeach
@@ -80,25 +85,25 @@
     @endif
 
     {{-- META INFO --}}
-    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 text-sm">
+    <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-8 text-base">
 
         {{-- VENUE --}}
-        <div class="flex gap-3">
-            <i data-feather="home" class="w-5 h-5 text-gray-600"></i>
+        <div class="flex gap-4">
+            <i data-feather="home" class="w-6 h-6 text-gray-600"></i>
             <div>
-                <p class="text-gray-500">Venue</p>
-                <p class="font-medium text-gray-900">
+                <p class="text-gray-500 text-sm uppercase">Venue</p>
+                <p class="font-semibold text-lg text-gray-900">
                     {{ $event->venue_name ?? $event->city ?? 'TBA' }}
                 </p>
             </div>
         </div>
 
         {{-- ADDRESS --}}
-        <div class="flex gap-3">
-            <i data-feather="navigation" class="w-5 h-5 text-gray-600"></i>
+        <div class="flex gap-4">
+            <i data-feather="navigation" class="w-6 h-6 text-gray-600"></i>
             <div>
-                <p class="text-gray-500">Address</p>
-                <p class="font-medium text-gray-900">
+                <p class="text-gray-500 text-sm uppercase">Address</p>
+                <p class="font-semibold text-lg text-gray-900">
                     {{ $event->address_line1 }}
                     {{ $event->address_line2 ? ', '.$event->address_line2 : '' }}
                 </p>
@@ -106,11 +111,11 @@
         </div>
 
         {{-- TIME --}}
-        <div class="flex gap-3">
-            <i data-feather="clock" class="w-5 h-5 text-gray-600"></i>
+        <div class="flex gap-4">
+            <i data-feather="clock" class="w-6 h-6 text-gray-600"></i>
             <div>
-                <p class="text-gray-500">Time</p>
-                <p class="font-medium text-gray-900">
+                <p class="text-gray-500 text-sm uppercase">Time</p>
+                <p class="font-semibold text-lg text-gray-900">
                     {{ $event->start_time ? \Carbon\Carbon::parse($event->start_time)->format('h:i A') : '—' }}
                     –
                     {{ $event->end_time ? \Carbon\Carbon::parse($event->end_time)->format('h:i A') : '—' }}
@@ -119,33 +124,33 @@
         </div>
 
         {{-- EVENT TYPE --}}
-        <div class="flex gap-3">
-            <i data-feather="tag" class="w-5 h-5 text-gray-600"></i>
+        <div class="flex gap-4">
+            <i data-feather="tag" class="w-6 h-6 text-gray-600"></i>
             <div>
-                <p class="text-gray-500">Event Type</p>
-                <p class="font-medium text-gray-900 capitalize">
+                <p class="text-gray-500 text-sm uppercase">Event Type</p>
+                <p class="font-semibold text-lg text-gray-900 capitalize">
                     {{ $event->event_type ?? 'General' }}
                 </p>
             </div>
         </div>
 
         {{-- HOST --}}
-        <div class="flex gap-3">
-            <i data-feather="user" class="w-5 h-5 text-gray-600"></i>
+        <div class="flex gap-4">
+            <i data-feather="user" class="w-6 h-6 text-gray-600"></i>
             <div>
-                <p class="text-gray-500">Hosted By</p>
-                <p class="font-medium text-gray-900">
+                <p class="text-gray-500 text-sm uppercase">Hosted By</p>
+                <p class="font-semibold text-lg text-gray-900">
                     {{ $event->host_name ?? 'TMN Team' }}
                 </p>
             </div>
         </div>
 
         {{-- CONTACT --}}
-        <div class="flex gap-3">
-            <i data-feather="phone" class="w-5 h-5 text-gray-600"></i>
+        <div class="flex gap-4">
+            <i data-feather="phone" class="w-6 h-6 text-gray-600"></i>
             <div>
-                <p class="text-gray-500">Contact</p>
-                <p class="font-medium text-gray-900">
+                <p class="text-gray-500 text-sm uppercase">Contact</p>
+                <p class="font-semibold text-lg text-gray-900">
                     {{ $event->host_contact ?? '—' }}
                 </p>
             </div>
@@ -155,22 +160,23 @@
 
     {{-- ONLINE EVENT --}}
     @if($event->is_online)
-        <div class="mt-8 p-5 bg-green-50 border border-green-200 rounded-xl">
-            <h4 class="font-semibold text-green-700 mb-2 flex items-center gap-2">
-                <i data-feather="video" class="w-5 h-5"></i>
+        <div class="mt-10 p-6 bg-green-50 border border-green-200 rounded-xl">
+            <h4 class="font-semibold text-green-700 text-xl mb-3 flex items-center gap-3">
+                <i data-feather="video" class="w-6 h-6"></i>
                 Online Event
             </h4>
 
-            <p class="text-sm text-gray-700 flex items-center gap-2">
-                <i data-feather="link" class="w-4 h-4"></i>
-                <a href="{{ $event->meeting_link }}" target="_blank" class="text-blue-600 underline">
+            <p class="text-lg text-gray-700 flex items-center gap-3">
+                <i data-feather="link" class="w-5 h-5"></i>
+                <a href="{{ $event->meeting_link }}" target="_blank"
+                   class="text-blue-600 underline font-medium">
                     Join Meeting
                 </a>
             </p>
 
             @if($event->meeting_password)
-                <p class="text-sm text-gray-700 mt-1 flex items-center gap-2">
-                    <i data-feather="lock" class="w-4 h-4"></i>
+                <p class="text-lg text-gray-700 mt-2 flex items-center gap-3">
+                    <i data-feather="lock" class="w-5 h-5"></i>
                     Password: <strong>{{ $event->meeting_password }}</strong>
                 </p>
             @endif
@@ -179,49 +185,117 @@
 
 </div>
 
+
         {{-- RIGHT : JOIN FORM --}}
-        <div class="bg-gray-100 p-8 rounded-2xl shadow">
-            <h3 class="text-xl font-semibold mb-6 text-center">
-                Join This Event
-            </h3>
+       <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
 
-            <form method="POST" action="{{ route('enquiry.submit', $event->id) }}" class="space-y-4">
-                @csrf
+    {{-- TITLE --}}
+    <h3 class="text-xl font-semibold mb-8 text-center text-[#232323]">
+        Join This Event
+    </h3>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <input type="text" name="first_name" required
-                           placeholder="First Name"
-                           class="w-full px-4 py-3 rounded border focus:outline-none focus:ring">
+    <form method="POST"
+          action="{{ route('enquiry.submit', $event->id ?? $meetup->id) }}"
+          class="space-y-6">
+        @csrf
 
-                    <input type="text" name="last_name"
-                           placeholder="Last Name"
-                           class="w-full px-4 py-3 rounded border focus:outline-none focus:ring">
-                </div>
+        {{-- FIRST + LAST NAME --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-semibold mb-2 uppercase tracking-wide">
+                    First Name
+                </label>
+                <input type="text" name="first_name" required
+                       placeholder="Jane"
+                       class="w-full px-4 py-3 rounded-lg bg-gray-100
+                              border border-transparent
+                              focus:outline-none focus:ring-2
+                              focus:ring-red-500">
+            </div>
 
-                <input type="email" name="email" required
-                       placeholder="Email Address"
-                       class="w-full px-4 py-3 rounded border focus:outline-none focus:ring">
-
-                <input type="text" name="phone" required
-                       placeholder="Phone Number"
-                       class="w-full px-4 py-3 rounded border focus:outline-none focus:ring">
-
-                <div class="grid grid-cols-2 gap-4">
-                    <input type="text" name="city"
-                           placeholder="City"
-                           class="w-full px-4 py-3 rounded border focus:outline-none focus:ring">
-
-                    <input type="text" name="zip"
-                           placeholder="Zip Code"
-                           class="w-full px-4 py-3 rounded border focus:outline-none focus:ring">
-                </div>
-
-                <button type="submit"
-                        class="w-full bg-primary text-white py-3 rounded-lg font-medium hover:bg-primary/90 transition">
-                    Submit & Join Event
-                </button>
-            </form>
+            <div>
+                <label class="block text-sm font-semibold mb-2 uppercase tracking-wide">
+                    Last Name
+                </label>
+                <input type="text" name="last_name"
+                       placeholder="Doe"
+                       class="w-full px-4 py-3 rounded-lg bg-gray-100
+                              border border-transparent
+                              focus:outline-none focus:ring-2
+                              focus:ring-red-500">
+            </div>
         </div>
+
+        {{-- EMAIL --}}
+        <div>
+            <label class="block text-sm font-semibold mb-2 uppercase tracking-wide">
+                Email
+            </label>
+            <input type="email" name="email" required
+                   placeholder="Enter your email"
+                   class="w-full px-4 py-3 rounded-lg bg-gray-100
+                          border border-transparent
+                          focus:outline-none focus:ring-2
+                          focus:ring-red-500">
+            <p class="text-xs text-gray-500 mt-1">
+                We'll use this to send you event updates
+            </p>
+        </div>
+
+        {{-- PHONE --}}
+        <div>
+            <label class="block text-sm font-semibold mb-2 uppercase tracking-wide">
+                Phone
+            </label>
+            <input type="text" name="phone" required
+                   placeholder="Enter your phone number"
+                   class="w-full px-4 py-3 rounded-lg bg-gray-100
+                          border border-transparent
+                          focus:outline-none focus:ring-2
+                          focus:ring-red-500">
+            <p class="text-xs text-gray-500 mt-1">
+                For event-related communications
+            </p>
+        </div>
+
+        {{-- CITY + ZIP --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-semibold mb-2 uppercase tracking-wide">
+                    City
+                </label>
+                <input type="text" name="city"
+                       placeholder="Your city"
+                       class="w-full px-4 py-3 rounded-lg bg-gray-100
+                              border border-transparent
+                              focus:outline-none focus:ring-2
+                              focus:ring-red-500">
+            </div>
+
+            <div>
+                <label class="block text-sm font-semibold mb-2 uppercase tracking-wide">
+                    ZIP
+                </label>
+                <input type="text" name="zip"
+                       placeholder="201301"
+                       class="w-full px-4 py-3 rounded-lg bg-gray-100
+                              border border-transparent
+                              focus:outline-none focus:ring-2
+                              focus:ring-red-500">
+            </div>
+        </div>
+
+        {{-- SUBMIT --}}
+        <button type="submit"
+                class="w-full bg-red-600 hover:bg-red-700
+                       text-white py-4 rounded-xl
+                       font-semibold text-lg transition">
+            Register for Event
+        </button>
+
+    </form>
+</div>
+
 
     </div>
 </section>
