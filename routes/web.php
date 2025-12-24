@@ -438,6 +438,10 @@ Route::get('/articles/{slug}', [UserController::class, 'articleDetail'])->name('
 Route::get('/build-brand', [UserController::class, 'buildBrand'])
     ->name('build-brand.index');
 
+    
+Route::get('/meetups/{slug}', [UserController::class, 'meetupDetail'])
+    ->name('meetups.show');
+
 
 Route::get('/events', [UserController::class, 'events'])
     ->name('events');

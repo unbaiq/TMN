@@ -166,6 +166,26 @@ return view('user.details-article', compact(
 ));
 
     }
+    public function meetupDetail($slug)
+{
+    $meetup = Meetup::where('slug', $slug)
+        ->where('is_active', true)
+        ->where('is_public', true)
+        ->firstOrFail();
+
+    $meetup->incrementViews();
+
+    $previousMeetups = Meetup::where('is_active', true)
+        ->where('is_public', true)
+        ->where('id', '!=', $meetup->id)
+        ->whereDate('event_date', '<', $meetup->event_date)
+        ->orderBy('event_date', 'desc')
+        ->take(4)
+        ->get();
+
+    return view('user.detail-meetup', compact('meetup', 'previousMeetups'));
+}
+
 
     /* =========================================================
      | EVENTS

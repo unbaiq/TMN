@@ -134,11 +134,15 @@
                 </div>
 
                 <!-- CTA -->
-                <div class="mt-8">
-                    <span class="bg-primary rounded-[5px] text-white px-6 py-3 text-[18px] font-bold inline-block">
-                        {{ $meetup->registration_link ? 'Reserve Your Spot Now!' : 'Coming Soon' }}
-                    </span>
-                </div>
+      <a href="{{ route('meetups.show', $meetup->slug) }}"
+   class="bg-primary rounded-[5px] text-white px-6 py-3 text-[18px] font-bold inline-block">
+    Join Meetup
+</a>
+
+
+
+
+
 
             </div>
         </div>
