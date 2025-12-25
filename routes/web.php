@@ -204,11 +204,28 @@ Route::middleware(['auth', 'role:member'])
 
         });
         // ✅ MEMBER EVENT INVITATIONS (BNI-style guest invites)
-        Route::prefix('invitations')->name('invitations.')->group(function () {
-            Route::get('/', [\App\Http\Controllers\EventInvitationController::class, 'index'])->name('index');
-            Route::post('/', [\App\Http\Controllers\EventInvitationController::class, 'store'])->name('store');
-            Route::post('/{id}/status', [\App\Http\Controllers\EventInvitationController::class, 'updateStatus'])->name('updateStatus');
-        });
+      Route::prefix('invitations')
+    ->name('invitations.')
+    ->group(function () {
+
+        Route::get('/', [\App\Http\Controllers\EventInvitationController::class, 'index'])
+            ->name('index');
+
+        Route::post('/', [\App\Http\Controllers\EventInvitationController::class, 'store'])
+            ->name('store');
+
+        // ✅ EDIT FORM
+        Route::get('/{invitation}/edit', [\App\Http\Controllers\EventInvitationController::class, 'edit'])
+            ->name('edit');
+
+        // ✅ UPDATE (USED BY YOUR FORM)
+        Route::put('/{invitation}', [\App\Http\Controllers\EventInvitationController::class, 'update'])
+            ->name('update');
+
+        // Status-only update
+        Route::post('/{invitation}/status', [\App\Http\Controllers\EventInvitationController::class, 'updateStatus'])
+            ->name('updateStatus');
+    });
 
         // ✅ MEMBER GIVE & TAKE OF BUSINESS (BNI-style)
         Route::prefix('business')->name('business.')->group(function () {
@@ -438,7 +455,7 @@ Route::get('/articles/{slug}', [UserController::class, 'articleDetail'])->name('
 Route::get('/build-brand', [UserController::class, 'buildBrand'])
     ->name('build-brand.index');
 
-    
+
 Route::get('/meetups/{slug}', [UserController::class, 'meetupDetail'])
     ->name('meetups.show');
 

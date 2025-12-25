@@ -117,6 +117,9 @@
         request()->routeIs('admin.advisories.*') => 'Advisory',
         request()->routeIs('admin.partners.*') => 'Partners',
         request()->routeIs('admin.sponsors.*') => 'Sponsors',
+        request()->routeIs('admin.recognitions.*') => 'Recognitions',
+        request()->routeIs('admin.awards.*') => 'Awards',
+        request()->routeIs('admin.csrs.*') => 'CSR',
         default => 'Admin Panel',
       };
     }

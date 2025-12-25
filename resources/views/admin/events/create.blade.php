@@ -20,6 +20,15 @@
                 <i data-feather="arrow-left" class="w-4 h-4 mr-2"></i> Back to Event List
             </a>
         </div>
+@if ($errors->any())
+    <div class="mb-4 rounded-lg bg-red-50 p-3 text-red-700">
+        <ul class="list-disc list-inside text-sm">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
         {{-- ==== FORM ==== --}}
         <form action="{{ route('admin.events.store') }}" method="POST" enctype="multipart/form-data"
@@ -239,12 +248,15 @@
                     {{-- Status --}}
                     <div>
                         <label class="block text-sm font-semibold text-gray-700 mb-1">Event Status</label>
-                        <select name="status"
-                            class="w-full border border-gray-300 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-red-500 shadow-sm">
-                            <option value="upcoming">Upcoming</option>
-                            <option value="published" selected>Published</option>
-                            <option value="cancelled">Cancelled</option>
-                        </select>
+                       <select name="status" required
+        class="w-full border rounded-lg px-3 py-2">
+    <option value="">-- Select Status --</option>
+    <option value="upcoming">Upcoming</option>
+    <option value="ongoing">Ongoing</option>
+    <option value="completed">Completed</option>
+    <option value="cancelled">Cancelled</option>
+</select>
+
                     </div>
 
                     {{-- Banner Image --}}

@@ -35,56 +35,75 @@ class EventController extends Controller
     /** ===========================
      *  STORE: Save new event
      *  =========================== */
-    public function store(Request $request)
-    {
+   public function store(Request $request)
+{
+    // ✅ Normalize checkbox values
+    $request->merge([
+        'is_online'   => $request->has('is_online'),
+        'is_public'   => $request->has('is_public'),
+        'is_featured' => $request->has('is_featured'),
+    ]);
 
-      
-        $validated = $request->validate([
-            'event_type'       => 'required|in:general,chapter',
-            'chapter_id'       => 'nullable|exists:chapters,id',
-            'title'            => 'required|string|max:255',
-            'description'      => 'nullable|string',
-            'venue_name'       => 'nullable|string|max:255',
-            'address_line1'    => 'nullable|string|max:255',
-            'address_line2'    => 'nullable|string|max:255',
-            'city'             => 'nullable|string|max:255',
-            'state'            => 'nullable|string|max:255',
-            'country'          => 'nullable|string|max:255',
-            'pincode'          => 'nullable|string|max:10',
-            'event_date'       => 'required|date',
-            'start_time'       => 'required',
-            'end_time'         => 'required',
-            'host_name'        => 'nullable|string|max:255',
-            'host_contact'     => 'nullable|string|max:50',
-            'host_email'       => 'nullable|email|max:255',
-            'is_online'        => 'sometimes|in:0,1,on',
-            'meeting_link'     => 'nullable|url|max:500',
-            'meeting_password' => 'nullable|string|max:100',
-            'agenda'           => 'nullable|string',
-            'notes'            => 'nullable|string',
-            'max_attendees'    => 'nullable|integer|min:0',
-            'status'           => 'nullable|in:upcoming,ongoing,completed,cancelled',
-            'is_public'        => 'sometimes|in:0,1,on',
-            'is_featured'      => 'sometimes|in:0,1,on',
-            'banner_image'     => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
-        ]);
-       
-        // Auto-generate slug
-        $validated['slug'] = Str::slug($validated['title']) . '-' . Str::random(5);
-       $validated['organizer_id'] = Auth::id(); // fallback if not logged in
+    // ✅ Base validation rules
+    $rules = [
+        'event_type'  => 'required|in:general,chapter',
+        'title'       => 'required|string|max:255',
+        'description' => 'nullable|string',
 
-       // Handle banner upload if exists
-if ($request->hasFile('banner_image')) {
-    $path = $request->file('banner_image')->store('events', 'public');
-    $validated['banner_image'] = $path; // events/filename.jpg
-}
+        'venue_name'    => 'nullable|string|max:255',
+        'address_line1' => 'nullable|string|max:255',
+        'address_line2' => 'nullable|string|max:255',
+        'city'          => 'nullable|string|max:255',
+        'state'         => 'nullable|string|max:255',
+        'country'       => 'nullable|string|max:255',
+        'pincode'       => 'nullable|string|max:10',
 
-        Event::create($validated);
+        'event_date' => 'required|date',
+        'start_time' => 'required',
+        'end_time'   => 'required',
 
-        return redirect()
-            ->route('admin.events.index')
-            ->with('success', '✅ Event created successfully!');
+        'host_name'    => 'nullable|string|max:255',
+        'host_contact' => 'nullable|string|max:50',
+        'host_email'   => 'nullable|email|max:255',
+
+        'meeting_link'     => 'nullable|url|max:500',
+        'meeting_password' => 'nullable|string|max:100',
+
+        'agenda'        => 'nullable|string',
+        'notes'         => 'nullable|string',
+        'max_attendees' => 'nullable|integer|min:0',
+
+        'status' => 'required|in:upcoming,ongoing,completed,cancelled',
+
+        'banner_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+    ];
+
+    // ✅ CONDITIONAL CHAPTER LOGIC (THIS IS THE KEY)
+    if ($request->event_type === 'chapter') {
+        $rules['chapter_id'] = 'required|exists:chapters,id';
+    } else {
+        // General event → no chapter
+        $request->merge(['chapter_id' => null]);
     }
+
+    $validated = $request->validate($rules);
+
+    // ✅ System fields
+    $validated['slug'] = Str::slug($validated['title']) . '-' . Str::random(5);
+    $validated['organizer_id'] = Auth::id();
+
+    // ✅ Banner upload
+    if ($request->hasFile('banner_image')) {
+        $validated['banner_image'] =
+            $request->file('banner_image')->store('events', 'public');
+    }
+
+    Event::create($validated);
+
+    return redirect()
+        ->route('admin.events.index')
+        ->with('success', '✅ Event created successfully!');
+}
 
     /** ===========================
      *  EDIT: Show edit form
@@ -178,11 +197,5 @@ if ($request->hasFile('banner_image')) {
         return redirect()
             ->route('admin.events.index')
             ->with('success', '🗑 Event deleted successfully!');
-    }
-    public function show($slug)
-    {
-        $event = Event::where('slug', $slug)->firstOrFail();
-
-        return view('user.detailed-event', compact('event'));
     }
 }

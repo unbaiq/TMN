@@ -98,24 +98,23 @@ class AdminInviteController extends Controller
     /**
      * 🔄 UPDATE – Update Invitation
      */
-    public function update(Request $request, EventInvitation $invitation)
-    {
-        $validated = $request->validate([
-            'inviter_id'   => 'required|exists:users,id',
-            'event_id'     => 'required|exists:events,id',
-            'guest_name'   => 'required|string|max:255',
-            'guest_email'  => 'required|email|max:255',
-            'guest_phone'  => 'nullable|string|max:20',
-            'profession'   => 'nullable|string|max:255',
-            'status'       => 'nullable|string|max:50',
-        ]);
+   public function update(Request $request, EventInvitation $invitation)
+{
+    $validated = $request->validate([
+        'guest_name'   => 'required|string|max:255',
+        'guest_email'  => 'required|email|max:255',
+        'guest_phone'  => 'nullable|string|max:20',
+        'profession'   => 'nullable|string|max:255',
+        'status'       => 'required|in:invited,accepted,attended,declined',
+    ]);
 
-        $invitation->update($validated);
+    $invitation->update($validated);
 
-        return redirect()
-            ->route('admin.invitations.index')
-            ->with('success', 'Invitation updated successfully.');
-    }
+    return redirect()
+        ->route('admin.invitations.index')
+        ->with('success', 'Invitation updated successfully.');
+}
+
 
     /**
      * 🗑 DELETE – Remove Invitation

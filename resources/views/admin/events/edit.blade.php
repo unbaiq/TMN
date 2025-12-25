@@ -134,11 +134,24 @@
 
         {{-- ================= STATUS ================= --}}
         <div class="px-6 py-5 border-b bg-gray-50 grid md:grid-cols-2 gap-4">
-            <select name="status" class="erp-input">
-                <option value="upcoming" {{ $event->status === 'upcoming' ? 'selected' : '' }}>Upcoming</option>
-                <option value="published" {{ $event->status === 'published' ? 'selected' : '' }}>Published</option>
-                <option value="cancelled" {{ $event->status === 'cancelled' ? 'selected' : '' }}>Cancelled</option>
-            </select>
+           <select name="status" class="erp-input" required>
+    <option value="upcoming" {{ $event->status === 'upcoming' ? 'selected' : '' }}>
+        Upcoming
+    </option>
+
+    <option value="ongoing" {{ $event->status === 'ongoing' ? 'selected' : '' }}>
+        Ongoing
+    </option>
+
+    <option value="completed" {{ $event->status === 'completed' ? 'selected' : '' }}>
+        Completed
+    </option>
+
+    <option value="cancelled" {{ $event->status === 'cancelled' ? 'selected' : '' }}>
+        Cancelled
+    </option>
+</select>
+
 
             <div class="flex gap-6 items-center text-xs text-gray-700">
                 <label class="flex items-center gap-2">

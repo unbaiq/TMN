@@ -55,64 +55,86 @@
                 </tr>
             </thead>
 
-            <tbody>
-                @forelse ($invitations as $invite)
-                    <tr class="hover:bg-red-50/40 transition">
-                        <td class="px-5 py-3 border-b">
-                            <div class="font-semibold text-gray-900">
-                                {{ $invite->guest_name }}
-                            </div>
-                            <div class="text-xs text-gray-500">
-                                {{ $invite->guest_email ?? '—' }}
-                            </div>
-                        </td>
+           <tbody>
+@forelse ($invitations as $invite)
+    <tr class="hover:bg-red-50/40 transition">
 
-                        <td class="px-5 py-3 border-b text-gray-700">
-                            {{ $invite->guest_phone ?? '—' }}
-                        </td>
+        <td class="px-5 py-3 border-b">
+            <div class="font-semibold text-gray-900">
+                {{ $invite->guest_name }}
+            </div>
+            <div class="text-xs text-gray-500">
+                {{ $invite->guest_email ?? '—' }}
+            </div>
+        </td>
 
-                        <td class="px-5 py-3 border-b text-gray-700">
-                            {{ $invite->event->title ?? '—' }}
-                        </td>
+        <td class="px-5 py-3 border-b text-gray-700">
+            {{ $invite->guest_phone ?? '—' }}
+        </td>
 
-                        <td class="px-5 py-3 border-b text-gray-700">
-                            {{ $invite->inviter->name ?? '—' }}
-                        </td>
+        <td class="px-5 py-3 border-b text-gray-700">
+            {{ $invite->event->title ?? '—' }}
+        </td>
 
-                        <td class="px-5 py-3 border-b text-center">
-                        @if(empty($invite->membership_token))
-                        <span class="px-4 py-1.5 text-xs rounded bg-yellow-100 text-green-700 font-semibold">
-                                   Pending
-                                </span>
-                            @else
-                                <span class="px-4 py-1.5 text-xs rounded bg-green-100 text-green-700 font-semibold">
-                                    CLOSED
-                                </span>
-                            @endif
-                        </td>
+        <td class="px-5 py-3 border-b text-gray-700">
+            {{ $invite->inviter->name ?? '—' }}
+        </td>
 
-                        <td class="px-5 py-3 border-b text-right space-x-2">
-                          
-                                <button onclick="sendInviteLink({{ $invite->id }})"
-                                    class="px-4 py-1.5 text-xs rounded bg-red-600 hover:bg-red-700 text-white font-semibold">
-                                    SEND
-                                </button>
-                          
+        {{-- ✅ STATUS (USES status, NOT membership_token) --}}
+        <td class="px-5 py-3 border-b text-center">
+            @switch($invite->status)
+                @case('invited')
+                    <span class="px-3 py-1 text-xs rounded bg-yellow-100 text-yellow-800 font-semibold">
+                        Invited
+                    </span>
+                    @break
 
-                            <a href="{{ route('admin.invitations.edit', $invite) }}"
-                               class="text-xs text-gray-600 hover:text-red-600 font-semibold">
-                                EDIT
-                            </a>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" class="px-6 py-12 text-center text-gray-500">
-                            No invitation records available
-                        </td>
-                    </tr>
-                @endforelse
-            </tbody>
+                @case('accepted')
+                    <span class="px-3 py-1 text-xs rounded bg-blue-100 text-blue-800 font-semibold">
+                        Accepted
+                    </span>
+                    @break
+
+                @case('attended')
+                    <span class="px-3 py-1 text-xs rounded bg-green-100 text-green-800 font-semibold">
+                        Attended
+                    </span>
+                    @break
+
+                @case('declined')
+                    <span class="px-3 py-1 text-xs rounded bg-red-100 text-red-800 font-semibold">
+                        Declined
+                    </span>
+                    @break
+
+                @default
+                    <span class="px-3 py-1 text-xs rounded bg-gray-100 text-gray-700 font-semibold">
+                        —
+                    </span>
+            @endswitch
+        </td>
+
+        <td class="px-5 py-3 border-b text-right space-x-2">
+            <button onclick="sendInviteLink({{ $invite->id }})"
+                class="px-4 py-1.5 text-xs rounded bg-red-600 hover:bg-red-700 text-white font-semibold">
+                SEND
+            </button>
+
+            <a href="{{ route('admin.invitations.edit', $invite) }}"
+               class="text-xs text-gray-600 hover:text-red-600 font-semibold">
+                EDIT
+            </a>
+        </td>
+    </tr>
+@empty
+    <tr>
+        <td colspan="6" class="px-6 py-12 text-center text-gray-500">
+            No invitation records available
+        </td>
+    </tr>
+@endforelse
+</tbody>
+
         </table>
     </div>
 

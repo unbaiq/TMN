@@ -8,48 +8,45 @@
         <i data-feather="edit"></i> Edit Invitation
     </h2>
 
-    <form method="POST"
-          action="{{ route('admin.invitations.update', $invitation) }}"
-          class="space-y-4">
-        @csrf
-        @method('PUT')
+   <form method="POST"
+      action="{{ route('admin.invitations.update', $invitation->id) }}"
+      class="space-y-4">
 
-        <div>
-            <label class="block text-sm font-medium">Guest Name *</label>
-            <input type="text" name="guest_name"
-                   value="{{ $invitation->guest_name }}"
-                   class="w-full border rounded-lg px-3 py-2 focus:ring-red-500">
-        </div>
+    @csrf
+    @method('PUT')
 
-        <div>
-            <label class="block text-sm font-medium">Guest Email *</label>
-            <input type="email" name="guest_email"
-                   value="{{ $invitation->guest_email }}"
-                   class="w-full border rounded-lg px-3 py-2 focus:ring-red-500">
-        </div>
+    <input type="hidden" name="_debug" value="1">
 
-        <div>
-            <label class="block text-sm font-medium">Status</label>
-            <select name="status" class="w-full border rounded-lg px-3 py-2 focus:ring-red-500">
-                @foreach(['invited','accepted','attended','declined'] as $status)
-                    <option value="{{ $status }}"
-                        @selected($status === $invitation->status)>
-                        {{ ucfirst($status) }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
+    <div>
+        <label class="block text-sm font-medium">Guest Name *</label>
+        <input type="text" name="guest_name"
+               value="{{ $invitation->guest_name }}"
+               class="w-full border rounded-lg px-3 py-2">
+    </div>
 
-        <div class="flex justify-end gap-3 pt-4">
-            <a href="{{ route('admin.invitations.index') }}"
-               class="px-4 py-2 bg-gray-100 rounded-lg">
-                Cancel
-            </a>
+    <div>
+        <label class="block text-sm font-medium">Guest Email *</label>
+        <input type="email" name="guest_email"
+               value="{{ $invitation->guest_email }}"
+               class="w-full border rounded-lg px-3 py-2">
+    </div>
 
-            <button class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg">
-                Update Invitation
-            </button>
-        </div>
-    </form>
+    <div>
+        <label class="block text-sm font-medium">Status</label>
+        <select name="status" class="w-full border rounded-lg px-3 py-2">
+            @foreach(['invited','accepted','attended','declined'] as $status)
+                <option value="{{ $status }}" @selected($status === $invitation->status)>
+                    {{ ucfirst($status) }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+    <button type="submit"
+            class="px-4 py-2 bg-red-600 text-white rounded-lg">
+        Update Invitation
+    </button>
+</form>
+
 </div>
 @endsection

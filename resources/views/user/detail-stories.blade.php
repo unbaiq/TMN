@@ -52,81 +52,94 @@
         ========================= --}}
         <div>
 
-            {{-- STORY HEADER CARD --}}
-            <div class="bg-white shadow-sm rounded-lg p-6 mb-6 flex items-center gap-6">
+    {{-- STORY HEADER CARD --}}
+    <div class="bg-white shadow-sm rounded-lg p-8 mb-8 flex items-center gap-8">
 
-                {{-- LOGO / IMAGE --}}
-                <img src="{{ $story->image_url }}"
-                     class="w-[120px] object-contain"
-                     alt="{{ $story->title }}">
+        {{-- LOGO / IMAGE --}}
+        <img src="{{ $story->image_url }}"
+             class="w-[150px] object-contain"
+             alt="{{ $story->title }}">
 
-                <div class="border-l-4 border-gray-300 h-[80px] hidden md:block"></div>
+        <div class="border-l-4 border-gray-300 h-[100px] hidden md:block"></div>
 
-                {{-- TITLE + AUTHOR --}}
-                <div>
-                    <h1 class="text-3xl font-bold text-[#232323]">
-                        {{ $story->title }}
-                    </h1>
+        {{-- TITLE + AUTHOR --}}
+        <div>
+            <h1 class="text-4xl md:text-5xl font-bold text-red-600 leading-tight">
+                {{ $story->title }}
+            </h1>
 
-                    <p class="text-red-600 font-semibold mt-1">
-                        {{ $story->author_name }}
-                    </p>
+            <p class="text-red-600 font-semibold text-xl mt-2">
+                {{ $story->author_name }}
+            </p>
 
-                    <p class="text-gray-500 text-sm mt-1">
-                        {{ optional($story->publish_date)->format('F jS, Y') }}
-                    </p>
-                </div>
-            </div>
+            <p class="text-gray-500 text-base mt-1">
+                {{ optional($story->publish_date)->format('F jS, Y') }}
+            </p>
+        </div>
+    </div>
 
-            {{-- STORY DESCRIPTION --}}
-            <div class="text-[#232323] leading-7 mb-6">
-                {!! nl2br(e($story->description)) !!}
-            </div>
+    {{-- STORY DESCRIPTION --}}
+    <div class="text-[#232323] text-lg leading-8 mb-8">
+        {!! nl2br(e($story->description)) !!}
+    </div>
 
-            {{-- SHARE THIS STORY --}}
-            <div class="mt-8">
-                <h3 class="text-red-600 font-semibold mb-3 text-lg">
-                    Share This Story
-                </h3>
+    {{-- SHARE THIS STORY --}}
+    <div class="mt-10">
+        <h3 class="text-red-600 font-semibold mb-4 text-xl">
+            Share This Story
+        </h3>
 
-                <div class="flex items-center gap-4">
+        <div class="flex items-center gap-5">
 
-                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($shareUrl) }}"
-                       target="_blank"
-                       class="w-[44px] h-[44px] rounded-full border border-red-600 flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white transition">
-                        <i class="fa-brands fa-facebook-f"></i>
-                    </a>
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($shareUrl) }}"
+               target="_blank"
+               class="w-[52px] h-[52px] text-lg rounded-full border-2 border-red-600
+                      flex items-center justify-center text-red-600
+                      hover:bg-red-600 hover:text-white transition">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
 
-                    <a href="https://www.instagram.com/"
-                       target="_blank"
-                       class="w-[44px] h-[44px] rounded-full border border-red-600 flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white transition">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
+            <a href="https://www.instagram.com/"
+               target="_blank"
+               class="w-[52px] h-[52px] text-lg rounded-full border-2 border-red-600
+                      flex items-center justify-center text-red-600
+                      hover:bg-red-600 hover:text-white transition">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
 
-                    <a href="https://twitter.com/intent/tweet?url={{ urlencode($shareUrl) }}"
-                       target="_blank"
-                       class="w-[44px] h-[44px] rounded-full border border-red-600 flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white transition">
-                        <i class="fa-brands fa-x-twitter"></i>
-                    </a>
+            <a href="https://twitter.com/intent/tweet?url={{ urlencode($shareUrl) }}"
+               target="_blank"
+               class="w-[52px] h-[52px] text-lg rounded-full border-2 border-red-600
+                      flex items-center justify-center text-red-600
+                      hover:bg-red-600 hover:text-white transition">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
 
-                    <a href="mailto:?subject={{ urlencode($story->title) }}&body={{ urlencode($shareUrl) }}"
-                       class="w-[44px] h-[44px] rounded-full border border-red-600 flex items-center justify-center text-red-600 hover:bg-red-600 hover:text-white transition">
-                        <i class="fa fa-envelope"></i>
-                    </a>
-
-                </div>
-            </div>
-
-            {{-- BACK BUTTON --}}
-            <div class="mt-10">
-                <a href="{{ route('stories.index') }}"
-                   class="inline-flex items-center gap-2 bg-red-600 text-white px-6 py-3 rounded font-semibold hover:bg-red-700 transition">
-                    <i class="fa-solid fa-arrow-left"></i>
-                    Back to Stories
-                </a>
-            </div>
+            <a href="mailto:?subject={{ urlencode($story->title) }}&body={{ urlencode($shareUrl) }}"
+               class="w-[52px] h-[52px] text-lg rounded-full border-2 border-red-600
+                      flex items-center justify-center text-red-600
+                      hover:bg-red-600 hover:text-white transition">
+                <i class="fa fa-envelope"></i>
+            </a>
 
         </div>
+    </div>
+
+    {{-- BACK BUTTON --}}
+    <div class="mt-12">
+        <a href="{{ route('stories.index') }}"
+           class="inline-flex items-center gap-3
+                  bg-red-600 text-white
+                  px-8 py-4 rounded-lg
+                  text-lg font-semibold
+                  hover:bg-red-700 transition">
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to Stories
+        </a>
+    </div>
+
+</div>
+
 
         {{-- =========================
            RIGHT : SIDEBAR

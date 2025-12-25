@@ -45,7 +45,7 @@ class EventInvitationController extends Controller
                 Mail::to($invitation->guest_email)->send(new EventInvitationMail($invitation));
             } catch (\Exception $e) {
                 // Optional: Log the error for debugging
-                \Log::error('Invitation email failed: ' . $e->getMessage());
+                Log::error('Invitation email failed: ' . $e->getMessage());
             }
         }
 

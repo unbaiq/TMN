@@ -7,6 +7,15 @@
     <h2 class="text-xl font-semibold mb-6 text-red-700 flex items-center gap-2">
         <i data-feather="user-plus"></i> Create Invitation
     </h2>
+@if ($errors->any())
+    <div class="mb-6 rounded-xl border border-red-200 bg-red-50 p-4">
+        <ul class="list-disc list-inside text-sm text-red-700">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
     <form method="POST" action="{{ route('admin.invitations.store') }}" class="space-y-4">
         @csrf
@@ -47,9 +56,11 @@
                 Cancel
             </a>
 
-            <button class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg">
-                Save Invitation
-            </button>
+           <button type="submit"
+        class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg">
+    Save Invitation
+</button>
+
         </div>
     </form>
 </div>
