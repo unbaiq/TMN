@@ -17,7 +17,7 @@
 
         {{-- ✅ ADMIN ONLY: ADD BUTTON --}}
         @if(auth()->user()->role === 'admin')
-            <a href="{{ route('member.recognitions.create') }}"
+            <a href="{{ route('admin.recognitions.create') }}"
                class="bg-white text-red-600 px-4 py-2 rounded-lg
                       font-medium shadow hover:bg-gray-100 transition">
                 <i data-feather="plus" class="inline w-4 h-4 mr-1"></i>
@@ -113,14 +113,17 @@
                     <td class="px-4 py-3 text-right space-x-3">
 
                         {{-- VIEW: everyone --}}
-                        <a href="{{ route('member.recognitions.show',$rec) }}"
-                           class="text-blue-600 hover:underline">
-                            View
-                        </a>
+                        <a href="{{ auth()->user()->role === 'admin'
+            ? route('admin.recognitions.show', $rec)
+            : route('member.recognitions.show', $rec) }}"
+   class="text-blue-600 hover:underline">
+    View
+</a>
+
 
                         {{-- ADMIN ONLY --}}
                         @if(auth()->user()->role === 'admin')
-                            <a href="{{ route('member.recognitions.edit',$rec) }}"
+                            <a href="{{ route('admin.recognitions.edit',$rec) }}"
                                class="text-green-600 hover:underline">
                                 Edit
                             </a>

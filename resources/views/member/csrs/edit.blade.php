@@ -13,7 +13,7 @@
 
     {{-- FORM --}}
     <form method="POST"
-          action="{{ route('member.csrs.update', $csr) }}"
+          action="{{ route('admin.csrs.update', $csr) }}"
           enctype="multipart/form-data"
           class="bg-white border border-gray-200 shadow rounded-2xl p-8 space-y-6">
 
@@ -146,7 +146,7 @@
 
         {{-- ACTIONS --}}
         <div class="flex justify-end gap-3 pt-4 border-t">
-            <a href="{{ route('member.csrs.index') }}"
+            <a href="{{ route('admin.csrs.index') }}"
                class="px-5 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700">
                 Cancel
             </a>

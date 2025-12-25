@@ -119,15 +119,14 @@
 
         {{-- ACTIONS --}}
         <div class="border-t pt-6 flex justify-end gap-3">
-            <a href="{{ route('member.csrs.index') }}"
-               class="px-5 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 text-gray-700">
-                Back
-            </a>
+          <a href="{{ auth()->user()->role === 'admin'
+        ? route('admin.csrs.index')
+        : route('member.csrs.index') }}"
+   class="px-5 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white font-medium shadow">
+    Back
+</a>
 
-            <a href="{{ route('member.csrs.edit', $csr) }}"
-               class="px-5 py-2 rounded-lg bg-blue-100 hover:bg-blue-200 text-blue-700">
-                Edit
-            </a>
+
         </div>
 
     </div>

@@ -9,7 +9,7 @@
             <h2 class="text-3xl font-semibold">Add Recognition</h2>
             <p class="text-sm text-white/80 mt-1">Appreciate a fellow member for contribution or achievement.</p>
         </div>
-        <a href="{{ route('member.recognitions.index') }}"
+        <a href="{{ route('admin.recognitions.index') }}"
            class="bg-white text-red-600 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-100 transition">
            <i data-feather="arrow-left" class="inline w-4 h-4 mr-1"></i> Back
         </a>

@@ -80,7 +80,9 @@ class MemberCsrController extends Controller
 
         MemberCsr::create($validated);
 
-        return redirect()->route('member.csrs.index')->with('success', 'CSR record added successfully!');
+       return redirect()->route($this->csrIndexRoute())
+    ->with('success', 'CSR record added successfully!');
+
     }
 
     /**
@@ -133,7 +135,9 @@ class MemberCsrController extends Controller
 
         $csr->update($validated);
 
-        return redirect()->route('member.csrs.index')->with('success', 'CSR record updated successfully!');
+        return redirect()->route($this->csrIndexRoute())
+    ->with('success', 'CSR record updated successfully!');
+
     }
 
     /**
@@ -146,7 +150,9 @@ class MemberCsrController extends Controller
         if ($csr->proof_document) Storage::disk('public')->delete($csr->proof_document);
         $csr->delete();
 
-        return back()->with('success', 'CSR record deleted successfully!');
+        return redirect()->route($this->csrIndexRoute())
+    ->with('success', 'CSR record deleted successfully!');
+
     }
 
     /**
@@ -159,4 +165,13 @@ class MemberCsrController extends Controller
             abort(403, 'Unauthorized access.');
         }
     }
+    protected function csrIndexRoute(): string
+{
+    $user = Auth::user();
+
+    return $user->role === 'admin'
+        ? 'admin.csrs.index'
+        : 'member.csrs.index';
+}
+
 }

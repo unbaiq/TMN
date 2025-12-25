@@ -9,7 +9,7 @@
         <p class="text-sm text-white/80 mt-1">Record your social contribution or volunteering initiative.</p>
     </div>
 
-    <form method="POST" action="{{ route('member.csrs.store') }}" enctype="multipart/form-data"
+    <form method="POST" action="{{ route('admin.csrs.store') }}" enctype="multipart/form-data"
           class="bg-white border border-gray-200 shadow rounded-2xl p-8 space-y-6">
         @csrf
 

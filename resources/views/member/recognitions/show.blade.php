@@ -12,11 +12,14 @@
             </p>
         </div>
 
-        <a href="{{ route('member.recognitions.index') }}"
-           class="bg-white text-red-600 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-100 transition">
-            <i data-feather="arrow-left" class="inline w-4 h-4 mr-1"></i>
-            Back
-        </a>
+      <a href="{{ auth()->user()->role === 'admin'
+        ? route('admin.recognitions.index')
+        : route('member.recognitions.index') }}"
+   class="bg-white text-red-600 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-100 transition">
+    <i data-feather="arrow-left" class="inline w-4 h-4 mr-1"></i>
+    Back
+</a>
+
     </div>
 
     {{-- ==== CONTENT CARD ==== --}}
@@ -105,7 +108,7 @@
 
         {{-- Footer --}}
         <div class="pt-6 flex justify-end">
-            <a href="{{ route('member.recognitions.edit', $recognition->id) }}"
+            <a href="{{ route('admin.recognitions.edit', $recognition->id) }}"
                class="bg-red-600 hover:bg-red-700 text-white px-6 py-2.5 rounded-lg font-medium shadow transition">
                 <i data-feather="edit" class="inline w-4 h-4 mr-1"></i>
                 Edit Recognition

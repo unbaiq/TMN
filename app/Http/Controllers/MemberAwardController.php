@@ -82,7 +82,9 @@ class MemberAwardController extends Controller
 
         MemberAward::create($validated);
 
-        return redirect()->route('member.awards.index')->with('success', 'Award created successfully!');
+        return redirect()->route($this->awardIndexRoute())
+        ->with('success', 'Award created successfully!');
+
     }
 
     /**
@@ -134,7 +136,9 @@ class MemberAwardController extends Controller
 
         $award->update($validated);
 
-        return redirect()->route('member.awards.index')->with('success', 'Award updated successfully!');
+        return redirect()->route($this->awardIndexRoute())
+    ->with('success', 'Award updated successfully!');
+
     }
 
     /**
@@ -147,7 +151,9 @@ class MemberAwardController extends Controller
         if ($award->certificate_file) Storage::disk('public')->delete($award->certificate_file);
         $award->delete();
 
-        return back()->with('success', 'Award deleted successfully!');
+        return redirect()->route($this->awardIndexRoute())
+    ->with('success', 'Award deleted successfully!');
+
     }
 
     /**
@@ -160,4 +166,13 @@ class MemberAwardController extends Controller
             abort(403, 'You are not authorized to manage this award.');
         }
     }
+    protected function awardIndexRoute(): string
+{
+    $user = Auth::user();
+
+    return $user->role === 'admin'
+        ? 'admin.awards.index'
+        : 'member.awards.index';
+}
+
 }

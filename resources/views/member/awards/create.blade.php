@@ -9,14 +9,23 @@
             <h2 class="text-3xl font-semibold">Add Member Award</h2>
             <p class="text-sm text-white/80 mt-1">Record and celebrate outstanding member achievements.</p>
         </div>
-        <a href="{{ route('member.awards.index') }}" class="bg-white text-red-600 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-100 transition">
+        <a href="{{ route('admin.awards.index') }}" class="bg-white text-red-600 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-100 transition">
             <i data-feather="arrow-left" class="inline w-4 h-4 mr-1"></i> Back
         </a>
     </div>
+@if ($errors->any())
+    <div class="mb-4 rounded-lg border border-red-300 bg-red-50 p-4">
+        <ul class="list-disc list-inside text-sm text-red-700">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
     {{-- FORM --}}
     <div class="bg-white border border-gray-200 rounded-2xl shadow-lg p-8">
-        <form method="POST" action="{{ route('member.awards.store') }}" enctype="multipart/form-data" class="space-y-6">
+        <form method="POST" action="{{ route('admin.awards.store') }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
 
             {{-- Member --}}

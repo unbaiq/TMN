@@ -17,7 +17,7 @@
 
         {{-- ADMIN ONLY --}}
         @if(auth()->user()->role === 'admin')
-            <a href="{{ route('member.awards.create') }}"
+            <a href="{{ route('admin.awards.create') }}"
                class="bg-white text-red-600 px-4 py-2 rounded-lg
                       font-medium shadow hover:bg-gray-100 transition">
                 <i data-feather="plus" class="inline w-4 h-4 mr-1"></i>
@@ -112,20 +112,23 @@
                             <td class="px-4 py-3 text-right space-x-3">
 
                                 {{-- Everyone --}}
-                                <a href="{{ route('member.awards.show',$award) }}"
-                                   class="text-blue-600 hover:underline">
-                                    View
-                                </a>
+                               <a href="{{ auth()->user()->role === 'admin'
+        ? route('admin.awards.show', $award)
+        : route('member.awards.show', $award) }}"
+   class="text-blue-600 hover:underline">
+    View
+</a>
+
 
                                 {{-- ADMIN ONLY --}}
                                 @if(auth()->user()->role === 'admin')
-                                    <a href="{{ route('member.awards.edit',$award) }}"
+                                    <a href="{{ route('admin.awards.edit',$award) }}"
                                        class="text-green-600 hover:underline">
                                         Edit
                                     </a>
 
                                     <form method="POST"
-                                          action="{{ route('member.awards.destroy',$award) }}"
+                                          action="{{ route('admin.awards.destroy',$award) }}"
                                           class="inline">
                                         @csrf @method('DELETE')
                                         <button onclick="return confirm('Delete this award?')"

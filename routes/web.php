@@ -23,6 +23,9 @@ use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\SponsorController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminInviteController;
+use App\Http\Controllers\MemberRecognitionController;
+use App\Http\Controllers\MemberAwardController;
+use App\Http\Controllers\MemberCsrController;
 
 
 

@@ -80,8 +80,9 @@ class MemberRecognitionController extends Controller
 
         MemberRecognition::create($validated);
 
-        return redirect()->route('member.recognitions.index')
-            ->with('success', 'Recognition added successfully!');
+        return redirect()->route($this->recognitionIndexRoute())
+    ->with('success', 'Recognition added successfully!');
+
     }
 
     /**
@@ -134,8 +135,9 @@ class MemberRecognitionController extends Controller
 
         $recognition->update($validated);
 
-        return redirect()->route('member.recognitions.index')
-            ->with('success', 'Recognition updated successfully.');
+       return redirect()->route($this->recognitionIndexRoute())
+    ->with('success', 'Recognition updated successfully.');
+
     }
 
     /**
@@ -151,7 +153,9 @@ class MemberRecognitionController extends Controller
 
         $recognition->delete();
 
-        return back()->with('success', 'Recognition deleted.');
+       return redirect()->route($this->recognitionIndexRoute())
+    ->with('success', 'Recognition deleted.');
+
     }
 
     /**
@@ -163,5 +167,16 @@ class MemberRecognitionController extends Controller
         if ($recognition->chapter_id !== $user->chapter_id && $user->role === 'member') {
             abort(403, 'You are not authorized to modify this recognition.');
         }
+        
     }
+    protected function recognitionIndexRoute(): string
+{
+    $user = Auth::user();
+
+    return $user->role === 'admin'
+        ? 'admin.recognitions.index'
+        : 'member.recognitions.index';
+}
+
+
 }

@@ -9,14 +9,14 @@
             <h2 class="text-3xl font-semibold">Edit Award</h2>
             <p class="text-sm text-white/80 mt-1">Update award details or upload a new certificate.</p>
         </div>
-        <a href="{{ route('member.awards.index') }}" class="bg-white text-red-600 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-100 transition">
+        <a href="{{ route('admin.awards.index') }}" class="bg-white text-red-600 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-100 transition">
             <i data-feather="arrow-left" class="inline w-4 h-4 mr-1"></i> Back
         </a>
     </div>
 
     {{-- FORM --}}
     <div class="bg-white border border-gray-200 rounded-2xl shadow-lg p-8">
-        <form method="POST" action="{{ route('member.awards.update', $award) }}" enctype="multipart/form-data" class="space-y-6">
+        <form method="POST" action="{{ route('admin.awards.update', $award) }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @method('PUT')
 

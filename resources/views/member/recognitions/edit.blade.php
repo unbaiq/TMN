@@ -9,7 +9,7 @@
             <h2 class="text-3xl font-semibold">Edit Recognition</h2>
             <p class="text-sm text-white/80 mt-1">Update recognition details or attachment.</p>
         </div>
-        <a href="{{ route('member.recognitions.index') }}"
+        <a href="{{ route('admin.recognitions.index') }}"
            class="bg-white text-red-600 px-4 py-2 rounded-lg font-medium shadow hover:bg-gray-100 transition">
            <i data-feather="arrow-left" class="inline w-4 h-4 mr-1"></i> Back
         </a>
@@ -17,7 +17,7 @@
 
     {{-- FORM --}}
     <div class="bg-white border border-gray-200 rounded-2xl shadow-lg p-8">
-        <form method="POST" action="{{ route('member.recognitions.update',$recognition) }}" enctype="multipart/form-data" class="space-y-6">
+        <form method="POST" action="{{ route('admin.recognitions.update',$recognition) }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @method('PUT')
 
