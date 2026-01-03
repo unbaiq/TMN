@@ -4,10 +4,25 @@
 <div class="max-w-8xl mx-auto px-4 py-4 space-y-6">
 
     {{-- HEADER --}}
-    <div class="bg-gradient-to-r from-red-700 via-red-600 to-red-500 text-white rounded-2xl px-8 py-6 shadow-lg">
+   <div class="bg-gradient-to-r from-red-700 via-red-600 to-red-500
+            text-white rounded-2xl px-8 py-6 shadow-lg
+            flex items-center justify-between">
+
+    <div>
         <h2 class="text-2xl font-semibold">Add CSR Activity</h2>
-        <p class="text-sm text-white/80 mt-1">Record your social contribution or volunteering initiative.</p>
+        <p class="text-sm text-white/80 mt-1">
+            Record your social contribution or volunteering initiative.
+        </p>
     </div>
+
+    {{-- ADMIN ONLY BACK --}}
+    <a href="{{ route('admin.csrs.index') }}"
+       class="bg-white text-red-600 px-4 py-2 rounded-lg
+              font-medium shadow hover:bg-gray-100 transition">
+        <i data-feather="arrow-left" class="inline w-4 h-4 mr-1"></i>
+        Back
+    </a>
+</div>
 
     <form method="POST" action="{{ route('admin.csrs.store') }}" enctype="multipart/form-data"
           class="bg-white border border-gray-200 shadow rounded-2xl p-8 space-y-6">

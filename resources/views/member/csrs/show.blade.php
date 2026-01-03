@@ -4,11 +4,26 @@
 <div class="max-w-5xl mx-auto px-6 py-10 space-y-8">
 
     {{-- HEADER --}}
-    <div class="bg-gradient-to-r from-red-700 via-red-600 to-red-500 text-white rounded-2xl px-8 py-6 shadow-lg">
-        <h2 class="text-2xl font-semibold">{{ $csr->csr_title }}</h2>
-        <p class="text-sm text-white/80 mt-1">
-            Complete details of this CSR activity
-        </p>
+    <div class="bg-gradient-to-r from-red-700 via-red-600 to-red-500
+                text-white rounded-2xl px-8 py-6 shadow-lg
+                flex justify-between items-center">
+
+        <div>
+            <h2 class="text-2xl font-semibold">{{ $csr->csr_title }}</h2>
+            <p class="text-sm text-white/80 mt-1">
+                Complete details of this CSR activity
+            </p>
+        </div>
+
+        {{-- BACK BUTTON (ROLE SAFE) --}}
+        <a href="{{ auth()->user()->role === 'admin'
+                ? route('admin.csrs.index')
+                : route('member.csrs.index') }}"
+           class="bg-white text-red-600 px-4 py-2 rounded-lg
+                  font-medium shadow hover:bg-gray-100 transition">
+            <i data-feather="arrow-left" class="inline w-4 h-4 mr-1"></i>
+            Back
+        </a>
     </div>
 
     {{-- MAIN DETAILS --}}
@@ -26,7 +41,9 @@
             <div>
                 <p class="text-sm text-gray-500">Date</p>
                 <p class="font-medium text-gray-800">
-                    {{ $csr->csr_date ? \Carbon\Carbon::parse($csr->csr_date)->format('d M Y') : '—' }}
+                    {{ $csr->csr_date
+                        ? \Carbon\Carbon::parse($csr->csr_date)->format('d M Y')
+                        : '—' }}
                 </p>
             </div>
 
@@ -39,17 +56,12 @@
 
             <div>
                 <p class="text-sm text-gray-500">Visibility</p>
-                <p class="font-medium">
-                    @if($csr->is_public)
-                        <span class="text-green-700 bg-green-100 px-2 py-1 rounded-full text-xs">
-                            Public
-                        </span>
-                    @else
-                        <span class="text-gray-600 bg-gray-100 px-2 py-1 rounded-full text-xs">
-                            Private
-                        </span>
-                    @endif
-                </p>
+                <span class="inline-flex px-2 py-1 rounded-full text-xs font-semibold
+                    {{ $csr->is_public
+                        ? 'bg-green-100 text-green-700'
+                        : 'bg-gray-100 text-gray-700' }}">
+                    {{ $csr->is_public ? 'Public' : 'Private' }}
+                </span>
             </div>
         </div>
 
@@ -61,7 +73,7 @@
             </p>
         </div>
 
-        {{-- IMPACT METRICS --}}
+        {{-- IMPACT --}}
         <div class="border-t pt-6">
             <h4 class="text-lg font-semibold text-gray-800 mb-4">
                 Impact Summary
@@ -71,7 +83,9 @@
                 <div>
                     <p class="text-sm text-gray-500">Amount Spent</p>
                     <p class="font-medium text-gray-800">
-                        {{ $csr->amount_spent !== null ? '₹' . number_format($csr->amount_spent, 2) : '—' }}
+                        {{ $csr->amount_spent !== null
+                            ? '₹' . number_format($csr->amount_spent, 2)
+                            : '—' }}
                     </p>
                 </div>
 
@@ -94,8 +108,7 @@
         {{-- STATUS --}}
         <div class="border-t pt-6">
             <p class="text-sm text-gray-500 mb-1">Approval Status</p>
-
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold
+            <span class="inline-flex px-3 py-1 rounded-full text-xs font-semibold
                 {{ $csr->status === 'approved'
                     ? 'bg-green-100 text-green-700'
                     : ($csr->status === 'pending'
@@ -105,30 +118,24 @@
             </span>
         </div>
 
-        {{-- PROOF DOCUMENT --}}
+        {{-- PROOF --}}
         @if($csr->proof_document)
             <div class="border-t pt-6">
                 <p class="text-sm text-gray-500 mb-1">Proof Document</p>
-                <a href="{{ asset('storage/' . $csr->proof_document) }}"
+                <a href="{{ asset('storage/'.$csr->proof_document) }}"
                    target="_blank"
-                   class="inline-flex items-center gap-2 text-blue-600 hover:underline">
+                   class="text-blue-600 hover:underline font-medium">
                     View Uploaded Document
                 </a>
             </div>
         @endif
 
-        {{-- ACTIONS --}}
-        <div class="border-t pt-6 flex justify-end gap-3">
-          <a href="{{ auth()->user()->role === 'admin'
-        ? route('admin.csrs.index')
-        : route('member.csrs.index') }}"
-   class="px-5 py-2 rounded-lg bg-red-500 hover:bg-red-600 text-white font-medium shadow">
-    Back
-</a>
-
-
-        </div>
-
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.feather) feather.replace();
+});
+</script>
 @endsection
