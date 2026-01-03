@@ -59,7 +59,7 @@
 
                         {{-- Short Description --}}
                         <p class="mt-3 text-[16px] leading-[28px]">
-                            {{ $article->short_description }}
+                            {{ $article->content }}
                         </p>
 
                         {{-- CTA --}}

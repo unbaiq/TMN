@@ -7,9 +7,10 @@
 @endphp
 
 
-    <section
-      class="bg-[url({{ config('app.url') }}/tmn/public/images/committee-banner.png)] bg-cover lg:bg-right bg-center bg-no-repeat"
-    > <div class="w-full py-10 h-full banner-grid"> 
+   <section
+  class="bg-[url('{{ config('app.url') }}/tmn/public/images/committee-banner.png')] bg-cover lg:bg-right bg-center bg-no-repeat"
+>
+ <div class="w-full py-10 h-full banner-grid"> 
       <div class="main-width h-full py-4 flex items-center lg:justify-start">
         <div class="grid md:grid-cols-[58%,1fr] gap-6 items-center">
           <div h-full>
@@ -126,11 +127,8 @@
 
             {{-- RIGHT IMAGE --}}
             <div>
-                <img
-                    src="{{ $article->image_url }}"
-                    alt="{{ $article->title }}"
-                    class="w-full rounded-lg shadow-lg object-cover"
-                >
+               <img src="{{ asset('storage/' . $article->banner) }}">
+
             </div>
 
         </div>
@@ -156,7 +154,7 @@
           <img
             class="w-full h-full object-cover transition-all duration-700
                    group-hover:scale-110"
-            src="{{ $prev->image_url }}"
+            src="{{ asset('storage/' . $prev->thumbnail) }}"
             alt="{{ $prev->title }}">
 
           {{-- CONTENT --}}
