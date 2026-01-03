@@ -57,10 +57,16 @@ class InsightController extends Controller
     /**
      * Display the specified insight.
      */
-    public function show(Insight $insight)
-    {
-        return view('admin.insights.show', compact('insight'));
-    }
+  
+public function show(string $slug)
+{
+    $insight = Insight::where('slug', $slug)
+        ->where('status', 'published')
+        ->firstOrFail();
+
+    return view('user.detail-insight', compact('insight'));
+}
+
 
     /**
      * Show the form for editing the specified insight.

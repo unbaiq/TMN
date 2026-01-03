@@ -76,8 +76,7 @@
                             'host_email' => $event->host_email,
                             'event_type' => $event->event_type,
                             'description' => $event->description,
-                            'agenda' => $event->agenda,
-                            'notes' => $event->notes,
+                           
                             'is_online' => $event->is_online,
                             'meeting_link' => $event->meeting_link,
                             'meeting_password' => $event->meeting_password,
@@ -143,63 +142,141 @@
     </div>
 
     {{-- ==== MODAL ==== --}}
-    <div id="eventModal"
-        class="hidden fixed inset-0 z-50 bg-black/60 flex items-center justify-center backdrop-blur-sm transition-opacity duration-300">
-        <div
-            class="modal-card bg-white w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden border border-red-100 transform scale-90 opacity-0 transition-all duration-300 relative">
-            <button onclick="closeEventModal()"
-                class="absolute top-4 right-4 bg-white/90 hover:bg-red-600 hover:text-white text-gray-700 p-2 rounded-full shadow-md transition">
-                <i data-feather="x" class="w-5 h-5"></i>
-            </button>
+    {{-- ==== TMN EVENT MODAL ==== --}}
+<div id="eventModal"
+     class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm
+            flex items-center justify-center transition-opacity">
 
-            <img id="modalBannerImg" src="" class="w-full h-56 object-cover hidden" alt="Event Banner">
+   <div
+  class="modal-card relative bg-white w-full max-w-3xl rounded-2xl shadow-2xl
+         border border-red-100 overflow-hidden
+         transform scale-95 opacity-0 transition-all duration-300">
 
-            <div class="p-6 space-y-5">
-                <div>
-                    <h3 id="modalTitle" class="text-2xl font-bold text-gray-800"></h3>
-                    <p id="modalStatus"
-                        class="inline-block mt-1 text-xs px-3 py-1 rounded-full font-semibold bg-red-50 text-red-600"></p>
-                </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-700">
-                    <p><strong>📅 Date:</strong> <span id="modalDate"></span></p>
-                    <p><strong>⏰ Time:</strong> <span id="modalTime"></span></p>
-                    <p><strong>📍 Venue:</strong> <span id="modalVenue"></span></p>
-                    <p><strong>🏢 Chapter:</strong> <span id="modalChapter"></span></p>
-                    <p><strong>👤 Host:</strong> <span id="modalHost"></span></p>
-                    <p><strong>📞 Contact:</strong> <span id="modalContact"></span></p>
-                    <p><strong>📧 Email:</strong> <span id="modalEmail"></span></p>
-                    <p><strong>🎯 Type:</strong> <span id="modalType"></span></p>
-                </div>
+        {{-- CLOSE --}}
+        <button onclick="closeEventModal()"
+                class="absolute top-4 right-4 z-10
+                       bg-white hover:bg-red-600 hover:text-white
+                       text-gray-700 p-2 rounded-full shadow transition">
+            <i data-feather="x" class="w-5 h-5"></i>
+        </button>
 
-                <div class="border-t border-gray-200 pt-4 space-y-3 text-sm">
-                    <p><strong>🧾 Agenda:</strong> <span id="modalAgenda"></span></p>
-                    <p><strong>🗒 Notes:</strong> <span id="modalNotes"></span></p>
-                    <p><strong>🌐 Online:</strong> <span id="modalOnline"></span></p>
-                    <p id="modalLinkWrapper" class="hidden"><strong>🔗 Meeting Link:</strong> <a id="modalLink" href="#"
-                            target="_blank" class="text-red-600 underline"></a></p>
-                    <p id="modalPassWrapper" class="hidden"><strong>🔑 Meeting Password:</strong> <span
-                            id="modalPass"></span></p>
-                </div>
+        {{-- HEADER --}}
+        <div class="bg-gradient-to-r from-red-700 via-red-600 to-red-500
+                    text-white px-6 py-5 relative">
 
-                <div class="border-t border-gray-200 pt-4">
-                    <strong>📝 Description:</strong>
-                    <p id="modalDescription" class="mt-1 text-gray-600 leading-relaxed"></p>
-                </div>
+            <h3 id="modalTitle" class="text-2xl font-semibold leading-tight"></h3>
 
-                <div class="flex flex-col sm:flex-row gap-3 pt-3">
-                    <button onclick="confirmAttendance()"
-                        class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg shadow-md flex items-center justify-center gap-2 transition">
-                        <i data-feather="check"></i> Confirm Attendance
-                    </button>
-                    <button onclick="closeEventModal()"
-                        class="flex-1 bg-gray-800 hover:bg-gray-900 text-white py-2 rounded-lg shadow-md flex items-center justify-center gap-2 transition">
-                        <i data-feather="x"></i> Close
-                    </button>
-                </div>
+            <span id="modalStatus"
+                  class="inline-block mt-2 text-xs px-3 py-1 rounded-full
+                         font-semibold bg-white/20 backdrop-blur">
+            </span>
+        </div>
+
+        {{-- BANNER --}}
+        <img id="modalBannerImg"
+             class="w-full h-56 object-cover hidden"
+             alt="Event Banner">
+
+        {{-- BODY --}}
+        <div class="p-6 space-y-6 text-sm text-gray-700">
+
+            {{-- META GRID --}}
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                <p class="flex items-center gap-2">
+                    <i data-feather="calendar" class="w-4 h-4 text-red-600"></i>
+                    <span id="modalDate"></span>
+                </p>
+
+                <p class="flex items-center gap-2">
+                    <i data-feather="clock" class="w-4 h-4 text-red-600"></i>
+                    <span id="modalTime"></span>
+                </p>
+
+                <p class="flex items-center gap-2">
+                    <i data-feather="map-pin" class="w-4 h-4 text-red-600"></i>
+                    <span id="modalVenue"></span>
+                </p>
+
+                <p class="flex items-center gap-2">
+                    <i data-feather="layers" class="w-4 h-4 text-red-600"></i>
+                    <span id="modalChapter"></span>
+                </p>
+
+                <p class="flex items-center gap-2">
+                    <i data-feather="user" class="w-4 h-4 text-red-600"></i>
+                    <span id="modalHost"></span>
+                </p>
+
+                <p class="flex items-center gap-2">
+                    <i data-feather="phone" class="w-4 h-4 text-red-600"></i>
+                    <span id="modalContact"></span>
+                </p>
+
+                <p class="flex items-center gap-2">
+                    <i data-feather="mail" class="w-4 h-4 text-red-600"></i>
+                    <span id="modalEmail"></span>
+                </p>
+
+                <p class="flex items-center gap-2">
+                    <i data-feather="tag" class="w-4 h-4 text-red-600"></i>
+                    <span id="modalType"></span>
+                </p>
             </div>
+
+            {{-- ONLINE INFO --}}
+            <div class="border-t pt-4 space-y-3">
+
+                <p class="flex items-center gap-2">
+                    <i data-feather="globe" class="w-4 h-4 text-red-600"></i>
+                    <span id="modalOnline"></span>
+                </p>
+
+                <p id="modalLinkWrapper" class="hidden flex items-center gap-2">
+                    <i data-feather="link" class="w-4 h-4 text-red-600"></i>
+                    <a id="modalLink" target="_blank"
+                       class="text-red-600 font-medium hover:underline">
+                    </a>
+                </p>
+
+                <p id="modalPassWrapper" class="hidden flex items-center gap-2">
+                    <i data-feather="key" class="w-4 h-4 text-red-600"></i>
+                    <span id="modalPass"></span>
+                </p>
+            </div>
+
+            {{-- DESCRIPTION --}}
+            <div class="border-t pt-4">
+                <p class="font-semibold text-gray-800 mb-1">Description</p>
+                <p id="modalDescription"
+                   class="text-gray-600 leading-relaxed">
+                </p>
+            </div>
+
+            {{-- ACTIONS --}}
+            <div class="flex flex-col sm:flex-row gap-3 pt-4">
+
+                <button onclick="confirmAttendance()"
+                        class="flex-1 bg-green-600 hover:bg-green-700
+                               text-white py-2.5 rounded-xl shadow
+                               flex items-center justify-center gap-2 transition">
+                    <i data-feather="check-circle"></i>
+                    Confirm Attendance
+                </button>
+
+                <button onclick="closeEventModal()"
+                        class="flex-1 bg-gray-800 hover:bg-gray-900
+                               text-white py-2.5 rounded-xl shadow
+                               flex items-center justify-center gap-2 transition">
+                    <i data-feather="x-circle"></i>
+                    Close
+                </button>
+            </div>
+
         </div>
     </div>
+</div>
 
     <script>
         feather.replace();
@@ -248,8 +325,8 @@
                 document.getElementById("modalContact").innerText = event.host_contact ?? '—';
                 document.getElementById("modalEmail").innerText = event.host_email ?? '—';
                 document.getElementById("modalType").innerText = event.event_type ?? '—';
-                document.getElementById("modalAgenda").innerText = event.agenda ?? '—';
-                document.getElementById("modalNotes").innerText = event.notes ?? '—';
+                
+                
                 document.getElementById("modalOnline").innerText = event.is_online ? 'Yes' : 'No';
                 document.getElementById("modalDescription").innerText = event.description ?? '—';
 

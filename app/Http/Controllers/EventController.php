@@ -198,4 +198,16 @@ class EventController extends Controller
             ->route('admin.events.index')
             ->with('success', '🗑 Event deleted successfully!');
     }
+    /** ===========================
+ *  SHOW: Public event details
+ *  =========================== */
+public function show(string $slug)
+{
+    $event = Event::where('slug', $slug)
+        ->where('is_public', true)
+        ->firstOrFail();
+
+    return view('user.detailed-event', compact('event'));
+}
+
 }

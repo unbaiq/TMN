@@ -74,7 +74,8 @@
             </div>
 
             <div class="mt-6">
-              <a href="">
+             <a href="{{ route('insights.show', ['slug' => $insight->slug]) }}">
+
                 <span class="text-white bg-primary px-6 text-[17px] font-medium py-3 inline-block">
                   Read more
                 </span>
@@ -120,7 +121,8 @@
             </div>
 
             <div class="mt-6">
-              <a href="">
+             <a href="{{ route('insights.show', ['slug' => $insight->slug]) }}">
+
                 <span class="text-white bg-primary px-6 text-[17px] font-medium py-3 inline-block">
                   Read more
                 </span>

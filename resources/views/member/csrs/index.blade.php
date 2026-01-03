@@ -37,48 +37,66 @@
 
     {{-- ================= FILTERS ================= --}}
     <form method="GET"
-          class="bg-white border border-gray-200 shadow rounded-xl
-                 p-4 flex flex-wrap gap-4 items-end">
+      action="{{ url()->current() }}"
+      class="bg-white border border-gray-200 shadow rounded-xl
+             p-4 flex flex-wrap gap-4 items-end">
 
-        {{-- SEARCH --}}
-        <div class="relative">
-            <input type="text"
-                   name="search"
-                   value="{{ request('search') }}"
-                   placeholder="Search title or member…"
-                   class="pl-10 border border-gray-300 rounded-lg px-3 py-2 text-sm
-                          focus:ring-1 focus:ring-red-600">
-            <i data-feather="search"
-               class="absolute left-3 top-2.5 w-4 h-4 text-gray-400"></i>
-        </div>
+    {{-- SEARCH --}}
+    <div class="relative">
+        <input type="text"
+               name="search"
+               value="{{ request('search') }}"
+               placeholder="Search title or member…"
+               class="pl-10 border border-gray-300 rounded-lg px-3 py-2 text-sm
+                      focus:ring-1 focus:ring-red-600 focus:border-red-600">
+        <i data-feather="search"
+           class="absolute left-3 top-2.5 w-4 h-4 text-gray-400"></i>
+    </div>
 
-        {{-- TYPE --}}
-        <select name="csr_type"
-                class="border border-gray-300 rounded-lg px-3 py-2 text-sm">
-            <option value="">All CSR Types</option>
-            @foreach(['education','health','environment','community','donation','other'] as $type)
-                <option value="{{ $type }}" @selected(request('csr_type')==$type)>
-                    {{ ucfirst($type) }}
-                </option>
-            @endforeach
-        </select>
+    {{-- TYPE --}}
+    <select name="csr_type"
+            class="border border-gray-300 rounded-lg px-3 py-2 text-sm
+                   focus:ring-1 focus:ring-red-600 focus:border-red-600">
+        <option value="">All CSR Types</option>
+        @foreach(['education','health','environment','community','donation','other'] as $type)
+            <option value="{{ $type }}" @selected(request('csr_type') == $type)>
+                {{ ucfirst($type) }}
+            </option>
+        @endforeach
+    </select>
 
-        {{-- STATUS --}}
-        <select name="status"
-                class="border border-gray-300 rounded-lg px-3 py-2 text-sm">
-            <option value="">All Status</option>
-            @foreach(['pending','approved','rejected'] as $status)
-                <option value="{{ $status }}" @selected(request('status')==$status)>
-                    {{ ucfirst($status) }}
-                </option>
-            @endforeach
-        </select>
+    {{-- STATUS --}}
+    <select name="status"
+            class="border border-gray-300 rounded-lg px-3 py-2 text-sm
+                   focus:ring-1 focus:ring-red-600 focus:border-red-600">
+        <option value="">All Status</option>
+        @foreach(['pending','approved','rejected'] as $status)
+            <option value="{{ $status }}" @selected(request('status') == $status)>
+                {{ ucfirst($status) }}
+            </option>
+        @endforeach
+    </select>
 
-        <button class="bg-red-600 hover:bg-red-700 text-white
-                       px-4 py-2 rounded-lg text-sm">
-            Filter
+    {{-- ACTION BUTTONS --}}
+    <div class="flex gap-2">
+        {{-- SEARCH / FILTER --}}
+        <button type="submit"
+                class="bg-red-600 hover:bg-red-700 text-white
+                       px-5 py-2 rounded-lg text-sm font-medium flex items-center gap-1">
+            <i data-feather="filter" class="w-4 h-4"></i>
+            Search
         </button>
-    </form>
+
+        {{-- CLEAR --}}
+        <a href="{{ url()->current() }}"
+           class="border border-gray-300 text-gray-700 hover:bg-gray-100
+                  px-5 py-2 rounded-lg text-sm font-medium flex items-center gap-1">
+            <i data-feather="x-circle" class="w-4 h-4"></i>
+            Clear
+        </a>
+    </div>
+</form>
+
 
     {{-- ================= TABLE ================= --}}
     <div class="bg-white border border-gray-200 shadow rounded-2xl overflow-hidden">

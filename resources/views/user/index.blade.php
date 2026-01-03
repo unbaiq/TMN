@@ -256,50 +256,62 @@
         </div>
         <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 pt-10">
 
-          @foreach($latestEvents as $event)
-            <div class="overflow-hidden relative">
+@foreach($latestEvents as $event)
+  <div class="relative rounded-2xl overflow-hidden bg-black h-[420px]">
 
-              <img
-                src="{{ $event->banner_image ? asset('storage/' . $event->banner_image) : asset('tmn/public/images/upcoming-event.png') }}"
-                class="w-full h-full object-cover" alt="{{ $event->title }}">
+    {{-- IMAGE --}}
+    <img
+      src="{{ $event->banner_image ? asset('storage/' . $event->banner_image) : asset('tmn/public/images/upcoming-event.png') }}"
+      class="absolute inset-0 w-full h-full object-cover"
+      alt="{{ $event->title }}">
 
-              <div class="absolute w-[90%] bottom-[5%] p-4 rounded-[20px] bg-white/90 left-[5%]">
-                <div class="relative">
+    {{-- DARK OVERLAY --}}
+    <div class="absolute inset-0 bg-black/30"></div>
 
-                  <div
-                    class="absolute flex flex-col w-[55px] h-[80px] flex flex-col items-center justify-center text-white -top-14 rounded-[5px] right-4 bg-red-600">
-                    <p class="text-[30px] font-bold leading-[26px]">
-                      {{ \Carbon\Carbon::parse($event->event_date)->format('d') }}
-                    </p>
-                    <p class="font-normal leading-[26px]">
-                      {{ \Carbon\Carbon::parse($event->event_date)->format('M') }}
-                    </p>
-                  </div>
+    {{-- CONTENT CARD --}}
+    <div class="absolute bottom-5 left-1/2 -translate-x-1/2 w-[90%]
+                bg-white/95 backdrop-blur rounded-2xl p-5">
 
-                  <p class="text-[20px] font-semibold leading-[30px]">
-                    {{ $event->title }}
-                  </p>
+      {{-- DATE BADGE --}}
+      <div class="absolute -top-12 right-4 w-[56px] h-[80px]
+                  bg-red-600 rounded-md text-white flex flex-col
+                  items-center justify-center shadow-lg">
+        <p class="text-2xl font-bold leading-tight">
+          {{ \Carbon\Carbon::parse($event->event_date)->format('d') }}
+        </p>
+        <p class="text-sm uppercase">
+          {{ \Carbon\Carbon::parse($event->event_date)->format('M') }}
+        </p>
+      </div>
 
-                  <p class="text-[#848484] font-normal">
-                    {{ $event->city ?? 'Online' }}
-                    {{ \Carbon\Carbon::parse($event->event_date)->format('d M') }}
-                  </p>
+      {{-- TITLE --}}
+      <p class="text-lg font-semibold leading-snug line-clamp-2">
+        {{ $event->title }}
+      </p>
 
-                  <p class="leading-[30px] font-normal">
-                    {{ \Illuminate\Support\Str::limit(strip_tags($event->description), 120) }}
-                  </p>
+      {{-- LOCATION --}}
+      <p class="text-sm text-gray-500 mt-1">
+        {{ $event->city ?? 'Online' }} •
+        {{ \Carbon\Carbon::parse($event->event_date)->format('d M') }}
+      </p>
 
-                  <a href="{{ route('events.show', $event->slug) }}" class="text-primary font-bold leading-[30px]">
-                    Read More
-                  </a>
+      {{-- DESCRIPTION (CLAMPED) --}}
+      <p class="text-sm leading-relaxed mt-2 text-gray-700 line-clamp-3">
+        {{ strip_tags($event->description) }}
+      </p>
 
-                </div>
-              </div>
+      {{-- CTA --}}
+      <a href="{{ route('events.show', $event->slug) }}"
+         class="inline-block mt-3 text-red-600 font-semibold text-sm hover:underline">
+        Read More
+      </a>
 
-            </div>
-          @endforeach
+    </div>
+  </div>
+@endforeach
 
-        </div>
+</div>
+
 
       </div>
     </div>

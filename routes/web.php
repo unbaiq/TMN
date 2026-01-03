@@ -429,6 +429,10 @@ Route::view('/insight2', 'user.insight2');
 Route::view('/insight3', 'user.insight3');
 Route::get('/insightindex', [UserController::class, 'insightIndex'])
     ->name('insights.index');
+
+Route::get('/insights/{slug}', [InsightController::class, 'show'])
+     ->name('insights.show');
+
 // Other Pages
 Route::view('/journey', 'user.journey');
 
