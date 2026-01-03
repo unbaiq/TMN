@@ -165,10 +165,15 @@ class AdvisoryController extends Controller
     /**
      * Show advisory details.
      */
-    public function show(Advisory $advisory)
-    {
-        return view('admin.advisories.show', compact('advisory'));
-    }
+   public function show(string $slug)
+{
+    $advisory = Advisory::where('slug', $slug)
+        ->where('is_public', true)
+        ->where('is_active', true)
+        ->firstOrFail();
+
+    return view('user.detail-advisory', compact('advisory'));
+}
 
     /**
      * Delete advisory.

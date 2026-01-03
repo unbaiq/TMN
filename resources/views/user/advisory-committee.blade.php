@@ -81,31 +81,38 @@
                 </div>
 
                 {{-- Content --}}
-                <div class="p-2">
-                    <h2 class="text-[21px] font-bold leading-[25px]">
-                        {{ $advisory->advisor_name }}
-                    </h2>
+                {{-- Content --}}
+<div class="p-2">
+    <h2 class="text-[21px] font-bold leading-[25px]">
+        {{ $advisory->advisor_name }}
+    </h2>
 
-                    <h4 class="text-[16px] font-normal leading-[25px]">
-                        {{ $advisory->advisor_designation }}
-                    </h4>
+    <h4 class="text-[16px] font-normal leading-[25px]">
+        {{ $advisory->advisor_designation }}
+    </h4>
 
-                    <p class="pt-4">
-                        {{ Str::limit(strip_tags($advisory->short_description ?? $advisory->description), 180) }}
-                    </p>
+    {{-- EXPERIENCE ONLY --}}
+    @if($advisory->advisor_experience_label)
+        <p class="text-sm text-gray-600 mt-2 font-medium">
+            {{ $advisory->advisor_experience_label }}
+        </p>
+    @endif
 
-                    <a href="">
-                        <p class="flex pt-4 items-center font-bold leading-[24px] text-primary">
-                            Read More
-                            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="33" viewBox="0 0 34 33" fill="none">
-                                <path
-                                    d="M17.2123 16.7654H5.95288V18.6404H17.2123V21.4529L20.9529 17.7029L17.2123 13.9529V16.7654Z"
-                                    fill="#CF2031" />
-                            </svg>
-                        </p>
-                    </a>
-                </div>
+    <p class="pt-4">
+        {{ Str::limit(strip_tags($advisory->short_description ?? $advisory->description), 180) }}
+    </p>
 
+    <a href="{{ route('advisories.show', $advisory->slug) }}">
+        <p class="flex pt-4 items-center font-bold leading-[24px] text-primary">
+            Read More
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="33" viewBox="0 0 34 33" fill="none">
+                <path
+                    d="M17.2123 16.7654H5.95288V18.6404H17.2123V21.4529L20.9529 17.7029L17.2123 13.9529V16.7654Z"
+                    fill="#CF2031" />
+            </svg>
+        </p>
+    </a>
+</div>
             </div>
 
         @empty

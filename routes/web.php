@@ -400,6 +400,8 @@ Route::middleware(['auth', 'role:member'])
 Route::view('/about', 'user.about');
 Route::get('/advisory-committee', [UserController::class, 'advisoryCommittee'])
     ->name('advisory.committee');
+  Route::get('/advisory/{slug}', [AdvisoryController::class, 'show'])
+     ->name('advisories.show');
 Route::view('/article-one', 'user.article_one');
 Route::view('/article-two', 'user.article_two');
 Route::view('/article-three', 'user.article_three');
