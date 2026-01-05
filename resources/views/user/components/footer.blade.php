@@ -65,11 +65,11 @@
                             </li>
 
                             <li class="mb-4">
-                                <a href="/careers" class="hover:underline">Careers</a>
+                                <a href="{{ route('user.careers') }}" class="hover:underline">Careers</a>
                             </li>
 
                             <li class="mb-4">
-                                <a href="/certificate" class="hover:underline">Certificate</a>
+                                <a href="{{ route('user.certificates') }}" class="hover:underline">Certificate</a>
                             </li>
 
                             <li class="mb-4">
@@ -84,22 +84,22 @@
                         </h2>
                         <ul class=" text-[#CFD3D7] font-medium">
                             <li class="mb-4">
-                                <a href="" class="hover:underline">Feedback </a>
+                                <a href="{{ route('user.feedback') }}" class="hover:underline">Feedback </a>
                             </li>
                             <li class="mb-4">
                                 <a href=" " class="hover:underline">About Us</a>
                             </li>
                             <li class="mb-4">
-                                <a href="" class="hover:underline">Vigilance</a>
+                                <a href="{{ route('user.vigilance') }}" class="hover:underline">Vigilance</a>
                             </li>
                             <li class="mb-4">
-                                <a href=" " class="hover:underline">Website Policies </a>
+                                <a href="{{ route('user.termsandcondition') }} " class="hover:underline">Website Policies </a>
                             </li>
                             <li class="mb-4">
-                                <a href=" " class="hover:underline">Disclaimer</a>
+                                <a href="{{ url('/disclaimer') }} " class="hover:underline">Disclaimer</a>
                             </li>
                             <li class="mb-4">
-                                <a href=" " class="hover:underline">FAQs</a>
+                                <a href="{{ route('user.faqs') }} " class="hover:underline">FAQs</a>
                             </li>
                         </ul>
                     </div>

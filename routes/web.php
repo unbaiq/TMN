@@ -455,6 +455,30 @@ Route::get('/sponsors', [UserController::class, 'sponsors'])->name('sponsors');
 Route::get('/stories', [UserController::class, 'stories'])->name('stories.index');
 Route::get('/stories/{slug}', [UserController::class, 'storyDetail'])->name('stories.show');
 
+
+
+/*  footer links */
+Route::get('/terms-and-conditions', function () {
+    return view('user.termsandcondition');
+})->name('user.termsandcondition');
+Route::get('/careers', function () {
+    return view('user.careers');
+})->name('user.careers');
+Route::view('/certificates', 'user.certificates')
+    ->name('user.certificates');
+    Route::view('/feedback', 'user.feedback')
+    ->name('user.feedback');
+Route::get('/faqs', function () {
+    return view('user.faqs');
+})->name('user.faqs');
+Route::get('/disclaimer', function () {
+    return view('user.disclaimer');
+})->name('user.disclaimer');
+Route::get('/vigilance', function () {
+    return view('user.vigilance');
+})->name('user.vigilance');
+
+
 /* ================= ARTICLES ================= */
 
 Route::get('/articles', [UserController::class, 'articles'])->name('articles.index');

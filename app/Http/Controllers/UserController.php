@@ -217,7 +217,7 @@ return view('user.details-article', compact(
         $advisories = Advisory::where('is_active', true)
             ->where('is_public', true)
             ->latest()
-            ->paginate(3)
+            
             ->get();
 
         return view('user.advisory-committee', compact('advisories'));
