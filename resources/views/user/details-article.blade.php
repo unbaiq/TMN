@@ -39,10 +39,13 @@
     <div class="main-width">
 
         {{-- CATEGORY TAG --}}
-        <span class="inline-block mb-4 px-4 py-1 text-sm font-medium
-                     bg-red-600/10 text-red-600 rounded">
-            ARTICLE
-        </span>
+      @if($article->category)
+    <span class="inline-block mb-4 px-4 py-1 text-sm font-medium
+                 bg-red-600/10 text-red-600 rounded">
+        {{ strtoupper($article->category) }}
+    </span>
+@endif
+
 
         {{-- TITLE --}}
         <h1 class="text-3xl md:text-4xl font-bold text-[#232323] leading-tight">
@@ -70,9 +73,27 @@
                 @endif
 
                 {{-- FULL CONTENT --}}
-                <div class="prose max-w-none">
-                    {!! nl2br(e($article->description)) !!}
-                </div>
+               <div class="prose max-w-none">
+    {!! nl2br(e($article->content)) !!}
+</div>
+@if($article->tags)
+    <div class="pt-6">
+        <h4 class="text-[#232323] font-semibold mb-2">
+            Tags
+        </h4>
+
+        <div class="flex flex-wrap gap-2">
+            @foreach(explode(',', $article->tags) as $tag)
+                <span class="px-3 py-1 text-sm rounded-full
+                             bg-[#e9e9e9] text-[#232323]">
+                    {{ trim($tag) }}
+                </span>
+            @endforeach
+        </div>
+    </div>
+@endif
+
+                
 
                 {{-- SHARE --}}
                 <div class="pt-6">

@@ -178,11 +178,11 @@
       class="w-[280px] py-6 border bg-white transition-all duration-300 transform hover:scale-105 cursor-pointer shadow-md rounded-tl-[20px] rounded-br-[40px]">
 
       <!-- Image -->
-      <div class="w-[180px] h-[180px] mx-auto">
+      <div class="w-[230px] h-[200px] mx-auto">
         <img
           src="{{ asset('storage/' . $member->basicInfo->photo) }}"
           alt="{{ $member->name }}"
-          class="w-full h-full rounded-full object-cover border border-gray-200"
+          class="w-full h-full  object-cover border border-gray-200"
         />
       </div>
 
@@ -254,40 +254,44 @@
             part of Events , Be a proud TMNIAN.
           </p>
         </div>
-        <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 pt-10">
+      <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-8 pt-10">
 
 @foreach($latestEvents as $event)
-  <div class="relative rounded-2xl overflow-hidden bg-black h-[420px]">
+  <div class="rounded-2xl overflow-hidden bg-white shadow-lg">
 
-    {{-- IMAGE --}}
-    <img
-      src="{{ $event->banner_image ? asset('storage/' . $event->banner_image) : asset('tmn/public/images/upcoming-event.png') }}"
-      class="absolute inset-0 w-full h-full object-cover"
-      alt="{{ $event->title }}">
-
-    {{-- DARK OVERLAY --}}
-    <div class="absolute inset-0 bg-black/30"></div>
-
-    {{-- CONTENT CARD --}}
-    <div class="absolute bottom-5 left-1/2 -translate-x-1/2 w-[90%]
-                bg-white/95 backdrop-blur rounded-2xl p-5">
+    {{-- IMAGE (70%) --}}
+    <div class="relative h-[280px]">
+      <img
+        src="{{ $event->banner_image ? asset('storage/' . $event->banner_image) : asset('tmn/public/images/upcoming-event.png') }}"
+        class="w-full h-full object-cover"
+        alt="{{ $event->title }}">
 
       {{-- DATE BADGE --}}
-      <div class="absolute -top-12 right-4 w-[56px] h-[80px]
-                  bg-red-600 rounded-md text-white flex flex-col
-                  items-center justify-center shadow-lg">
-        <p class="text-2xl font-bold leading-tight">
-          {{ \Carbon\Carbon::parse($event->event_date)->format('d') }}
-        </p>
-        <p class="text-sm uppercase">
-          {{ \Carbon\Carbon::parse($event->event_date)->format('M') }}
-        </p>
-      </div>
+     {{-- DATE BADGE (CORRECT POSITION) --}}
+<div class="absolute bottom-[-28px] right-4 z-10 flex flex-col items-center shadow-lg rounded-lg overflow-hidden">
 
-      {{-- TITLE --}}
-      <p class="text-lg font-semibold leading-snug line-clamp-2">
-        {{ $event->title }}
-      </p>
+    {{-- MONTH --}}
+    <div class="bg-red-600 text-white px-3 py-1 text-xs font-semibold uppercase">
+        {{ \Carbon\Carbon::parse($event->event_date)->format('M') }}
+    </div>
+
+    {{-- DAY --}}
+    <div class="bg-white text-red-600 px-3 text-xl font-bold">
+        {{ \Carbon\Carbon::parse($event->event_date)->format('d') }}
+    </div>
+
+</div>
+
+    </div>
+
+    {{-- CONTENT (30%) --}}
+    <div class="p-5">
+
+     {{-- TITLE --}}
+<h3 class="mt-2 text-[18px] font-semibold leading-snug line-clamp-10 text-[#232323]">
+    {{ $event->title }}
+</h3>
+
 
       {{-- LOCATION --}}
       <p class="text-sm text-gray-500 mt-1">
@@ -295,22 +299,23 @@
         {{ \Carbon\Carbon::parse($event->event_date)->format('d M') }}
       </p>
 
-      {{-- DESCRIPTION (CLAMPED) --}}
-      <p class="text-sm leading-relaxed mt-2 text-gray-700 line-clamp-3">
-        {{ strip_tags($event->description) }}
-      </p>
-
       {{-- CTA --}}
-      <a href="{{ route('events.show', $event->slug) }}"
-         class="inline-block mt-3 text-red-600 font-semibold text-sm hover:underline">
-        Read More
-      </a>
+      <div class="mt-4 flex items-center justify-between">
+        <a href="{{ route('events.show', $event->slug) }}"
+           class="text-red-600 font-semibold text-sm hover:underline">
+          Read More
+        </a>
+
+      
+      </div>
 
     </div>
+
   </div>
 @endforeach
 
 </div>
+
 
 
       </div>
@@ -481,8 +486,12 @@
           border-radius: 1px;
         }
       </style>
-      <div class="p-4 py-8 grid  md:grid-cols-2 lg:grid-cols-4  xl:grid-cols-5 gap-6 items-center justify-center"
-        id="committee-containerr">
+      <div class="max-w-7xl w-full px-6 py-8
+              grid gap-6
+              sm:grid-cols-1
+              md:grid-cols-2
+              lg:grid-cols-3"
+       id="committee-containerr">
 
 
         @foreach($advisories as $advisory)

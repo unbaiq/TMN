@@ -125,21 +125,19 @@ class ArticleController extends Controller
 
         return redirect()->route('admin.articles.index')->with('success', 'Article deleted successfully.');
     }
-  public function articleDetail($slug)
+ public function articleDetail($slug)
 {
     $article = Article::where('slug', $slug)
         ->where('status', 'published')
         ->where('is_active', true)
         ->firstOrFail();
 
-    // Increase views
     $article->increment('views');
 
-    // ✅ PREVIOUS ARTICLES (NOT STORIES)
     $previousArticles = Article::where('status', 'published')
         ->where('is_active', true)
         ->where('id', '!=', $article->id)
-        ->orderBy('id', 'desc') // safer than publish_date
+        ->latest()
         ->limit(4)
         ->get();
 
@@ -148,5 +146,33 @@ class ArticleController extends Controller
         'previousArticles'
     ));
 }
+public function userArticles()
+{
+    $articles = Article::where('status', 'published')
+        ->where('is_active', true)
+        ->latest()
+        ->paginate(10);
+
+    $latestArticles = Article::where('status', 'published')
+        ->where('is_active', true)
+        ->latest()
+        ->limit(5)
+        ->get();
+
+    $previousArticles = Article::where('status', 'published')
+        ->where('is_active', true)
+        ->latest()
+        ->skip(4)   // skip latest
+        ->limit(4)
+        ->get();
+
+    return view('user.articles-index', compact(
+        'articles',
+        'latestArticles',
+        'previousArticles'
+    ));
+}
+
+
 
 }

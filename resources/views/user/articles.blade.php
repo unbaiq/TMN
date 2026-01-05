@@ -41,7 +41,7 @@
                 <div class="bg-white shadow border">
 
                     {{-- Image --}}
-                    <img src="{{ $article->thumbnail_url }}" class="w-full h-[320px] object-cover"
+                    <img src="{{ $article->thumbnail_url }}" class="w-full h-[520px] object-cover"
                         alt="{{ $article->title }}">
 
                     <div class="p-8">
