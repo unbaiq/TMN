@@ -66,7 +66,7 @@
                 {{-- Image --}}
                 <div class="w-full pt-4 text-center">
                     <img src="{{ $advisory->thumbnail_url }}" alt="{{ $advisory->advisor_display }}"
-                        class="w-[160px] h-[160px] rounded-full mx-auto object-cover">
+                        class=" mx-auto object-cover">
 
                     <div class="w-[60%] mx-auto flex items-center justify-around py-2">
                         <span

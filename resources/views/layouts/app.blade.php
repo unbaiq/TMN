@@ -133,7 +133,7 @@
       aria-label="Main sidebar">
       <div class="flex items-center gap-3 px-6 py-5 border-b">
         <a href="{{ $role === 'admin' ? route('admin.dashboard') : route('member.dashboard') }}">
-          <img src="{{ $assetBase }}/images/logo1.png" alt="TMN Logo" class="h-10">
+          <img src="{{ $assetBase }}/images/newlogo.png" alt="TMN Logo" class="h-10">
         </a>
       </div>
 
@@ -418,7 +418,7 @@
         role="dialog" aria-modal="true" aria-label="Mobile menu">
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-3">
-            <img src="{{ $assetBase }}/images/logo1.png" alt="TMN Logo" class="h-10">
+            <img src="{{ $assetBase }}/images/newlogo.png" alt="TMN Logo" class="h-10">
           </div>
           <button id="closeMobileSidebar" class="p-2 rounded-md hover:bg-gray-100" aria-label="Close menu">✕</button>
         </div>

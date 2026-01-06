@@ -1,107 +1,313 @@
+@include("user.components.meta")
+@include("user.components.header")
+
 @php
-    use Illuminate\Support\Str;
-
-    $assetBase = app()->environment('local')
-        ? ''
-        : config('app.url') . '/tmn/public';
+  $assetBase = app()->environment('local')
+    ? ''
+    : config('app.url') . '/tmn/public';
 @endphp
+     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-@include('user.components.meta')
-@include('user.components.header')
-
-{{-- ================= BANNER ================= --}}
-<section
-    style="background-image: url('{{ $assetBase }}/images/insight-banner.png')"
-    class="bg-cover bg-center bg-no-repeat"
->
-    <div class="w-full py-10 banner-grid">
-        <div class="main-width py-4 flex items-center">
-            <div class="grid md:grid-cols-[58%,1fr] gap-6 items-center">
-                <div>
-
-                    <p class="text-white py-2 text-[17px] lg:text-[25px]">
-                        {{ $banner->subtitle ?? 'Path to Business Growth.' }}
-                    </p>
-
-                    <span class="heading2 bg-primary text-white py-2 px-7 inline-block">
-                        {{ $banner->title ?? 'Build Your Brand' }}
-                    </span>
-
-                    <p class="text-white py-2 text-[16px] lg:text-[19px] leading-[30px]">
-                        {!! $banner->content ?? '' !!}
-                    </p>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-{{-- ================= CONTENT ================= --}}
-<section class="py-10">
-    <div class="main-width grid grid-cols-1 lg:grid-cols-2 items-center gap-10">
-
-        {{-- LEFT CONTENT --}}
-        <div>
-            <h2 class="text-[24px] lg:text-[30px] font-semibold text-[#232323]">
-                {{ $intro->title ?? '' }}
-            </h2>
-
-            <p class="py-2 text-[16px] lg:text-[19px] leading-[30px]">
-                {!! $intro->content ?? '' !!}
+    <section
+      class="bg-[url(images/committee-banner.png)] bg-cover lg:bg-right bg-center bg-no-repeat"
+    > <div class="w-full py-10 h-full banner-grid"> 
+      <div class="main-width h-full py-4 flex items-center lg:justify-start">
+        <div class="grid md:grid-cols-[58%,1fr] gap-6 items-center">
+          <div h-full>
+            <p
+              class="text-white lg:py-3 py-2 lg:text-[25px] text-[17px] font-normal lg:leading-[25px]"
+            >
+             Path to Business Growth.
             </p>
-
-            <hr class="mt-4 border border-[#CF2031]">
-
-            @if($cta)
-                <div class="mt-6">
-                    <a href="{{ $cta->cta_url }}"
-                       class="inline-block font-medium text-[16px] lg:text-[20px]
-                              border text-white bg-primary rounded
-                              transition-all duration-700 hover:bg-white hover:border-[#CF2031]
-                              hover:text-[#CF2031]
-                              px-6 py-3">
-                        {{ $cta->cta_text ?? 'FREE CONSULTATION' }}
-                    </a>
-                </div>
-            @endif
+            <div class="w-full ">
+              <span class="heading2 bg-primary text-white py-2 px-7">
+              Build Your Brand
+              </span>
+            </div>
+            <p
+              class="text-white lg:py-3 py-2 lg:text-[19px] text-[16px] font-normal lg:leading-[30px]"
+            >
+             Have a question or need more information? Whether you're interested in membership, learning about Chapters, or exploring franchise opportunities, we're here to help. Reach out, and our team will connect you with the right resources.  
+            </p>
+          </div>
+          
         </div>
+      </div>
+      </div>
+    </section>
+    
+    <section class="py-10 ">
+        <div class="main-width grid grid-cols-2 items-center py-2 ">
+            <div>
+                <h2 class="text-[30px] leading-[40px] font-semibold text-[#232323]">
+                    Do You Need Best Help For Business Corporating Related Issues !
+                </h2>
+                <p class="lg:py-3 py-2 lg:text-[19px] text-[16px] font-normal lg:leading-[30px]">
+                    Welcome to TMN and be a part of TMNIAN Family. TMN is a platform of CXO's where we all come together to form a network of like minded professionals to support / help each other to grow. A Platform where competition can be dealt with sheer competence and work as a mentor for others to follow. 
+                </p>
+                
+                <hr class="mt-4 border border-[#CF2031]">
+                <div class="mt-6">
+                   <span
+    @click="open = true"
+    class="font-medium text-[20px] border text-white bg-primary rounded
+           transition-all duration-300 hover:bg-white hover:border-[#CF2031]
+           hover:text-[#CF2031] cursor-pointer px-4 py-3 inline-block">
+    FREE CONSULTATION
+</span>
 
-        {{-- ================= TESTIMONIAL SLIDER ================= --}}
-        <div class="testimonial-container overflow-hidden w-full sm:w-[90%] lg:w-[70%] h-[380px] lg:h-[440px] mx-auto">
-            <div class="testimonial-slider" id="slider">
+                </div>
+            </div>
+        <style>
+    .testimonial-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow-y:clip;
 
-                @forelse($testimonials as $testimonial)
-                    <div class="testimonial grid grid-cols-[70px,1fr] gap-3 items-center">
+    }
+    .testimonial-slider {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.5s ease-in-out;
+    }
+    .testimonial {
+        flex: 0 0 130px;
+        width: 100%;
+        padding: 20px;
+        background: #fff;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin: 5px 0;
+        transition: all 0.5s ease;
+        transform: translateX(0);
+    }
+    .center {
+        background: #d32f2f !important;
+        color: white;
+        transform: translateX(-50px);
+    }
+</style>
 
-                        <div class="flex justify-center">
-                            <div class="w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] rounded-full overflow-hidden">
-                                <img
-                                    src="{{ $assetBase }}/images/default-user.png"
-                                    class="h-full w-full object-cover"
-                                    alt="{{ $testimonial->title }}">
-                            </div>
-                        </div>
-
-                        <div>
-                            <p class="text-left text-[14px] sm:text-[16px]">
-                                {{ Str::limit(strip_tags($testimonial->content), 120) }}
-                            </p>
-
-                            <p class="text-left mt-1 text-sm font-medium">
-                                {{ $testimonial->title }}
-                            </p>
-                        </div>
-
-                    </div>
-                @empty
-                    <p>No testimonials available.</p>
-                @endforelse
-
+<div class="testimonial-container overflow-y-hidden w-[70%] h-[440px]  mx-auto ">
+    <div class="testimonial-slider" id="slider">
+        <div class="testimonial p-2 grid grid-cols-[90px,1fr] items-center">
+            <div>
+                <div class="w-[80px] h-[80px] rounded-full">
+                    <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png" class="h-full w-full rounded-full bg-cover">
+                </div>
+            </div>
+            <div>
+                <p class="text-left">
+                    Welcome to TMN and be a part of TMNIAN Family. TMN is a platform of CXOs.
+                </p>
             </div>
         </div>
-
+        <div class="testimonial p-2 grid grid-cols-[90px,1fr] items-center">
+            <div>
+                <div class="w-[80px] h-[80px] rounded-full">
+                    <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png" class="h-full w-full rounded-full bg-cover">
+                </div>
+            </div>
+            <div>
+                <p class="text-left">
+                    TMN is a powerful networking platform connecting professionals across industries for mutual growth and opportunities.
+                </p>
+            </div>
+        </div>
+        <div class="testimonial p-2 grid grid-cols-[90px,1fr] items-center">
+            <div>
+                <div class="w-[80px] h-[80px] rounded-full">
+                    <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png" class="h-full w-full rounded-full bg-cover">
+                </div>
+            </div>
+            <div>
+                <p class="text-left">
+                    Join TMN today and leverage the power of a strong professional network to elevate your career!
+                </p>
+            </div>
+        </div>
+           <div class="testimonial p-2 grid grid-cols-[90px,1fr] items-center">
+            <div>
+                <div class="w-[80px] h-[80px] rounded-full">
+                    <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png" class="h-full w-full rounded-full bg-cover">
+                </div>
+            </div>
+            <div>
+                <p class="text-left">
+                    Welcome to TMN and be a part of TMNIAN Family. TMN is a platform of CXOs.
+                </p>
+            </div>
+        </div>
+        <div class="testimonial p-2 grid grid-cols-[90px,1fr] items-center">
+            <div>
+                <div class="w-[80px] h-[80px] rounded-full">
+                    <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png" class="h-full w-full rounded-full bg-cover">
+                </div>
+            </div>
+            <div>
+                <p class="text-left">
+                    TMN is a powerful networking platform connecting professionals across industries for mutual growth and opportunities.
+                </p>
+            </div>
+        </div>
+        <div class="testimonial p-2 grid grid-cols-[90px,1fr] items-center">
+            <div>
+                <div class="w-[80px] h-[80px] rounded-full">
+                    <img src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png" class="h-full w-full rounded-full bg-cover">
+                </div>
+            </div>
+            <div>
+                <p class="text-left">
+                    Join TMN today and leverage the power of a strong professional network to elevate your career!
+                </p>
+            </div>
+        </div>
     </div>
-</section>
+</div>
 
-@include('user.components.footer')
+<script>
+    const slider = document.getElementById("slider");
+    let index = 0;
+
+    function updateSlider() {
+        let allTestimonials = document.querySelectorAll(".testimonial");
+        let total = allTestimonials.length;
+
+        allTestimonials.forEach((t, i) => {
+            t.classList.remove("center");
+            t.style.transform = "translateX(0)";
+        });
+
+        let activeIndex = index % total;
+        allTestimonials[activeIndex].classList.add("center");
+        allTestimonials[activeIndex].style.transform = "translateX(-50px)";
+
+        slider.style.transform = `translateY(-${activeIndex * 140}px)`;
+    }
+
+    function autoScroll() {
+        index++;
+        updateSlider();
+    }
+
+    setInterval(autoScroll, 3000);
+    updateSlider(); 
+</script>
+
+
+        </div>
+        
+    </section>
+
+    <div x-data="{ open: false }">
+
+    {{-- FREE CONSULTATION BUTTON --}}
+    <div class="mt-6">
+        <span
+            @click="open = true"
+            class="font-medium text-[20px] border text-white bg-primary rounded
+                   transition-all duration-300 hover:bg-white hover:border-[#CF2031]
+                   hover:text-[#CF2031] cursor-pointer px-4 py-3 inline-block">
+            FREE CONSULTATION
+        </span>
+    </div>
+
+    {{-- MODAL OVERLAY --}}
+    <div
+        x-show="open"
+        x-transition.opacity
+        class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center"
+        style="display: none;"
+    >
+
+        {{-- MODAL CARD --}}
+        <div
+            @click.away="open = false"
+            x-transition.scale
+            class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden"
+        >
+
+            {{-- HEADER --}}
+            <div class="bg-red-600 text-white px-6 py-4 flex justify-between items-center">
+                <div>
+                    <h3 class="text-xl font-semibold">Free Consultation Inquiry</h3>
+                    <p class="text-sm text-red-100">
+                        Get expert guidance for your business growth journey
+                    </p>
+                </div>
+
+                <button
+                    @click="open = false"
+                    class="w-8 h-8 bg-white text-red-600 rounded-full
+                           flex items-center justify-center font-bold">
+                    ✕
+                </button>
+            </div>
+
+            {{-- FORM --}}
+            <form class="p-6 space-y-4">
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs font-semibold">FIRST NAME</label>
+                        <input type="text" placeholder="Jane"
+                               class="w-full mt-1 border rounded px-3 py-2 bg-gray-50 focus:ring-red-600">
+                    </div>
+
+                    <div>
+                        <label class="text-xs font-semibold">LAST NAME</label>
+                        <input type="text" placeholder="Doe"
+                               class="w-full mt-1 border rounded px-3 py-2 bg-gray-50 focus:ring-red-600">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-xs font-semibold">EMAIL</label>
+                    <input type="email" placeholder="Enter your email"
+                           class="w-full mt-1 border rounded px-3 py-2 bg-gray-50">
+                    <p class="text-xs text-gray-500 mt-1">
+                        We'll use this to send consultation details
+                    </p>
+                </div>
+
+                <div>
+                    <label class="text-xs font-semibold">PHONE</label>
+                    <input type="text" placeholder="Enter your phone number"
+                           class="w-full mt-1 border rounded px-3 py-2 bg-gray-50">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs font-semibold">CITY</label>
+                        <input type="text" placeholder="Your city"
+                               class="w-full mt-1 border rounded px-3 py-2 bg-gray-50">
+                    </div>
+
+                    <div>
+                        <label class="text-xs font-semibold">ZIP CODE</label>
+                        <input type="text" placeholder="201301"
+                               class="w-full mt-1 border rounded px-3 py-2 bg-gray-50">
+                    </div>
+                </div>
+
+                <button
+                    type="submit"
+                    class="w-full mt-4 bg-red-600 hover:bg-red-700
+                           text-white py-3 rounded font-semibold transition">
+                    Request Free Consultation
+                </button>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+   
+
+    @include("user.components.footer")    
+    
+    

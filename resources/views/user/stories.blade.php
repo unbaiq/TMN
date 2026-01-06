@@ -128,26 +128,36 @@
         </div>
 
         {{-- Latest Stories --}}
-        <div class="px-4 mt-14">
-          <h2 class="text-[#232323] font-normal text-[22px]">Latest Story</h2>
-          <hr class="w-[20%] border-[2px] mt-2 border-[#CF2031]">
+       <div class="px-4 mt-14">
+    <h2 class="text-[#232323] font-normal text-[22px]">Latest Story</h2>
+    <hr class="w-[20%] border-[2px] mt-2 border-[#CF2031]">
 
-          <div class="mt-4 space-y-4">
-            @foreach($latestStories as $latest)
-              <div class="grid grid-cols-[100px,1fr] gap-4">
-                <img src="{{ $latest->image_url }}" class="h-[90px] w-full object-cover" alt="">
+    <div class="mt-4 space-y-4">
+        @foreach($latestStories as $latest)
+            <a href="{{ route('stories.show', $latest->slug) }}"
+               class="grid grid-cols-[100px,1fr] gap-4 group">
+
+                <img src="{{ $latest->image_url }}"
+                     class="h-[90px] w-full object-cover rounded
+                            group-hover:opacity-90 transition"
+                     alt="{{ $latest->title }}">
+
                 <div>
-                  <h4 class="text-[#232323] font-medium">
-                    {{ $latest->title }}
-                  </h4>
-                  <p class="text-gray-600 py-1">
-                    {{ $latest->publish_date?->format('F d, Y') }}
-                  </p>
+                    <h4 class="text-[#232323] font-medium
+                               group-hover:text-[#CF2031] transition">
+                        {{ $latest->title }}
+                    </h4>
+
+                    <p class="text-gray-600 py-1">
+                        {{ $latest->publish_date?->format('F d, Y') }}
+                    </p>
                 </div>
-              </div>
-            @endforeach
-          </div>
-        </div>
+
+            </a>
+        @endforeach
+    </div>
+</div>
+
       </div>
     </div>
   </div>

@@ -141,11 +141,11 @@
                 </p>
 
                 <p class="text-sm text-gray-500">
-                    BNI Global, Scion, CorporateConnections®
+                    TMN Global, Scion, CorporateConnections®
                 </p>
 
                 <p class="mt-4 text-gray-600 leading-relaxed">
-                    Leading Global Talent Acquisition for BNI and its divisions since
+                    Leading Global Talent Acquisition for TMN and its divisions since
                     December 2022, Todd brings 29 years of experience in both corporate
                     and agency recruiting.
                 </p>
@@ -159,7 +159,7 @@
 
                     <p class="flex items-center gap-2">
                         <i class="fa-solid fa-envelope text-red-600"></i>
-                        toddrimer@bni.com
+                        toddrimer@TMN.com
                     </p>
                 </div>
 

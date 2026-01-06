@@ -38,45 +38,57 @@
         {{-- ================= LEFT: ADVISOR PROFILE ================= --}}
         <aside class="bg-white p-6 rounded-xl shadow h-fit">
 
-            <img src="{{ $advisory->thumbnail_url }}"
-                 alt="{{ $advisory->advisor_display }}"
-                 class="w-[200px] h-[200px] rounded-full mx-auto object-cover">
+    {{-- IMAGE --}}
+    <div class="w-full max-w-[260px] mx-auto overflow-hidden rounded-xl shadow-sm">
+        <img
+            src="{{ $advisory->thumbnail_url }}"
+            alt="{{ $advisory->advisor_display }}"
+            class="w-full h-[260px] object-cover object-top"
+        >
+    </div>
 
-            <div class="text-center mt-4">
-                <h2 class="text-xl font-bold">
-                    {{ $advisory->advisor_name }}
-                </h2>
+    {{-- BASIC INFO --}}
+    <div class="text-center mt-5">
+        <h2 class="text-xl font-bold text-gray-900">
+            {{ $advisory->advisor_name }}
+        </h2>
 
-                <p class="text-gray-600">
-                    {{ $advisory->advisor_designation }}
-                </p>
+        <p class="text-gray-600">
+            {{ $advisory->advisor_designation }}
+        </p>
 
-                @if($advisory->organization)
-                    <p class="text-sm text-gray-500 mt-1">
-                        {{ $advisory->organization }}
-                    </p>
-                @endif
+        @if($advisory->organization)
+            <p class="text-sm text-gray-500 mt-1">
+                {{ $advisory->organization }}
+            </p>
+        @endif
 
-                @if($advisory->advisor_experience_label)
-                    <span class="inline-block mt-3 px-4 py-1 text-sm
-                                 bg-red-600/10 text-red-600 rounded-full font-semibold">
-                        {{ $advisory->advisor_experience_label }}
-                    </span>
-                @endif
-            </div>
+        @if($advisory->advisor_experience_label)
+            <span class="inline-block mt-3 px-4 py-1 text-sm
+                         bg-red-600/10 text-red-600 rounded-full font-semibold">
+                {{ $advisory->advisor_experience_label }}
+            </span>
+        @endif
+    </div>
 
-            {{-- CONTACT --}}
-            <div class="mt-6 space-y-2 text-sm text-gray-700">
-                @if($advisory->advisor_email)
-                    <p><strong>Email:</strong> {{ $advisory->advisor_email }}</p>
-                @endif
+    {{-- CONTACT --}}
+    <div class="mt-6 space-y-2 text-sm text-gray-700">
+        @if($advisory->advisor_email)
+            <p>
+                <strong>Email:</strong>
+                {{ $advisory->advisor_email }}
+            </p>
+        @endif
 
-                @if($advisory->advisor_phone)
-                    <p><strong>Phone:</strong> {{ $advisory->advisor_phone }}</p>
-                @endif
-            </div>
+        @if($advisory->advisor_phone)
+            <p>
+                <strong>Phone:</strong>
+                {{ $advisory->advisor_phone }}
+            </p>
+        @endif
+    </div>
 
-        </aside>
+</aside>
 
         {{-- ================= RIGHT: DETAILS ================= --}}
         <div class="bg-white p-8 rounded-xl shadow space-y-8">
