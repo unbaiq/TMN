@@ -162,7 +162,7 @@
             </div>
             <div>
               <p class="leading-[25px] text-gray-700">
-                BNI is a great investment and we’ll continue our membership for years to come!
+                TMN is a great investment and we’ll continue our membership for years to come!
                 Highly recommended for businesses wanting to grow and learn.
               </p>
               <p class="font-bold pt-6">Avinash Handoo</p>

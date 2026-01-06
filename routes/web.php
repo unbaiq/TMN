@@ -398,10 +398,8 @@ Route::middleware(['auth', 'role:member'])
 
 // User 
 Route::view('/about', 'user.about');
-Route::get('/advisory-committee', [UserController::class, 'advisoryCommittee'])
-    ->name('advisory.committee');
-  Route::get('/advisory/{slug}', [AdvisoryController::class, 'show'])
-     ->name('advisories.show');
+Route::get('/advisory-committee', [UserController::class, 'advisoryCommittee'])->name('advisory.committee');
+Route::get('/advisory/{slug}', [AdvisoryController::class, 'show'])->name('advisories.show');
 Route::view('/article-one', 'user.article_one');
 Route::view('/article-two', 'user.article_two');
 Route::view('/article-three', 'user.article_three');
@@ -458,25 +456,13 @@ Route::get('/stories/{slug}', [UserController::class, 'storyDetail'])->name('sto
 
 
 /*  footer links */
-Route::get('/terms-and-conditions', function () {
-    return view('user.termsandcondition');
-})->name('user.termsandcondition');
-Route::get('/careers', function () {
-    return view('user.careers');
-})->name('user.careers');
-Route::view('/certificates', 'user.certificates')
-    ->name('user.certificates');
-    Route::view('/feedback', 'user.feedback')
-    ->name('user.feedback');
-Route::get('/faqs', function () {
-    return view('user.faqs');
-})->name('user.faqs');
-Route::get('/disclaimer', function () {
-    return view('user.disclaimer');
-})->name('user.disclaimer');
-Route::get('/vigilance', function () {
-    return view('user.vigilance');
-})->name('user.vigilance');
+Route::get('/terms-and-conditions', function () {return view('user.termsandcondition');})->name('user.termsandcondition');
+Route::get('/careers', function () {return view('user.careers');})->name('user.careers');
+Route::view('/certificates', 'user.certificates')->name('user.certificates');
+Route::view('/feedback', 'user.feedback')->name('user.feedback');
+Route::get('/faqs', function () {return view('user.faqs');})->name('user.faqs');
+Route::get('/disclaimer', function () {return view('user.disclaimer');})->name('user.disclaimer');
+Route::get('/vigilance', function () {return view('user.vigilance');})->name('user.vigilance');
 
 
 /* ================= ARTICLES ================= */

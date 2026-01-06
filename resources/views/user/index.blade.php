@@ -510,23 +510,28 @@
                 </div>
               </div>
 
-              <div class="forecast">
-                <div>
-                  <p class="text-[22px] font-semibold text-[#000]">
-                    {{ $advisory->advisor_name }}
-                  </p>
-                </div>
+              <a href="{{ route('advisories.show', $advisory->slug) }}" class="block">
+    <div class="forecast cursor-pointer">
 
-                <div class="separator"></div>
+        <div>
+            <p class="text-[22px] font-semibold text-[#000] hover:text-red-600 transition">
+                {{ $advisory->advisor_name }}
+            </p>
+        </div>
 
-                <div>
-                  <p class="text-[15px] font-medium">
-                    {{ $advisory->advisor_designation ?? 'Senior Advisor' }}
-                  </p>
-                </div>
+        <div class="separator"></div>
 
-                <div class="separator"></div>
-              </div>
+        <div>
+            <p class="text-[15px] font-medium text-gray-700 hover:text-red-600 transition">
+                {{ $advisory->advisor_designation ?? 'Senior Advisor' }}
+            </p>
+        </div>
+
+        <div class="separator"></div>
+
+    </div>
+</a>
+
             </section>
 
           </div>
