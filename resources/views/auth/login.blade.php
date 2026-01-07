@@ -162,7 +162,7 @@
   <div class="w-full max-w-md bg-white/75 backdrop-blur-2xl shadow-2xl border border-white/30 rounded-3xl p-8 sm:p-10">
 
     <div class="flex justify-center mb-6">
-      <img src="{{ $assetBase }}/images/logo1.png" class="w-32 sm:w-40 drop-shadow-lg" />
+      <img src="{{ $assetBase }}/images/newlogo.png" class="w-32 sm:w-40 drop-shadow-lg" />
 
     </div>
 

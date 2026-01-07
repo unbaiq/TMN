@@ -104,6 +104,8 @@
       $adminModule = match (true) {
         request()->routeIs('admin.dashboard') => 'Dashboard',
         request()->routeIs('admin.enquiries.*') => 'Enquiries',
+        request()->routeIs('admin.contact.*') => 'Contact Queries',
+
         request()->routeIs('admin.members.*') => 'Members',
         request()->routeIs('admin.chapters.*') => 'Chapters',
         request()->routeIs('admin.events.attended'),
@@ -240,6 +242,17 @@
             <i data-feather="message-square" class="w-5 h-5"></i>
             <span class="hidden md:inline">Enquiry</span>
           </a>
+        {{-- ================= CONTACT QUERIES ================= --}}
+<a href="{{ route('admin.contact.index') }}"
+   class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
+   {{ request()->routeIs('admin.contact.*')
+      ? 'nav-active text-red-600 bg-red-50'
+      : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }}
+   transition-colors">
+    <i data-feather="mail" class="w-5 h-5"></i>
+    <span class="hidden md:inline">Contact Queries</span>
+</a>
+
 
           <a href="{{ route('admin.members.index') }}"
             class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item {{ request()->routeIs('admin.members.index') ? 'nav-active text-red-600 bg-red-50' : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }} transition-colors">

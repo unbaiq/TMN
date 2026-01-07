@@ -26,6 +26,7 @@ use App\Http\Controllers\AdminInviteController;
 use App\Http\Controllers\MemberRecognitionController;
 use App\Http\Controllers\MemberAwardController;
 use App\Http\Controllers\MemberCsrController;
+use App\Http\Controllers\ContactQueryController;
 
 
 
@@ -500,5 +501,43 @@ Route::get('/events/{event:slug}', [UserController::class, 'eventShow'])
         }
         return 'The [public/storage] directory has been linked.';
     });
-    
-    
+
+    // CONTACT PAGE (GET)
+Route::get('/contact', function () {
+    return view('user.contact');
+})->name('contact');
+
+
+// ================= CONTACT (PUBLIC) =================
+
+// Show contact page
+Route::get('/contact', function () {
+    return view('user.contact');
+})->name('contact');
+
+// Store contact form
+Route::post('/contact', [ContactQueryController::class, 'store'])
+    ->name('contact.store');
+
+
+// ================= CONTACT (ADMIN) =================
+Route::prefix('admin')
+    ->name('admin.')
+    ->middleware(['auth', 'role:admin'])
+    ->group(function () {
+
+        Route::get('/contact', [ContactQueryController::class, 'index'])
+            ->name('contact.index');
+
+        Route::get('/contact/{contact}', [ContactQueryController::class, 'show'])
+            ->name('contact.show');
+
+        Route::get('/contact/{contact}/edit', [ContactQueryController::class, 'edit'])
+            ->name('contact.edit');
+
+        Route::put('/contact/{contact}', [ContactQueryController::class, 'update'])
+            ->name('contact.update');
+
+        Route::delete('/contact/{contact}', [ContactQueryController::class, 'destroy'])
+            ->name('contact.destroy');
+    });

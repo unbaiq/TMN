@@ -289,7 +289,7 @@
                 <div x-show="open === 3"
                      x-transition
                      class="mt-4 text-gray-600 leading-relaxed">
-                    We honor proven systems while embracing innovation
+                    We honour proven systems while embracing innovation
                     to remain relevant and impactful.
                 </div>
             </div>

@@ -127,30 +127,55 @@
           </p>
         </div>
       </div>
-      <div class="lg:p-10 bg-[#F8F8F8B2]  w-full">
-        <form class="flex flex-col gap-8">
-          <input type="text"
-            class="border-b-2 text-[#313039]  text-[18px] placeholder-[#313039] w-full px-4  py-4 placeholder-gray-400"
-            placeholder=" Name" required>
+   <div class="lg:p-10 bg-[#F8F8F8B2] w-full">
+    <form
+        method="POST"
+        action="{{ route('contact.store') }}"
+        class="flex flex-col gap-8">
 
-          <input type="text"
-            class="border-b-2 text-[#313039] text-[18px]  placeholder-[#313039] w-full px-4 px-4  py-4 placeholder-gray-400"
-            placeholder=" Email ID" required>
-          <input type="text"
-            class="border-b-2 text-[#313039] text-[18px]  placeholder-[#313039] w-full px-4  py-4 placeholder-gray-400"
-            placeholder=" Phone No." required>
-          <textarea rows="4"
-            class="border-b-2 w-full text-[#313039] px-4 py-4 placeholder-gray-400 focus:outline-none focus:border-red-500"
-            placeholder="Tell Us About your project">
-</textarea>
+        @csrf
+
+        <input
+            type="text"
+            name="name"
+            class="border-b-2 text-[#313039] text-[18px]
+                   w-full px-4 py-4"
+            placeholder="Name"
+            required>
+
+        <input
+            type="email"
+            name="email"
+            class="border-b-2 text-[#313039] text-[18px]
+                   w-full px-4 py-4"
+            placeholder="Email ID"
+            required>
+
+        <input
+            type="text"
+            name="phone"
+            class="border-b-2 text-[#313039] text-[18px]
+                   w-full px-4 py-4"
+            placeholder="Phone No.">
+
+        <textarea
+            rows="4"
+            name="message"
+            class="border-b-2 w-full text-[#313039] px-4 py-4
+                   focus:outline-none focus:border-red-500"
+            placeholder="Tell Us About your project"
+            required></textarea>
+
+        <button
+            type="submit"
+            class="bg-primary w-[200px] text-white text-[17px]
+                   md:text-[20px] rounded-[5px] px-4 py-2">
+            Send Query
+        </button>
+    </form>
+</div>
 
 
-          <button type="submit"
-            class="bg-primary w-[200px] text-white text-[17px] md:text-[20px] xl:text-[20px] rounded-[5px] px-4 py-2">Send
-            Query</button>
-        </form>
-
-      </div>
     </div>
   </div>
   <div class="mt-8">
