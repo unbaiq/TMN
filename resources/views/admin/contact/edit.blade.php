@@ -13,7 +13,7 @@
     </div>
 
     <form method="POST"
-          action="{{ route('admin.contact.update', $contactQuery) }}"
+          action="{{ route('admin.contact.update', $contact) }}"
           class="bg-white rounded-2xl shadow p-8 space-y-6">
         @csrf
         @method('PUT')
@@ -21,13 +21,17 @@
         <div class="grid md:grid-cols-2 gap-6">
             <div>
                 <label class="text-sm font-medium">Name</label>
-                <input type="text" value="{{ $contactQuery->name }}" disabled
+                <input type="text"
+                       value="{{ $contact->name }}"
+                       disabled
                        class="w-full mt-1 border rounded-xl px-4 py-2 bg-gray-100">
             </div>
 
             <div>
                 <label class="text-sm font-medium">Email</label>
-                <input type="text" value="{{ $contactQuery->email }}" disabled
+                <input type="text"
+                       value="{{ $contact->email }}"
+                       disabled
                        class="w-full mt-1 border rounded-xl px-4 py-2 bg-gray-100">
             </div>
         </div>
@@ -38,7 +42,7 @@
                     class="w-full mt-1 border rounded-xl px-4 py-2">
                 @foreach(['new','in_progress','resolved','closed'] as $status)
                     <option value="{{ $status }}"
-                        @selected($contactQuery->status === $status)>
+                        @selected($contact->status === $status)>
                         {{ ucfirst(str_replace('_',' ', $status)) }}
                     </option>
                 @endforeach
@@ -47,10 +51,9 @@
 
         <div>
             <label class="text-sm font-medium">Message</label>
-            <textarea rows="5" disabled
-                      class="w-full mt-1 border rounded-xl px-4 py-2 bg-gray-100">
-{{ $contactQuery->message }}
-            </textarea>
+            <textarea rows="5"
+                      disabled
+                      class="w-full mt-1 border rounded-xl px-4 py-2 bg-gray-100">{{ $contact->message }}</textarea>
         </div>
 
         <button class="bg-red-600 text-white px-6 py-3 rounded-xl font-semibold">

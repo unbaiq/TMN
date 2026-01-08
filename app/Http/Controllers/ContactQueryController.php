@@ -16,11 +16,12 @@ class ContactQueryController extends Controller
      */
     public function store(Request $request)
 {
+     
     $validated = $request->validate([
         'name'    => 'required|string|max:255',
         'email'   => 'required|email|max:255',
-        'phone'   => 'nullable|string|max:20',
-        'message' => 'required|string|min:10',
+        'phone'   => 'nullable|string|max:15',
+        'message' => 'required|string|max:2000',
     ]);
 
     ContactQuery::create([
@@ -98,7 +99,9 @@ class ContactQueryController extends Controller
     public function update(Request $request, ContactQuery $contact)
     {
         $validated = $request->validate([
-            'status' => 'required|in:new,contacted,resolved,closed',
+           'status' => 'required|in:new,in_progress,resolved,closed',
+
+
         ]);
 
         $contact->update([

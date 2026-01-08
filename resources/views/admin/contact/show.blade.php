@@ -12,42 +12,67 @@
         </a>
     </div>
 
-    <div class="bg-white rounded-2xl shadow p-8 space-y-6">
+<div class="bg-white rounded-2xl shadow p-8 space-y-6">
 
-        <div class="grid md:grid-cols-2 gap-6">
-            <p><strong>Name:</strong> {{ $contactQuery->name }}</p>
-            <p><strong>Email:</strong> {{ $contactQuery->email }}</p>
-            <p><strong>Phone:</strong> {{ $contactQuery->phone ?? '-' }}</p>
-            <p><strong>Status:</strong>
-                <span class="font-semibold text-red-600">
-                    {{ ucfirst(str_replace('_',' ', $contactQuery->status)) }}
-                </span>
-            </p>
-        </div>
-
-        <div>
-            <h4 class="font-semibold mb-2">Message</h4>
-            <p class="text-gray-700 leading-relaxed">
-                {{ $contactQuery->message }}
-            </p>
-        </div>
-
-        <div class="flex gap-4">
-            <a href="{{ route('admin.contact.edit', $contactQuery) }}"
-               class="bg-green-600 text-white px-6 py-2 rounded-xl">
-                Edit
-            </a>
-
-            <form method="POST" action="{{ route('admin.contact.destroy', $contactQuery) }}"
-                  onsubmit="return confirm('Delete this query?')">
-                @csrf
-                @method('DELETE')
-                <button class="bg-red-600 text-white px-6 py-2 rounded-xl">
-                    Delete
-                </button>
-            </form>
-        </div>
-
+    {{-- DETAILS --}}
+    <div class="grid md:grid-cols-2 gap-6">
+        <p><strong>Name:</strong> {{ $contact->name }}</p>
+        <p><strong>Email:</strong> {{ $contact->email }}</p>
+        <p><strong>Phone:</strong> {{ $contact->phone ?? '-' }}</p>
     </div>
+
+    {{-- MESSAGE --}}
+    <div>
+        <h4 class="font-semibold mb-2">Message</h4>
+        <p class="text-gray-700 leading-relaxed">
+            {{ $contact->message }}
+        </p>
+    </div>
+
+    {{-- STATUS UPDATE FORM --}}
+    <form method="POST"
+          action="{{ route('admin.contact.update', $contact) }}"
+          class="flex flex-wrap items-center gap-4 bg-gray-50 p-4 rounded-xl">
+
+        @csrf
+        @method('PUT')
+
+        <label class="font-semibold">Status:</label>
+
+        <select name="status"
+                class="border rounded-lg px-4 py-2">
+            @foreach(['new','in_progress','resolved','closed'] as $status)
+                <option value="{{ $status }}"
+                        @selected($contact->status === $status)>
+                    {{ ucfirst(str_replace('_',' ', $status)) }}
+                </option>
+            @endforeach
+        </select>
+
+        <button class="bg-red-600 text-white px-6 py-2 rounded-lg">
+            Update Status
+        </button>
+    </form>
+
+    {{-- ACTIONS --}}
+    <div class="flex gap-4 pt-4">
+        <a href="{{ route('admin.contact.index') }}"
+           class="bg-gray-100 px-6 py-2 rounded-xl">
+            ← Back
+        </a>
+
+        <form method="POST"
+              action="{{ route('admin.contact.destroy', $contact) }}"
+              onsubmit="return confirm('Delete this query?')">
+            @csrf
+            @method('DELETE')
+            <button class="bg-red-600 text-white px-6 py-2 rounded-xl">
+                Delete
+            </button>
+        </form>
+    </div>
+
+</div>
+
 </div>
 @endsection

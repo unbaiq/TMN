@@ -186,4 +186,20 @@
   </div>
 
 </section>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session('success'))
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        Swal.fire({
+            icon: 'success',
+            title: 'Query Submitted!',
+            text: 'Please wait for response from TMN team.',
+            confirmButtonColor: '#CF2031',
+            confirmButtonText: 'OK'
+        });
+    });
+</script>
+@endif
+
 @include("user.components.footer")

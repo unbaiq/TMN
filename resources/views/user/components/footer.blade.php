@@ -86,9 +86,7 @@
                             <li class="mb-4">
                                 <a href="{{ route('user.feedback') }}" class="hover:underline">Feedback </a>
                             </li>
-                            <li class="mb-4">
-                                <a href=" " class="hover:underline">About Us</a>
-                            </li>
+                           
                             <li class="mb-4">
                                 <a href="{{ route('user.vigilance') }}" class="hover:underline">Vigilance</a>
                             </li>

@@ -99,7 +99,7 @@
             to high-value industry insights, professional collaborations, and business opportunities. Through expert-led
             discussions, executive mentorship, and corporate partnerships, TMN helps professionals stay ahead in an
             evolving business landscape, whether you're looking to expand your network, explore new business ventures,
-            or gain though leadership exposure, TMN is your gateway to success. Join us and be part of a powerful
+            or gain through leadership exposure, TMN is your gateway to success. Join us and be part of a powerful
             ecosystem that drives innovation, leadership excellence, and industry growth.
           </p>
 
