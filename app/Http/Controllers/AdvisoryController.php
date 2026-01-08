@@ -10,7 +10,13 @@ use Illuminate\Support\Str;
 class AdvisoryController extends Controller
 {
     /**
-     * Display all advisories.
+     * ===============================
+     * ADMIN SECTION
+     * ===============================
+     */
+
+    /**
+     * Display all advisories (ADMIN).
      */
     public function index()
     {
@@ -19,7 +25,7 @@ class AdvisoryController extends Controller
     }
 
     /**
-     * Show form for creating a new advisory.
+     * Show form for creating a new advisory (ADMIN).
      */
     public function create()
     {
@@ -27,7 +33,7 @@ class AdvisoryController extends Controller
     }
 
     /**
-     * Store a new advisory.
+     * Store a new advisory (ADMIN).
      */
     public function store(Request $request)
     {
@@ -53,7 +59,6 @@ class AdvisoryController extends Controller
             'advisor_phone' => 'nullable|string|max:50',
             'organization' => 'nullable|string|max:255',
 
-            // ✅ EXPERIENCE
             'advisor_experience_years' => 'nullable|integer|min:0|max:60',
             'advisor_experience_summary' => 'nullable|string',
 
@@ -71,11 +76,13 @@ class AdvisoryController extends Controller
         $validated['is_registration_open'] = $request->boolean('is_registration_open', true);
 
         if ($request->hasFile('banner')) {
-            $validated['banner'] = $request->file('banner')->store('advisories/banners', 'public');
+            $validated['banner'] = $request->file('banner')
+                ->store('advisories/banners', 'public');
         }
 
         if ($request->hasFile('thumbnail')) {
-            $validated['thumbnail'] = $request->file('thumbnail')->store('advisories/thumbnails', 'public');
+            $validated['thumbnail'] = $request->file('thumbnail')
+                ->store('advisories/thumbnails', 'public');
         }
 
         Advisory::create($validated);
@@ -86,7 +93,15 @@ class AdvisoryController extends Controller
     }
 
     /**
-     * Show form to edit advisory.
+     * Show advisory details (ADMIN – ID based).
+     */
+    public function show(Advisory $advisory)
+    {
+        return view('admin.advisories.show', compact('advisory'));
+    }
+
+    /**
+     * Show form to edit advisory (ADMIN).
      */
     public function edit(Advisory $advisory)
     {
@@ -94,7 +109,7 @@ class AdvisoryController extends Controller
     }
 
     /**
-     * Update an advisory.
+     * Update an advisory (ADMIN).
      */
     public function update(Request $request, Advisory $advisory)
     {
@@ -120,7 +135,6 @@ class AdvisoryController extends Controller
             'advisor_phone' => 'nullable|string|max:50',
             'organization' => 'nullable|string|max:255',
 
-            // ✅ EXPERIENCE
             'advisor_experience_years' => 'nullable|integer|min:0|max:60',
             'advisor_experience_summary' => 'nullable|string',
 
@@ -130,7 +144,6 @@ class AdvisoryController extends Controller
             'thumbnail' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        // ✅ Update slug ONLY if title changed
         if ($advisory->title !== $validated['title']) {
             $validated['slug'] = Str::slug($validated['title']);
         }
@@ -142,17 +155,15 @@ class AdvisoryController extends Controller
         $validated['is_registration_open'] = $request->boolean('is_registration_open', true);
 
         if ($request->hasFile('banner')) {
-            if ($advisory->banner) {
-                Storage::disk('public')->delete($advisory->banner);
-            }
-            $validated['banner'] = $request->file('banner')->store('advisories/banners', 'public');
+            Storage::disk('public')->delete($advisory->banner);
+            $validated['banner'] = $request->file('banner')
+                ->store('advisories/banners', 'public');
         }
 
         if ($request->hasFile('thumbnail')) {
-            if ($advisory->thumbnail) {
-                Storage::disk('public')->delete($advisory->thumbnail);
-            }
-            $validated['thumbnail'] = $request->file('thumbnail')->store('advisories/thumbnails', 'public');
+            Storage::disk('public')->delete($advisory->thumbnail);
+            $validated['thumbnail'] = $request->file('thumbnail')
+                ->store('advisories/thumbnails', 'public');
         }
 
         $advisory->update($validated);
@@ -163,35 +174,38 @@ class AdvisoryController extends Controller
     }
 
     /**
-     * Show advisory details.
-     */
-   public function show(string $slug)
-{
-    $advisory = Advisory::where('slug', $slug)
-        ->where('is_public', true)
-        ->where('is_active', true)
-        ->firstOrFail();
-
-    return view('user.detail-advisory', compact('advisory'));
-}
-
-    /**
-     * Delete advisory.
+     * Delete advisory (ADMIN).
      */
     public function destroy(Advisory $advisory)
     {
-        if ($advisory->banner) {
-            Storage::disk('public')->delete($advisory->banner);
-        }
-
-        if ($advisory->thumbnail) {
-            Storage::disk('public')->delete($advisory->thumbnail);
-        }
+        Storage::disk('public')->delete([
+            $advisory->banner,
+            $advisory->thumbnail,
+        ]);
 
         $advisory->delete();
 
         return redirect()
             ->route('admin.advisories.index')
             ->with('success', 'Advisory deleted successfully.');
+    }
+
+    /**
+     * ===============================
+     * PUBLIC SECTION
+     * ===============================
+     */
+
+    /**
+     * Show advisory details (PUBLIC – slug based).
+     */
+    public function showBySlug(string $slug)
+    {
+        $advisory = Advisory::where('slug', $slug)
+            ->where('is_public', true)
+            ->where('is_active', true)
+            ->firstOrFail();
+
+        return view('user.detail-advisory', compact('advisory'));
     }
 }
