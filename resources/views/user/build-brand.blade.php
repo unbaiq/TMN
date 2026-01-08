@@ -36,7 +36,7 @@
       </div>
     </section>
     
-    <section class="py-10 ">
+    <section class="mt-10 ">
         <div class="main-width grid grid-cols-2 items-center py-2 ">
             <div>
                 <h2 class="text-[30px] leading-[40px] font-semibold text-[#232323]">
@@ -47,16 +47,109 @@
                 </p>
                 
                 <hr class="mt-4 border border-[#CF2031]">
-                <div class="mt-6">
-                   <span
-    @click="open = true"
-    class="font-medium text-[20px] border text-white bg-primary rounded
-           transition-all duration-300 hover:bg-white hover:border-[#CF2031]
-           hover:text-[#CF2031] cursor-pointer px-4 py-3 inline-block">
-    FREE CONSULTATION
-</span>
+              
+    <div x-data="{ open: false }">
 
+    {{-- FREE CONSULTATION BUTTON --}}
+    <div class="mt-4">
+        <span
+            @click="open = true"
+            class="font-medium text-[20px] border text-white bg-primary rounded
+                   transition-all duration-300 hover:bg-white hover:border-[#CF2031]
+                   hover:text-[#CF2031] cursor-pointer px-4 py-3 inline-block">
+            FREE CONSULTATION
+        </span>
+    </div>
+
+    {{-- MODAL OVERLAY --}}
+    <div
+        x-show="open"
+        x-transition.opacity
+        class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center"
+        style="display: none;"
+    >
+
+        {{-- MODAL CARD --}}
+        <div
+            @click.away="open = false"
+            x-transition.scale
+            class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden"
+        >
+
+            {{-- HEADER --}}
+            <div class="bg-red-600 text-white px-6 py-4 flex justify-between items-center">
+                <div>
+                    <h3 class="text-xl font-semibold">Free Consultation Inquiry</h3>
+                    <p class="text-sm text-red-100">
+                        Get expert guidance for your business growth journey
+                    </p>
                 </div>
+
+                <button
+                    @click="open = false"
+                    class="w-8 h-8 bg-white text-red-600 rounded-full
+                           flex items-center justify-center font-bold">
+                    ✕
+                </button>
+            </div>
+
+            {{-- FORM --}}
+            <form class="p-6 space-y-4">
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs font-semibold">FIRST NAME</label>
+                        <input type="text" placeholder="Jane"
+                               class="w-full mt-1 border rounded px-3 py-2 bg-gray-50 focus:ring-red-600">
+                    </div>
+
+                    <div>
+                        <label class="text-xs font-semibold">LAST NAME</label>
+                        <input type="text" placeholder="Doe"
+                               class="w-full mt-1 border rounded px-3 py-2 bg-gray-50 focus:ring-red-600">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-xs font-semibold">EMAIL</label>
+                    <input type="email" placeholder="Enter your email"
+                           class="w-full mt-1 border rounded px-3 py-2 bg-gray-50">
+                    <p class="text-xs text-gray-500 mt-1">
+                        We'll use this to send consultation details
+                    </p>
+                </div>
+
+                <div>
+                    <label class="text-xs font-semibold">PHONE</label>
+                    <input type="text" placeholder="Enter your phone number"
+                           class="w-full mt-1 border rounded px-3 py-2 bg-gray-50">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs font-semibold">CITY</label>
+                        <input type="text" placeholder="Your city"
+                               class="w-full mt-1 border rounded px-3 py-2 bg-gray-50">
+                    </div>
+
+                    <div>
+                        <label class="text-xs font-semibold">ZIP CODE</label>
+                        <input type="text" placeholder="201301"
+                               class="w-full mt-1 border rounded px-3 py-2 bg-gray-50">
+                    </div>
+                </div>
+
+                <button
+                    type="submit"
+                    class="w-full mt-4 bg-red-600 hover:bg-red-700
+                           text-white py-3 rounded font-semibold transition">
+                    Request Free Consultation
+                </button>
+
+            </form>
+        </div>
+    </div>
+</div>
             </div>
         <style>
     .testimonial-container {
@@ -203,111 +296,7 @@
         
     </section>
 
-    <div x-data="{ open: false }">
-
-    {{-- FREE CONSULTATION BUTTON --}}
-    <div class="mt-6">
-        <span
-            @click="open = true"
-            class="font-medium text-[20px] border text-white bg-primary rounded
-                   transition-all duration-300 hover:bg-white hover:border-[#CF2031]
-                   hover:text-[#CF2031] cursor-pointer px-4 py-3 inline-block">
-            FREE CONSULTATION
-        </span>
-    </div>
-
-    {{-- MODAL OVERLAY --}}
-    <div
-        x-show="open"
-        x-transition.opacity
-        class="fixed inset-0 z-50 bg-black/60 flex items-center justify-center"
-        style="display: none;"
-    >
-
-        {{-- MODAL CARD --}}
-        <div
-            @click.away="open = false"
-            x-transition.scale
-            class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden"
-        >
-
-            {{-- HEADER --}}
-            <div class="bg-red-600 text-white px-6 py-4 flex justify-between items-center">
-                <div>
-                    <h3 class="text-xl font-semibold">Free Consultation Inquiry</h3>
-                    <p class="text-sm text-red-100">
-                        Get expert guidance for your business growth journey
-                    </p>
-                </div>
-
-                <button
-                    @click="open = false"
-                    class="w-8 h-8 bg-white text-red-600 rounded-full
-                           flex items-center justify-center font-bold">
-                    ✕
-                </button>
-            </div>
-
-            {{-- FORM --}}
-            <form class="p-6 space-y-4">
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="text-xs font-semibold">FIRST NAME</label>
-                        <input type="text" placeholder="Jane"
-                               class="w-full mt-1 border rounded px-3 py-2 bg-gray-50 focus:ring-red-600">
-                    </div>
-
-                    <div>
-                        <label class="text-xs font-semibold">LAST NAME</label>
-                        <input type="text" placeholder="Doe"
-                               class="w-full mt-1 border rounded px-3 py-2 bg-gray-50 focus:ring-red-600">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="text-xs font-semibold">EMAIL</label>
-                    <input type="email" placeholder="Enter your email"
-                           class="w-full mt-1 border rounded px-3 py-2 bg-gray-50">
-                    <p class="text-xs text-gray-500 mt-1">
-                        We'll use this to send consultation details
-                    </p>
-                </div>
-
-                <div>
-                    <label class="text-xs font-semibold">PHONE</label>
-                    <input type="text" placeholder="Enter your phone number"
-                           class="w-full mt-1 border rounded px-3 py-2 bg-gray-50">
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="text-xs font-semibold">CITY</label>
-                        <input type="text" placeholder="Your city"
-                               class="w-full mt-1 border rounded px-3 py-2 bg-gray-50">
-                    </div>
-
-                    <div>
-                        <label class="text-xs font-semibold">ZIP CODE</label>
-                        <input type="text" placeholder="201301"
-                               class="w-full mt-1 border rounded px-3 py-2 bg-gray-50">
-                    </div>
-                </div>
-
-                <button
-                    type="submit"
-                    class="w-full mt-4 bg-red-600 hover:bg-red-700
-                           text-white py-3 rounded font-semibold transition">
-                    Request Free Consultation
-                </button>
-
-            </form>
-        </div>
-    </div>
-</div>
-
-   
-
+  
     @include("user.components.footer")    
     
     
