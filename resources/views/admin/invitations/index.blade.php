@@ -11,7 +11,7 @@
                 Event Invitations
             </h1>
             <p class="text-xs text-gray-500">
-                BNI invitation tracking & membership follow-ups
+                TMN invitation tracking & membership follow-ups
             </p>
         </div>
 
@@ -147,7 +147,7 @@
 {{-- ================= AJAX ================= --}}
 <script>
     function sendInviteLink(id) {
-        if (!confirm('Send BNI membership invitation link?')) return;
+        if (!confirm('Send TMN membership invitation link?')) return;
 
         fetch(`/admin/invitations/${id}/send-link`, {
             method: 'POST',

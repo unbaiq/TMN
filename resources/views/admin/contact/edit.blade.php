@@ -48,7 +48,6 @@
                 @endforeach
             </select>
         </div>
-
         <div>
             <label class="text-sm font-medium">Message</label>
             <textarea rows="5"
@@ -56,9 +55,12 @@
                       class="w-full mt-1 border rounded-xl px-4 py-2 bg-gray-100">{{ $contact->message }}</textarea>
         </div>
 
-        <button class="bg-red-600 text-white px-6 py-3 rounded-xl font-semibold">
-            Update Status
-        </button>
+        <div class="flex justify-end pt-4">
+            <button class="bg-red-600 text-white px-6 py-3 rounded-xl font-semibold">
+                Update Status
+            </button>
+        </div>
+
     </form>
 </div>
 @endsection

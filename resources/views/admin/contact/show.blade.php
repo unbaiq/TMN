@@ -49,28 +49,24 @@
             @endforeach
         </select>
 
-        <button class="bg-red-600 text-white px-6 py-2 rounded-lg">
-            Update Status
-        </button>
+       <button class="bg-red-600 text-white px-6 py-2 rounded-lg ml-auto">
+        Update Status
+    </button>
     </form>
 
     {{-- ACTIONS --}}
-    <div class="flex gap-4 pt-4">
-        <a href="{{ route('admin.contact.index') }}"
-           class="bg-gray-100 px-6 py-2 rounded-xl">
-            ← Back
-        </a>
+    <div class="flex justify-end gap-4 pt-4">
+    <form method="POST"
+          action="{{ route('admin.contact.destroy', $contact) }}"
+          onsubmit="return confirm('Delete this query?')">
+        @csrf
+        @method('DELETE')
+        <button class="bg-red-600 text-white px-6 py-2 rounded-xl">
+            Delete
+        </button>
+    </form>
+</div>
 
-        <form method="POST"
-              action="{{ route('admin.contact.destroy', $contact) }}"
-              onsubmit="return confirm('Delete this query?')">
-            @csrf
-            @method('DELETE')
-            <button class="bg-red-600 text-white px-6 py-2 rounded-xl">
-                Delete
-            </button>
-        </form>
-    </div>
 
 </div>
 
