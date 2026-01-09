@@ -107,13 +107,20 @@
         @endif
 
         {{-- Footer --}}
+       @auth
+    @if(auth()->user()->role === 'admin')
         <div class="pt-6 flex justify-end">
             <a href="{{ route('admin.recognitions.edit', $recognition->id) }}"
-               class="bg-red-600 hover:bg-red-700 text-white px-6 py-2.5 rounded-lg font-medium shadow transition">
+               class="bg-red-600 hover:bg-red-700 text-white
+                      px-6 py-2.5 rounded-lg font-medium
+                      shadow transition">
                 <i data-feather="edit" class="inline w-4 h-4 mr-1"></i>
                 Edit Recognition
             </a>
         </div>
+    @endif
+@endauth
+
     </div>
 </div>
 

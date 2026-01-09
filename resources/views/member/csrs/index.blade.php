@@ -1,151 +1,126 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="max-w-7xl mx-auto px-4 py-6 space-y-6">
+@php
+    $isAdmin = auth()->check() && auth()->user()->role === 'admin';
+@endphp
 
-    {{-- ================= HEADER ================= --}}
-    <div class="bg-gradient-to-r from-red-700 via-red-600 to-red-500
-                text-white rounded-2xl px-8 py-6
-                flex justify-between items-center shadow-lg">
+@if($isAdmin)
+  <div class="max-w-7xl mx-auto px-6 py-8">
 
-        <div>
-            <h2 class="text-3xl font-semibold">CSR Activities</h2>
-            <p class="text-sm text-white/80 mt-1">
-                Corporate Social Responsibility activities
-            </p>
-        </div>
+    {{-- ================= SINGLE CONTAINER ================= --}}
+    <div class="bg-white rounded-2xl shadow p-6 space-y-6">
 
-        {{-- ADD CSR : ADMIN ONLY --}}
-        @if(auth()->user()->role === 'admin')
+        {{-- HEADER --}}
+        <div class="flex items-center justify-between">
+            <div>
+                <h2 class="text-xl font-semibold text-gray-900">
+                    CSR Activities
+                </h2>
+                <p class="text-sm text-gray-500 mt-1">
+                    Manage Corporate Social Responsibility activities.
+                </p>
+            </div>
+
             <a href="{{ route('admin.csrs.create') }}"
-               class="bg-white text-red-600 px-4 py-2 rounded-lg
-                      font-medium shadow hover:bg-gray-100 transition">
-                <i data-feather="plus" class="inline w-4 h-4 mr-1"></i>
-                Add CSR
+               class="bg-red-600 hover:bg-red-700 text-white
+                      px-5 py-2 rounded-lg text-sm font-medium">
+                + Add CSR
             </a>
-        @endif
-    </div>
-
-    {{-- ================= SUCCESS MESSAGE ================= --}}
-    @if(session('success'))
-        <div class="bg-green-50 border border-green-200 text-green-800
-                    px-4 py-3 rounded-lg flex justify-between items-center">
-            <span>{{ session('success') }}</span>
-            <button onclick="this.parentElement.remove()">✕</button>
         </div>
-    @endif
 
-    {{-- ================= FILTERS ================= --}}
-    <form method="GET"
-      action="{{ url()->current() }}"
-      class="bg-white border border-gray-200 shadow rounded-xl
-             p-4 flex flex-wrap gap-4 items-end">
+        {{-- SUCCESS MESSAGE --}}
+        @if(session('success'))
+            <div class="bg-green-50 border border-green-200 text-green-800
+                        px-4 py-3 rounded-lg flex justify-between items-center">
+                <span>{{ session('success') }}</span>
+                <button onclick="this.parentElement.remove()">✕</button>
+            </div>
+        @endif
 
-    {{-- SEARCH --}}
-    <div class="relative">
-        <input type="text"
-               name="search"
-               value="{{ request('search') }}"
-               placeholder="Search title or member…"
-               class="pl-10 border border-gray-300 rounded-lg px-3 py-2 text-sm
-                      focus:ring-1 focus:ring-red-600 focus:border-red-600">
-        <i data-feather="search"
-           class="absolute left-3 top-2.5 w-4 h-4 text-gray-400"></i>
-    </div>
+        {{-- FILTERS --}}
+        <form method="GET"
+              action="{{ url()->current() }}"
+              class="flex flex-wrap items-end gap-4">
 
-    {{-- TYPE --}}
-    <select name="csr_type"
-            class="border border-gray-300 rounded-lg px-3 py-2 text-sm
-                   focus:ring-1 focus:ring-red-600 focus:border-red-600">
-        <option value="">All CSR Types</option>
-        @foreach(['education','health','environment','community','donation','other'] as $type)
-            <option value="{{ $type }}" @selected(request('csr_type') == $type)>
-                {{ ucfirst($type) }}
-            </option>
-        @endforeach
-    </select>
+            <div class="relative">
+                <input type="text"
+                       name="search"
+                       value="{{ request('search') }}"
+                       placeholder="Search title or member..."
+                       class="pl-10 border rounded-lg px-3 py-2 text-sm
+                              focus:ring-red-500 focus:border-red-500">
+                <i data-feather="search"
+                   class="absolute left-3 top-2.5 w-4 h-4 text-gray-400"></i>
+            </div>
 
-    {{-- STATUS --}}
-    <select name="status"
-            class="border border-gray-300 rounded-lg px-3 py-2 text-sm
-                   focus:ring-1 focus:ring-red-600 focus:border-red-600">
-        <option value="">All Status</option>
-        @foreach(['pending','approved','rejected'] as $status)
-            <option value="{{ $status }}" @selected(request('status') == $status)>
-                {{ ucfirst($status) }}
-            </option>
-        @endforeach
-    </select>
+            <select name="csr_type"
+                    class="border rounded-lg px-3 py-2 text-sm">
+                <option value="">All Types</option>
+                @foreach(['education','health','environment','community','donation','other'] as $type)
+                    <option value="{{ $type }}" @selected(request('csr_type') === $type)>
+                        {{ ucfirst($type) }}
+                    </option>
+                @endforeach
+            </select>
 
-    {{-- ACTION BUTTONS --}}
-    <div class="flex gap-2">
-        {{-- SEARCH / FILTER --}}
-        <button type="submit"
-                class="bg-red-600 hover:bg-red-700 text-white
-                       px-5 py-2 rounded-lg text-sm font-medium flex items-center gap-1">
-            <i data-feather="filter" class="w-4 h-4"></i>
-            Search
-        </button>
+            <select name="status"
+                    class="border rounded-lg px-3 py-2 text-sm">
+                <option value="">All Status</option>
+                @foreach(['pending','approved','rejected'] as $status)
+                    <option value="{{ $status }}" @selected(request('status') === $status)>
+                        {{ ucfirst($status) }}
+                    </option>
+                @endforeach
+            </select>
 
-        {{-- CLEAR --}}
-        <a href="{{ url()->current() }}"
-           class="border border-gray-300 text-gray-700 hover:bg-gray-100
-                  px-5 py-2 rounded-lg text-sm font-medium flex items-center gap-1">
-            <i data-feather="x-circle" class="w-4 h-4"></i>
-            Clear
-        </a>
-    </div>
-</form>
+            <button class="bg-red-600 hover:bg-red-700 text-white
+                           px-5 py-2 rounded-lg text-sm font-medium">
+                Filter
+            </button>
+        </form>
 
-
-    {{-- ================= TABLE ================= --}}
-    <div class="bg-white border border-gray-200 shadow rounded-2xl overflow-hidden">
-
-        @if(isset($csrs) && $csrs->count())
+        {{-- TABLE --}}
+        <div class="overflow-x-auto">
             <table class="w-full text-sm">
                 <thead class="bg-gray-50 text-gray-600 border-b">
                     <tr>
-                        <th class="px-4 py-3 text-left">CSR</th>
-                        <th class="px-4 py-3 text-left">Type</th>
-                        <th class="px-4 py-3 text-left">Date</th>
-                        <th class="px-4 py-3 text-left">Impact</th>
-                        <th class="px-4 py-3 text-center">Status</th>
-                        <th class="px-4 py-3 text-right">Actions</th>
+                        <th class="px-5 py-3 text-left">CSR</th>
+                        <th class="px-5 py-3 text-left">Type</th>
+                        <th class="px-5 py-3 text-left">Date</th>
+                        <th class="px-5 py-3 text-left">Impact</th>
+                        <th class="px-5 py-3 text-center">Status</th>
+                        <th class="px-5 py-3 text-right">Actions</th>
                     </tr>
                 </thead>
 
                 <tbody class="divide-y">
-                    @foreach($csrs as $csr)
+                    @forelse($csrs as $csr)
                         <tr class="hover:bg-gray-50">
 
-                            {{-- CSR --}}
-                            <td class="px-4 py-3">
+                            <td class="px-5 py-3">
                                 <div class="font-medium">{{ $csr->csr_title }}</div>
                                 <div class="text-xs text-gray-500">
                                     {{ $csr->member->name ?? '—' }}
                                 </div>
                             </td>
 
-                            {{-- TYPE --}}
-                            <td class="px-4 py-3 capitalize">
+                            <td class="px-5 py-3 capitalize">
                                 {{ $csr->csr_type }}
                             </td>
 
-                            {{-- DATE --}}
-                            <td class="px-4 py-3">
+                            <td class="px-5 py-3">
                                 {{ optional($csr->csr_date)->format('d M Y') ?? '—' }}
                             </td>
 
-                            {{-- IMPACT --}}
-                            <td class="px-4 py-3 text-gray-600">
+                            <td class="px-5 py-3 text-gray-600">
                                 {{ $csr->impact_summary ?: '—' }}
                             </td>
 
-                            {{-- STATUS --}}
-                            <td class="px-4 py-3 text-center">
+                            <td class="px-5 py-3 text-center">
                                 @php
                                     $colors = [
-                                        'pending' => 'bg-yellow-50 text-yellow-700',
+                                        'pending'  => 'bg-yellow-50 text-yellow-700',
                                         'approved' => 'bg-green-50 text-green-700',
                                         'rejected' => 'bg-red-50 text-red-700',
                                     ];
@@ -156,54 +131,117 @@
                                 </span>
                             </td>
 
-                            {{-- ================= ACTIONS ================= --}}
-                            <td class="px-4 py-3 text-right space-x-3">
-
-                                {{-- VIEW : ALL --}}
-                                <a href="{{ route(
-                                    auth()->user()->role === 'admin'
-                                        ? 'admin.csrs.show'
-                                        : 'member.csrs.show',
-                                    $csr
-                                ) }}"
+                            <td class="px-5 py-3 text-right space-x-3">
+                                <a href="{{ route('admin.csrs.show', $csr) }}"
                                    class="text-blue-600 hover:underline">
                                     View
                                 </a>
 
-                                {{-- ADMIN ONLY --}}
-                                @if(auth()->user()->role === 'admin')
-                                    <a href="{{ route('admin.csrs.edit', $csr) }}"
-                                       class="text-green-600 hover:underline">
-                                        Edit
-                                    </a>
+                                <a href="{{ route('admin.csrs.edit', $csr) }}"
+                                   class="text-green-600 hover:underline">
+                                    Edit
+                                </a>
 
-                                    <form action="{{ route('admin.csrs.destroy', $csr) }}"
-                                          method="POST" class="inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button onclick="return confirm('Delete this CSR record?')"
-                                                class="text-red-600 hover:underline">
-                                            Delete
-                                        </button>
-                                    </form>
-                                @endif
-
+                                <form method="POST"
+                                      action="{{ route('admin.csrs.destroy', $csr) }}"
+                                      class="inline"
+                                      onsubmit="return confirm('Delete this CSR record?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="text-red-600 hover:underline">
+                                        Delete
+                                    </button>
+                                </form>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center py-8 text-gray-500">
+                                No CSR records found.
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        {{-- PAGINATION --}}
+        <div class="pt-4 border-t bg-gray-50">
+            {{ $csrs->links() }}
+        </div>
+
+    </div>
+</div>
+
+@else
+    {{-- ================= MEMBER VIEW (RECOGNITION THEME) ================= --}}
+    <div class="max-w-7xl mx-auto px-6 py-8 space-y-6">
+
+        {{-- GRADIENT HEADER --}}
+        <div class="bg-gradient-to-r from-red-700 to-red-500
+                    rounded-2xl px-10 py-7 text-white shadow">
+            <h2 class="text-2xl font-semibold">CSR Activities</h2>
+            <p class="text-sm text-white/80 mt-1">
+                Corporate Social Responsibility initiatives by members.
+            </p>
+        </div>
+
+        {{-- TABLE --}}
+        <div class="bg-white rounded-2xl shadow border overflow-hidden">
+            <table class="w-full text-sm">
+                <thead class="bg-gray-50 border-b text-gray-700">
+                    <tr>
+                        <th class="px-6 py-4 text-left">CSR</th>
+                        <th class="px-6 py-4 text-left">Type</th>
+                        <th class="px-6 py-4 text-center">Date</th>
+                        <th class="px-6 py-4 text-center">Status</th>
+                        <th class="px-6 py-4 text-right">Action</th>
+                    </tr>
+                </thead>
+
+                <tbody class="divide-y">
+                    @forelse($csrs as $csr)
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 font-medium">
+                                {{ $csr->csr_title }}
+                            </td>
+                            <td class="px-6 py-4 capitalize">
+                                {{ $csr->csr_type }}
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                {{ optional($csr->csr_date)->format('d M Y') ?? '—' }}
+                            </td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="px-3 py-1 rounded-full text-xs font-semibold
+                                    {{ $csr->status === 'approved'
+                                        ? 'bg-green-100 text-green-700'
+                                        : 'bg-gray-100 text-gray-700' }}">
+                                    {{ ucfirst($csr->status) }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <a href="{{ route('member.csrs.show', $csr) }}"
+                                   class="text-blue-600 hover:underline font-medium">
+                                    View
+                                </a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="text-center py-8 text-gray-500">
+                                No CSR activities found.
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
 
-            <div class="p-4 border-t bg-gray-50">
+            <div class="px-6 py-4 border-t bg-gray-50">
                 {{ $csrs->links() }}
             </div>
-        @else
-            <div class="p-10 text-center text-gray-500">
-                No CSR records found.
-            </div>
-        @endif
+        </div>
     </div>
-</div>
+@endif
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {

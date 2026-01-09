@@ -22,12 +22,20 @@
                 </p>
             </div>
 
-            <div class="mt-4 lg:mt-0 text-sm lg:text-right">
-                <p class="uppercase tracking-wide text-red-200 text-xs">Financial Year</p>
-                <p class="font-medium text-red-100">
-                    {{ now()->startOfYear()->format('d M Y') }} – {{ now()->endOfYear()->format('d M Y') }}
-                </p>
-            </div>
+         @php
+    $startDate = $member->created_at;
+    $endDate = $member->created_at->copy()->addYear();
+@endphp
+
+<div class="mt-4 lg:mt-0 text-sm text-center">
+    <p class="uppercase tracking-wide text-red-100 text-xs">
+        Membership Period
+    </p>
+    <p class="font-semibold text-white text-base">
+        {{ $startDate->format('d M Y') }} – {{ $endDate->format('d M Y') }}
+    </p>
+</div>
+
         </div>
         <div class="absolute -right-16 -bottom-16 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
     </div>
