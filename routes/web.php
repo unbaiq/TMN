@@ -27,7 +27,7 @@ use App\Http\Controllers\MemberRecognitionController;
 use App\Http\Controllers\MemberAwardController;
 use App\Http\Controllers\MemberCsrController;
 use App\Http\Controllers\ContactQueryController;
-
+use App\Http\Controllers\ConsultationRequestController;
 
 
 /*
@@ -540,4 +540,44 @@ Route::prefix('admin')
 
         Route::delete('/contact/{contact}', [ContactQueryController::class, 'destroy'])
             ->name('contact.destroy');
+    });
+Route::post(
+    '/consultation/request',
+    [ConsultationRequestController::class, 'store']
+)->name('consultation.request.store');
+
+
+/*
+|--------------------------------------------------------------------------
+| ADMIN (MANAGE REQUESTS)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth', 'role:admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::get(
+            '/consultation-requests',
+            [ConsultationRequestController::class, 'index']
+        )->name('consultation-requests.index');
+
+        Route::get(
+            '/consultation-requests/{consultationRequest}',
+            [ConsultationRequestController::class, 'show']
+        )->name('consultation-requests.show');
+
+        Route::delete(
+            '/consultation-requests/{consultationRequest}',
+            [ConsultationRequestController::class, 'destroy']
+        )->name('consultation-requests.destroy');
+           Route::get(
+            '/consultation-request/{consultationRequest}/edit',
+            [ConsultationRequestController::class, 'edit']
+        )->name('consultation-request.edit');
+
+        Route::patch(
+            '/consultation-request/{consultationRequest}',
+            [ConsultationRequestController::class, 'update']
+        )->name('consultation-request.update');
     });

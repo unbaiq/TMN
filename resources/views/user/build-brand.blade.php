@@ -94,59 +94,114 @@
             </div>
 
             {{-- FORM --}}
-            <form class="p-6 space-y-4">
+           <form method="POST"
+      action="{{ route('consultation.request.store') }}"
+      class="p-6 space-y-4">
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="text-xs font-semibold">FIRST NAME</label>
-                        <input type="text" placeholder="Jane"
-                               class="w-full mt-1 border rounded px-3 py-2 bg-gray-50 focus:ring-red-600">
-                    </div>
+    @csrf
 
-                    <div>
-                        <label class="text-xs font-semibold">LAST NAME</label>
-                        <input type="text" placeholder="Doe"
-                               class="w-full mt-1 border rounded px-3 py-2 bg-gray-50 focus:ring-red-600">
-                    </div>
-                </div>
+    {{-- NAME --}}
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            <label class="text-xs font-semibold">FIRST NAME</label>
+            <input
+                type="text"
+                name="first_name"
+                value="{{ old('first_name') }}"
+                placeholder="Jane"
+                required
+                class="w-full mt-1 border rounded px-3 py-2 bg-gray-50
+                       focus:ring-1 focus:ring-red-600 focus:border-red-600">
+            @error('first_name')
+                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+            @enderror
+        </div>
 
-                <div>
-                    <label class="text-xs font-semibold">EMAIL</label>
-                    <input type="email" placeholder="Enter your email"
-                           class="w-full mt-1 border rounded px-3 py-2 bg-gray-50">
-                    <p class="text-xs text-gray-500 mt-1">
-                        We'll use this to send consultation details
-                    </p>
-                </div>
+        <div>
+            <label class="text-xs font-semibold">LAST NAME</label>
+            <input
+                type="text"
+                name="last_name"
+                value="{{ old('last_name') }}"
+                placeholder="Doe"
+                required
+                class="w-full mt-1 border rounded px-3 py-2 bg-gray-50
+                       focus:ring-1 focus:ring-red-600 focus:border-red-600">
+            @error('last_name')
+                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+    </div>
 
-                <div>
-                    <label class="text-xs font-semibold">PHONE</label>
-                    <input type="text" placeholder="Enter your phone number"
-                           class="w-full mt-1 border rounded px-3 py-2 bg-gray-50">
-                </div>
+    {{-- EMAIL --}}
+    <div>
+        <label class="text-xs font-semibold">EMAIL</label>
+        <input
+            type="email"
+            name="email"
+            value="{{ old('email') }}"
+            placeholder="Enter your email"
+            required
+            class="w-full mt-1 border rounded px-3 py-2 bg-gray-50
+                   focus:ring-1 focus:ring-red-600 focus:border-red-600">
+        <p class="text-xs text-gray-500 mt-1">
+            We'll use this to send consultation details
+        </p>
+        @error('email')
+            <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+        @enderror
+    </div>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="text-xs font-semibold">CITY</label>
-                        <input type="text" placeholder="Your city"
-                               class="w-full mt-1 border rounded px-3 py-2 bg-gray-50">
-                    </div>
+    {{-- PHONE --}}
+    <div>
+        <label class="text-xs font-semibold">PHONE</label>
+        <input
+            type="text"
+            name="phone"
+            value="{{ old('phone') }}"
+            placeholder="Enter your phone number"
+            class="w-full mt-1 border rounded px-3 py-2 bg-gray-50
+                   focus:ring-1 focus:ring-red-600 focus:border-red-600">
+        @error('phone')
+            <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+        @enderror
+    </div>
 
-                    <div>
-                        <label class="text-xs font-semibold">ZIP CODE</label>
-                        <input type="text" placeholder="201301"
-                               class="w-full mt-1 border rounded px-3 py-2 bg-gray-50">
-                    </div>
-                </div>
+    {{-- CITY + ZIP --}}
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            <label class="text-xs font-semibold">CITY</label>
+            <input
+                type="text"
+                name="city"
+                value="{{ old('city') }}"
+                placeholder="Your city"
+                class="w-full mt-1 border rounded px-3 py-2 bg-gray-50
+                       focus:ring-1 focus:ring-red-600 focus:border-red-600">
+        </div>
 
-                <button
-                    type="submit"
-                    class="w-full mt-4 bg-red-600 hover:bg-red-700
-                           text-white py-3 rounded font-semibold transition">
-                    Request Free Consultation
-                </button>
+        <div>
+            <label class="text-xs font-semibold">ZIP CODE</label>
+            <input
+                type="text"
+                name="zip_code"
+                value="{{ old('zip_code') }}"
+                placeholder="201301"
+                class="w-full mt-1 border rounded px-3 py-2 bg-gray-50
+                       focus:ring-1 focus:ring-red-600 focus:border-red-600">
+        </div>
+    </div>
 
-            </form>
+    {{-- SUBMIT --}}
+    <button
+        type="submit"
+        class="w-full mt-4 bg-red-600 hover:bg-red-700
+               text-white py-3 rounded font-semibold transition">
+        Request Free Consultation
+    </button>
+
+</form>
+
         </div>
     </div>
 </div>

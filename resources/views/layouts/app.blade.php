@@ -105,6 +105,7 @@
         request()->routeIs('admin.dashboard') => 'Dashboard',
         request()->routeIs('admin.enquiries.*') => 'Enquiries',
         request()->routeIs('admin.contact.*') => 'Contact Queries',
+        request()->routeIs('admin.consultation-requests.*') => 'Consultation Requests',
 
         request()->routeIs('admin.members.*') => 'Members',
         request()->routeIs('admin.chapters.*') => 'Chapters',
@@ -252,6 +253,16 @@
     <i data-feather="mail" class="w-5 h-5"></i>
     <span class="hidden md:inline">Contact Queries</span>
 </a>
+<a href="{{ route('admin.consultation-requests.index') }}"
+   class="flex items-center gap-4 px-4 py-3 rounded-lg nav-item
+   {{ request()->routeIs('admin.consultation-requests.*')
+        ? 'nav-active text-red-600 bg-red-50'
+        : 'text-gray-700 hover:bg-red-50 hover:text-red-600' }}">
+    <i data-feather="phone-call"></i>
+    <span>Consultation Req.</span>
+</a>
+
+
 
 
           <a href="{{ route('admin.members.index') }}"
