@@ -97,7 +97,7 @@
         <div class=" ml-4">
           <a href="./">
             <div class="">
-              <img src="{{$assetBase}}/tmn/public/images/logo.svg" class="w-1/3 object-cover" alt="Logo" />
+              <img src="{{$assetBase}}/tmn/public/images/newlogo.png" class="w-1/3 object-cover" alt="Logo" />
             </div>
           </a>
         </div>
